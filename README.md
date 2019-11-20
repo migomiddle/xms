@@ -12,3 +12,6 @@
 
 一起玩耍口令：xms
 ![xms](https://img2018.cnblogs.com/common/297639/201911/297639-20191107145432285-310031871.png "xms官方交流群")
+
+博客：[migomiddle](https://www.cnblogs.com/migomiddle)
+联系我: deng819@163.com
