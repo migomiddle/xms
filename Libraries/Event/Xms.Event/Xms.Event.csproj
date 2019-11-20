@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logging\Xms.Logging.AppLog\Xms.Logging.AppLog.csproj" />
+    <ProjectReference Include="..\..\Xms.Infrastructure\Xms.Infrastructure.csproj" />
+    <ProjectReference Include="..\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Event.Data\Xms.Event.Data.csproj" />
+  </ItemGroup>
+
+</Project>

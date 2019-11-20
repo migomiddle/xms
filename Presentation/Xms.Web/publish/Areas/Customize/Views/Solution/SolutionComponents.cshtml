@@ -1,0 +1,295 @@
+﻿@using Xms.Solution.Abstractions;
+@model Xms.Web.Customize.Models.SolutionComponentModel
+<link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+<link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+<div class="panel panel-default" id="gridview">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PageTitle</strong>
+        </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+        <!--in-->
+        <div class="container-fluid">
+            <form action="/@app.OrganizationUniqueName/customize/solution/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <select class="form-control" id="ComponentType" name="ComponentType" data-value="@Model.ComponentType">
+                            <option value="">-@app.T["typename"]-</option>
+                            @foreach (var item in SolutionComponentCollection.Descriptors)
+                            {
+                                <option value="@item.Value.ComponentsEndpoint">@app.T[item.Key]</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid btn-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-share-alt"></span> @app.T["add_existing"] <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" id="addExistsMenu">
+                @foreach (var item in SolutionComponentCollection.Descriptors)
+                {
+                    <li><a href="#" data-componenttype="@item.Key" data-serviceuri="@item.Value.ComponentsEndpoint">@app.T[item.Key]</a></li>
+                }
+            </ul>
+        </div>
+        <button type="button" class="btn btn-xs btn-warning" id="removeBtn">
+            <span class="glyphicon glyphicon-remove"></span> @app.T["remove"]
+        </button>
+    </div>
+    <div style="padding:15px;">
+        <div class="datagrid-view">
+
+        </div>
+    </div>
+    
+</div>
+
+
+@section Header {
+
+}
+@section Scripts {
+
+    <script>
+
+        var theaders = {
+             typename:'@app.T["typename"]',
+             name:'@app.T["name"]',
+             displayname:'@app.T["displayname"]',
+             entity_sys_createdby:'@app.T["entity_sys_createdby"]',
+             create_time:'@app.T["create_time"]',
+             operation:'@app.T["operation"]',
+        }
+    </script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/Content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '', solutionid = '@Model.SolutionId';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+           // $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+          //  $("#datatable").ajaxTable();
+          //  ajaxgrid_reset();
+            //Xms.Web.Event.subscribe('refresh', function (e) {
+            //    rebind();
+            //});
+
+           // { "IsSuccess": true, "StatusCode": 200, "Content": "{\"currentpage\":1,\"items\":[{\"objectid\":\"ee0d8ce5-9336-4c3c-be9b-10b29175df90\",\"name\":\"Sales.js\",\"localizedname\":\"Sales.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"00000000-0000-0000-0000-120000000100\",\"name\":\"Xms.js\",\"localizedname\":\"Xms.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"00000000-0000-0000-0000-120000000101\",\"name\":\"Org.js\",\"localizedname\":\"Org.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"00000000-0000-0000-0000-120000000102\",\"name\":\"User.js\",\"localizedname\":\"User.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"00000000-0000-0000-0000-120000000103\",\"name\":\"Team.js\",\"localizedname\":\"Team.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"00000000-0000-0000-0000-120000000104\",\"name\":\"Entity.js\",\"localizedname\":\"Entity.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"ef4025bf-84ed-49ca-adfc-24d2baa52e56\",\"name\":\"联系人\",\"localizedname\":\"联系人\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"ad694ddf-be9a-4a74-9123-86b1b0051874\",\"name\":\"报价单脚本\",\"localizedname\":\"报价单脚本\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"4cdb41ab-cc63-4b86-b611-9b8b457bb6cb\",\"name\":\"Customer.js\",\"localizedname\":\"Customer.js\",\"componenttypename\":\"WebResource\"},{\"objectid\":\"f496c1ae-8a18-4bd0-9f80-be3be48a8365\",\"name\":\"订单脚本\",\"localizedname\":\"订单脚本\",\"componenttypename\":\"WebResource\"}],\"itemsperpage\":10,\"totalitems\":12,\"totalpages\":2}" }
+
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.objectid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                { "dataIndx": "componenttypename", "title": theaders.typename, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "name", "title": theaders.name, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "localizedname", "title": theaders.displayname, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "createdbyname", "title": theaders.entity_sys_createdby, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "createdon", "title": theaders.create_time, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 75, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        return '<a class="btn btn-warning btn-xs removeBtn text-white" href="javascript:;"><span class="glyphicon glyphicon-remove"></span> 移除</a>';
+                    }
+                }
+            ];
+            var datagridconfig = {
+                //获取数据的方法
+                getDataUrl: function () {
+                    var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+                    return ORG_SERVERURL + serviceUrl + '?page=1&pagesize=10&insolution=true&solutionid=' + solutionid
+                },
+                headerFilter: true,
+                pageModel: { type: "remote", rPP: 10, page: 1, strRpp: "{0}" },
+                //itemsBtnTmpl: itemtmpl,
+                filterColModel: function (opts) { opts.colModel = columnConfigs; return opts; },//配置列类型的过滤方法
+                rowDblClick: function (event, ui) {
+                    console.log($(event.target));
+                    console.log(ui);
+                    var $tr = ui.$tr;
+                    $tr.find('input[name="recordid"]').prop('checked', true);
+
+                },
+                columnFilter: function (items) {//如果是从后台获取的数据，可在此处给列添加更多的选项
+                    return items;
+                }
+            }
+            datagridconfig.extend = function (datagrid) {
+                //因为需要修改为GET获取数据，要重新配置列排序信息
+                var filter = function (postData, objP) {
+                    $.extend(postData, { sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1' });
+                    return postData;
+                }
+
+                //修改为GET方式获取数据，配置分页信息
+                $.extend(datagrid.opts.dataModel, {
+                    beforeAjax: function (grid) {
+                        var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+                        if (serviceUrl) {
+                            return true;
+                        } else {
+                            grid.hideLoading();
+                            grid.loading = false;
+                            return false;
+                        }
+                       
+                    },
+                    filterSendData: filter,
+                    method: 'GET',
+                   // dataType: 'json',
+                    getData: function (dataJSON, textStatus, jqXHR) {
+                        if (typeof dataJSON.Content == 'string') {
+                            dataContent = JSON.parse(dataJSON.Content);
+                        }
+                        var data = dataContent.items;
+                        var res = { curPage: dataContent.currentpage || 1, totalRecords: dataContent.totalitems, data: data }
+                        console.log(res);
+                        return res;
+                    }
+                })
+            }
+
+            //  console.log(itemtmpl);
+            $('.datagrid-view').cDatagrid(datagridconfig);
+
+            $('#ComponentType').bind('change', function () {
+                rebind();
+            }).trigger('change');
+            $('#removeBtn').on('click', function (e) {
+                var target = $('.datagrid-view');
+                var id = Xms.Web.GetTableSelected(target);
+                Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid, false, rebind, null, LOC_CONFIRM_REMOVE);
+            });
+            $('.datagrid-view').on('click', '.removeBtn', function (e) {
+                var target = $('.datagrid-view');
+                Xms.Web.SelectingRow(e.target);
+                var id = Xms.Web.GetTableSelected(target);
+                Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid, false, rebind, null, LOC_CONFIRM_REMOVE);
+            });
+
+            $('#addExistsMenu').on('click', 'a', function (e) {
+                var $this = $(this);
+                var t = $this.attr('data-componenttype');
+                console.log(t);
+                if (t == 'privilege') {
+                    selectRecordCallback([{id:'00000000-0000-0000-0000-000000000001'}], 10);
+                    return;
+                }
+                else if (t == 'role') {
+                    selectRecordCallback([{ id: '00000000-0000-0000-0000-000000000002' }], 11);
+                    return;
+                }
+                Xms.Web.OpenDialog('/customize/tools/solutioncomponentsdialog?inputid=' + t + '&solutionid=' + solutionid + '&componenttype=' + t + '&callback=selectRecordCallback');
+            });
+        });
+        //function ajaxgrid_reset() {
+        //    //$("#datatable").ajaxTable();
+        //    //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+        //    pag_init();
+        //    $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+        //    Xms.Web.DataTable($(".datatableload"));
+        //    Xms.Web.SelectedValue($('#ComponentType'), $('#ComponentType').attr('data-value'));
+        //    $('#ComponentType').bind('change', function () {
+        //        //rebind();
+        //        $('.datagrid-view').cDatagrid('refreshDataAndView');
+        //    });
+        //    $('#addExistsMenu').on('click', 'a', function (e) {
+        //        var $this = $(this);
+        //        var t = $this.attr('data-componenttype');
+        //        console.log(t);
+        //        if (t == 'privilege') {
+        //            selectRecordCallback([{id:'00000000-0000-0000-0000-000000000001'}], 10);
+        //            return;
+        //        }
+        //        else if (t == 'role') {
+        //            selectRecordCallback([{ id: '00000000-0000-0000-0000-000000000002' }], 11);
+        //            return;
+        //        }
+        //        Xms.Web.OpenDialog('/customize/tools/solutioncomponentsdialog?inputid=' + t + '&solutionid=' + solutionid + '&componenttype=' + t + '&callback=selectRecordCallback');
+        //    });
+
+        //    $('#removeBtn').on('click', function (e) {
+        //        var target = $('#datatable');
+        //        var id = Xms.Web.GetTableSelected(target);
+        //        Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid, false, rebind, null, LOC_CONFIRM_REMOVE);
+        //    });
+        //    $('#datatable').on('click', '.removeBtn', function (e) {
+        //        var target = $('#datatable');
+        //        Xms.Web.SelectingRow(e.target);
+        //        var id = Xms.Web.GetTableSelected(target);
+        //        Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid, false, rebind, null, LOC_CONFIRM_REMOVE);
+        //    });
+        //}
+        //function pag_init() {
+        //    $('#page-selection').bootpag({
+        //        total: $('#page-selection').attr('data-total')
+        //        , maxVisible: 10
+        //        , page: $('#page-selection').attr('data-page')
+        //        , leaps: false
+        //        , prev: '&lsaquo;'
+        //        , next: '&rsaquo;'
+        //        , firstLastUse: true
+        //        , first: '&laquo;'
+        //        , last: '&raquo;'
+        //    }).on("page", function (event, /* page number here */ num) {
+        //        event.preventDefault();
+        //        pageUrl = $("#datatable").attr('data-pageurl');
+        //        var url = $.setUrlParam(pageUrl, 'page', num);
+        //        $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+        //            ajaxgrid_reset();
+        //        });
+        //        return false;
+        //    });
+        //}
+        function rebind() {
+            //$('#searchForm').submit();
+          //  var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+          //  Xms.Ajax.GetJson(serviceUrl + '?page=1&pagesize=10&insolution=true&solutionid=' + solutionid, null, function (response) {
+          //      console.log('insolution', response);
+          //  });
+          //  ajaxgrid_reset();
+            //Xms.Web.Event.publish('refreshtree');
+            $('.datagrid-view').cDatagrid('refreshDataAndView');
+
+        }
+        function selectRecordCallback(result, inputid) {
+            console.log(result);
+            if (result.length == 0) return;
+            var objectid = [];
+            for (var i = 0; i < result.length; i++) {
+                objectid.push(result[i].id);
+            }
+            var data = { solutionid: solutionid, objectid: objectid, componenttype: inputid };
+            console.log(data);
+            Xms.Web.Post('/customize/solution/CreateSolutionComponent', data , false, function (response) {
+                if (response.IsSuccess) {
+                    rebind();
+                }
+                console.log(response);
+            });
+        }
+    </script>
+}

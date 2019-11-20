@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency.Abstractions\Xms.Dependency.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution.Abstractions\Xms.Solution.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Xms.Core\Xms.Core.csproj" />
+    <ProjectReference Include="..\Xms.Flow.Abstractions\Xms.Flow.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Flow.Domain\Xms.Flow.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

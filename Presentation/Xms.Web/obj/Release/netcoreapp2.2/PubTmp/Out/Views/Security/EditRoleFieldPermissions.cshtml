@@ -1,0 +1,127 @@
+﻿@model Xms.Web.Models.EditRolePermissionsModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong id="rolename" class="text-primary">@Model.Role.Name</strong> - <strong>@app.PrivilegeTree?.LastOrDefault()?.DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true" action="/@(app.OrganizationUniqueName)/api/v1/role/SaveRolePermissions" method="post">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.RoleId)
+                @Html.HiddenFor(x => x.ResourceName)
+                <div class="form-group col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed" id="fields">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>实体</th>
+                                    <th>字段</th>
+                                    <th>权限</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" id="body-footer">
+                    <div class="navbar-form navbar-right" id="form-buttons" style="display:inline-block!important;">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                    </div>
+                </nav>
+            </form>
+        </div>
+    </div>
+</div>
+@section Header {
+    <link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <style>
+        .radio-block {
+            padding: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+}
+@section Scripts {
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.utility.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js//jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/knockout-2.2.0.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            bindObject(function (items) {
+                bindFields(function () {
+                    var $container = $('#fields>tbody');
+                    $(items).each(function (i, n) {
+                        var $item = $('#objectidtd_' + n.objectid);
+                        
+                        if ($item.length > 0 && (n.accessrightsmask || n.accessrightsmask === 0)) {
+                            $item.find('input[value=' + n.accessrightsmask + ']').prop('checked', true).trigger('change');
+                            $item.parents('tr:first').find('input[name="mask"]').val(n.accessrightsmask);
+                        }
+                    });
+                });
+            });
+            
+            var $editform = $('#editform');
+            Xms.Web.Form($editform, function (response) {
+               // Xms.Web.Alert(response.IsSuccess, response.Content);
+            });
+        });
+        function bindFields(callback) {
+            Xms.Ajax.GetJson('@Model.ResourceOwnerDescriptor.ResourceEndpoint?authorizationEnabled=true', null, function (d) {
+                console.log(d);
+                var items = JSON.parse(d.Content);
+                var $container = $('#fields>tbody');
+                $(items).each(function (i, n) {
+                    var $item = $('<tr></tr>');
+                   //  n.children.push(n.children[0])
+                    var childCount = n.children.length;
+                    $item.append($('<td rowspan="' + childCount + '">' + n.label + '</td>'));
+                    
+                    if (childCount > 1) $container.append($item);
+                   
+                    $(n.children).each(function (j, f) {
+                        var $item2 = j > 0 ? $('<tr id="objectid_' + f.id + '"></tr>') : $item;
+                        $item2.append($('<td>' + f.label + '<input type="hidden" name="objectid" value="' + f.id + '" /></td>'));
+                        $item2.append($('<td id="objectidtd_' + f.id + '"><input type="hidden" name="mask" value="0" /></td>'));
+                        $container.append($item2);
+                        $item2.find('input[name="mask"]').picklist({
+                            items: [{ value: 0, text: '无' }, { value: 1, text: '仅查看' }, { value: 3, text: '可编辑' }],
+                            displaytype: 'radio',
+                            itemTmpl: function (self, _thisid, name, v, selected, text) {
+                                v = v || 0;
+                                if (v == 0 && selected=='') {
+                                    selected = 'checked';
+                                }
+                                return '<label class="squart-radio"><input type="radio" class="squart" data-sourceid="' + (self.attr("id") || _thisid) + '" name="' + (name + +i+'_'+j) + '" value="' + v + '"' + selected + '>' + text + '</label>'
+                            }
+                        })
+                    });
+                   
+                    
+                });
+                callback && callback();
+            });
+        }
+
+        function bindObject(callback) {
+            Xms.Ajax.GetJson('/api/v1/role/Permissions?roleid=' + $('#RoleId').val() + '&resourcename=' + $('#ResourceName').val(), null, function (d) {
+                console.log(d);
+                var items = JSON.parse(d.Content);
+                
+                callback && callback(items);
+            });
+        }
+    </script>
+}

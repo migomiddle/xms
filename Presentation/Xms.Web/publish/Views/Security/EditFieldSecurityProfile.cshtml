@@ -1,0 +1,250 @@
+﻿@model Xms.Web.Models.EditFieldSecurityProfileModel
+@{
+    Layout = "../Shared/_Content.cshtml";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PageTitle</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#info" data-toggle="tab">
+                        @app.T["information"]
+                    </a>
+                </li>
+                <li>
+                    <a href="#fieldpermissions" data-toggle="tab">
+                        @app.T["fieldsecurity"]
+                    </a>
+                </li>
+                <li><a href="#users" data-toggle="tab">@app.T["user"]</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane in active" id="info" style="padding:5px;">
+                    @using (Html.BeginForm("EditFieldSecurityProfile", "FieldSecurity", FormMethod.Post, new { @id = "editform", @class = "form-horizontal", @data_autoreset = "" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(x => x.FieldSecurityProfileId)
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="Name">@app.T["fieldsecurityprofile_name"]</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="Description">@app.T["fieldsecurityprofile_description"]</label>
+                            <div class="col-sm-10">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @rows = "3" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 text-center" id="form-buttons">
+                            <button type="button" class="btn btn-primary" onclick="Save()"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                            <button type="button" class="btn btn-primary" onclick="SaveAndNew()"><span class="glyphicon glyphicon-floppy-saved"></span> @app.T["saveandnew"]</button>
+                            <button type="reset" class="btn btn-default" onclick="Reset()"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                        </div>
+                    }
+                </div>
+                <div class="tab-pane" id="fieldpermissions" style="padding:5px;">
+                    <table class="table table-striped table-hover table-condensed" id="securityFields">
+                        <thead>
+                            <tr><th>@app.T["name"]</th><th>@app.T["typename"]</th><th>@app.T["entity"]</th><th>@app.T["security_read"]</th><th>@app.T["security_create"]</th><th>@app.T["security_update"]</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.SecurityFields.NotEmpty())
+                            {
+                                @foreach (var item in Model.SecurityFields)
+                                {
+                                    var p = Model.FieldPermissions.Find(n => n.AttributeId == item.AttributeId);
+                                    <tr>
+                                        <td>
+                                            @item.Name - @item.LocalizedName
+                                            <input type="hidden" name="attributeid" value="@item.AttributeId" />
+                                            @if (p != null)
+                                            {
+                                                <input type="hidden" name="fieldsecurityprofileid" value="@p.FieldSecurityProfileId" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" name="fieldsecurityprofileid" value="@Guid.Empty" />
+                                            }
+                                        </td>
+                                        <td>@item.AttributeTypeName</td>
+                                        <td>@item.EntityName - @item.EntityLocalizedName</td>
+                                        <td>
+                                            @if (p != null && p.CanRead)
+                                            {
+                                                <input type="checkbox" name="canread" value="true" checked />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="canread" value="true" />
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (p != null && p.CanCreate)
+                                            {
+                                                <input type="checkbox" name="cancreate" value="true" checked />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="cancreate" value="true" />
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (p != null && p.CanUpdate)
+                                            {
+                                                <input type="checkbox" name="canupdate" value="true" checked />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="canupdate" value="true" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr><td colspan="6">没有启用权限的字段</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="users" style="padding:5px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs" onclick="addUsers()">
+                            <span class="glyphicon glyphicon-plus-sign"></span> @app.T["append"]
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs" onclick="removeUsers()">
+                            <span class="glyphicon glyphicon-minus-sign"></span> @app.T["remove"]
+                        </button>
+                    </div>
+                    <table class="table table-striped table-hover table-condensed" id="userProfiles">
+                        <thead>
+                            <tr><th width="5%"><input type="checkbox" name="checkall" /></th><th>名称</th><th>部门</th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Users)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" value="@item.SystemUserProfileId" name="recordid" /></td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.BusinessUnitIdName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var savetype = 'save';
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"), function (response) {
+                console.log(response);
+                if (response.IsSuccess) {
+                    if (savetype == 'save') {
+                        location.href = ORG_SERVERURL + '/fieldsecurity/editfieldsecurityprofile?id=' + $('#FieldSecurityProfileId').val();
+                    }
+                    else if (savetype == 'saveandnew') {
+                        location.href = ORG_SERVERURL + '/fieldsecurity/createfieldsecurityprofile';
+                    }
+                    else {
+                        Xms.Web.Alert(true, response.Content);
+                    }
+                    return;
+                }
+                Xms.Web.Alert(false, response.Content);
+            });
+
+            Xms.Web.DataTable($("#userProfiles"));
+            //Xms.Web.DataTable($("#securityFields"));
+            $('#securityFields').on('click', 'input:checkbox', function (e) {
+                var $this = $(this);
+                var row = $this.parents('tr');
+                var profileid = $('#FieldSecurityProfileId').val();
+                var permissionid = row.find('input[name=fieldsecurityprofileid]').val();
+                var attrid = row.find('input[name=attributeid]').val();
+                var data = { fieldsecurityprofileid: profileid, attributeid: attrid, fieldpermissionid: permissionid };
+                data.canread = row.find('input[name=canread]').prop('checked');
+                data.cancreate = row.find('input[name=cancreate]').prop('checked');
+                data.canupdate = row.find('input[name=canupdate]').prop('checked');
+                Xms.Web.Post(ORG_SERVERURL + '/security/updatefieldpermissions', data, false, function (response) {
+                    if (response.IsSuccess) {
+                        //刷新列表
+                    }
+                    Xms.Web.Toptip(response.Content);
+                }, null, null, false);
+            });
+            $('#myTab').on('click', 'li', function (e) {
+                if ($(this).index() == 0) {
+                    $('#body-footer').removeClass('hide');
+                }
+                else {
+                    $('#body-footer').addClass('hide');
+                }
+            });
+        });
+        function Save() {
+            savetype = 'save';
+            $("#editform").submit();
+        }
+        function SaveAndNew() {
+            savetype = 'saveandnew';
+            $("#editform").submit();
+        }
+        function Reset() {
+            $("#editform").reset();
+        }
+        function addUsers() {
+            Xms.Web.OpenDialog(ORG_SERVERURL + '/tool/SelectEntityRecordsDialog?entityname=systemuser', 'bindSelectedUsers');
+        }
+        function removeUsers() {
+            var selected = Xms.Web.GetTableSelected($('#userProfiles'));
+            if (selected.length == 0) {
+                Xms.Web.Toptip('请选择记录');
+                return;
+            }
+            var profileid = $('#FieldSecurityProfileId').val();
+            Xms.Web.Post(ORG_SERVERURL + '/fieldsecurity/RemoveUserProfile', { userprofileid: selected }, false, function (response) {
+                if (response.IsSuccess) {
+                    //刷新列表
+                    Xms.Web.RemoveTableSelected($('#userProfiles'));
+                }
+            });
+        }
+        function bindSelectedUsers(data) {
+            if (data.length == 0) {
+                return;
+            }
+            var selected = [];
+            for (var i = 0; i < data.length; i++) {
+                selected.push(data[i].id);
+            }
+            var profileid = $('#FieldSecurityProfileId').val();
+            Xms.Web.Post(ORG_SERVERURL + '/fieldsecurity/AddUserProfile', { profileid: profileid, userid: selected }, false, function (response) {
+                if (response.IsSuccess) {
+                    //刷新列表
+                    $("#userProfiles").ajaxLoad('?id=' + profileid, "#userProfiles");
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,72 @@
+﻿@model Xms.Web.Customize.Models.EditPluginListModel
+<link href="/content/js/plugineditcontrol/plugineditcontrol.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+<div class="panel panel-default">
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/beforehandloadplugin" method="post" id="beforehandloadpluginform" class="form-horizontal" role="form">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="file" name="pluginfile" id="beforehandloadpluginfile" class="form-control hidden" onchange="$('#beforehandloadpluginfileText').val($(this).val());if($(this).val()!=='') $('#beforehandloadpluginfile').submit(); ">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" type="button" onclick="$('#beforehandloadpluginfile').click();"><i class="glyphicon glyphicon-open"></i>重新上传</button>
+                            </span>
+                            <input id="beforehandloadpluginfileText" type="text" class="form-control" placeholder="文件名称" value="@Model.EntityPlugins.First().AssemblyName" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="button" onclick="save()" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                    <button type="reset" class="btn btn-default hidden"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                </div>
+            </form>
+            <div id="pluginEditControlContainer">
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/plugineditcontrol/plugineditcontrol.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            var entityPlugins =@Html.Raw(Model.EntityPlugins.SerializeToJson());
+            var pluginAnalysis = @Html.Raw(Model.PluginAnalysis.SerializeToJson());
+            var queryViews =  @Html.Raw(Model.QueryViews.SerializeToJson());
+            var systemForms = @Html.Raw(Model.SystemForms.SerializeToJson());
+            peControl= $.pluginEditControl({ container: $('#pluginEditControlContainer'), data: pluginAnalysis, beforehandData: {entityPlugins: entityPlugins,queryViews:queryViews,systemForms:systemForms }});
+            //表单验证
+            Xms.Web.Form($('#beforehandloadpluginform'), function (result) {
+                if (result.IsSuccess) {
+                    result = Xms.Web.GetAjaxResult(result);
+                    var data = result.content;
+                    if(peControl!=null)
+                    peControl=peControl.refresh(data);
+                } else {
+                    Xms.Web.Toast(result.Content, false);
+                }
+            });
+
+
+        });
+        var peControl = null;
+        function save() {
+            if (peControl) {
+                var _data = peControl.serializeData();
+                console.log(_data);
+                Xms.Web.Post("/@app.OrganizationUniqueName/customize/@app.ControllerName/editplugin", JSON.stringify( _data), false, function (result) {
+                     Xms.Web.Toast(result.IsSuccess?'更新成功':result.Content, result.IsSuccess);
+
+                }, false, false, false);
+            }
+        }
+    </script>
+}

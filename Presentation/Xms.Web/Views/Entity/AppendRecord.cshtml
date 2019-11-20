@@ -1,0 +1,111 @@
+﻿@model AppendRecordModel
+@{
+    Layout = null;
+}
+<!-- （Modal） -->
+<div class="modal fade" id="appendModal" tabindex="-1" role="dialog"
+     aria-labelledby="appendModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="appendModalLabel">
+                    <span class="glyphicon glyphicon-file"></span> @app.T["entitymap_append"]
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row container-fluid">
+                    <form class="form-horizontal" action="/@(app.OrganizationUniqueName)/api/data/Create/Map" method="post" data-jsonajax="true" data-istip="true">
+                        <input type="hidden" name="sourceentityid" value="@Model.EntityId" />
+                        <input type="hidden" name="sourcerecordid" value="@Model.ObjectId" />
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-3 control-label">@app.T["entitymap_append_target"]:</label>
+                            <div class="col-sm-9">
+                                @if (Model.EntityMaps == null || Model.EntityMaps.Count == 0)
+                                {
+                                    @app.T["entitymap_notfound"]
+                                }
+                                else
+                                {
+                                    foreach (var item in Model.EntityMaps)
+                                    {
+                                        var entityMeta = Model.TargetEntityMetas.Find(n => n.EntityId == item.TargetEntityId);
+                                        if (entityMeta == null)
+                                        {
+                                            continue;
+                                        }
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="radio" name="targetentityid" value="@item.TargetEntityId" /> @entityMeta.LocalizedName
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    var AppendModel = {
+                        dialog: $('#appendModal'),
+                        dialogid: 'appendModal',
+                        entityid: '@Model.EntityId',
+                        objectid: '@Model.ObjectId',
+                        initForm: function () {
+                            var $form = AppendModel.dialog.find('form');
+                            Xms.Web.Form($form, function (response) {
+                                console.log(response);
+                                if (response.IsSuccess == false) {
+                                    AppendModel.resetForm();
+                                } else {
+                                    var url = '/entity/create?entityid=' + response.Extra.entityid + '&recordid=' + response.Extra.id;
+                                    Xms.Web.Redirect(url);
+                                    AppendModel.dialog.modal('hide');
+                                }
+                            });
+                        },
+                        submit: function () {
+                            AppendModel.disabledForm();
+                            var $form = AppendModel.dialog.find('form');
+                            $form.submit();
+                        },
+                        disabledForm: function () {
+                            AppendModel.dialog.find('button').prop('disabled', true);
+                        },
+                        resetForm: function () {
+                            AppendModel.dialog.find('button').prop('disabled', false);
+                        },
+                        dialog_return: function () {
+                            AppendModel.dialog.modal('hide');
+                        }
+                    };
+                    $(function () {
+                        AppendModel.initForm();
+                        AppendModel.dialog.modal({
+                            //backdrop: 'static'
+                        });
+                        AppendModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(AppendModel.dialogid);
+                        });
+                        AppendModel.dialog.find('form').find('input[name=targetentityid]:first').prop('checked','checked');
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="AppendModel.submit()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

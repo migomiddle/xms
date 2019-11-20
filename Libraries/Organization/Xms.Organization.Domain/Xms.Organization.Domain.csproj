@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TeamRoles.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Localization\Xms.Localization.Abstractions\Xms.Localization.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Xms.Domain\Xms.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

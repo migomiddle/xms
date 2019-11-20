@@ -1,0 +1,209 @@
+﻿@model Xms.Web.Customize.Models.EditOptionSetModel
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseTwo">
+                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                </a>
+            </h3>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" data-autoreset="true">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                    @Html.HiddenFor(x => x.SolutionId)
+                    @Html.HiddenFor(x => x.OptionSetId)
+                    <div class="form-group col-sm-12">
+                        @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="optionset-picklist">选项</label>
+                        <div class="col-sm-10">
+                            <div id="optionset-area">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="addOption('optionset-picklist')">
+                                        <span class="glyphicon glyphicon-plus-sign"></span> 增加
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-xs" onclick="clearOption('optionset-picklist')">
+                                        <span class="glyphicon glyphicon-trash"></span> 清空
+                                    </button>
+                                </div>
+                                <table id="optionset-picklist" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="20"></th>
+                                            <th>显示名称</th>
+                                            <th>值</th>
+                                            <th>默认选中</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Details)
+                                        {
+                                            <tr class="draggable-ui optionsetItems">
+                                                <td valign="middle"><span class="glyphicon glyphicon-hand-up draggable-icon" title="可拖动排序"></span></td>
+                                                <td>
+                                                    <input onblur="CheckRepeat('optionsetname')" type="text" class="form-control input-sm required optionsetname" name="optionsetname" value="@item.Name" maxlength="50" />
+                                                    <input type="hidden" name="detailid" data-type="guid" value="@item.OptionSetDetailId" />
+                                                </td>
+                                                <td><input onblur="CheckRepeat('optionsetvalue')" type="text" class="form-control input-sm required optionsetvalue" name="optionsetvalue" data-type="int" value="@item.Value" /></td>
+                                                <td>
+                                                    <input type="checkbox" onclick="$(this).next().val($(this).prop('checked'))" @(item.IsSelected ? "checked" : "") />
+                                                    <input name="isselectedoption" type="hidden" value="@(item.IsSelected.ToString())" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning btn-xs" onclick="removeOption('optionset-picklist', this)">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, true)">
+                                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, false)">
+                                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 text-center" id="form-buttons">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> 保存</button>
+                        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> 重置</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.sortable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"), null, null, function () {
+                var nameCheck = CheckRepeat('optionsetname');
+                var valueCheck = CheckRepeat('optionsetvalue');
+                if (!nameCheck || !valueCheck) {
+                    return false;
+                }
+            });
+            //选项集
+            Xms.Web.SingleCheckbox('#optionset-picklist', 'input[type=checkbox]', 'single');
+
+            $('#optionset-picklist').sortable({
+                cancel: 'input',
+                items: ".draggable-ui",
+                //placeholder: "drag-placeholder",
+                over: function (event, ui) {
+                    // if (!ui.item.is('.cell')) return;
+                    var parent = $(event.target);
+                },
+                out: function (event, ui) {
+                    //  if (!ui.item.is('.cell')) return;
+                    var parent = $(event.target);
+                },
+                start: function (event, ui) {
+                    console.log(event);
+                    if (event.target && event.target.nodeType && event.target.nodeType == 'Tr') {
+
+                    }
+                },
+                update: function (event, ui) {
+
+                },
+                stop: function (event, ui) {
+
+                    //return false;
+                }
+            }).disableSelection();
+        });
+        //选项集-增加选项
+        function addOption(id, row) {
+            var $target = $("#" + id);
+            var newRow = row ? row.clone() : $target.find('tr:last').clone();
+            newRow.find('input[type=text]').val('');
+            newRow.find('input[type=hidden]').val(false);
+            newRow.find('input[name=detailid]').val(Xms.Utility.Guid.EmptyGuid.ToString());
+            newRow.find('input[type=checkbox]').prop('checked', false);
+            $target.append(newRow);
+        }
+        //选项集-删除选项
+        function removeOption(id, row) {
+            var $target = $("#" + id);
+            if ($(row).parents('tr').siblings().length > 0) {
+                $(row).parents('tr').remove();
+            }
+            else {
+                var newRow = $(row).parents('tr');
+                $target.find('tbody').empty();
+                addOption(id, newRow);
+            }
+        }
+        //选项集-清空选项
+        function clearOption(id) {
+            var $target = $("#" + id);
+            $target.find('tbody').find('tr:gt(0)').remove();
+            var newRow = $target.find('tbody').find('tr:last');
+            $target.find('tbody').empty();
+            addOption(id, newRow);
+        }
+        //选项集-排序选项
+        function moveOption(id, row, isup) {
+            var $target = $("#" + id);
+            var $this = $(row).parents('tr');
+            if (isup == true && $this.prev().length > 0) {
+                $this.insertBefore($this.prev());
+            }
+            else if (isup == false && $this.next().length > 0) {
+                $this.insertAfter($this.next());
+            }
+        }
+
+        //检查是否有重复的值
+        function CheckRepeat(classname) {
+            var check = true;
+            $('.' + classname).each(function (i, n) {
+                var nVal = $(n).val();
+                var ncheck = true;
+                if (nVal == '') {
+                    return true;
+                }
+                $('.' + classname).each(function (ii, nn) {
+                    var nnVal = $(nn).val();
+                    if (nnVal == '') {
+                        return true;
+                    }
+                    if (nVal == nnVal && i != ii) {
+                        if ($(n).next('label[name="repeatTip"]').length == 0) {
+                            $('<label name="repeatTip">不能输入重复的值</label>').insertAfter($(n));
+                        }
+                        ncheck = false;
+                        check = false;
+                        return false;
+                    }
+                });
+                if (ncheck == true) {
+                    $(n).next('label[name="repeatTip"]').remove();
+                }
+            });
+            return check;
+        }
+
+
+    </script>
+}

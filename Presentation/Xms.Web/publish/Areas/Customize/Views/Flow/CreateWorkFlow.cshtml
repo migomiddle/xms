@@ -1,0 +1,644 @@
+﻿@model Xms.Web.Customize.Models.CreateWorkFlowModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true" >
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#infoPane" data-toggle="tab">
+                                基本信息
+                            </a>
+                        </li>
+                        <li><a href="#designPane" data-toggle="tab">流程设计</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane in active" id="infoPane">
+                            <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
+                                <input type="hidden" id="workflowData" name="stepdata" value="" />
+                                <div class="form-group col-sm-12">
+                                    @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label class="col-sm-2 control-label">实体</label>
+                                    <div class="col-sm-10">
+                                        @Html.HiddenFor(x => x.EntityId)
+                                        <select class="form-control" id="EntitySel" onchange="$('#EntityId').val($(this).val())"></select>
+                                        <span class="help-block">@app.T["workflow_enabled_entities"]</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    @Html.LabelFor(x => x.Description, "描述", new { @class = "col-sm-2 control-label" })
+                                    <div class="col-sm-10">
+                                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="designPane" style="visibility:hidden;">
+                            <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
+                                <div class="col-sm-2" style="height:350px; background:#eee;padding-top:5px;border:1px solid #ddd;">
+                                    @*<button type="button" class="btn btn-default btn-block"><span class="glyphicon glyphicon-hand-right"></span> 选择</button>
+                                <button type="button" class="btn btn-default btn-block"><span class="glyphicon glyphicon-resize-horizontal"></span> 连线</button>*@
+                                    @*<button type="button" class="btn btn-success btn-block" onclick="addPoint({type:'start'},true)"><span class="glyphicon glyphicon-play"></span> 开始</button>*@
+                                    <button type="button" class="btn btn-info btn-block" onclick="addPointFun()"><span class="glyphicon glyphicon-retweet"></span> 普通节点</button>
+                                    <button type="button" class="btn btn-info btn-block" onclick="addPointFun({ nodetype: '3' })"><span class="glyphicon glyphicon-random"></span> 分流节点</button>
+                                    @*<button type="button" class="btn btn-danger btn-block" onclick="addPoint({  type: 'end' }, true)"><span class="glyphicon glyphicon-stop"></span> 结束</button>*@
+                                </div>
+                                <div class="col-sm-10" id="workflowWrap" style="height:1200px; background:#f5f5f5; padding:5px;position:relative;border:1px solid #ddd;border-left:0px;background-image:url(/content/customize/imgs/wallbg.png);position:relative;overflow:hidden;">
+                                    @*<div class="btn btn-success" style="position:absolute;top:10px;left:10px;"><span class="glyphicon glyphicon-play"></span> 开始</div>
+                                <div class="btn btn-info node" style="position:absolute;top:100px;left:200px;"><span class="glyphicon glyphicon-retweet"></span> 部门经理审批</div>
+                                <div class="btn btn-danger" style="position:absolute;bottom:10px;right:10px;"><span class="glyphicon glyphicon-stop"></span> 结束</div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div><!-- （Modal） -->
+
+<div class="modal fade" id="nodeModal" tabindex="-1" role="dialog"
+     aria-labelledby="nodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="nodeModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> 节点配置
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#nodeinfo" data-toggle="tab">
+                            基本信息
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#nodehandler" data-toggle="tab">
+                            处理者
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#nodepermission" data-toggle="tab">
+                            权限
+                        </a>
+                    </li>
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="nodeinfo" style="padding:5px;">
+                        <div class="row">
+                            <div class="form-group col-sm-12 ">
+                                <label class="col-sm-2">节点名称</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control input-sm" />
+                                </div>
+                                <label class="col-sm-2">驳回类型</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control input-sm">
+                                        <option>第一步</option>
+                                        <option>上一步</option>
+                                        <option>某一步</option>
+                                        <option>不允许</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 ">
+                                <label class="col-sm-2">表单</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input-sm">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 ">
+                                <label class="col-sm-2">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nodehandler" style="padding:5px;">
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nodepermission" style="padding:5px;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> 关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="btnFormStatusConfirm" name="returnBtn">
+                    <span class="glyphicon glyphicon-ok"></span> 确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="mappointModal" tabindex="-1" role="dialog"
+     aria-labelledby="mappointModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="mappointModalLabel">
+                    节点设置
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="tabTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab-tab1" data-toggle="tab">
+                            基本配置
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab-tab2" data-toggle="tab">
+                            审核者
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#tab-tab3" data-toggle="tab">
+                            权限分配
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab-tab4" data-toggle="tab">
+                            附件配置
+                        </a>
+                    </li>
+                </ul>
+                <div id="tabTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="tab-tab1" style="padding:5px;">
+                        <div class="form-group row">
+                            <div class="col-sm-2"><label for="point-flag">节点标识</label></div>
+                            <div class="col-sm-4">
+                                @*<select id="point-flag" name="point-flag" class="form-control input-sm">
+                                        <option value="entityN1">是否立案</option>
+                                        <option value="entityN2">办案人办案</option>
+                                        <option value="entityN3">决定书</option>
+                                        <option value="entityN4">科长审核</option>
+                                        <option value="entityN5">是否通过</option>
+                                        <option value="entityN6">副局长审核</option>
+                                        <option value="entityN7">是否通过</option>
+                                        <option value="entityN8">局长审核</option>
+                                        <option value="entityN9">是否通过</option>
+                                        <option value="entityN10">办案人</option>
+                                        <option value="entityN11">分案</option>
+                                        <option value="entityN12">是否立案</option>
+                                        <option value="entityN13">是否立案</option>
+                                        <option value="entityN14">是否立案</option>
+                                    </select>*@
+                                <input id="point-flag" name="point-flag" disabled type="text" class="form-control input-sm" />
+                            </div>
+                            <div class="col-sm-2"><label for="point-name">节点名称</label></div>
+                            <div class="col-sm-4"><input id="point-name" name="point-name" type="text" class="form-control input-sm" /></div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-2"><label for="point-retype">驳回类型</label></div>
+                            <div class="col-sm-4">
+                                <select name="point-retype" class="form-control" id="point-retype">
+                                    <option value="1">前一步</option>
+                                    <option value="2">第一步</option>
+                                    <option value="3">某一步</option>
+                                    <option value="4">不处理</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2"><label for="point-restep">驳回步骤</label></div>
+                            <div class="col-sm-4">
+                                <select name="point-restep" class="form-control" id="point-restep"></select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label>其他</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label for="point-allowcancel"><input id="point-allowcancel" type="checkbox" name="name" value="1" />允许撤销</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label for="point-allowassign"><input id="point-allowassign" type="checkbox" name="name" value="1" />允许分派</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="point-formname">表单选择</label>
+                            <select name="point-formname" class="form-control" id="point-formname"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="point-desc" class="">备注</label>
+                            <textarea id="point-desc" name="point-desc" type="text" class="form-control input-sm"></textarea>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-tab2" style="padding:5px;">
+                        <div class="form-group" id="modify-hd-ck">
+                            <select class="form-control" id="usertypeSeclecter">
+                                <option value="1" selected data-usertype="systemuser">所有成员</option>
+                                <option value="2" data-usertype="systemuser">指定成员</option>
+                                <option value="7" data-usertype="systemuser">发起人</option>
+                                <option value="3" data-usertype="systemuser">发起人领导</option>
+                                <option value="4" data-usertype="systemuser">发起人部门负责人</option>
+                                <option value="5" data-usertype="systemuser">发起人公司负责人</option>
+                                <option value="6" data-usertype="systemuser">前一环节审核者领导</option>
+                            </select>
+                            @*<div class="checkbox">
+                                    <label>
+                                        <input type="radio" value="1" data-usertype="systemuser" checked name="handleridtype">所有成员
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="2" data-usertype="systemuser" name="handleridtype">指定成员
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="3" data-usertype="systemuser" name="handleridtype">发起人领导
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="4" data-usertype="systemuser" name="handleridtype">发起人部门负责人
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="5" data-usertype="systemuser" name="handleridtype">发起人公司负责人
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="6" data-usertype="systemuser" name="handleridtype">前一环节审核者领导
+                                    </label>
+                                </div>*@
+                        </div>
+                        <div class="modify-section">
+                            <div class="modify-con modify-left">
+                                <div class="modify-con-wrap" id="modify-con-wrap">
+                                    <div class="modify-con-left">
+                                        <ul class="vertical-tab clearfix" id="modifyUserType">
+                                            <li class="active">
+                                                <a href="#modify-tab0" data-entityname="systemuser" data-toggle="tab">用户</a>
+                                            </li>
+                                            <li>
+                                                <a href="#modify-tab1" data-entityname="team" data-toggle="tab">团队</a>
+                                            </li>
+                                            <li>
+                                                <a href="#modify-tab2" data-entityname="post" data-toggle="tab">岗位</a>
+                                            </li>
+                                            <li>
+                                                <a href="#modify-tab3" data-entityname="job" data-toggle="tab">职位</a>
+                                            </li>
+                                            <li>
+                                                <a href="#modify-tab4" data-entityname="roles" data-toggle="tab">角色</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="modify-con-right">
+                                        <div class="tab-pane fade in active" id="modify-tab0" style="">
+                                            <ul id="modifyHandles0" class="list-group modify-select"></ul>
+                                        </div>
+                                        <div class="tab-pane" id="modify-tab1" style="display: none;">
+                                            <ul id="modifyHandles1" class="list-group modify-select"></ul>
+                                        </div>
+                                        <div class="tab-pane " id="modify-tab2" style="display: none;">
+                                            <ul id="modifyHandles2" class="list-group modify-select"></ul>
+                                        </div>
+                                        <div class="tab-pane " id="modify-tab3" style="display: none;">
+                                            <ul id="modifyHandles3" class="list-group modify-select"></ul>
+                                        </div>
+                                        <div class="tab-pane " id="modify-tab4" style="display: none;">
+                                            <ul id="modifyHandles4" class="list-group modify-select"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modify-con modify-right">
+                                <ul id="modifyResult" class="list-group"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-tab3" style="padding:5px;">
+                        <p class="text-muted"><span class="glyphicon glyphicon-tags"></span> 表单权限配置（默认全部勾选）</p>
+                        <ul class="Permissions-list"></ul>
+                    </div>
+                    <div class="tab-pane fade" id="tab-tab4" style="padding:5px;">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="attach-require">
+                                    <input type="checkbox" name="attach-require" id="attach-require" value="">是否必填
+                                </label>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12"><label for="attach-exts">允许的附件类型</label><span> ( *.png | *.png;*.jpg | *.png;*.jpg;*.rar | *.pdf  )</span></div>
+                                <div class="col-sm-12"><input type="text" class="form-control" name="attach-exts" id="attach-exts" value="" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="savePoint()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="connectionModal" tabindex="-1" role="dialog"
+     aria-labelledby="connectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="connectionModalLabel">
+                    关系设置
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="tabTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" style="padding:5px;">
+                        <div class="form-group">
+                            <div class="col-sm-3"><label for="connection-logical">关系设置：</label></div>
+                            <div class="col-sm-5">
+                                <select name="connection-logical" class="form-control" id="connection-logical">
+                                    <option value="0">并且</option>
+                                    <option value="1">或者</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="connection-conditions">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveConnection()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="addPointCount" tabindex="-1" role="dialog"
+     aria-labelledby="addPointCount" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="addPointCountLabel">
+                    需要添加的个数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="point-formname">添加个数</label>
+                    <input type="text" class="form-control" name="pointShuntCounts" id="pointShuntCounts" value="2" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="addPointShuntCounts();">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!---contextMenu--->
+<div id="processMenu" style="display:none;">
+    <ul>
+        <li id="menu_delConnection">删除</li>
+    </ul>
+</div>
+<div id="pointMenu" style="display:none;">
+    <ul>
+        <li id="menu_delPoint">删除</li>
+    </ul>
+</div>
+@section Header {
+    <link href="/content/css/sumoselect.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    <link href="/content/js/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+}
+@section Scripts {
+    <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/filterdialog.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.droppable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/js/flowdesign/jquery.jsPlumb-1.4.0-all.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/js/flowdesign/jquery.contextmenu.r2.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/js/workflow.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/js/workflow-ctrl.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.sumoselect.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"), function (res) {
+
+                Xms.Web.Alert(res.IsSuccess, res.Content);
+                resSetWorkFlow()
+            });
+            $(".modal").draggable({
+                handle: ".modal-header",
+                cursor: 'move',
+                refreshPositions: false
+            });
+            $('body').on('click', '.node', function () {
+                $("#nodeModal").modal('show');
+            });
+            loadEntities(function () {
+                //加载流程设计相关信息
+                jsPlumb.ready(function () {
+
+                    loadInitFlow();
+                    $('#designPane').removeClass('active').css({ 'visibility': 'visible' });
+
+                });
+            });
+            $('button[type="submit"]').off('click').on('click', function (e) {
+                if (e.preventDefault) { e.preventDefault() }
+                if ($('#Name').val() == "") {
+                    Xms.Web.Alert(false, "名称不能为空");
+                    return false;
+                }
+                if (!saveWorkflow()) return false;
+                $('form').submit();
+                return false;
+            })
+            $('#editform').on('click', 'input[name=enabledauthorization]', function (e) {
+                var flag = $(this).val();
+                if (flag == 'True') {
+                    $('#roles_selector').removeClass('hide');
+                }
+                else {
+                    $('#roles_selector').addClass('hide');
+                }
+            });
+        });
+        function loadEntities(callback) {
+            Xms.Schema.GetEntities({ workflowenabled: true }, function (data) {
+                if (!data || data.length == 0) return;
+                $(data).each(function (i, n) {
+                    if (n.workflowenabled) {
+                        $('#EntitySel').append('<option data-relationship="' + n.name + '"  value="' + n.entityid + '">' + n.localizedname + '</option>');
+                    }
+                });
+                $('#EntitySel').trigger('change');
+                EntityId = $('#EntitySel').val();
+                callback && callback();
+            });
+        }
+        var PAGE_TYPE = 'new';
+        var TYPE_SHUNT = "3";
+        var TYPE_NARMAL = "2";
+        var TYPE_START = "0";
+        var TYPE_END = "1";
+        var EntityId = '';
+    </script>
+    <script>
+        var model = $('#workflowData').val() || ''; //测试数据
+        var namesp = [];
+        function getTargetByoldName(name) {
+            var res = null;
+            $.each(namesp, function (key, item) {
+                if (item.old == name) {
+                    res = item;
+                    return false;
+                }
+            });
+            return res;
+        }
+        function getTargetByName(name) {
+            var res = null;
+            $.each(namesp, function (key, item) {
+                if (item.newn == name) {
+                    res = item;
+                    return false;
+                }
+            });
+            return res;
+        }
+        function resetFlowCnName(entityid, callback) {
+            var params = {
+                type: "workflow_" + entityid,
+                data: null
+            }
+            Xms.Web.PageCache('workflow', '/api/schema/attribute?getall=true&entityid=' + entityid + '', params, function (data) {
+                callback && callback(data);
+            });
+        }
+
+        function loadInitFlow() {
+            if (model == "") {
+                var startP = addPoint({ nodetype: TYPE_START, cnName: "开始" }, true);
+                var endP = addPoint({ nodetype: TYPE_END, cnName: "结束", x: 700, y: 200 }, true);
+                var curP = addPoint({ x: 300, y: 100 });
+                connectPoint(startP.box.attr("id"), curP.box.attr("id"), curP.box);
+                curP.add($('#' + curP.box.attr("id")).data().point);
+                connectPoint(curP.box.attr("id"), endP.box.attr("id"), endP.box);
+                endP.add($('#' + endP.box.attr("id")).data().point);
+                return false;
+            }
+
+            var datas = JSON.parse(decodeURIComponent(model.replace(/\+/g, "")));
+            console.log('datas', datas);
+            if (datas.length > 0) {
+                var connections = [];
+                var points = [];
+                //必须先把点画上，再画线
+                $.each(datas, function (key, item) {
+                    if (typeof item == "undefined") { return true }
+                    item.style = stringTostyle(item.style);
+                    item.x = item.style ? item.style.x : item.x ? item.x : 100;
+                    item.y = item.style ? item.style.y : item.y ? item.y : 100;
+                    var source = addPoint(item);
+
+                    console.log('point', source);
+                    //namesp.push({ old: source.oldName, newn: source.name, point: source });
+                    if (item.Conditions && item.Conditions != "") {
+                        console.log(decodeURIComponent(item.Conditions))
+                        item.Conditions = JSON.parse(decodeURIComponent(item.Conditions));
+                        source.param.Conditions = item.Conditions;
+                        $.each(item.Conditions, function (i, n) {
+                            connections.push({
+                                point: source,
+                                sourceid: n.PrevStepId,
+                                targetid: n.NextStepId
+                            });
+                        });
+                    }
+                });
+
+                console.log('需要链接的线', connections);
+                $.each(connections, function (cckey, item) {
+                    var tempsour = getTargetByoldName(item.sourceid);
+                    var tempTar = getTargetByoldName(item.targetid);
+                    if (!tempsour || !tempTar) { return true; }
+                    var sourceId = tempsour.newn;
+                    var targetId = tempTar.newn;
+                    // console.log(sourceId, targetId);
+                    var isConnected = eleConnectionController.indexOf('elecon____' + sourceId + '____' + targetId);
+                    if (isConnected > -1) return true;
+                    if ($('#' + sourceId).length == 0 || $('#' + targetId).length == 0) return true;
+                    connectPoint(sourceId, targetId, item.point.box)
+                    ////console.log($('#' + item2id).data().point);
+                    item.point.add($('#' + sourceId).data().point);
+                });
+
+            }
+
+        }
+
+    </script>
+}

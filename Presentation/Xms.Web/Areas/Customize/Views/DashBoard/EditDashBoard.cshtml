@@ -1,0 +1,1478 @@
+﻿@model Xms.Web.Customize.Models.EditDashBoardModel
+
+@section Header {
+    <link href="/content/css/iconfon.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    <link href="/content/css/sumoselect.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+}
+<form action="/@app.OrganizationUniqueName/customize/dashboard/editdashboard" method="post" id="editform" data-jsonajax="true" class="form-horizontal" role="form">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.SolutionId)
+    @Html.HiddenFor(x => x.EntityId)
+    @Html.HiddenFor(x => x.SystemFormId)
+    @Html.HiddenFor(x => x.FormConfig)
+
+    <div class="container-fluid sc-toolbar ykf-toolbar">
+        <div class="form-group">
+            <div class="col-sm-12 ykf-toolbar-items">
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                <span onclick="charslayoutShow()" class="btn btn-info">
+                    <em class="glyphicon glyphicon-th-large"></em> @app.T["select_layout"]
+                </span>
+                <span onclick="charRowModal()" class="btn btn-info">
+                    <em class="glyphicon glyphicon-th-large"></em> 添加区块
+                </span>
+                <button type="button" class="btn btn-default" onclick="Xms.Web.OpenWindow('')"><span class="glyphicon glyphicon-fullscreen"></span></button>
+            </div>
+        </div>
+        <form action="" class="form-horizontal">
+            <input type="hidden" name="dashBoardType" id="dashBoardType" value="" />
+            <div class="form-group">
+                <label class="col-sm-1 control-label">@app.T["dashboard_name_colon"]</label>
+                <div class="col-sm-5"><input type="text" class="form-control required" name="Name" id="Name" value="@Model.Name" /></div>
+            </div>
+        </form>
+    </div>
+    <div id="wrapbydashboard" class="wrapbydashboard custom-group-box">
+        <div class="custom-group-section clearfix">
+
+        </div>
+    </div>
+    <div class="modal" id="charslayout" style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="m-close-btn" aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-th"></span>  @app.T["select_layout"]</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom-list-center">
+                        <div class="custom-list-item" data-type="1" data-target="#customGroupBox1">
+                            <ul class="custom-list-dgroup first clearfix">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <p class="text-center">@app.T["three_line"]</p>
+                            <p class="text-center">@app.T["convention_dashboard"]</p>
+                        </div>
+                        <div class="custom-list-item" data-type="2" data-target="#customGroupBox2">
+                            <ul class="custom-list-dgroup second clearfix">
+                                <li></li>
+                                <li class="p43"></li>
+                                <li></li>
+                                <li class="p43"></li>
+                                <li class="p43"></li>
+                            </ul>
+                            <p class="text-center">@app.T["three_line"]</p>
+                            <p class="text-center">@app.T["multi_focus_dashboard"]</p>
+                        </div>
+                        <div class="custom-list-item" data-type="3" data-target="#customGroupBox3">
+                            <ul class="custom-list-dgroup third clearfix">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li class="lfull"></li>
+                            </ul>
+                            <p class="text-center">@app.T["four_line"]</p>
+                            <p class="text-center">@app.T["summarize_dashboard"]</p>
+                        </div>
+                        <div class="custom-list-item" data-type="4" data-target="#customGroupBox4">
+                            <ul class="custom-list-dgroup clearfix">
+                                <li class="p43"></li>
+                                <li class="p43"></li>
+                                <li class="p43"></li>
+                                <li class="p43"></li>
+                            </ul>
+                            <p class="text-center">@app.T["two_line"]</p>
+                            <p class="text-center">@app.T["convention_dashboard"]</p>
+                        </div>
+                        <div class="custom-list-item" data-type="5" data-target="#customGroupBox5">
+                            <ul class="custom-list-dgroup fifth clearfix">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li class="lfull"></li>
+                            </ul>
+                            <p class="text-center">@app.T["three_line"]</p>
+                            <p class="text-center">@app.T["summarize_dashboard"]</p>
+                        </div>
+                        <div class="custom-list-item" data-type="6" data-target="#customGroupBox6">
+                            <ul class="custom-list-dgroup sixth clearfix">
+                                <li class="fhei"></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <p class="text-center">@app.T["three_line"]</p>
+                            <p class="text-center">@app.T["focus_dashboard"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-primary m-accept-btn">创建</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="charRowModal" style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="m-close-btn" aria-hidden="true">×</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-th"></span>  选择添加</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom-list-center">
+                        <div class="custom-list-item" data-type="0" data-target="#customGroupBox3">
+                            <ul class="custom-list-dgroup third clearfix">
+                                <li class="active"></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <p class="text-center">1/4个</p>
+                        </div>
+
+                        <div class="custom-list-item" data-type="2" data-target="#customGroupBox1">
+                            <ul class="custom-list-dgroup first clearfix">
+                                <li class="active"></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                            <p class="text-center">1/3个</p>
+                        </div>
+                        <div class="custom-list-item" data-type="1" data-target="#customGroupBox2">
+                            <ul class="custom-list-dgroup second clearfix">
+                                <li class="p43 active"></li>
+                                <li class="p43"></li>
+                            </ul>
+                            <p class="text-center">1/2个</p>
+                        </div>
+
+                        <div class="custom-list-item" data-type="3" data-target="#customGroupBox5">
+                            <ul class="custom-list-dgroup fifth clearfix">
+                                <li class="lfull active"></li>
+                            </ul>
+                            <p class="text-center">1行</p>
+                        </div>
+                        <div class="custom-list-item" data-type="4" data-target="#customGroupBox6">
+                            <ul class="custom-list-dgroup sixth clearfix">
+                                <li class="fhei active"></li>
+                                <li class="fhei"></li>
+                            </ul>
+                            <p class="text-center">占2行2列(左)</p>
+                        </div>
+                        <div class="custom-list-item custom-item-right" data-type="5" data-target="#customGroupBox6">
+                            <ul class="custom-list-dgroup sixth clearfix">
+                                <li class="fhei"></li>
+                                <li class="fhei active" style="float:right;"></li>
+                            </ul>
+                            <p class="text-center">占2行2列(右)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-primary m-accept-btn">创建</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="custon-charts-section"></div>
+
+    <div class="custom-group-box" style="display:none;" id="customGroupBox1">
+        <div class="custom-group-section clearfix">
+            <h5>title</h5>
+            <div class="custom-item custom-item-33">
+                <div class="custom-insert-box" data-cellspan="4" data-rowspan="1">
+
+                </div>
+            </div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+
+        </div>
+    </div>
+
+    <div class="custom-group-box" style="display:none;" id="customGroupBox2">
+        <div class="custom-group-section clearfix">
+            <h5>title</h5>
+            <div class="custom-item custom-item-23">
+                <div class="custom-insert-box" data-cellspan="3" data-rowspan="1">
+
+                </div>
+            </div>
+            <div class="custom-item custom-item-53"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-23"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-49"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-49"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
+        </div>
+    </div>
+
+    <div class="custom-group-box" style="display:none;" id="customGroupBox3">
+        <div class="custom-group-section clearfix">
+            <h5>title</h5>
+            <div class="custom-item custom-item-24">
+                <div class="custom-insert-box" data-cellspan="3" data-rowspan="1">
+
+                </div>
+            </div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-99"><div class="custom-insert-box" data-cellspan="12" data-rowspan="1"></div></div>
+        </div>
+    </div>
+
+    <div class="custom-group-box" style="display:none;" id="customGroupBox4">
+        <div class="custom-group-section clearfix">
+            <h5>title</h5>
+            <div class="custom-item custom-item-49">
+                <div class="custom-insert-box" data-cellspan="6" data-rowspan="1">
+
+                </div>
+            </div>
+            <div class="custom-item custom-item-49"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-49"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-49"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
+        </div>
+    </div>
+
+    <div class="custom-group-box" style="display:none;" id="customGroupBox5">
+        <div class="custom-group-section clearfix">
+            <h5>title</h5>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-99"><div class="custom-insert-box" data-cellspan="12" data-rowspan="1"></div></div>
+        </div>
+    </div>
+
+    <div class="custom-group-box" style="display:none;" id="customGroupBox6">
+        <div class="custom-group-section clearfix">
+            <h5>title</h5>
+            <div class="custom-item custom-item-49">
+                <div class="custom-insert-box custom-insert-dbox" data-cellspan="6" data-rowspan="2">
+
+                </div>
+            </div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+            <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
+        </div>
+    </div>
+
+</form>
+<!--script html tmplate-->
+<script id="customIconList" type="text/x-jquery-tmpl">
+    <ul class="clearfix">
+        <li><span class="sc-charts-w"><em class="iconfont icon-tongji"></em></span></li>
+        <li><span class="sc-grids-w"><em class="iconfont icon-fenlei"></em></span></li>
+        <li><span class="sc-iframe-w"><em class="iconfont icon-fangxingweixuanzhong"></em></span></li>
+        <li><span class="sc-resource-w"><em class="iconfont icon-duoyuyan"></em></span></li>
+    </ul>
+</script>
+<script id="iframeModal" type="text/x-jquery-tmpl">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="m-close-btn" aria-hidden="true">@app.T["times_sign"]</span>
+                        <span class="sr-only">@app.T["close"]</span>
+                    </button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-file"></span> @app.T["board_modal_title"]</h4>
+                    <p class="text-muted">@app.T["add_IFRAMEto_dashboard"]</p>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label"><span>@app.T["dashboard_name"]</span></label>
+                        <div class="col-sm-9">
+                            <input name="iframe-name" value="" class="form-control input-sm iframe-name" disabled="disabled" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["label"]</label>
+                        <div class="col-sm-9 ">
+                            <input name="iframe-label" value="" class="form-control input-sm iframe-label" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["show_label"]</label>
+                        <div class="col-sm-9 ">
+                            <input class="iframe-isshowlabel" name="iframe-isshowlabel" checked="checked" type="checkbox" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["dashboard_url"]</label>
+                        <div class="col-sm-9">
+                            <input name="iframe-url" value="" class="form-control input-sm iframe-url" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary m-accept-btn"><span class="glyphicon glyphicon-ok"></span> @app.T["dashboard_confirm"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="resourceModal" type="text/x-jquery-tmpl">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="m-close-btn" aria-hidden="true">×</span>
+                        <span class="sr-only">@app.T["close"]</span>
+                    </button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-link"></span> @app.T["board_modal_title"]</h4>
+                    <p class="text-muted">@app.T["add_web_resources_to_dashboard"]</p>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label"><span>@app.T["dashboard_name"]</span></label>
+                        <div class="col-sm-9">
+                            <input name="resource-name" value="" class="form-control input-sm resource-name" disabled="disabled" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["label"]</label>
+                        <div class="col-sm-9 ">
+                            <input name="resource-label" value="" class="form-control input-sm resource-label" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["show_label"]</label><!--显示标签-->
+                        <div class="col-sm-9 ">
+                            <input class="resource-isshowlabel" name="resource-isshowlabel" checked="checked" type="checkbox" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["webresource"]</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="ResourceList">
+                                {{if datas}}
+                                <option value="">@app.T["please_select"]</option>
+                                {{each datas}}
+                                <option value="${$value.webresourceid}">@app.T["webresourceid_value_name"]</option>
+                                {{/each}}
+                                {{/if}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary m-accept-btn"><span class="glyphicon glyphicon-ok"></span> @app.T["confirm"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="ccSelModal" type="text/x-jquery-tmpl">
+    <div class="modal fade" id="">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="m-close-btn" aria-hidden="true">×</span>
+                        <span class="sr-only">@app.T["close"]</span><!--Close-->
+                    </button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-stats"></span> @app.T["board_modal_title"]</h4>
+                    <p class="text-muted">@app.T["select_need_added_dashboard_assembly"]</p>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label"><span>@app.T["name"]</span></label>
+                        <div class="col-sm-9">
+                            <input name="chart-name" value="" class="form-control input-sm chart-name" disabled="disabled" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["label"]</label>
+                        <div class="col-sm-9 ">
+                            <input name="chart-label" value="" class="form-control input-sm chart-label" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["show_label"]</label>
+                        <div class="col-sm-9 ">
+                            <input class="chart-isshowlabel" name="chart-isshowlabel" checked="checked" type="checkbox" />
+                        </div>
+                    </div>
+                    {{if ttype==="grids"}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["allows_quick_query"]</label>
+                        <div class="col-sm-9 ">
+                            <input class="chart-enablequickfind" name="chart-enablequickfind" checked="checked" type="checkbox" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["page_amounts"]</label>
+                        <div class="col-sm-9 ">
+                            <input class="form-control input-sm chart-recordsperpage " name="chart-recordsperpage" value="10" type="text" />
+                        </div>
+                    </div>
+                    {{/if}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["Allows_view_selected"]</label>
+                        <div class="col-sm-9 ">
+                            <input class="chart-enableviewpicker" name="chart-enableviewpicker" checked="checked" type="checkbox" />
+                        </div>
+                    </div>
+                    {{if ttype==="charts"}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["Allows_chart_choose"]</label>
+                        <div class="col-sm-9 ">
+                            <input class="chart-enablechartpicker " name="chart-enablechartpicker" checked="checked" type="checkbox" />
+                        </div>
+                    </div>
+                    {{/if}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label"><span>@app.T["record_type"]</span></label>
+                        <div class="col-sm-9 entitySelect">
+                            <select class="form-control" id="EntitysList">
+                                {{if datas}}
+                                <option value="">@app.T["please_select"]</option>
+                                {{each datas}}
+                                <option value="${$value.entityid}">${$value.localizedname}</option>
+                                {{/each}}
+                                {{/if}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["queryview"]</label>
+                        <div class="col-sm-9 viewSelector">
+                            <select class="form-control"></select>
+                        </div>
+                    </div>
+                    {{if ttype==="charts"}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label">@app.T["chart"]</label>
+                        <div class="col-sm-9 chartSelector">
+                            <select class="form-control"></select>
+                        </div>
+                    </div>
+                    {{/if}}
+                    @*{{if ttype==="grids"}}
+                        <div class="form-group">
+                            <select class="form-control">
+                                {{if datas}}
+                                {{each datas}}
+                                <option value="${$value.entityid}">${$value.localizedname}</option>
+                                {{/each}}
+                                {{/if}}
+                            </select>
+                        </div>
+                        {{/if}}*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary m-accept-btn"><span class="glyphicon glyphicon-ok"></span>  @app.T["confirm"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="Selrender" type="text/x-jquery-tmpl">
+    <select class="form-control">
+        {{if datas}}
+        {{each datas}}
+        <option value="${$value.queryviewid}">${$value.name}</option>
+        {{/each}}
+        {{/if}}
+    </select>
+</script>
+<script id="Chartrender" type="text/x-jquery-tmpl">
+    <select class="form-control">
+        {{if datas}}
+        {{each datas}}
+        <option value="${$value.chartid}">${$value.name}</option>
+        {{/each}}
+        {{/if}}
+    </select>
+</script>
+<style>
+    #main{ margin-bottom:0!important;}
+</style>
+<link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+<link href="/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/form.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/chars.module.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery.tmpl.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/echarts.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/jquery.sumoselect.js"></script>
+<script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/pages/m.datagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script>
+    //添加的单个块
+    var layoutList = [
+        { html: '<div class="custom-item custom-item-24"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>' },//1/4
+        { html: '<div class="custom-item custom-item-49"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>' },//1/3
+        { html: '<div class="custom-item custom-item-33"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>' },//1/2
+        { html: '<div class="custom-item custom-item-99"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="12" data-rowspan="1"></div></div>' },//1/1
+        { html: '<div class="custom-item custom-item-49"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box custom-insert-dbox" data-cellspan="6" data-rowspan="2"></div></div>' },//2,2
+        { html: '<div class="custom-item custom-item-49 custom-item-right"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box custom-insert-dbox" data-cellspan="6" data-rowspan="3"></div></div>' }
+    ];
+    //布局配置
+    var typelist = [[2, 2, 2, 2, 2, 2], [0, 1, 0, 1, 1], [0, 0, 0, 0, 3], [1, 1, 1, 1], [2, 2, 2, 3], [4, 0, 0, 0, 0]];
+    //兼容旧数据配置
+    var fixedLayerType = [{ 'colspan': '3', 'rowspan': '1' }, { 'colspan': '6', 'rowspan': '1' }, { 'colspan': '4', 'rowspan': '1' }, { 'colspan': '12', 'rowspan': '1' }, { 'colspan': '6', 'rowspan': '2' }, { 'colspan': '6', 'rowspan': '3' }]
+    var solutionid = $('#SolutionId').val();
+    //表格编辑删除按钮
+    var formGroupHtml = '<div class="form-group"><span class="item-top-title pull-left pl-1 pt-1"></span><span onclick="editCotroll(this)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</span><span onclick="delCotroll(this)" class="btn btn-warning btn-xs" ><span class="glyphicon glyphicon-trash"></span> 删除</span></div>';
+    (function ($, root) {
+        "use strict"
+        //绑定和触发自定义事件
+        var methodOb = {};
+        //获取可用图表数据
+        var getMethod = {};
+
+        //订阅，发布
+        methodOb.context = $({});
+        $.each(["on", "trigger", "off"], function (key, item) {
+            methodOb[item] = function () {
+                methodOb.context[item].apply(methodOb.context, arguments);
+                return methodOb;
+            };
+        });
+
+        getMethod.getCharts = function (obj, pdata) {//获取可选择的图表数据
+            $.ajax({
+                url: "",
+                datatype: "json",
+                type: "get",
+                data: pdata || {}
+            }).done(function (data) {
+                methodOb.context.trigger("getcharts", { obj: obj, data: data });//触发绑定好的事件
+            });
+
+        }
+        getMethod.getGrids = function (obj, pdata) {//获取可选择的数据
+            $.ajax({
+                url: "",
+                datatype: "json",
+                type: "get",
+                data: pdata || {}
+            }).done(function (data) {
+                methodOb.context.trigger("getGrids", { obj: obj, data: data });//触发绑定好的事件
+            });
+        }
+        getMethod.getIframe = function (obj, pdata) {//获取iframe
+            $.ajax({
+                url: "",
+                datatype: "json",
+                type: "get",
+                data: pdata || {}
+            }).done(function (data) {
+                methodOb.context.trigger("getIframe", { obj: obj, data: data });//触发绑定好的事件
+            });
+        }
+        getMethod.getResource = function (obj, pdata) {//获取Resource
+            $.ajax({
+                url: "",
+                datatype: "json",
+                type: "get",
+                data: pdata || {}
+            }).done(function (data) {
+                methodOb.context.trigger("getResource", { obj: obj, data: data });//触发绑定好的事件
+            });
+        }
+        var sc_modal = {},
+            tempdata = {//打开的窗口的配置信息saveChartLayout
+                title: "添加组件",
+                ttype: "charts"
+            };
+        sc_modal.Modal = null;
+        methodOb.context.on("getcharts", function (e, obj) {
+            var args = [].slice.call(arguments);
+            var temp = args.splice(1, args.length - 1);
+            Xms.Schema.GetEntities({ solutionid: solutionid, getall: true }, function (data) {
+                var nowdata = $(obj.obj).children(".custom-insert-box").attr('data-data');
+                if (typeof nowdata != 'undefined') {
+                    var oparent = $(obj.obj).children(".custom-insert-box");
+                    tempdata.datas = data;
+                    tempdata.title = '编辑组件';
+                    tempdata.ttype = "charts";
+                    sc_modal.Modal = $("#ccSelModal").tmpl(tempdata);
+                    tempdata.datas = temp;
+                    tempdata.ttype = "charts";
+                    if (sc_modal.Modal.length === 0) {
+                        sc_modal.Modal.appendTo($("#custon-charts-section"));
+                    }
+                    sc_modal.Modal.modal("show");
+
+                    var chartConfig = JSON.parse(decodeURI(nowdata));
+                    sc_modal.Modal.find('.chart-name').val(chartConfig.name);
+                    sc_modal.Modal.find('.chart-label').val(chartConfig.label);
+                    if (chartConfig.isshowlabel == true) {
+                        sc_modal.Modal.find('.chart-isshowlabel').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.chart-isshowlabel').prop('checked', false);
+                    }
+                    if (chartConfig.enableviewpicker == true) {
+                        sc_modal.Modal.find('.chart-enableviewpicker').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.chart-enableviewpicker').prop('checked', false);
+                    }
+                    if (chartConfig.enablechartpicker == true) {
+                        sc_modal.Modal.find('.chart-enablechartpicker').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.chart-enablechartpicker').prop('checked', false);
+                    }
+                    sc_modal.Modal.find('.entitySelect select').find('option[value="' + chartConfig.entityid + '"]').prop('selected', true);
+                    loadViewChart(chartConfig.entityid, chartConfig, sc_modal);
+                }
+                else {
+                    tempdata.datas = data;
+                    tempdata.title = '添加组件';
+                    tempdata.ttype = "charts";
+                    sc_modal.Modal = $("#ccSelModal").tmpl(tempdata);
+                    tempdata.datas = temp;
+                    tempdata.ttype = "charts";
+                    if (sc_modal.Modal.length === 0) {
+                        sc_modal.Modal.appendTo($("#custon-charts-section"));
+                    }
+                    sc_modal.Modal.modal("show");
+                    var name = 'charts_' + Math.round(new Date().getTime() / 1000);
+                    sc_modal.Modal.find('.chart-name').val(name);
+                    sc_modal.Modal.find('.chart-label').val(name);
+                    var oparent = $(obj.obj).parents(".custom-insert-box");
+                }
+                //保存选择了的图表
+                sc_modal.Modal.find(".m-accept-btn").off("click").on("click", function () {
+                    //var oparent = $(obj.obj).parents(".custom-insert-box");
+                    sc_modal.Modal.find('select').each(function (i, n) {
+                        if ($(n).find('option').length <= 0 || $(n).find('option:selected').val() == '') {
+                            if ($(n).next('.requiredError').length <= 0) {
+                                $(n).after('<em class="requiredError">此项为必填</em>');
+                            }
+                        }
+                    });
+                    if (sc_modal.Modal.find('.requiredError').length > 0) {
+                        return false;
+                    }
+                    var chartPar = {
+                        name: '',
+                        label: '',
+                        isshowlabel: true,
+                        entityid: sc_modal.Modal.find('.entitySelect select').find('option:selected').val(),
+                        viewid: sc_modal.Modal.find('.viewSelector select').find('option:selected').val(),
+                        chartid: sc_modal.Modal.find('.chartSelector select').find('option:selected').val(),
+                        enableviewpicker: true,
+                        enablechartpicker: true
+                    };
+                    chartPar.name = sc_modal.Modal.find('.chart-name').val();
+                    chartPar.label = sc_modal.Modal.find('.chart-label').val();
+                    if (sc_modal.Modal.find('.chart-isshowlabel').prop('checked') == false) {
+                        chartPar.isshowlabel = false;
+                    }
+                    else {
+                        chartPar.isshowlabel = true;
+                    }
+                    if (sc_modal.Modal.find('.chart-enableviewpicker').prop('checked') == false) {
+                        chartPar.enableviewpicker = false;
+                    }
+                    else {
+                        chartPar.enableviewpicker = true;
+                    }
+                    if (sc_modal.Modal.find('.chart-enablechartpicker').prop('checked') == false) {
+                        chartPar.enablechartpicker = false;
+                    }
+                    else {
+                        chartPar.enablechartpicker = true;
+                    }
+                    //var chardata = new ChartData();
+                    //createChart(parnet, chardata, { "min-height": 290 }, null, "");
+                    oparent.children("ul.clearfix").remove();
+                    oparent.attr("data-data", encodeURI(JSON.stringify(chartPar)));
+                    oparent.attr("data-type", tempdata.ttype);
+                    var j = oparent.parent().index();
+                    Xms.Web.Load('/component/RenderChart?queryid=' + chartPar.viewid + '&chartid=' + chartPar.chartid + '&enableviewpicker=' + chartPar.enableviewpicker + '&enablechartpicker=' + chartPar.enablechartpicker, function (cdata) {
+                        try { if (typeof cdata != "string") { return false; } cdata = cdata.replace(/chart1/g, 'chart' + j); }
+                        catch (e) { }
+                        var dHtml = $(cdata);
+                        dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': oparent.innerHeight() - 50 });
+
+                        oparent.html('');
+                        oparent.append(formGroupHtml);
+                        oparent.find('.item-top-title').text(chartPar.label);
+                        sc_modal.Modal.modal("hide");
+                        saveform();
+                        oparent.append(dHtml);		//虽然能成功添加但是会报错影响后面的代码，所以放到最后
+                    });
+                });
+            });
+        });
+        methodOb.context.on("getIframe", function (e, obj) {
+            var args = [].slice.call(arguments);
+            var temp = args.splice(1, args.length - 1);
+
+            var nowdata = $(obj.obj).children(".custom-insert-box").attr('data-data');
+            if (typeof nowdata != 'undefined') {
+                var oparent = $(obj.obj).children(".custom-insert-box");
+                tempdata.title = '编辑Iframe';
+                tempdata.ttype = "iframe";
+                sc_modal.Modal = $("#iframeModal").tmpl(tempdata);
+                if (sc_modal.Modal.length === 0) {
+                    sc_modal.Modal.appendTo($("#custon-charts-section"));
+                }
+                sc_modal.Modal.modal("show");
+                var iframeConfig = JSON.parse(decodeURI(nowdata));
+                sc_modal.Modal.find('.iframe-name').val(iframeConfig.name);
+                sc_modal.Modal.find('.iframe-label').val(iframeConfig.label);
+                sc_modal.Modal.find('.iframe-url').val(iframeConfig.url);
+                if (iframeConfig.isshowlabel == true) {
+                    sc_modal.Modal.find('.iframe-isshowlabel').prop('checked', true);
+                }
+                else {
+                    sc_modal.Modal.find('.iframe-isshowlabel').prop('checked', false);
+                }
+            }
+            else {
+                var oparent = $(obj.obj).parents(".custom-insert-box");
+                tempdata.title = '添加Iframe';
+                tempdata.ttype = "iframe";
+                sc_modal.Modal = $("#iframeModal").tmpl(tempdata);
+                if (sc_modal.Modal.length === 0) {
+                    sc_modal.Modal.appendTo($("#custon-charts-section"));
+                }
+                sc_modal.Modal.modal("show");
+                var name = 'iframe_' + Math.round(new Date().getTime() / 1000);
+                sc_modal.Modal.find('.iframe-name').val(name);
+                sc_modal.Modal.find('.iframe-label').val(name);
+            }
+            sc_modal.Modal.find(".m-accept-btn").off("click").on("click", function () {
+                if (sc_modal.Modal.find('.iframe-url').val() == '') {
+                    if (sc_modal.Modal.find('.iframe-url').next('.requiredError').length <= 0) {
+                        sc_modal.Modal.find('.iframe-url').after('<em class="requiredError">此项为必填</em>');
+                    }
+                }
+                if (sc_modal.Modal.find('.requiredError').length > 0) {
+                    return false;
+                }
+                var iframePar = {
+                    name: '',
+                    label: '',
+                    isshowlabel: true,
+                    url: ''
+                };
+                iframePar.name = sc_modal.Modal.find('.iframe-name').val();
+                iframePar.label = sc_modal.Modal.find('.iframe-label').val();
+                if (sc_modal.Modal.find('.iframe-isshowlabel').prop('checked') == false) {
+                    iframePar.isshowlabel = false;
+                }
+                else {
+                    iframePar.isshowlabel = true;
+                }
+                iframePar.url = sc_modal.Modal.find('.iframe-url').val();
+
+                oparent.children("ul.clearfix").remove();
+                oparent.attr("data-data", encodeURI(JSON.stringify(iframePar)));
+                oparent.attr("data-type", tempdata.ttype);
+
+                oparent.html('');
+                oparent.append(formGroupHtml);
+                oparent.find('.item-top-title').text(iframePar.label);
+                var showurl = iframePar.url
+                if (showurl && showurl.indexOf('\/') == 0) {
+                    showurl = ORG_SERVERURL + showurl;
+                }
+                oparent.append('<iframe src="' + showurl + '" frameborder="0" width="100%" height="' + (oparent.innerHeight() - 50) + '"></iframe>');
+                sc_modal.Modal.modal("hide");
+                saveform();
+            });
+            ///
+        });
+        methodOb.context.on("getResource", function (e, obj) {
+            var args = [].slice.call(arguments);
+            var temp = args.splice(1, args.length - 1);
+            Xms.Web.GetJson('/customize/WebResource/index?getall=true&LoadData=true&SolutionId=' + solutionid, null, function (data) {
+                var nowdata = $(obj.obj).children(".custom-insert-box").attr('data-data');
+                if (typeof nowdata != 'undefined') {
+                    var oparent = $(obj.obj).children(".custom-insert-box");
+                    tempdata.datas = data.content.items;
+                    console.log(tempdata.datas)
+                    tempdata.title = '编辑Web资源';
+                    tempdata.ttype = "webresource";
+                    sc_modal.Modal = $("#resourceModal").tmpl(tempdata);
+                    if (sc_modal.Modal.length === 0) {
+                        sc_modal.Modal.appendTo($("#custon-charts-section"));
+                    }
+                    sc_modal.Modal.modal("show");
+                    var webConfig = JSON.parse(decodeURI(nowdata));
+                    sc_modal.Modal.find('.resource-name').val(webConfig.name);
+                    sc_modal.Modal.find('.resource-label').val(webConfig.label);
+                    if (webConfig.isshowlabel == true) {
+                        sc_modal.Modal.find('.resource-isshowlabel').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.resource-isshowlabel').prop('checked', false);
+                    }
+                    sc_modal.Modal.find('#ResourceList').find('option[value="' + webConfig.webresource + '"]').prop('selected', true);
+                }
+                else {
+                    var oparent = $(obj.obj).parents(".custom-insert-box");
+                    tempdata.datas = data.content.items;
+                    console.log(tempdata.datas)
+                    tempdata.title = '添加Web资源';
+                    tempdata.ttype = "webresource";
+                    sc_modal.Modal = $("#resourceModal").tmpl(tempdata);
+                    if (sc_modal.Modal.length === 0) {
+                        sc_modal.Modal.appendTo($("#custon-charts-section"));
+                    }
+                    sc_modal.Modal.modal("show");
+                    var name = 'resource_' + Math.round(new Date().getTime() / 1000);
+                    sc_modal.Modal.find('.resource-name').val(name);
+                    sc_modal.Modal.find('.resource-label').val(name);
+                }
+                sc_modal.Modal.find(".m-accept-btn").off("click").on("click", function () {
+                    sc_modal.Modal.find('select').each(function (i, n) {
+                        if ($(n).find('option').length <= 0 || $(n).find('option:selected').val() == '') {
+                            if ($(n).next('.requiredError').length <= 0) {
+                                $(n).after('<em class="requiredError">此项为必填</em>');
+                            }
+                        }
+                    });
+                    if (sc_modal.Modal.find('.requiredError').length > 0) {
+                        return false;
+                    }
+                    var resourcePar = {
+                        name: '',
+                        label: '',
+                        isshowlabel: true,
+                        webresource: ''
+                    };
+                    resourcePar.name = sc_modal.Modal.find('.resource-name').val();
+                    resourcePar.label = sc_modal.Modal.find('.resource-label').val();
+                    if (sc_modal.Modal.find('.resource-isshowlabel').prop('checked') == false) {
+                        resourcePar.isshowlabel = false;
+                    }
+                    else {
+                        resourcePar.isshowlabel = true;
+                    }
+                    resourcePar.webresource = sc_modal.Modal.find("select").find('option:selected').val();
+                    oparent.children("ul.clearfix").remove();
+                    oparent.attr("data-data", encodeURI(JSON.stringify(resourcePar)));
+                    oparent.attr("data-type", tempdata.ttype);
+
+                    Xms.Web.Load('/api/webresource?ids=' + resourcePar.webresource, function (cdata) {
+                        var dHtml = $('<pre></pre>');
+                        dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': oparent.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+                        oparent.html('');
+                        oparent.append(formGroupHtml);
+                        oparent.find('.item-top-title').text(resourcePar.label);
+                        oparent.append(dHtml);
+                        sc_modal.Modal.modal("hide");
+                        saveform();
+                    });
+                });
+            });
+            ///
+        });
+        methodOb.context.on("getGrids", function (e, obj) {
+            var args = [].slice.call(arguments);
+            var temp = args.splice(1, args.length - 1);
+            Xms.Web.GetJson('/customize/entity/index?solutionid=' + solutionid + '&loaddata=true&getall=true', null, function (data) {
+                var nowdata = $(obj.obj).children(".custom-insert-box").attr('data-data');
+                if (typeof nowdata != 'undefined') {
+                    var oparent = $(obj.obj).children(".custom-insert-box");
+                    tempdata.datas = data.content.items;
+                    tempdata.ttype = "grids";
+                    tempdata.title = '编辑组件';
+                    sc_modal.Modal = $("#ccSelModal").tmpl(tempdata);
+                    if (sc_modal.Modal.length === 0) {
+                        sc_modal.Modal.appendTo($("#custon-charts-section"));
+                    }
+                    sc_modal.Modal.modal("show");
+
+                    var gridConfig = JSON.parse(decodeURI(nowdata));
+                    sc_modal.Modal.find('.chart-name').val(gridConfig.name);
+                    sc_modal.Modal.find('.chart-label').val(gridConfig.label);
+                    sc_modal.Modal.find('.chart-recordsperpage').val(gridConfig.recordsperpage);
+                    if (gridConfig.isshowlabel == true) {
+                        sc_modal.Modal.find('.chart-isshowlabel').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.chart-isshowlabel').prop('checked', false);
+                    }
+                    if (gridConfig.enablequickfind == true) {
+                        sc_modal.Modal.find('.chart-enablequickfind').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.chart-enablequickfind').prop('checked', false);
+                    }
+                    if (gridConfig.enableviewpicker == true) {
+                        sc_modal.Modal.find('.chart-enableviewpicker').prop('checked', true);
+                    }
+                    else {
+                        sc_modal.Modal.find('.chart-enableviewpicker').prop('checked', false);
+                    }
+                    sc_modal.Modal.find('.entitySelect select').find('option[value="' + gridConfig.entityid + '"]').prop('selected', true);
+                    loadViewChart(gridConfig.entityid, gridConfig, sc_modal);
+                }
+                else {
+                    var oparent = $(obj.obj).parents(".custom-insert-box");
+                    tempdata.datas = data.content.items;
+                    tempdata.ttype = "grids";
+                    tempdata.title = '添加组件';
+                    sc_modal.Modal = $("#ccSelModal").tmpl(tempdata);
+                    if (sc_modal.Modal.length === 0) {
+                        sc_modal.Modal.appendTo($("#custon-charts-section"));
+                    }
+                    sc_modal.Modal.modal("show");
+                    var name = 'grid_' + Math.round(new Date().getTime() / 1000);
+                    sc_modal.Modal.find('.chart-name').val(name);
+                    sc_modal.Modal.find('.chart-label').val(name);
+                }
+                sc_modal.Modal.find(".m-accept-btn").off("click").on("click", function () {
+                    sc_modal.Modal.find('select').each(function (i, n) {
+                        if ($(n).find('option').length <= 0 || $(n).find('option:selected').val() == '') {
+                            if ($(n).next('.requiredError').length <= 0) {
+                                $(n).after('<em class="requiredError">此项为必填</em>');
+                            }
+                        }
+                    });
+                    var reg = /^[1-9]\d*$/;
+                    if (sc_modal.Modal.find('.chart-recordsperpage').val() == '' || !reg.test(sc_modal.Modal.find('.chart-recordsperpage').val())) {
+                        if (sc_modal.Modal.find('.chart-recordsperpage').next('.requiredError').length <= 0) {
+                            sc_modal.Modal.find('.chart-recordsperpage').after('<em class="requiredError">请输入正整数</em>');
+                        }
+                    }
+                    if (sc_modal.Modal.find('.requiredError').length > 0) {
+                        return false;
+                    }
+                    var gridPar = {
+                        name: '',
+                        label: '',
+                        isshowlabel: true,
+                        entityid: sc_modal.Modal.find('.entitySelect select').find('option:selected').val(),
+                        viewid: sc_modal.Modal.find('.viewSelector select').find('option:selected').val(),
+                        enablequickfind: true,
+                        recordsperpage: sc_modal.Modal.find('.chart-recordsperpage').val(),
+                        enableviewpicker: true
+                    };
+                    gridPar.name = sc_modal.Modal.find('.chart-name').val();
+                    gridPar.label = sc_modal.Modal.find('.chart-label').val();
+                    if (sc_modal.Modal.find('.chart-isshowlabel').prop('checked') == false) {
+                        gridPar.isshowlabel = false;
+                    }
+                    else {
+                        gridPar.isshowlabel = true;
+                    }
+                    if (sc_modal.Modal.find('.chart-enablequickfind').prop('checked') == false) {
+                        gridPar.enablequickfind = false;
+                    }
+                    else {
+                        gridPar.enablequickfind = true;
+                    }
+                    if (sc_modal.Modal.find('.chart-enableviewpicker').prop('checked') == false) {
+                        gridPar.enableviewpicker = false;
+                    }
+                    else {
+                        gridPar.enableviewpicker = true;
+                    }
+                    //var chardata = new ChartData();
+                    //createChart(parnet, chardata, { "min-height": 290 }, null, "");
+                    oparent.children("ul.clearfix").remove();
+                    oparent.attr("data-data", encodeURI(JSON.stringify(gridPar)));
+                    oparent.attr("data-type", tempdata.ttype);
+
+                    //Xms.Web.Load('/entity/rendergridview?queryid=' + gridPar.viewid + '&enablequickfind=' + gridPar.enablequickfind + '&enableviewpicker=' + gridPar.enableviewpicker + '&recordsperpage=' + gridPar.recordsperpage + '&IsShowButtons=false&IsEnabledFilter=false&IsEnabledFastSearch=false&IsEnabledViewSelector=false&iseditable=false', function (cdata) {
+                    //    if (typeof cdata != "string") { return false; }
+                    //    var dHtml = $(cdata);
+                    //    dHtml.css({ 'width': '100%;', 'overflow-y': 'auto', 'overflow-x': 'hidden', 'height': oparent.innerHeight() - 50 });
+
+                    //    oparent.html('');
+                    //    oparent.append(formGroupHtml);
+                    //    oparent.append(dHtml);
+                    //    sc_modal.Modal.modal("hide");
+                    //    saveform();
+                    //});
+                    oparent.html('')
+                    var $grid = $('<div></div>');
+                    oparent.append(formGroupHtml);
+                    oparent.find('.item-top-title').text(gridPar.label);
+                    oparent.append($grid);
+                    
+                    var offsetH = -40;
+                    var table = new tableGrid($grid, { queryid: gridPar.viewid, height: oparent.innerHeight() + offsetH,isNotLoadData:true });
+                    table.init();
+                    sc_modal.Modal.modal("hide");
+                    saveform();
+                });
+            });
+            ///
+        });
+
+        //添加ICON到布局里
+        var addIconToLayer = function (obj) {
+            obj.find(".custom-insert-box").each(function () {
+                if ($(this).attr('data-iconed') == 1) return true;
+                var tmplele = $("#customIconList").tmpl({});
+                $(this).append($(tmplele[0])).attr('data-iconed', 1);
+            });
+        }
+
+        root.methodOb = methodOb;
+        root.getMethod = getMethod;
+        root.addIconToLayer = addIconToLayer;
+
+    })(jQuery, window);
+
+</script>
+<script>
+    //测试数据
+    var testDat = { "fetch": [{ "attribute": "accountid", "type": "series", "aggregate": "count" }, { "attribute": "createdon", "type": "category", "dategrouping": "month", "groupby": true }] };
+    var FormConfig = JSON.parse($('#FormConfig').val());
+    function saveform() {
+        var panel = {}//new Xms.Form.PanelDescriptor();
+        //panel.section = [];
+        panel.cell = [];
+        $(".custom-insert-box:visible").each(function () {
+            var cellitem = {
+                colspan: $(this).attr("data-cellspan"),
+                rowspan: $(this).attr("data-rowspan"),
+                type: $(this).attr("data-type"),
+                control: {}
+            };
+            var itemData = $(this).attr("data-data");
+            if (itemData) {
+                //panel.section.push(JSON.parse(decodeURI(itemData)));
+                cellitem.control = JSON.parse(decodeURI(itemData));
+            } else {
+                //panel.section.push({});
+                cellitem.control = {};
+            }
+            panel.cell.push(cellitem);
+        });
+        panel.name = $("#Name").val();
+        panel.type = $("#dashBoardType").val();
+        $('#FormConfig').val(JSON.stringify(panel));
+        console.log(panel);
+    }
+
+
+    ; (function ($, root, un) {
+        "use strict"
+        var dataStack = root.dataStack;
+        var dataStackHandle = root.dataStackHandle;
+        var getMethod = root.getMethod;
+
+        var datahandler = new dataStackHandle();
+        //layoutType
+        function layoutType(data, element, type) {
+            dataStack.call(this, data, element, type);
+            this.type = type;
+        }
+        layoutType.prototype.showTarget = function () {
+            this.element.show();
+            this.element.siblings('.custom-group-box').hide();
+            resetCotroll($('.custom-group-box').find('.custom-item'));
+        }
+        layoutType.prototype.hideTarget = function () {
+            this.element.hide();
+            resetCotroll($('.custom-group-box').find('.custom-item'));
+        }
+
+        function showLayerS(obj) {
+            var $this = $(obj), target = $this.data().target, $target = $(target), type = $this.data().type;
+            if ($target && $target.length > 0) {
+                var layoutt = new layoutType({}, $target, type);
+                datahandler.add(layoutt);
+                layoutt.showTarget();
+                addIconToLayer($target);
+            }
+        }
+
+        function getLayoutCellType(col, row) {
+            var res = -1;
+            $.each(fixedLayerType, function (i, n) {
+                console.log(n);
+                if (n.colspan == col && n.rowspan == row) {
+                    res = i;
+                    return false;
+                }
+            });
+            return res;
+        }
+
+        function initform() {
+            var type = parseInt(FormConfig.type) + 1;
+            var that = $('.row').find('.custom-list-item[data-type="' + type + '"]');
+            var index = that.index();
+            var $wrap = $('#wrapbydashboard');
+            var $list = $wrap.children('.custom-group-section');
+            //$("#Name").val(FormConfig.name);
+            $("#dashBoardType").val(index);
+            //showLayerS(that);
+            for (var i = 0; i < FormConfig.cell.length; i++) {
+                // console.log(FormConfig.cell[i].control);
+                (function (j) {
+                    if (FormConfig.cell[j].control.name != null) {
+                        var _type = getLayoutCellType(FormConfig.cell[j].colspan, FormConfig.cell[j].rowspan);
+                        // console.log(_type, FormConfig.cell[j].colspan, FormConfig.cell[j].rowspan);
+                        if (_type == -1) { return true; }
+                        var target = addLayoutCell(_type).children('.custom-insert-box');
+                        //var target = $('.custom-insert-box:visible').eq(j);
+                        // var target =
+                        if (FormConfig.cell[j].type == 'charts') {
+                            Xms.Web.Load('/component/RenderChart?queryid=' + FormConfig.cell[j].control.viewid + '&chartid=' + FormConfig.cell[j].control.chartid + '&enableviewpicker=' + FormConfig.cell[j].control.enableviewpicker + '&enablechartpicker=' + FormConfig.cell[j].control.enablechartpicker, function (cdata) {
+                                try { if (typeof cdata != "string") { return false; } cdata = cdata.replace(/chart1/g, 'chart' + j); }
+                                catch (e) { }
+                                var dHtml = $(cdata);
+                                dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': target.innerHeight() - 50 });
+                                target.html('');
+                                target.append(formGroupHtml);
+                                target.find('.item-top-title').text(FormConfig.cell[j].control.label);
+                                target.append(dHtml);
+                            });
+                        }
+                        else if (FormConfig.cell[j].type == 'grids') {
+                            //Xms.Web.Load('/component/rendergridview?queryid=' + FormConfig.cell[j].control.viewid + '&enablequickfind=' + FormConfig.cell[j].control.enablequickfind + '&enableviewpicker=' + FormConfig.cell[j].control.enableviewpicker + '&recordsperpage=' + FormConfig.cell[j].control.recordsperpage + '&IsShowButtons=false&IsEnabledFilter=false&IsEnabledFastSearch=false&IsEnabledViewSelector=false&iseditable=false', function (cdata) {
+                            //    if (typeof cdata != "string") { return false; }
+                            //    var dHtml = $(cdata);
+                            //    dHtml.css({ 'width': '100%;', 'overflow-y': 'auto', 'overflow-x': 'hidden', 'height': target.innerHeight() - 37 });
+                            //    target.html('');
+                            //    target.append(formGroupHtml);
+                            //    target.append(dHtml);
+                            //});
+                            target.html('');
+                            var $grid = $('<div></div>');
+                            target.append(formGroupHtml);
+                            target.find('.item-top-title').text(FormConfig.cell[j].control.label);
+                            target.append($grid);
+                            var offsetH = -40;
+                            var table = new tableGrid($grid, { queryid: FormConfig.cell[j].control.viewid, height: target.innerHeight() + offsetH,isNotLoadData:true });
+                            table.init();
+                            //sc_modal.Modal.modal("hide");
+                            //saveform();
+                        }
+                        else if (FormConfig.cell[j].type == 'iframe') {
+                            target.html('');
+                            target.append(formGroupHtml);
+                            target.find('.item-top-title').text(FormConfig.cell[j].control.label);
+                            var showurl = FormConfig.cell[j].control.url
+                            if (showurl && showurl.indexOf('\/') == 0) {
+                                showurl = ORG_SERVERURL + showurl;
+                            }
+                            target.append('<iframe src="' + showurl + '" frameborder="0" width="100%" height="' + (target.innerHeight() - 50) + '"></iframe>');
+                        }
+                        else if (FormConfig.cell[j].type == 'webresource') {
+                            Xms.Web.Load('/api/webresource?ids=' + FormConfig.cell[j].control.webresource, function (cdata) {
+                                var dHtml = $('<pre></pre>');
+                                dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': target.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+                                target.html('');
+                                target.append(formGroupHtml);
+                                target.find('.item-top-title').text(FormConfig.cell[j].control.label);
+                                target.append(dHtml);
+                            });
+                        }
+                        else {
+                            target.html(JSON.stringify(FormConfig.cell[j].control));
+                        }
+                        target.attr("data-data", encodeURI(JSON.stringify(FormConfig.cell[j].control)));
+                        target.attr("data-type", FormConfig.cell[j].type);
+                    } else {
+                        var _type = getLayoutCellType(FormConfig.cell[j].colspan, FormConfig.cell[j].rowspan);
+                        // console.log(_type, FormConfig.cell[j].colspan, FormConfig.cell[j].rowspan);
+                        if (_type == -1) { return true; }
+                        var target = addLayoutCell(_type).children('.custom-insert-box');
+                    }
+                })(i);
+            }
+        }
+        $("body").on("click", "#charslayout .custom-list-item", function () {
+            var index = $(this).index();
+            $(this).parents(".modal").modal("hide");
+            $("#dashBoardType").val(index);
+            var type = $(this).attr('data-type');
+            //showLayerS(this);
+            addDashBoardLayout(type);
+        });
+
+        $("body").on("click", ".sc-charts-w", function () {
+            getMethod.getCharts(this);
+        });
+        $("body").on("click", ".sc-grids-w", function () {
+            getMethod.getGrids(this);
+        });
+        $("body").on("click", ".sc-iframe-w", function () {
+            getMethod.getIframe(this);
+        });
+        $("body").on("click", ".sc-resource-w", function () {
+            getMethod.getResource(this);
+        });
+        $("body").on("click", ".custom-item-remove", function (e) {
+            var $this = $(this);
+            if ($(this).siblings('.custom-insert-box').children('ul').length == 0) {
+                Xms.Web.Confirm('提示', '是否删除这一块区域和数据', function () {
+                    delCotroll($this);
+                    removeCellData($this)
+                    $this.parents('.custom-item:first').remove();
+                });
+            } else {
+                removeCellData($this);
+                $(this).parents('.custom-item:first').remove();
+            }
+
+        });
+        //dbclick
+        //$("body").on("dblclick", ".custom-item", function () {
+        //    editCotroll(this);
+        //});
+
+        $("body").on("click", ".custom-item", function (e) {
+            var $this = $(this);
+            $(this).siblings(".custom-item").removeClass("active").end().addClass("active")
+        });
+
+        $('body').on('click', '#charRowModal .custom-list-item', function () {
+            var $this = $(this);
+            var type = $this.attr('data-type');
+            addLayoutCell(type);
+            // hidecharRowModal();
+        });
+
+        //保存数据
+        $("#Name").keyup(function () {
+            saveform();
+        });
+
+
+        Xms.Web.Form($('#editform'), function (response) {
+            Xms.Web.Alert(response.IsSuccess, response.Content);
+            Xms.Web.Event.publish('refresh');
+        }, null, function () {
+            var $wrap = $('#wrapbydashboard>.custom-group-section');
+            if ($wrap.children().length <= 1) {
+                Xms.Web.Alert(false, '请选择仪表板布局或者添加一个区块。');
+                return false;
+            }
+            var $isauthorization = $('#IsAuthorization');
+            if ($isauthorization.prop('checked')) {
+                if (!$('#securityUser').val() || $('#securityUser').val() == '') {
+                    Xms.Web.Alert(false, "请先勾选角色");
+                    return false;
+                }
+            }
+        });
+
+        initform();
+    })(jQuery, window);
+  
+    //添加布局
+    function addDashBoardLayout(type) {
+        Xms.Web.Confirm('提示', '确定后会覆盖之前的配置信息，是否确定更改?',
+            function () {
+                type = type - 1;
+                var _layout = typelist[type];
+                for (var i = 0, len = _layout.length; i < len; i++) {
+                    addLayoutCell(_layout[i]);
+                }
+            }, function () {
+
+            })
+
+    }
+    function addLayoutCell(type) {
+        var html = layoutList[type].html;
+        var $html = $(html);
+        var $wrap = $('#wrapbydashboard>.custom-group-section');
+        $wrap.append($html);
+        addIconToLayer($html);
+        return $html;
+    }
+
+    //加载视图图表
+    function loadViewChart(entityid, config, modal) {
+        if (entityid == '' || entityid == -1) {
+            $('.viewSelector').find('select').html('');
+            $('.chartSelector').find('select').html('');
+            return false;
+        }
+        if ($('.viewSelector').length > 0 || (modal && modal.Modal.find('.viewSelector').length > 0)) {
+            Xms.Web.GetJson('/customize/QueryView/index?EntityId=' + entityid + '&LoadData=true&getall=true', null, function (data) {
+                var viewtempdata = {};
+                viewtempdata.datas = data.content.items;
+                if (typeof config != 'undefined') {
+                    modal.Modal.find('.viewSelector').html('');
+                    $("#Selrender").tmpl(viewtempdata).appendTo(modal.Modal.find('.viewSelector'));
+                    modal.Modal.find('.viewSelector').find('option[value="' + config.viewid + '"]').prop('selected', true);
+                }
+                else {
+                    $(".viewSelector").html('');
+                    $("#Selrender").tmpl(viewtempdata).appendTo($(".viewSelector"));
+                    $('.viewSelector').find('option:first').prop('selected', true);
+                }
+            });
+        }
+        if ($('.chartSelector').length > 0 || (modal && modal.Modal.find('.chartSelector').length > 0)) {
+            Xms.Web.GetJson('/customize/Chart/index?EntityId=' + entityid + '&LoadData=true&solutionid=' + solutionid + '&getall=true', null, function (data) {
+                var charttempdata = {};
+                charttempdata.datas = data.content.items;
+                $(".chartSelector").html('');
+                $("#Chartrender").tmpl(charttempdata).appendTo($(".chartSelector"));
+                if (typeof config != 'undefined') {
+                    modal.Modal.find('.chartSelector').html('');
+                    $("#Chartrender").tmpl(charttempdata).appendTo(modal.Modal.find('.chartSelector'));
+                    modal.Modal.find('.chartSelector').find('option[value="' + config.chartid + '"]').prop('selected', true);
+                }
+                else {
+                    $(".chartSelector").html('');
+                    $("#Chartrender").tmpl(charttempdata).appendTo($(".chartSelector"));
+                    $('.chartSelector').find('option:first').prop('selected', true);
+                }
+            });
+        }
+    }
+
+    function editCotroll(e) {
+        if ($(e).hasClass('btn')) {
+            e = $(e).parents('.custom-item');
+        }
+        var child = $(e).children('.custom-insert-box');
+        if (child.attr('data-type') == 'charts') {
+            getMethod.getCharts(e);
+        } else if (child.attr('data-type') == 'webresource') {
+            getMethod.getResource(e);
+        } else if (child.attr('data-type') == 'grids') {
+            getMethod.getGrids(e);
+        } else if (child.attr('data-type') == 'iframe') {
+            getMethod.getIframe(e);
+        }
+    }
+    function delCotroll(e) {
+        var tParent = $(e).parents('.custom-item:first');
+        delItemFormData(e);
+        resetCotroll($(e).parents('.custom-item:first'));
+        tParent.children().removeAttr('data-iconed')
+        addIconToLayer(tParent);
+    }
+    function removeCellData(e) {
+        var tParent = $(e).parents('.custom-item:first');
+        removeItemFormData(e);
+    }
+    function removeItemFormData(obj) {
+        //console.log(obj, index);
+        var $obj = $(obj);
+        var tParent = $obj.parents('.custom-item');
+        var index = tParent.index() - 1;
+        var formConfig = $('#FormConfig').val();
+        var dataObj = JSON.parse(formConfig);
+        var dataItems = dataObj.cell;
+        console.log(tParent, index);
+        if (dataItems && dataItems.length > 0) {
+            dataItems.splice(index, 1);
+        }
+        $('#FormConfig').val(JSON.stringify(dataObj));
+    }
+    function delItemFormData(obj) {
+        //console.log(obj, index);
+        var $obj = $(obj);
+        var tParent = $obj.parents('.custom-item');
+        var index = tParent.index() - 1;
+        var formConfig = $('#FormConfig').val();
+        var dataObj = JSON.parse(formConfig);
+        var dataItems = dataObj.cell;
+        console.log(tParent, index);
+        if (dataItems && dataItems.length > 0) {
+            var cell = tParent.find('.custom-insert-box:visible');
+            var cellitem = {
+                colspan: cell.attr("data-cellspan"),
+                rowspan: cell.attr("data-rowspan"),
+                control: {}
+            };
+            cellitem.control = {};
+            console.log(cellitem)
+            dataItems[index] = cellitem;
+        }
+        $('#FormConfig').val(JSON.stringify(dataObj));
+    }
+    function charslayoutShow() {
+        $("#charslayout").modal('show');
+    }
+    function charRowModal() {
+        $("#charRowModal").modal('show');
+    }
+    function hidecharRowModal() {
+        $("#charRowModal").modal('hide');
+    }
+    function resetCotroll(target) {
+        target.each(function (i, n) {
+            $(n).find('.custom-insert-box').removeAttr('data-data');
+            $(n).find('.custom-insert-box').removeAttr('data-type');
+            $(n).find('.custom-insert-box').html('');
+        });
+    }
+    $(function () {
+        "use strict"
+        $('body').on('change', 'select', function () {
+            if ($(this).prop('id') == 'EntitysList') {
+                var entityid = $(this).find('option:selected').val();
+                loadViewChart(entityid);
+            }
+            if ($(this).find('option:selected').val() != '') {
+                $(this).nextAll('.requiredError').remove();
+            }
+        });
+        $('body').on('keyup', 'input', function () {
+            if ($(this).val() != '') {
+                $(this).nextAll('.requiredError').remove();
+            }
+        });
+        $(".modal").draggable({
+            handle: ".modal-header",
+            cursor: 'move',
+            refreshPositions: false
+        });
+        $('.xms-checkbox').xmsCheckbox({
+            trueHandler: function () {
+                $('#securityUserBox').removeClass('hide');
+
+            }
+            , falseHandler: function () {
+                $('#securityUserBox').addClass('hide');
+            }
+        });
+        var $isauthorization = $('#IsAuthorization');
+        if ($isauthorization.prop('checked')) {
+            $('#securityUserBox').removeClass('hide');
+        }
+    });
+</script>

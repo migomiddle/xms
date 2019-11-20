@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ve-4E95.tmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency.Abstractions\Xms.Dependency.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency\Xms.Dependency.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\RibbonButton\Xms.RibbonButton.Abstractions\Xms.RibbonButton.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema\Xms.Schema.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk.Extensions\Xms.Sdk.Extensions.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Authrization.Abstractions\Xms.Authrization.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Xms.Caching\Xms.Caching.csproj" />
+    <ProjectReference Include="..\..\Xms.Context\Xms.Context.csproj" />
+    <ProjectReference Include="..\..\Xms.Identity\Xms.Identity.csproj" />
+    <ProjectReference Include="..\Xms.QueryView.Abstractions\Xms.QueryView.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.QueryView.Domain\Xms.QueryView.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

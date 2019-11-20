@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\..\File\Xms.File\Xms.File.csproj" />
+    <ProjectReference Include="..\..\Form\Xms.Form.Abstractions\Xms.Form.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Logging\Xms.Logging.AppLog\Xms.Logging.AppLog.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema\Xms.Schema.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution.Abstractions\Xms.Solution.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Xms.Context\Xms.Context.csproj" />
+    <ProjectReference Include="..\Xms.Flow.Abstractions\Xms.Flow.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Flow.Core\Xms.Flow.Core.csproj" />
+    <ProjectReference Include="..\Xms.Flow.Domain\Xms.Flow.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

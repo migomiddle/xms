@@ -1,0 +1,65 @@
+﻿@model Xms.Web.Customize.Models.UpdateLocalizationLabelModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.ObjectId)
+                @Html.HiddenFor(x => x.ObjectColumnName)
+                <div class="form-group col-sm-12">
+                    <label for="typecode" class="col-sm-2 control-label">@app.T["typename"]</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="typecode" value="@Model.ObjectLabels.First().LabelTypeCode" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">@app.T["name"]</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" value="@Model.ObjectColumnName" disabled="disabled" />
+                    </div>
+                </div>
+                @{
+                    int i = 0;
+                    foreach (var item in Model.Languages)
+                    {
+                        var obj = Model.ObjectLabels.Find(n => (int)n.LanguageId == item.UniqueId);
+                        var label = obj != null ? obj.Label : string.Empty;
+                        <div class="form-group col-sm-12">
+                            <label for="label_@i" class="col-sm-2 control-label">@item.Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="label_@i" name="label[@i]" value="@label" />
+                                <input type="hidden" name="languageid" value="@item.UniqueId" />
+                            </div>
+                        </div>
+                        i++;
+                    }
+                }
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"));
+        });
+    </script>
+}

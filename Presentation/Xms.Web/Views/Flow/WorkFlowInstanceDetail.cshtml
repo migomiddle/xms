@@ -1,0 +1,402 @@
+﻿@using Xms.Flow.Abstractions;
+
+@model Xms.Web.Models.WorkFlowInstanceDetailModel
+@{
+    Layout = null;
+}
+   
+
+<!-- 审批（Modal） -->
+<div class="modal fade" id="wfpModal" tabindex="-1" role="dialog"
+     aria-labelledby="wfpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="wfpModalLabel">
+                    审批详情 - @(Model.FlowInfo != null ? Model.FlowInfo.Name : "")
+                </h4>
+            </div>
+            <div class="modal-body" style="height:500px;overflow-y:scroll;">
+                <div class="hide" id="recordWorkFlowInfos">@Model.Steps.SerializeToJson()</div>
+                <div id="recordWorkFlowInfosLine">
+
+                </div>
+                <div class="table-responsive" id="gridview" style="min-height:350px;">
+                    <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th width="20%">
+                                    步骤
+                                </th>
+                                <th width="15%">
+                                    处理者
+                                </th>
+                                <th width="15%">
+                                    状态
+                                </th>
+                                <th>
+                                    意见/说明
+                                </th>
+                                <th width="15%">
+                                    附件
+                                </th>
+                                <th width="15%">
+                                    处理时间
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var __flowStep = 0;
+                                foreach (var runner in Model.Items)
+                                {
+                                    __flowStep++;
+                                    <tr data-flowstep="@__flowStep" class="workflow-items-timeline" data-type="timeline">
+                                        <th colspan="6">
+                                            <h4><span class="label label-primary">@runner.CreatedOn.ToString("MM-dd HH:mm") - @(runner.CompletedOn.HasValue ? runner.CompletedOn.Value.ToString("MM-dd HH:mm") : "现在")</span></h4>
+                                        </th>
+                                    </tr>
+                                    <tr data-flowstep="@__flowStep" class="workflow-items-start" data-type="start">
+                                        <td class="workflow-item-label">1.发起申请</td>
+                                        <td class="workflow-item-handler">@runner.ApplicantName</td>
+                                        <td class="workflow-item-state"><span class="label label-success">已发起</span></td>
+                                        <td class="workflow-item-desc">@runner.Description</td>
+                                        <td class="workflow-item-attach">
+                                            @if (runner.Attachments > 0)
+                                            {
+                                                <a href="@("/" + app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@runner.WorkFlowInstanceId&preview=true" target="_blank">预览</a>
+                                                <a href="@("/" + app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@runner.WorkFlowInstanceId" target="_blank">下载</a>
+                                            }
+                                        </td>
+                                        <td class="workflow-item-date">@runner.CreatedOn.ToString("MM-dd HH:mm")</td>
+                                    </tr>
+
+                                    foreach (var step in runner.Steps)
+                                    {
+                                        <tr data-flowstep="@__flowStep" class="workflow-items" data-type="step" data-step="@(step.StepOrder + 1)">
+                                            <td class="workflow-item-label">@((step.StepOrder + 1) + "." + step.Name)</td>
+                                            <td class="workflow-item-handler">@step.HandlerIdName</td>
+                                            <td class="workflow-item-state" data-state="@step.StateCode">
+                                                @if (step.StateCode == WorkFlowProcessState.Processing)
+                                                {
+                                                    <span class="label label-info">处理中</span>
+                                                }
+                                                else if (step.StateCode == WorkFlowProcessState.Waiting)
+                                                {
+                                                    <span class="label label-default">等待中</span>
+                                                }
+                                                else if (step.StateCode == WorkFlowProcessState.Passed)
+                                                {
+                                                    <span class="label label-success"><span class="glyphicon glyphicon-ok"></span> 通过</span>
+                                                }
+                                                else if (step.StateCode == WorkFlowProcessState.UnPassed)
+                                                {
+                                                    <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span> 不通过</span>
+                                                }
+                                                else if (step.StateCode == WorkFlowProcessState.Disabled)
+                                                {
+                                                    <span class="label label-default">作废</span>
+                                                }
+                                            </td>
+                                            <td class="workflow-item-desc">@step.Description</td>
+                                            <td class="workflow-item-attach">
+                                                @if (step.Attachments > 0)
+                                                {
+                                                    <a href="@("/" + app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@step.WorkFlowProcessId&preview=true" target="_blank">预览</a>
+                                                    <a href="@("/" + app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@step.WorkFlowProcessId" target="_blank">下载</a>
+                                                }
+                                            </td>
+                                            <td class="workflow-item-date">@(step.HandleTime.HasValue ? step.HandleTime.Value.ToString("MM-dd HH:mm") : "")</td>
+                                        </tr>
+                                    }
+                                    if (runner.StateCode == WorkFlowProcessState.Canceled)
+                                    {
+                                        <tr data-flowstep="@__flowStep" class="workflow-items-end" data-type="end">
+                                            <td class="workflow-item-label">*结束</td>
+                                            <td class="workflow-item-handler">@runner.ApplicantName</td>
+                                            <td class="workflow-item-state"><span class="label label-danger">已撤消</span></td>
+                                            <td class="workflow-item-desc">@runner.Description</td>
+                                            <td class="workflow-item-attach"></td>
+                                            <td class="workflow-item-date">@(runner.CompletedOn.HasValue ? runner.CompletedOn.Value.ToString("MM-dd HH:mm") : "")</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <div><button type="button" class="btn btn-primary btn-sm" id="showhideFlow"><span class="glyphicon glyphicon-equalizer"></span> 显示流程图</button></div>
+                    <div id="workflowWrapBox" style="display:none; ">
+                        <div class="form-group row mt-2" style="">
+                            <div class="col-sm-5"><select id="filterByDateTime" class="form-control"></select></div>
+                        </div>
+                        <div class="mt-2" id="workflowWrap" style="position:relative; ">
+                            <div id="workflowWrap" style="width:100%; height:500px; position:relative;">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workflow-changer mt-2"></div>
+                </div>
+                <div class="tooltip xms-toggle-tolltip" id="infoTooltip" role="tooltip">
+                    <div class="flowinfos" id="flowinfos"></div>
+                </div>
+
+                <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/filterdialog.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.droppable.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/customize/js/flowdesign/jquery.jsPlumb-1.4.0-all.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/customize/js/flowdesign/jquery.contextmenu.r2.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/customize/js/workflow.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/customize/js/workflow-ctrl.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/jquery.sumoselect.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script src="~/content/js/pages/list.workflow.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    var WFPModel = {
+                        dialog: $('#wfpModal'),
+                        dialogid: '#wfpModal',
+                        gridview: $('#gridview'),
+                        flowsData: [],
+                        loadWorkFlowInfo: function () {
+                            //审批次数分组
+                            var flowGroups = [], _prefixed = 'flowgroup_', maxCount = 100;//最大50次
+                            for (var i = 1; i < maxCount; i++) {
+                                var $steps = $('tr[data-flowstep="' + i + '"]', WFPModel.gridview);
+                                if ($steps.length > 0) {
+                                    var temp = $('<div></div>');
+                                    temp.append($steps.clone(true));
+                                    flowGroups.push(temp);
+                                }
+                            }
+                            console.log(flowGroups);
+                            var groupdatas = []
+                            $.each(flowGroups, function (key, item) {
+                                if (item && item.length > 0) {
+                                    var $timeline = item.find('.workflow-items-timeline'), $start = item.find('.workflow-items-start'), $items = item.find('.workflow-items'), $end = item.find('.workflow-items-end');
+                                    var datas = [];
+                                    var step = 0;
+                                    console.log($timeline, $start, $items, $end);
+
+                                    if ($start.length > 0) {
+                                        if (!datas[step]) {
+                                            datas[step] = [];
+                                        }
+                                        datas[step].push(getItemInfo($start, 'start'));
+                                        step++;
+                                    }
+                                    if ($timeline.length > 0) {
+                                        datas.timeline = $timeline.children().html();
+                                    }
+                                    if ($items.length > 0) {
+                                        $items.each(function () {
+                                            var _info = getItemInfo(this, 'step');
+                                            var order = _info.order - 1;
+                                            if (!datas[order]) {
+                                                datas[order] = [];
+                                            }
+                                            datas[order].push(_info);
+                                        });
+                                    }
+                                    if ($end.length > 0) {
+                                        var _len = datas.length - 1;
+                                        if (!datas[_len]) {
+                                            datas[_len] = [];
+                                        }
+                                        datas[_len].push(getItemInfo($end, 'end'))
+                                    }
+                                    groupdatas.push(datas);
+                                }
+                            });
+                            console.log(groupdatas);
+                            WFPModel.createPointFlow(groupdatas);
+                            WFPModel.flowsData = groupdatas
+                        },
+                        createPointFlow: function (datas) {
+                            console.log($('.workflow-changer'))
+                            $.each(datas, function (key, items) {
+                                $('.workflow-changer').flowLine({
+                                    datas: items,
+                                    datamap: [{ key: 'label', value: 'label' },
+                                    { key: 'order', value: 'order' },
+                                    { key: 'handler', value: 'handler' },
+                                    { key: 'state', value: 'state' },
+                                    { key: 'desc', value: 'desc' },
+                                    { key: 'attach', value: 'attach' },
+                                    { key: 'date', value: 'date' },
+                                    { key: 'type', value: 'type' },
+                                    ]
+                                    , other: { otherHtml: '<h5>{timeline}</h5>', otherDatamap: [{ key: 'timeline', value: items.timeline }] }
+                                });
+                                $('.workflow-changer').flowLine('stepOther', 'prepend');
+                                $('.workflow-changer').flowLine('createsteplist');
+                            })
+
+                        }
+                        , loadWorkFlowLine: function () {
+                            var datas = WFPModel.flowsData;
+                            var htmls = [];
+                            console.log(datas);
+                            if (datas && datas.length > 0) {
+                                $.each(datas, function (i, n) {
+                                    if (n && n.length > 0) {
+                                        var time = n[0];
+                                        if (time && time.length > 0) {
+                                            htmls.push('<option value="' + i + '">' + time[0].date + '</option>');
+                                        }
+                                    }
+                                });
+                                $('#filterByDateTime').empty().html(htmls.join(''));
+                            }
+                        }
+                    };
+                    function getItemInfo(item, type, order) {
+                        var $item = $(item), res = {};
+                        res.order = $item.attr('data-step');
+                        res.label = $item.find('.workflow-item-label').text();
+                        res.handler = $item.find('.workflow-item-handler').text();
+                        res.state = $item.find('.workflow-item-state').text().replace(/^\s+/g, '').replace(/\s$/g, '');
+                        res.desc = $item.find('.workflow-item-desc').text();
+                        res.attach = $item.find('.workflow-item-attach').text();
+                        res.date = $item.find('.workflow-item-date').text();
+                        res.type = type || 'step';
+                        return res;
+                    }
+                    $(function () {
+                        WFPModel.dialog.modal({
+                            backdrop: 'static'
+                        })
+                        WFPModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(WFPModel.dialogid);
+                        });
+                        WFPModel.loadWorkFlowInfo();
+
+                        function loadWorkFlowPic() {
+                            var $infoTooltip = $('#infoTooltip');
+                             var $flowinfos = $('#flowinfos');
+                            loadEntities(function () {
+                                setTimeout(function () {
+                                    //加载流程设计相关信息
+                                    jsPlumb.ready(function () {
+
+                                        loadInitFlow();
+                                        $('#workflowWrap').removeClass('active').css({ 'visibility': 'visible' });
+                                        WFPModel.loadWorkFlowLine();
+                                        $('[data-toggle="tooltip"]').toggleTooltip({
+                                            target: $infoTooltip,
+                                            context: $('#workflowWrap'),
+                                            showHandler: function (target, tooltip) {
+                                                var val = $('#filterByDateTime').val();
+                                                var datas = WFPModel.flowsData;
+                                                var _label = target.find('.xmsPointer-title').text();
+                                                if (_label == '开始') {
+                                                    _label = '发起申请';
+                                                }
+                                                if (datas && datas.length > 0) {
+                                                    console.log('datas', datas);
+                                                    var htmls = [];
+                                                    var currentdatas = datas[val];
+                                                    if (currentdatas && currentdatas.length > 0) {
+                                                        $.each(currentdatas, function (i, n) {
+                                                            console.log('n', n);
+                                                            var time = n;
+                                                            console.log('time', time);
+                                                            $.each(time, function (iii, nnn) {
+                                                                if (nnn.label != '') {
+                                                                    var labelArr = nnn.label.split('.');
+                                                                    var labelname = labelArr[1];
+                                                                    if (labelname == _label) {
+                                                                        htmls.push('<div class="flowinfo-item"><span>' + nnn.handler + '</span>' + nnn.state + '</div>');
+                                                                    }
+                                                                }
+                                                            });
+                                                        });
+                                                    }
+                                                    if (htmls.length > 0) {
+                                                        $flowinfos.html(htmls.join(''))
+                                                    } else {
+                                                        $flowinfos.html('没有数据')
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                        loadFlowInfos();
+                                    });
+                                }, 300);
+                            });
+                        }
+
+                        function loadFlowInfos() {
+                            var val = $('#filterByDateTime').val();
+                            var datas = WFPModel.flowsData;
+                            var $workflowWrapBox = $('#workflowWrapBox');
+                            $workflowWrapBox.find('.xmsPointer-box').each(function (i, n) {
+                                var target = $(this);
+                                target.removeClass('xms-flowstate-active');
+                                var _label = target.find('.xmsPointer-title').text();
+                                if (_label == '开始') {
+                                    _label = '发起申请';
+                                }
+                                if (datas && datas.length > 0) {
+                                    var htmls = [];
+                                    var currentdatas = datas[val];
+                                    if (currentdatas && currentdatas.length > 0) {
+                                        $.each(currentdatas, function (i, n) {
+                                            var time = n;
+                                            $.each(time, function (iii, nnn) {
+                                                if (nnn.label != '') {
+                                                    var labelArr = nnn.label.split('.');
+                                                    var labelname = labelArr[1];
+                                                    console.log('labelname',labelname)
+                                                    if (labelname == _label && nnn.state.indexOf('处理中')!=-1) {
+                                                        target.addClass('xms-flowstate-active');
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    }
+                                    
+                                }
+                            });
+                        }
+                        var isLoadWorkFlow = false;
+                        $('#showhideFlow').on('click', function () {
+                            if ($('#workflowWrapBox').is(':hidden')) {
+                                $('#workflowWrapBox').show();
+                            } else {
+                                $('#workflowWrapBox').hide();
+                            }
+                            if (!isLoadWorkFlow) {
+                                setTimeout(function () {
+                                    loadWorkFlowPic();
+                                    isLoadWorkFlow = true;
+                                })
+                            }
+                        });
+                        $('#filterByDateTime').on('change', function () {
+                            loadFlowInfos()
+                        })
+                        // loadWorkFlowInstances(function (res) {
+                        //      WFPModel.loadWorkFlowLine();
+                        //  });
+                    });
+
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

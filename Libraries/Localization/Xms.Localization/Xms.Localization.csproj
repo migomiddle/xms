@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstractions\**" />
+    <EmbeddedResource Remove="Abstractions\**" />
+    <None Remove="Abstractions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\ILocalizedTextProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Configuration\Xms.Configuration\Xms.Configuration.csproj" />
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution\Xms.Solution.csproj" />
+    <ProjectReference Include="..\..\Xms.Caching\Xms.Caching.csproj" />
+    <ProjectReference Include="..\..\Xms.Context\Xms.Context.csproj" />
+    <ProjectReference Include="..\Xms.Localization.Domain\Xms.Localization.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

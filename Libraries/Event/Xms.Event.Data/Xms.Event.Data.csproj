@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\Xms.Event.Domain\Xms.Event.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

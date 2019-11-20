@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.6.0" />
+    <PackageReference Include="System.Management" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Xms.Infrastructure\Xms.Infrastructure.csproj" />
+    <ProjectReference Include="..\Xms.ServerHostManage.Domain\Xms.ServerHostManage.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

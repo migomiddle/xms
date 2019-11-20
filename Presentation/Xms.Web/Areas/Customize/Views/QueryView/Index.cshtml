@@ -1,0 +1,237 @@
+﻿@model Xms.Web.Customize.Models.QueryViewModel
+
+<div class="" id="gridview">
+    <div class="mb-2 toolbar">
+       
+        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
+            @Html.HiddenFor(x => x.SolutionId)
+            @Html.HiddenFor(x => x.EntityId)
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="btn-group btn-group-sm">
+                            <a class="btn btn-info" target="_blank" href="@("/"+app.OrganizationUniqueName)/customize/queryview/createqueryview?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
+                                <span class="glyphicon glyphicon-plus-sign"></span> 新增
+                            </a>
+                            <button type="button" class="btn btn-info" data-action="/customize/queryview/deletequeryview" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                            <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewDefault?isdefault=true&entityid=@Model.EntityId" data-actiondata='{"isdefault":true}' data-role="update"><span class="glyphicon glyphicon-check"></span> 设为默认</button>
+                            <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewState?entityid=@Model.EntityId&isenabled=true" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
+                            <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewState?entityid=@Model.EntityId&isenabled=false" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group input-group-sm">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+   
+    <div class="table-datagrid-view">
+        <div class="datagrid-view"></div>
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+         
+        </table>
+    </div>
+   
+</div>
+<!-- （Modal） -->
+<div class="modal fade" id="copyModal" tabindex="-1" role="dialog"
+     aria-labelledby="copyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    @app.T["times_sign"]
+                </button>
+                <h4 class="modal-title" id="navGroupModalLabel">
+                    @(app.T["copy"] + app.T["queryview"])
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="copyForm" action="@("/"+app.OrganizationUniqueName)/customize/queryview/copyqueryview" method="post" class="form-horizontal">
+                    <input name="queryviewid" type="hidden" />
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-md-2 col-xs-2  control-label">@app.T["name"]</label>
+                        <div class="col-sm-10 col-md-10 col-xs-10">
+                            <input id="name" name="name" type="text" class="form-control input-sm required" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> @app.T["cancel"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="CopyPost()">
+                    <span class="glyphicon glyphicon-ok"></span> @app.T["confirm"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Header {
+    <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+         var solutionid = '@Model.SolutionId';
+        $(function () {
+          
+            var theaders = {
+                'name': '名称',
+                'default': '默认',
+                'type': '类型',
+                'statecode': '状态',
+                'createdon': '创建时间',
+                'operation':'@app.T["operation"]'
+            }
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.queryviewid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.queryviewid + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                { "dataIndx": "name", "title": theaders.name, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "isdefault", "title": theaders.default, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" , render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+
+                        if (recordid == true) {
+                            return '<span class="label label-success">是</span>'
+                        } else {
+                            return '<span class="label label-default">否</span>'
+                        }
+                    }},
+                { "dataIndx": "isprivate", "title": theaders.type, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+
+                        if (recordid == false) {
+                            return '<span class="label label-success">公共</span>'
+                        } else {
+                            return '<span class="label label-default">个人</span>'
+                        }
+                    } },
+
+                { "dataIndx": "statecode", "title": theaders.statecode, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+
+                        if (recordid == true) {
+                            return '<span class="label label-success">启用</span>'
+                        } else {
+                            return '<span class="label label-default">禁用</span>'
+                        }
+                    } },
+                 { "dataIndx": "createdon", "title": theaders.createdon, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 220,width:220, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        var html = ''
+                        html= '<a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/entity/list?queryviewid='+datas.queryviewid+'" target="_blank"><span class="glyphicon glyphicon-play-circle"></span> 预览</a>'+
+                                ' <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/queryview/editqueryview?id='+datas.queryviewid+'&solutionid=' + solutionid + '" target="_blank"><span class="glyphicon glyphicon-edit"></span> 编辑</a>'+
+                            ' <a class="btn btn-default btn-xs" href="javascript:CopyRecord(\''+datas.queryviewid+'\')"><span class="glyphicon glyphicon-file"></span> @app.T["copy"]</a>';
+                        if (!datas.isdefault) {
+                                   html+= ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\''+datas.queryviewid+'\',\'/customize/queryview/deletequeryview\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>'
+                                }
+                        
+
+                        return html
+                    }
+                }
+            ];
+           var url = ORG_SERVERURL + '/customize/@app.ControllerName/@app.ActionName?LoadData=true&';
+            var $form = $('#searchForm');
+            var roles_filters = new XmsFilter();
+            var datagridconfig = {
+                scrollModel: { autoFit: true },
+                baseUrl: url,
+                columnConfigs: columnConfigs,//字段配置信息
+                context: $('#gridview'),//底部操作按钮方法触发
+                filters: roles_filters,//post提交时过滤条件
+                searchForm: $form//GET提交时查询的数据
+            };
+            $('.datagrid-view').xmsDataTable(datagridconfig);
+
+             $('#copyForm').ajaxForm(function (response) {
+                if (response.IsSuccess) {
+                    Xms.Web.Toast(response.Content, true);
+                    $('#copyModal').modal('hide');
+                    //location.reload(true);
+                    rebind();
+                    return;
+                }
+                Xms.Web.Alert(false, response.Content);
+             });
+           Xms.Web.Event.localStorageEvent.on('list_queryview_rebind', function () {
+                setTimeout(function () {
+                    location.reload();
+                },100)
+            });
+            
+        });
+        
+        function rebind() {
+           // $('#searchForm').submit();
+             $('.datagrid-view').cDatagrid('refreshDataAndView')
+        }
+        function CopyRecord(id) {
+            $('#copyForm').find('input[name=queryviewid]').val(id);
+            $('#copyModal').modal('show');
+        }
+        function CopyPost() {
+           
+            $('#copyForm').submit();
+        }
+    </script>
+}

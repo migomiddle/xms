@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Configuration\Xms.Configuration\Xms.Configuration.csproj" />
+    <ProjectReference Include="..\..\Libraries\Logging\Xms.Logging.AppLog\Xms.Logging.AppLog.csproj" />
+    <ProjectReference Include="..\..\Libraries\Organization\Xms.Organization\Xms.Organization.csproj" />
+    <ProjectReference Include="..\..\Libraries\Personalization\Xms.UserPersonalization\Xms.UserPersonalization.csproj" />
+    <ProjectReference Include="..\..\Libraries\Security\Xms.Security.Principal\Xms.Security.Principal.csproj" />
+    <ProjectReference Include="..\..\Libraries\SiteMap\Xms.SiteMap\Xms.SiteMap.csproj" />
+    <ProjectReference Include="..\..\Libraries\Xms.Context\Xms.Context.csproj" />
+    <ProjectReference Include="..\..\Libraries\Xms.Core\Xms.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Core">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.mvc.core\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

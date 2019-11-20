@@ -1,0 +1,110 @@
+﻿@model Xms.Web.Customize.Models.DependentComponentsModel
+@{
+    Layout = null;
+}
+
+<!--（Modal） -->
+<div class="modal fade" id="actionsModal" tabindex="-1" role="dialog"
+     aria-labelledby="actionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="actionsModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> @app.T["referenced"]
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="panel panel-default" id="gridview">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-condensed datatable" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+                            <thead>
+                                <tr>
+                                    <th width="20%" data-name="ComponentType">
+                                        类型
+                                    </th>
+                                    <th data-name="name">
+                                        名称
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    var m = Xms.Module.Core.ModuleCollection.Descriptors.Values.FirstOrDefault(x => x.Identity == item.ComponentType);
+                                    <tr>
+                                        <td>@m.Name</td>
+                                        <td>@item.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="ActionsModel.dialog_return()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+        <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script>
+                        var ActionsModel = {
+                            pageUrl : '@app.Url',
+                            dialog : $('#actionsModal'),
+                            ajaxgrid_reset : function () {
+                                ActionsModel.pag_init();
+                                Xms.Web.DataTable($("#datatable"));
+                            },
+                            pag_init : function () {
+                                $('#page-selection').bootpag({
+                                    total: $('#page-selection').attr('data-total')
+                                    , maxVisible: 5
+                                    , page: $('#page-selection').attr('data-page')
+                                    , leaps: false
+                                    , prev: '&lsaquo;'
+                                    , next: '&rsaquo;'
+                                    , firstLastUse: true
+                                    , first: '&laquo;'
+                                    , last: '&raquo;'
+                                }).on("page", function (event, /* page number here */ num) {
+                                    event.preventDefault();
+                                    var url = $.setUrlParam(ActionsModel.pageUrl, 'page', num);
+                                    $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                                        ActionsModel.ajaxgrid_reset();
+                                    });
+                                    return false;
+                                });
+                            },
+                            dialog_return: function () {
+                                console.log(1111111);
+                                ActionsModel.dialog.modal('hide');
+                            }
+                        };
+
+                        $(function () {
+                            ActionsModel.ajaxgrid_reset();
+                            $("#datatable").ajaxTable();
+                            ActionsModel.dialog.modal({
+                                backdrop:'static'
+                            });
+                            ActionsModel.dialog.on('hidden.bs.modal', function () {
+                               // Xms.Web.CloseDialog('#actionsModal');//删除字段时会删掉列表内容
+                            });
+                        });
+        </script>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

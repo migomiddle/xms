@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.Flow.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.Flow.Api.WorkflowStarterController">
+            <summary>
+            审批流启动接口
+            </summary>
+        </member>
+    </members>
+</doc>

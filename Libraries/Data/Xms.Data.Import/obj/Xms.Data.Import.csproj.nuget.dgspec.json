@@ -1,0 +1,4315 @@
+{
+  "format": 1,
+  "restore": {
+    "G:\\projects\\xms_v2\\Libraries\\Data\\Xms.Data.Import\\Xms.Data.Import.csproj": {}
+  },
+  "projects": {
+    "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj",
+        "projectName": "Xms.Configuration.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj",
+        "projectName": "Xms.Configuration",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj",
+        "projectName": "Xms.Data.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj",
+        "projectName": "Xms.Data",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "PetaPoco.Compiled": {
+              "target": "Package",
+              "version": "[6.0.415, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
+        "projectName": "Xms.DataMapping.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj",
+        "projectName": "Xms.DataMapping.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping\\Xms.DataMapping.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping\\Xms.DataMapping.csproj",
+        "projectName": "Xms.DataMapping",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping\\Xms.DataMapping.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Data\\Xms.Data.Import\\Xms.Data.Import.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Data\\Xms.Data.Import\\Xms.Data.Import.csproj",
+        "projectName": "Xms.Data.Import",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Data\\Xms.Data.Import\\Xms.Data.Import.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Data\\Xms.Data.Import\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj",
+        "projectName": "Xms.Dependency.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Domain\\Xms.Dependency.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Domain\\Xms.Dependency.Domain.csproj",
+        "projectName": "Xms.Dependency.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Domain\\Xms.Dependency.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj",
+        "projectName": "Xms.Dependency",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Domain\\Xms.Dependency.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Domain\\Xms.Dependency.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj",
+        "projectName": "Xms.Event.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj",
+        "projectName": "Xms.File.Extensions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj",
+        "projectName": "Xms.Form.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Domain\\Xms.Form.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Domain\\Xms.Form.Domain.csproj",
+        "projectName": "Xms.Form.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Domain\\Xms.Form.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj",
+        "projectName": "Xms.Form",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Domain\\Xms.Form.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Domain\\Xms.Form.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj",
+        "projectName": "Xms.Localization.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj",
+        "projectName": "Xms.Localization.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj",
+        "projectName": "Xms.Localization",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Domain\\Xms.Localization.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj",
+        "projectName": "Xms.Logging.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj",
+        "projectName": "Xms.Logging.AppLog",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.Abstractions\\Xms.Logging.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.DataLog\\Xms.Logging.DataLog.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.DataLog\\Xms.Logging.DataLog.csproj",
+        "projectName": "Xms.Logging.DataLog",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.DataLog\\Xms.Logging.DataLog.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.DataLog\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj",
+        "projectName": "Xms.Module.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj",
+        "projectName": "Xms.Module.Core",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj",
+        "projectName": "Xms.Organization.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj",
+        "projectName": "Xms.Organization",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Abstractions\\Xms.Plugin.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Abstractions\\Xms.Plugin.Abstractions.csproj",
+        "projectName": "Xms.Plugin.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Abstractions\\Xms.Plugin.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Domain\\Xms.Plugin.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Domain\\Xms.Plugin.Domain.csproj",
+        "projectName": "Xms.Plugin.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Domain\\Xms.Plugin.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin\\Xms.Plugin.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin\\Xms.Plugin.csproj",
+        "projectName": "Xms.Plugin",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin\\Xms.Plugin.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Abstractions\\Xms.Plugin.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Abstractions\\Xms.Plugin.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Domain\\Xms.Plugin.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin.Domain\\Xms.Plugin.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj",
+        "projectName": "Xms.QueryView.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj",
+        "projectName": "Xms.QueryView.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj",
+        "projectName": "Xms.QueryView",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj",
+        "projectName": "Xms.RibbonButton.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form.Abstractions\\Xms.Form.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj",
+        "projectName": "Xms.Schema.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj",
+        "projectName": "Xms.Schema.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj",
+        "projectName": "Xms.Schema.Extensions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj",
+        "projectName": "Xms.Schema",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Extensions\\Xms.Schema.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj",
+        "projectName": "Xms.Sdk.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj",
+        "projectName": "Xms.Sdk.Event",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj",
+        "projectName": "Xms.Sdk.Extensions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj",
+        "projectName": "Xms.Sdk",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping\\Xms.DataMapping.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping\\Xms.DataMapping.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.DataLog\\Xms.Logging.DataLog.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.DataLog\\Xms.Logging.DataLog.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin\\Xms.Plugin.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Plugin\\Xms.Plugin\\Xms.Plugin.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj",
+        "projectName": "Xms.Authrization.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj",
+        "projectName": "Xms.Security.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj",
+        "projectName": "Xms.Security.DataAuthorization",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data.Abstractions\\Xms.Data.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Event\\Xms.Sdk.Event.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Resource\\Xms.Security.Resource.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Resource\\Xms.Security.Resource.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj",
+        "projectName": "Xms.Security.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj",
+        "projectName": "Xms.Security.Principal",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Resource\\Xms.Security.Resource.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Resource\\Xms.Security.Resource.csproj",
+        "projectName": "Xms.Security.Resource",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Resource\\Xms.Security.Resource.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Resource\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj",
+        "projectName": "Xms.SiteMap.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj",
+        "projectName": "Xms.SiteMap",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization\\Xms.Localization.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Abstractions\\Xms.Security.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj",
+        "projectName": "Xms.Solution.Abstractions",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Domain\\Xms.Solution.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Domain\\Xms.Solution.Domain.csproj",
+        "projectName": "Xms.Solution.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Domain\\Xms.Solution.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj",
+        "projectName": "Xms.Solution",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\Xms.Solution.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Domain\\Xms.Solution.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Domain\\Xms.Solution.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj",
+        "projectName": "Xms.Caching",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj",
+        "projectName": "Xms.Context",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj",
+        "projectName": "Xms.Core",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj",
+        "projectName": "Xms.Domain",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "PetaPoco.Compiled": {
+              "target": "Package",
+              "version": "[6.0.362, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj",
+        "projectName": "Xms.Identity",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Domain\\Xms.Security.Domain.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              },
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Session\\Xms.Session.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Session\\Xms.Session.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Cookies": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
+        "projectName": "Xms.Infrastructure",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "System.Runtime.Loader": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\projects\\xms_v2\\Libraries\\Xms.Session\\Xms.Session.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Session\\Xms.Session.csproj",
+        "projectName": "Xms.Session",
+        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Session\\Xms.Session.csproj",
+        "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
+        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Session\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\feiling\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.AspNetCore.Http.Extensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

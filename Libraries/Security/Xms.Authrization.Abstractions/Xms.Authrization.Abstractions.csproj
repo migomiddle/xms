@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Security.Domain\Xms.Security.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

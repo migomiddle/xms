@@ -1,0 +1,316 @@
+﻿@using Xms.Web.Framework;
+@model Xms.Web.Models.DataListModel
+
+@section Header {
+    <link href="/content/js/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker3.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/daterangepicker/daterangepicker.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/advancedsearch/advancedsearch.css" rel="stylesheet" />
+    <style>
+        .breadcrumb {
+            display: none;
+        }
+        /*.layui-table-header{ overflow:initial;}*/
+    </style>
+}
+<div class="page-view-content">
+
+    <div class="page-view-header" id="queryviewButtons">
+    </div>
+    <div id="entityCreateSection" class="entityCreateSection">
+        <div class="entityCreateSection-close">x</div>
+        <iframe width="100%" src="" id="entityCreateIframe" class="ifrmae-list" name="entityCreateIframe" frameborder="0" scrolling="auto" height="114" style="height:100%;"></iframe>
+    </div>
+
+    <div class="margin-bottom" style="padding-top:10px;padding-top:5px;background-color: #FBFFFD;">
+        <div class="container-fluid  form-inline">
+            <div class="custom-form-group row">
+                <div class="custom-input-ctrl col-xs-3  col-sm-3" style="margin-top:6px; min-width:175px;">
+                    @if (Model.IsEnabledViewSelector)
+                    {
+                        <a id="viewDropdown" class="dropdown-toggle btn btn-info btn-sm viewDropdown-btn" data-toggle="dropdown" title="" href="#">
+                            <span class="glyphicon glyphicon-th"></span> <span class="selecter-label"></span> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="viewSelector" data-isenabled="1"></ul>
+                    }
+                    else
+                    {
+                        <label class="custom-input-inline col-sm-6" id="viewSelector" data-isenabled="0" title="" data-value="" style="text-align:left;"></label>
+                    }
+                    <div class="btn-group list-align-style" id="listAlignStyle" role="group" aria-label="切换显示方式">
+                        <span type="button" id="listAlignTop" data-type="top" class="btn "><em class="glyphicon glyphicon-object-align-top"></em></span>
+                        <span type="button" id="listAlignLeft" data-type="left" class="btn active"><em class="glyphicon glyphicon-object-align-left"></em></span>
+
+                    </div>
+
+                </div>
+
+                <div class="xms-form-dropdown col-xs-4 col-sm-4 xms-formDropDown kanban-filter hide" style="width:150px;">
+                    <div class="btn-group">
+                        <div class="btn btn-default btn-sm xms-formDownInput " style="width:130px;border-radius:4px;" title="@app.T["filter"]">
+                            <span class="glyphicon glyphicon-filter"></span>
+                            请选择字段
+                        </div><span class="caret" style="position: absolute;right: 15px;top: 50%;z-index:9;"></span>
+                    </div>
+                    <div class="xms-formDropDown-List container-fluid in" id="kanbanSearch" style="width:250px; padding:10px;">
+                        <div class="custom-input-ctrl col-sm-10">
+                            <div class="row seacher-row xms-formDropDown-Item" data-name="" data-type="picklist">
+                                <label class="col-sm-6 text-right" for="">统计字段</label>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <select class="form-control" id="aggregateField">
+                                            <option></option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row seacher-row xms-formDropDown-Item" data-name="" data-type="picklist">
+                                <label class="col-sm-6 text-right" for="">分组字段</label>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <select class="form-control" id="groupField">
+                                            <option></option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-sm-12">
+                                <div class="btn btn-default btn-sm" onclick="page_common_formSearcher.closeKanban()">@app.T["cancel"]</div>
+                                <div class="btn btn-info btn-sm" onclick="page_common_formSearcher.searchKanban(); page_common_formSearcher.closeKanban();">@app.T["dialog_ok"]</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="custom-input-ctrl col-xs-8  col-sm-8 custom-input-change date-filter-section pull-right" style="min-width:455px;">
+                    <div class="custom-btn-group" style="min-width:356px;">
+                        <div class="btn-group btn-group-sm pull-right" id="dayfilters">
+
+                            <button type="button" title="高级查找" class="btn btn-default"  onclick="advancedSearchOpen()"  style="border-radius:0; border-left:none; border-right:none;"> <span class="glyphicon glyphicon-search"></span> </button>
+                            <button type="button" class="btn btn-default hide" id="queryCalendarBtn"> <span class="glyphicon glyphicon-calendar"></span> </button>
+                            <input type="hidden" id="querycalendar" value="" />
+                           
+                            <button type="button" title="刷新" class="btn btn-default" onclick="rebind()"style=" border-left:none;"><span class="glyphicon glyphicon-refresh"></span></button>
+                            <button type="button" title="列设置" class="btn btn-default queryview-setting" onclick="$('#queryview-settingModal').modal('show')"><span class="glyphicon glyphicon-th-list"></span></button>
+                            <button type="button" title="图表" class="btn btn-default xms-slider-ctrl"><span class="glyphicon glyphicon-object-align-bottom"></span></button>
+                            @if (app.CurrentUser.IsSuperAdmin)
+                            {
+                                <button type="button" title="视图设置" class="btn btn-default" onclick="Xms.Web.OpenWindow('/@(app.OrganizationUniqueName)/customize/queryview/editqueryview?id='+Xms.Page.PageContext.QueryId)"><span class="glyphicon glyphicon-cog"></span></button>
+                            }
+                        </div>
+                    </div>
+                    @*<div class=" " style="position:relative;z-index:100; cursor: pointer;"><img src="/content/images/chartsidelite.png" /></div>*@
+
+                    <div class="custom-input-ctrl custom-input-hide filter-section pull-right">
+                        <form action="@("/"+app.OrganizationUniqueName)/entity/gridview" id="searchForm" method="post" class="form-inline">
+                            @Html.HiddenFor(x => x.EntityId)
+                            @Html.HiddenFor(x => x.QueryViewId)
+                            @Html.HiddenFor(x => x.EntityName)
+                            @Html.HiddenFor(x => x.SortBy)
+                            @Html.HiddenFor(x => x.SortDirection)
+                            <input type="hidden" value="1" name="page" />
+                            <input type="hidden" name="QField" id="QField" value="@Model.QField" />
+                            <div class="xms-form-dropdown row xms-formDropDown">
+                                <div class="col-sm-12">
+                                    <div class="btn-group">
+                                        <div class="btn btn-default btn-sm xms-formDownInput " style="width:85px;border-radius:4px 0 0 4px;" title="@app.T["filter"]"><span class="glyphicon glyphicon-filter"></span> @app.T["filter"]</div><span class="caret" style="position: absolute;right: 10px;top: 50%;z-index:9;"></span>
+
+                                    </div>
+                                    <div class="xms-formDropDown-List container-fluid" id="searchFormSearch" style="width:336px; padding:10px;">
+                                        <div style="max-height:350px;overflow-x:hidden;overflow-y:auto;" id="searchFormSearchItems">
+
+                                        </div>
+                                        <div class="row text-center">
+                                            <div class="col-sm-12">
+                                                <div class="btn btn-default btn-sm event-bind" data-eventname="page_common_formSearcher.closeSearchC"><span class="glyphicon glyphicon-ban-circle"></span> @app.T["cancel"]</div>
+                                                <div class="btn btn-default btn-sm event-bind" data-eventname="page_common_formSearcher.clearSearchFiler"><span class="glyphicon glyphicon-remove-sign"></span> @app.T["clear"]</div>
+                                                <div class="btn btn-info btn-sm event-bind" id="searchFilterListBtn" data-eventname="page_common_formSearcher.closeSearchForm"><span class="glyphicon glyphicon-ok-sign"></span> @app.T["dialog_ok"]</div>
+                                                <button type="reset" name="resetBtn" class="hide"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="kanbanview" class="hide"></div>
+    <div id="xms-gridview-section" class="xms-gridview-section  ">
+        <div class="xms-table-navtree" id="xms-table-navtree">
+
+        </div>
+        <div class="pos_re " style="width:100%;">
+            <div class="data-grid-box" id="datatable" data-refresh="closeIframeRebind">
+                <div class="datagrid-view" id="dataGridView"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="xms-fixed-slider clearfix">
+    <div class="fl">
+
+    </div>
+    <div class="fl">
+        <div class="menu-wrap menu-md menu-right" style="background:#fff;">
+            <div class="tableResize-item tableResize-ctrl" style="position: absolute; height: 400px; right: 296px; width: 10px;" id="drag"></div>
+            <div class="xms-slider-right" style="">
+                <div class="xms-slider-header">
+                    <div class="btn-toolbar" role="toolbar" aria-label="">
+                        <div class="btn-group" role="button" aria-label="" title="@app.T["chart"]"><em id="listchartWinBtn" class="glyphicon glyphicon-resize-horizontal"></em></div>
+                        <div class="btn-group" role="group" aria-label=""></div>
+                        <div class="btn-group" role="group" aria-label=""></div>
+                    </div>
+                    <div class="col-sm-12 row" style="padding: 0; margin: 0;">
+                        <select id="ChartList" class="form-control"></select>
+                    </div>
+
+                </div>
+                <div class="xms-slider-content" style="margin-top:0px;" id="viewCharts">
+
+                </div>
+                <div class="xms-slider-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tools-modal" id="groupsInserModal">
+    <div class="tools-modal-dialog">
+        <div class="tools-modal-content">
+            <div class="tools-modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="m-close-btn" aria-hidden="true" onclick="$(this).parents('.tools-modal').removeClass('active')">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="tools-modal-title"><span class="glyphicon glyphicon-th"></span> 向下钻取</h4>
+            </div>
+            <div class="tools-modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4"><label>字段</label></div>
+                        <div class="col-sm-8"><select class="groups-attributes tools-modal-control" id="groupsAttributes"></select></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tools-modal-footer">
+                <button type="button" class="btn btn-primary m-accept-btn btn-xs" id="groupsAttributesBtn">钻取</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="queryview-settingModal">
+    <div class="modal-dialog queryview-setting-modal-dialog">
+        <div class="queryview-setting-modal-content modal-content">
+            <div class="queryview-setting-modal-header modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="m-close-btn" aria-hidden="true" onclick="$(this).parents('.tools-modal').removeClass('active')">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="tools-modal-title"><span class="glyphicon glyphicon-th"></span> 编辑显示字段</h4>
+            </div>
+            <div class="modal-body">
+                <div id="querySettingWrap" class="row">
+                    <div class="col-sm-5 mult-select-wrap">
+                        <h5>隐藏字段</h5>
+                        <div class="mult-select-innerbox" id="querySettingWrapHide"></div>
+                    </div>
+                    <div class="col-sm-2" id="">
+                        <div class="text-center" style="margin-top:80px;"><button class="btn btn-sm btn-default" id="queryviewLeftCtrl"><em class="glyphicon glyphicon-arrow-right"></em></button></div>
+                        <div class="text-center"><button class="btn btn-sm btn-default" id="queryviewRightCtrl"><em class="glyphicon glyphicon-arrow-left"></em></button></div>
+                    </div>
+                    <div class="col-sm-5 mult-select-wrap">
+                        <h5>显示字段</h5>
+                        <div class="mult-select-innerbox" id="querySettingWrapShow"></div>
+                    </div>
+                    @*<div class="col-sm-2" id="">
+                            <div><button class="btn btn-sm btn-default" id="queryviewUpCtrl"><em class="glyphicon glyphicon glyphicon-arrow-up"></em></button></div>
+                            <div><button class="btn btn-sm btn-default" id="queryviewDownCtrl"><em class="glyphicon glyphicon-arrow-down"></em></button></div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary m-accept-btn btn-sm" id="queryviewSettingConfirmBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    @*<script src="/Content/js/requirejs/require.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script src="/Content/js/requirejs/config.js?v=@app.PlatformSettings.VersionNumber"></script>*@
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.droppable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.tableresize.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/locales/bootstrap-datepicker.zh-CN.min.js?v=@app.PlatformSettings.VersionNumber" charset="UTF-8"></script>
+    <script src="/content/js/xms.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.tmpl.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.printTable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/daterangepicker/moment.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/daterangepicker/daterangepicker.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/js/flowdesign/jquery.contextmenu.r2.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/clipboard.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+    @{await Html.RenderPartialAsync("FetchLabel"); }
+    <script>
+        //必须放在filters.js之前，页面导出按钮需要
+        if (typeof filters !== 'undefined') {
+            var filters = {}
+        }
+        var pageUrl = '@Url.ActionUrl(this.ViewContext, "gridview")';
+        var queryid = '@Model.QueryViewId';
+                        var entityname = '@Model.EntityName';
+        var entityid = '@Model.EntityId';
+        var pageDefaultPageSize = '@app.CurrentUser.UserSettings.PagingLimit';
+    </script>
+    <script>
+       
+    </script>
+    <script src="~/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/charts.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/formsearcher.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/list.filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/navtree.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/pages/entity.list.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+    <script src="/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/advancedsearch/advancedsearch.js"></script>
+
+    <script>
+        var gridview_filters = new XmsFilter();
+        filters = pageFilter.getFilters();
+        pageWrap_list.init();
+
+    </script>
+}

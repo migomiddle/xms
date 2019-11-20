@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk\Xms.Sdk.csproj" />
+    <ProjectReference Include="..\..\Xms.Core\Xms.Core.csproj" />
+    <ProjectReference Include="..\..\Xms.Infrastructure\Xms.Infrastructure.csproj" />
+    <ProjectReference Include="..\Xms.Notify.Abstractions\Xms.Notify.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

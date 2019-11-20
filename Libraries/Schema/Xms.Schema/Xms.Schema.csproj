@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstractions\**" />
+    <EmbeddedResource Remove="Abstractions\**" />
+    <None Remove="Abstractions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency\Xms.Dependency.csproj" />
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Localization\Xms.Localization\Xms.Localization.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Authrization.Abstractions\Xms.Authrization.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Security.Abstractions\Xms.Security.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution\Xms.Solution.csproj" />
+    <ProjectReference Include="..\..\Xms.Caching\Xms.Caching.csproj" />
+    <ProjectReference Include="..\..\Xms.Core\Xms.Core.csproj" />
+    <ProjectReference Include="..\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\Xms.Schema.Extensions\Xms.Schema.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

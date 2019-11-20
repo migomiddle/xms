@@ -1,0 +1,254 @@
+﻿body {
+    background-color: #f2f2f2;
+}
+
+li {
+    list-style: none;
+}
+
+a, a:hover {
+    text-decoration: none;
+    cursor: pointer;
+    outline:none;
+}
+
+.panel {
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+}
+
+    .panel > .panel-heading {
+        position: relative;
+        height: 42px;
+        line-height: 42px;
+        padding: 0 15px;
+        border-bottom: 1px solid #f6f6f6;
+        color: #333;
+        border-radius: 2px 2px 0 0;
+        font-size: 14px;
+    }
+    .panel > .panel-body{
+        min-height:185px;
+    }
+
+    #shortcutContainer ul li .item-icon {
+        display: inline-block;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        border-radius: 2px;
+        font-size: 30px !important;
+        background-color: #F8F8F8;
+        color: #333;
+        transition: all .3s;
+        -webkit-transition: all .3s;
+    }
+
+    #shortcutContainer ul li .item-icon span, #shortcutContainer ul li .item-icon i {
+        font-size: 20px !important;
+    }
+
+#shortcutContainer ul li:hover .item-icon {
+    background-color: #f2f2f2;
+}
+
+#shortcutContainer ul li a {
+    display: block;
+    position: relative;
+}
+
+#shortcutContainer ul li .item-remove {
+    float: right;
+    top: -3px;
+    position: absolute;
+    display: none;
+    background: #dcdcdc;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    right: -3px;
+    line-height: 16px;
+}
+
+#shortcutContainer ul li:hover .item-remove {
+    display: block;
+}
+
+#shortcutContainer ul li .item-text {
+    position: relative;
+    top: 2px;
+    display: block;
+    color: #666;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+    text-align: center;
+}
+
+.xms-table-cell-middle {
+    vertical-align: middle;
+}
+
+.xms-table-layoutfixed {
+    table-layout: fixed;
+}
+
+.label-box {
+    border-radius: 5px;
+    color: #fff;
+    margin: 15px auto;
+    cursor: pointer;
+}
+
+.label-box-left {
+    background-color: #2F80E7;
+    padding: 5px 15px;
+    border-radius: 4px 0 0 4px;
+    width: 30%;
+    min-width: 30%;
+}
+
+.label-box-right {
+    background-color: #5D9CEC;
+    padding: 10px 25px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    min-width: 70%;
+}
+
+    .label-box-right > p {
+        line-height: 26px;
+    }
+
+        .label-box-right > p:first-child {
+            font-size: 13px;
+            font-family: Arial;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .label-box-right > p:last-child {
+            font-size: 14px;
+        }
+
+.label-box-left > span, .label-box-left > span.layui-icon {
+    font-size: 22px !important;
+}
+
+.label-box-left.label-box-violet {
+    background-color: #564AA3
+}
+
+.label-box-right.label-box-violet {
+    background-color: #7266BA
+}
+
+.label-box-left.label-box-green {
+    background-color: #2B957A
+}
+
+.label-box-right.label-box-green {
+    background-color: #37BC9B
+}
+
+.label-box-left.label-box-deepblue {
+    background-color: #2b7595
+}
+
+.label-box-right.label-box-deepblue {
+    background-color: #39a5c1
+}
+
+.label-box-left.label-box-orange {
+    background-color: #FFA500
+}
+
+.label-box-right.label-box-orange {
+    background-color: #FFB800
+}
+
+.label-box-left.label-box-red {
+    background-color: #FF0000
+}
+
+.label-box-right.label-box-red {
+    background-color: #FF5722
+}
+
+.layui-table {
+    margin: 0 !important;
+}
+
+.systeminfo-body {
+    padding: 5px;
+}
+
+    .systeminfo-body h3 {
+        padding-bottom: 10px;
+        font-size: 12px;
+    }
+
+    .systeminfo-body p cite {
+        font-style: normal;
+        font-size: 30px;
+        font-weight: 300;
+        color: #009688;
+    }
+
+.systeminfo-backlog-body {
+    display: block;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    color: #999;
+    border-radius: 2px;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+}
+
+.carousel-indicators {
+    top: -35px;
+    right: 0;
+    left: initial;
+    text-align: right;
+    z-index: 0;
+}
+
+    .carousel-indicators li {
+        background-color: #e2e2e2;
+        width: 10px;
+        height: 10px;
+        margin: 0 3px;
+    }
+
+    .carousel-indicators .active {
+        background-color: #999;
+        width: 10px;
+        height: 10px;
+    }
+.panel-title {
+    padding-left:0;
+    font-size:14px;
+}
+.panel-top-tool-group {
+    padding-top: 5px;
+   
+}
+.pq-pager  .pq-page-placeholder {
+    vertical-align: middle;
+}
+#logModal .modal-content {
+    border-radius: 2px;
+}
+#logModal .modal-body {
+    padding: 0;
+}
+#logModal .modal-header {
+    border-bottom: none;
+}

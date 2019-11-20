@@ -1,0 +1,106 @@
+﻿@model AssignUserAllRecordsModel
+@{
+    Layout = null;
+}<!-- （Modal） -->
+<div class="modal fade" id="assignedModal" tabindex="-1" role="dialog"
+     aria-labelledby="assignedModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="assignedModalLabel">
+                    <span class="glyphicon glyphicon-user"></span> @app.T["reassignall"]
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row container-fluid">
+                    <form class="form-horizontal" action="assignuserallrecords" method="post">
+                        @Html.HiddenFor(x => x.UserId)
+                        <div class="form-group col-sm-12">
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <span class="text-muted">@app.T["security_assignallrecords_tip"]</span>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label><input type="radio" name="owneridtype" value="1" checked /> @app.T["assign_tome"]</label>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label><input type="radio" name="owneridtype" value="2" /> @app.T["assign_toother"]</label>
+                            <div class="">
+                                <input type="text" id="ownerid" name="ownerid_text" class="form-control input-sm lookup" />
+                                <input type="hidden" name="targetid" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    var AssignedModel = {
+                        dialog: $('#assignedModal'),
+                        dialogid: 'assignedModal',
+                        userid: '@Model.UserId',
+                        submit: function () {
+                            AssignedModel.disabledForm();
+                            AssignedModel.dialog.find('form').submit();
+                        },
+                        dialog_return: function () {
+                            AssignedModel.dialog.modal('hide');
+                        },
+                        disabledForm: function () {
+                            AssignedModel.dialog.find('button').prop('disabled', true);
+                        },
+                        dialog_return: function () {
+                            AssignedModel.dialog.modal('hide');
+                        },
+                        bindselected: function (result) {
+                            console.log(result);
+                            if (result && result.length > 0) {
+                                AssignedModel.dialog.find('input[name=targetid]').val(result[0].id);
+                            }
+                        }
+                    };
+                    $(function () {
+                        AssignedModel.dialog.modal({
+                            //backdrop: 'static'
+                        });
+                        AssignedModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(AssignedModel.dialogid);
+                        });
+                        AssignedModel.dialog.find('#ownerid').lookup({
+                            dialog: function () { Xms.Web.OpenDialog('/entity/RecordsDialog?entityname=systemuser&inputid=ownerid', 'AssignedModel.bindselected'); }
+                        , clear: function () {
+                            $('#' + inputid).val('');
+                            $('#' + valueid).val('');
+                            return false;
+                        }
+                        });
+                        AssignedModel.dialog.find('form').ajaxForm(function (response) {
+                            if (response.IsSuccess) {
+                                Xms.Web.Alert(true, response.Content);
+                                AssignedModel.resetForm();
+                                AssignedModel.dialog.find('form').resetForm();
+                                AssignedModel.dialog_return();
+                                return;
+                            }
+                            Xms.Web.Alert(false, response.Content);
+                            AssignedModel.resetForm();
+                        });
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="AssignedModel.submit()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

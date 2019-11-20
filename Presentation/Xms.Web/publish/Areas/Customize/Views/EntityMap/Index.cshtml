@@ -1,0 +1,120 @@
+﻿@model Xms.Web.Customize.Models.EntityMapModel
+
+<div class="panel panel-default" id="gridview">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@Model.Entity.LocalizedName - @app.PageTitle</strong>
+            <div class="pull-right">
+                <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/entitymap/createentitymap?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
+                    <span class="glyphicon glyphicon-file"></span> @app.T["add"]
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th data-name="targetentityid">
+                        目标
+                    </th>
+                    <th width="30%" data-name="sourceentityid">
+                        来源
+                    </th>
+                    <th width="30%" data-name="maptype">
+                        类型
+                    </th>
+                    <th width="5%" data-name="statecode">
+                        状态
+                    </th>
+                    <th width="15%" data-name="createdon">
+                        创建日期
+                    </th>
+                    <th width="20%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/entitymap/editentitymap?solutionid=@Model.SolutionId&entitymapid=@item.EntityMapId'">
+                        <td><input type="checkbox" value="@item.EntityMapId" name="recordid" /></td>
+                        <td>@item.TargetEnttiyName</td>
+                        <td>@item.SourceEnttiyName</td>
+                        <td>@item.MapType</td>
+                        <td>@Html.Raw(item.StateCode == Xms.Core.RecordState.Enabled ? "<span class=\"label label-info\">" + app.T["enabled"] + "</span>" : "<span class=\"label label-default\">" + app.T["disabled"] + "</span>")</td>
+                        <td>@item.CreatedOn</td>
+                        <td>
+                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/entitymap/editentitymap?entitymapid=@item.EntityMapId&solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</a>
+                            <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del('@item.EntityMapId','/customize/entitymap/deleteentitymap',false,rebind,null,'@app.T["entitymap_delete_confirm"]',true)"><span class="glyphicon glyphicon-trash"></span> @app.T["delete"]</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="active">
+                        <div class="form-group form-inline" role="form">
+                            <button type="button" class="btn btn-xs btn-primary" data-action="/customize/entitymap/deleteentitymap" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-xs btn-primary" data-action="/customize/entitymap/SetEntityMapState?isenabled=true&entityid=@Model.EntityId" data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
+                                <button type="button" class="btn btn-xs btn-primary" data-action="/customize/entitymap/SetEntityMapState?isenabled=false&entityid=@Model.EntityId" data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-4">
+                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+            </div>
+            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+        </div>
+    </div>
+</div>
+@section Header {
+}
+@section Scripts {
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, num) {
+                event.preventDefault();
+                pageUrl = $("#datatable").attr('data-pageurl');
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                rebind(url);
+                return false;
+            });
+        }
+        function rebind(url) {
+            url = typeof (url) == 'string' ? url : $("#datatable").attr('data-pageurl');
+            $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                ajaxgrid_reset();
+            });
+        }
+    </script>
+}

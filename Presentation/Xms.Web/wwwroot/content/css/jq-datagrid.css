@@ -1,0 +1,7 @@
+.datagrid-tr-bg{ background-color: #faffd4!important;}
+
+.datagridTable{}
+.datagridTable thead th{ background-color: #eee;}
+.datagridTable tbody tr:nth-child(even){ background-color: #fafafa;}
+.dg-validate-icon{ color:#b92c28; margin-top:5px;}
+.datagrid-validate-tooltip{ border: 1px solid #edde34; border-radius: 5px; background: #fff; height: 30px; line-height: 30px; padding: 0 10px; box-shadow: 1px 1px 2px #ccc;}

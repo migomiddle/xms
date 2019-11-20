@@ -1,0 +1,1969 @@
+﻿@model Xms.Web.Customize.Models.EditFormModel
+
+<div class="container-fluid jqueryui-custom-draggable">
+    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        @Html.HiddenFor(x => x.SolutionId)
+        @Html.HiddenFor(x => x.SystemFormId)
+        @Html.HiddenFor(x => x.EntityId)
+        @Html.HiddenFor(x => x.FormConfig)
+        @Html.HiddenFor(x => x.Name)
+        <input type="hidden" id="IsCustomButton" name="IsCustomButton" value="@if(!Model.IsCustomButton){<text>false</text>}else{<text>true</text>}" />
+        <input type="hidden" id="CustomButtons" name="CustomButtons" value="@Model.CustomButtons" />
+        <input type="hidden" id="isshownav" value="false" />
+        <input type="hidden" id="CustomCss" value="" />
+        <div class="row" style="border-top: 1px #ccc solid;border-left: 1px #ccc solid;border-right: 1px #ccc solid;border-bottom:1px #ccc solid;background: #f6f8fa;">
+            <div class="col-sm-12" role="toolbar" style="padding:0;">
+                <!--class="btn-toolbar" -->
+                <div class="pull-left btn-toolbar-group">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-primary" onclick="submitForm()"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                        <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-transfer"></span> @app.T["publish"]</button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-default" onclick="editObject()">@app.T["change_attribute"]</button>
+                        <button type="button" class="btn btn-default" onclick="removeObject()">@app.T["delete"]</button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center text-muted">@app.T["edit"]</div>
+                </div>
+                <div class="pull-left btn-toolbar-group">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown">
+                            表格 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:;" onclick="insertSection(1)"><img src="~/content/customize/imgs/formeditorribbon/Section_1col_32.png" />1@(app.T["line"])</a></li>
+                            <li><a href="javascript:;" onclick="insertSection(2)"><img src="~/content/customize/imgs/formeditorribbon/Section_2cols_32.png" />2@(app.T["line"])</a></li>
+                            <li><a href="javascript:;" onclick="insertSection(3)"><img src="~/content/customize/imgs/formeditorribbon/Section_3cols_32.png" />3@(app.T["line"])</a></li>
+                            <li><a href="javascript:;" onclick="insertSection(4)"><img src="~/content/customize/imgs/formeditorribbon/Section_4cols_32.png" />4@(app.T["line"])</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown">
+                            @app.T["tab_control"] <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:;" onclick="insertTab(1)"><img src="~/content/customize/imgs/formeditorribbon/Tab_1col_32.png" />1@(app.T["line"])</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">2@(app.T["line"])</li>
+                            <li><a href="javascript:;" onclick="insertTab(2)"><img src="~/content/customize/imgs/formeditorribbon/Tab_2cols_32.png" />@app.T["form_width_fit"]</a></li>
+                            <li><a href="javascript:;" onclick="insertTab(2,[30,70])"><img src="~/content/customize/imgs/formeditorribbon/Tab_2colsNW_32.png" />@app.T["form_wide_left_narrow_right"]</a></li>
+                            <li><a href="javascript:;" onclick="insertTab(2, [70, 30])"><img src="~/content/customize/imgs/formeditorribbon/Tab_2colsWN_32.png" />@app.T["form_narrow_right_wide_left"]</a></li>
+                            @*<li><a href="javascript:;" onclick="insertTab(2, [30, 70])"><img src="~/content/customize/imgs/formeditorribbon/Tab_2colsWW_32.png" />中间分隔</a></li>*@
+                            <li class="divider"></li>
+                            <li class="dropdown-header">3@(app.T["line"])</li>
+                            <li><a href="javascript:;" onclick="insertTab(3)"><img src="~/content/customize/imgs/formeditorribbon/Tab_3colsNNN_32.png" />@app.T["form_width_fit"]</a></li>
+                            <li><a href="javascript:;" onclick="insertTab(3, [30, 40, 30])"><img src="~/content/customize/imgs/formeditorribbon/Tab_3colsNWN_32.png" />@app.T["form_center_hoodwidth_"]</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center text-muted">@app.T["layout"]</div>
+                </div>
+                <div class="pull-left btn-toolbar-group">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-default" onclick="insertBill()">@app.T["form_document_body"]</button>
+                        <button type="button" class="btn btn-default" onclick="insertSpace()">@app.T["blank"]</button>
+                        <button type="button" class="btn btn-default" onclick="insertLabel()">@app.T["label"]</button>
+                        <button type="button" class="btn btn-default" onclick="insertFreeText()">@app.T["custom_content"]</button>
+                        <button type="button" class="btn btn-default" onclick="insertIframe()">@app.T["embedded_page"]</button>
+                        <button type="button" class="btn btn-default" onclick="insertNavLink()">@app.T["navigation_link"]</button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center text-muted">@app.T["control"]</div>
+                </div>
+                <div class="pull-left btn-toolbar-group">
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-default" onclick="editFormParams()">@app.T["form_properties"]</button>
+                        <button type="button" id="eventSetBtn" onclick="editEvents();" class="btn btn-default">
+                            事件设置
+                        </button>
+                        <button type="button" class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown">
+                            按钮设置 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:;" id="buttonSetallbtn">全部显示</a></li>
+                            <li><a href="javascript:;" id="buttonSetcusbtn">自定义</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center text-muted">@app.T["form"]</div>
+                </div>
+            </div>
+        </div>
+        <div class="row formButtons-wrap">
+            <div id="formButtons" class="pull-left formButtons"></div>
+            <div id="delbtnList" class="delbtnList btn-group pull-left">
+                <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    已移除 <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"></ul>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-bordered" style="background:#f1f3f5;">
+                <tr>
+                    <td class="col-sm-2" id="formNav">
+                        <div class="navGroup locked">
+                            <a data-toggle="collapse"
+                               href="#collapseNav1" class="collapse-title nav-title" data-target="collapseNav1">
+                                <span class="glyphicon glyphicon-chevron-down"></span> @app.T["information"]
+                            </a>
+                            <div id="collapseNav1" class="panel-collapse collapse in">
+                                <ul class="list-unstyled nav-child">
+                                    <li class="nav-item" data-label="@app.T["entity_loged"]" data-icon="" data-url="@("/"+app.OrganizationUniqueName)/platform/log"><a>@app.T["base_information"]</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="navGroup" data-label="@app.T["commonality"]">
+                            <a data-toggle="collapse"
+                               href="#collapseNav2" class="collapse-title nav-title" data-target="collapseNav2">
+                                <span class="glyphicon glyphicon-chevron-down"></span> @app.T["commonality"]
+                            </a>
+                            <div id="collapseNav2" class="panel-collapse collapse in">
+                                <ul class="list-unstyled nav-child">
+                                    <li class="nav-item" data-label="@app.T["entity_loged"]" data-type="0" data-icon="" data-url="@("/"+app.OrganizationUniqueName)/platform/log"><a>@app.T["entity_loged"]</a></li>
+                                    <li class="nav-item" data-label="@app.T["entity_sys_workflowid"]" data-type="0" data-icon="" data-url="@("/"+app.OrganizationUniqueName)/customize/workflow/index"><a>@app.T["entity_sys_workflowid"]</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="formContent">
+                        <div style="min-height:450px; max-height:600px; overflow-y:scroll; overflow-x:hidden;">
+                            <div class="header section locked" data-columns="2" data-label="@app.T["title"]" data-isvisible="true" data-isshowlabel="false" data-celllabelwidth="100" data-celllabelalignment="Left" data-celllabelposition="Left">
+                                <div class="section-title header-title hidden-text"><span class="glyphicon glyphicon-lock"></span> @app.T["title"]</div>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td class="col-sm-2 field placeholder"></td>
+                                        <td class="col-sm-2 field placeholder"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="formBody" style="min-height:300px;width:100%;">
+                                <div class="tab" data-label="@app.T["information"]" data-isshowlabel="true" data-isexpanded="true" data-isvisible="true">
+                                    <a data-toggle="collapse"
+                                       href="#collapse1" class="collapse-title tab-title" data-target="collapse1">
+                                        <span class="glyphicon glyphicon-chevron-down"></span> <span class="title">@app.T["information"]</span>
+                                    </a>
+                                    <!--a class="edit"><span class="glyphicon glyphicon-cog"></span></a-->
+                                    <div id="collapse1" class="panel-collapse collapse in">
+                                        <div class="section" data-columns="2" data-label=@app.T["base_information"] data-isvisible="true" data-isshowlabel="false" data-celllabelwidth="100" data-celllabelalignment="Left" data-celllabelposition="Left">
+                                            <div class="section-title content-title title hidden-text">@app.T["base_information"]</div>
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <td class="col-sm-2 field placeholder"></td>
+                                                    <td class="col-sm-2 field placeholder"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer section locked" data-columns="2" data-label="@app.T["page_foot"]" data-isvisible="true" data-isshowlabel="false" data-celllabelwidth="100" data-celllabelalignment="Left" data-celllabelposition="Left">
+                                <div class="section-title footer-title hidden-text"><span class=" glyphicon glyphicon-lock"></span> @app.T["page_foot"]</div>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td class="col-sm-2 field placeholder"></td>
+                                        <td class="col-sm-2 field placeholder"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-sm-2">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <a data-toggle="collapse" class="collapse-title"
+                                       href="#collapseAttributes" data-target="collapseAttributes"><span class="glyphicon glyphicon-chevron-right"></span>@app.T["field_explorer"]</a>
+                                </div>
+                            </div>
+                            <div id="collapseAttributes" class="panel-collapse collapse in">
+                                <div class="panel-body" style=" ">
+                                    <ul class="list-unstyled attributes" id="attributes"></ul>
+                                    <div class="createAttribute btn btn-primary btn-sm" onclick="createNewAttribute()"><span class="glyphicon">+</span>新建字段</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+<!-- 表单参数设置（Modal） -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+     aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    @app.T["times_sign"]
+                </button>
+                <h4 class="modal-title" id="formModalLabel">
+                    @app.T["form_parameter"]
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="formTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab1" data-toggle="tab">
+                            @app.T["show"]
+                        </a>
+                    </li>
+                    <li><a href="#tab2" data-toggle="tab">@app.T["event"]</a></li>
+                    <li><a href="#tab3" data-toggle="tab">样式</a></li>
+                </ul>
+                <div id="formTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="form-name">@app.T["name"]*</label>
+                            <input id="form-name" name="form-name" type="text" value="@app.T["new_form"]" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="form-isshownav">@app.T["show_navigation"]</label>
+                            <input id="form-isshownav" name="form-isshownav" value="false" type="checkbox" />
+                        </div>
+                        <div class="form-group">
+                            <label for="form-name">@app.T["explain"]</label>
+                            <textarea id="form-description" name="form-description" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab2" style="padding:5px;">
+                        <fieldset>
+                            <legend>@app.T["script_library"]</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('form')"><span class="glyphicon glyphicon-plus-sign"></span> @app.T["append"]</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> @app.T["remove"]</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="@app.T["form_move_up"]">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> @app.T["form_move_up"]
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="@app.T["form_move_down"]">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> @app.T["form_move_down"]
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table" id="form-libraries">
+                                    <thead><tr><th>@app.T["name"]</th><th>@app.T["explain"]</th></tr></thead>
+                                    <tbody id="formScript"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>@app.T["event"]</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="addEvent('form')"><span class="glyphicon glyphicon-plus-sign"></span> @app.T["append"]</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> @app.T["remove"]</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="@app.T["form_move_up"]">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> @app.T["form_move_up"]
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="@app.T["form_move_down"]">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> @app.T["form_move_down"]
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table" id="form-actions">
+                                    <thead><tr><th>@app.T["script_library"]</th><th>@app.T["event"]</th><th>@app.T["function"]</th></tr></thead>
+                                    <tbody id="formEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="tab-pane  fade " id="tab3" style="padding:10px;">
+                        <h4 class="text-primary"><span class="glyphicon glyphicon-tags"></span> 标签 <span class="text-danger">请勾选后启用</span></h4>
+                        <div class="form-group clearfix" style="">
+                            <div class="col-sm-3 text-right"><label class="" for="table-labelfontcolor">字体颜色：</label></div>
+                            <div class="col-sm-6"><input id="table-fontcolor" name="table-fontcolor" type="text" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-islabelfontcolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="table-labelfontsize" style="margin-bottom:20px;">字体大小：</label></div>
+                            <div class="col-sm-6" style="padding-top:8px;">
+                                <input id="table-labelfontsize" name="table-labelfontsize" type="hidden" class="form-control input-sm fontsize-picker" />
+
+                            </div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-islabelfontsize" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="table-labelbackgroundcolor">背景颜色：</label></div>
+                            <div class="col-sm-6"> <input id="table-labelbackgroundcolor" name="table-labelbackgroundcolor" type="text" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-islabelbackgroundcolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="table-labeltextalign">对齐：</label></div>
+                            <div class="col-sm-6">
+                                <label><input type="radio" value="left" name="table-labeltextalign" />左边</label>
+                                <label><input type="radio" value="center" name="table-labeltextalign" />中间</label>
+                                <label><input type="radio" value="right" name="table-labeltextalign" />右边</label>
+                            </div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-islabeltextalign" /></label></div>
+                        </div>
+
+
+                        <h4 class="text-primary"><span class="glyphicon glyphicon-text-size"></span> 输入框 <span class="text-danger">请勾选后启用</span></h4>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="table-inputbordercolor">边框颜色：</label></div>
+                            <div class="col-sm-6"><input id="table-inputbordercolor" name="table-inputbordercolor" type="hidden" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-isinputbordercolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix" style="height:50px;">
+                            <div class="col-sm-3 text-right"><label class="" for="table-inputbordersize" style="margin-bottom:20px;">边框大小：</label></div>
+                            <div class="col-sm-6" style="padding-top:8px;"><input id="table-inputbordersize" name="table-inputbordersize" type="text" class="form-control input-sm borderwidth-picker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-isinputbordersize" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="table-inputbackgroundcolor">背景颜色：</label></div>
+                            <div class="col-sm-6"><input id="table-inputbackgroundcolor" name="table-inputbackgroundcolor" type="text" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-isinputbackgroundcolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="table-inputtextalign">对齐：</label></div>
+                            <div class="col-sm-6">
+                                <label><input type="radio" value="left" name="table-inputtextalign" />左边</label>
+                                <label><input type="radio" value="center" name="table-inputtextalign" />中间</label>
+                                <label><input type="radio" value="right" name="table-inputtextalign" />右边</label>
+                            </div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="table-isinputtextalign" /></label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    @app.T["cancel"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveFormParams()">
+                    @app.T["confirm"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 导航分组设置（Modal） -->
+<div class="modal fade" id="navGroupModal" tabindex="-1" role="dialog"
+     aria-labelledby="navGroupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="navGroupModalLabel">
+                    导航分组
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="navgroup-name">组名称</label>
+                    <input id="navgroup-name" name="navgroup-name" type="text" class="form-control input-sm" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveNavGroup()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 导航项目设置（Modal） -->
+<div class="modal fade" id="navItemModal" tabindex="-1" role="dialog"
+     aria-labelledby="navItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="navItemModalLabel">
+                    导航项目
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="navitem-label">名称</label>
+                    <input id="navitem-label" name="navitem-label" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="navitem-icon">图标</label>
+                    <input id="navitem-icon" name="navitem-icon" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="navitem-url">链接</label>
+                    <input id="navitem-url" name="navitem-url" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="navitem-url">实体</label>
+                    <input id="navitem-url" name="navitem-url" type="text" class="form-control input-sm" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveNavItem()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 选项卡参数设置（Modal） -->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog"
+     aria-labelledby="tabModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="tabModalLabel">
+                    选项卡参数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="tabTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab-tab1" data-toggle="tab">
+                            信息
+                        </a>
+                    </li>
+                    <li><a href="#tab-tab2" data-toggle="tab">布局</a></li>
+                    <li><a href="#tab-tab3" data-toggle="tab">事件</a></li>
+                </ul>
+                <div id="tabTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="tab-tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="tab-name">名称</label>
+                            <input id="tab-name" name="tab-name" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="tab-label">标签</label>
+                            <input id="tab-label" name="tab-label" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="tab-isshowlabel">
+                                显示标签
+                                <input id="tab-isshowlabel" name="tab-isshowlabel" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="tab-isexpanded">
+                                默认展开
+                                <input id="tab-isexpanded" name="tab-isexpanded" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="tab-isvisible">
+                                可见
+                                <input id="tab-isvisible" name="tab-isvisible" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="tab-DisplayStyle">
+                                以页签显示
+                                <input id="tab-DisplayStyle" name="tab-DisplayStyle" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group" id="isAsync">
+                            <label for="tab-isAsync">
+                                异步加载
+                                <input id="tab-isAsync" name="tab-isAsync" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-tab2" style="padding:5px;">
+                        <label>一列 <input type="radio" value="1" name="tab-layout" /></label>
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-info"></td></tr></table>
+                            </li>
+                        </ul>
+                        <label>两列 <input type="radio" value="11" name="tab-layout" /></label>
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-warning col-sm-6"></td><td class="bg-info col-sm-6"></td></tr></table>
+                            </li>
+                            <li>
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-warning col-sm-8"></td><td class="bg-info col-sm-4"></td></tr></table>
+                            </li>
+                            <li>
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-warning col-sm-4"></td><td class="bg-info col-sm-8"></td></tr></table>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li>
+                                <label for="tab-col1Width">列 1 宽度</label>
+                                <input name="tab-col1Width" value="" />%
+                            </li>
+                            <li>
+                                <label for="tab-col2Width">列 2 宽度</label>
+                                <input name="tab-col2Width" value="" />%
+                            </li>
+                            <li>
+                                <label for="tab-col3Width">列 3 宽度</label>
+                                <input name="tab-col3Width" value="" />%
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="tab-tab3" style="padding:5px;">
+                        <fieldset>
+                            <legend>脚本库</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('tab')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before',this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>名称</th><th>说明</th></tr></thead>
+                                    <tbody id="tabScript"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>事件</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="addEvent('tab')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>脚本库</th><th>事件</th><th>函数</th></tr></thead>
+                                    <tbody id="tabEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveTab()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 表格参数设置（Modal） -->
+<div class="modal fade" id="sectionModal" tabindex="-1" role="dialog"
+     aria-labelledby="sectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="sectionModalLabel">
+                    表格参数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="sectionTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#section-tab1" data-toggle="tab">
+                            信息
+                        </a>
+                    </li>
+                    <li><a href="#section-tab2" data-toggle="tab">布局</a></li>
+                    <li><a href="#section-tab3" data-toggle="tab">事件</a></li>
+                    <li><a href="#section-tab4" data-toggle="tab">标签样式</a></li>
+                </ul>
+                <div id="sectionTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="section-tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="section-name">名称</label>
+                            <input id="section-name" name="section-name" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="section-label">标签</label>
+                            <input id="section-label" name="section-label" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="section-isshowlabel">显示标签</label>
+                            <input id="section-isshowlabel" name="section-isshowlabel" type="checkbox" />
+                        </div>
+                        <div class="form-group">
+                            <label for="section-isvisible">可见</label>
+                            <input id="section-isvisible" name="section-isvisible" type="checkbox" />
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="section-tab2" style="padding:5px;">
+                        <label>一列</label>
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <input type="radio" value="1" name="section-layout" />
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-info"></td></tr></table>
+                            </li>
+                        </ul>
+                        <label>两列</label>
+                        <ul class="list-unstyled list-inline">
+                            <li>
+                                <input type="radio" value="11" name="section-layout" />
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-warning col-sm-6"></td><td class="bg-info col-sm-6"></td></tr></table>
+                            </li>
+                            <li>
+                                <input type="radio" value="11" name="section-layout" />
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-warning col-sm-8"></td><td class="bg-info col-sm-4"></td></tr></table>
+                            </li>
+                            <li>
+                                <input type="radio" value="11" name="section-layout" />
+                                <table class="table table-bordered layoutItem" style="height:50px;width:100px;"><tr><td class="bg-warning col-sm-4"></td><td class="bg-info col-sm-8"></td></tr></table>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li>
+                                <label for="section-col1Width">列 1 宽度</label>
+                                <input name="section-col1Width" value="" />%
+                            </li>
+                            <li>
+                                <label for="section-col2Width">列 2 宽度</label>
+                                <input name="section-col2Width" value="" />%
+                            </li>
+                            <li>
+                                <label for="section-col3Width">列 3 宽度</label>
+                                <input name="section-col3Width" value="" />%
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="section-tab3" style="padding:5px;">
+                        <fieldset>
+                            <legend>脚本库</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('section')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>名称</th><th>说明</th></tr></thead>
+                                    <tbody id="sectionScript"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>事件</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="addEvent('section')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>脚本库</th><th>事件</th><th>函数</th></tr></thead>
+                                    <tbody id="sectionEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="tab-pane fade" id="section-tab4" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="section-attrwidth">宽度</label>
+                            <input id="section-attrwidth" name="section-attrwidth" type="text" value="100" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="section-attralignment">对齐</label>
+                            <select id="section-attralignment" name="section-attralignment" class="form-control input-sm">
+                                <option value="Left">左边</option>
+                                <option value="Right">右边</option>
+                                <option value="Center">中间</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="section-attrposition">标签位置</label>
+                            <select id="section-attrposition" name="section-attrposition" class="form-control input-sm">
+                                <option value="Left">左边</option>
+                                <option value="Top">上面</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveSection()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 字段参数设置（Modal） -->
+<div class="modal fade" id="attributeModal" tabindex="-1" role="dialog"
+     aria-labelledby="attributeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="attributeModalLabel">
+                    字段参数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="attributeTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#attribute-tab1" data-toggle="tab">
+                            信息
+                        </a>
+                    </li>
+                    <li><a href="#attribute-tab2" data-toggle="tab">事件</a></li>
+                    <li style="display:none;"><a href="#attribute-tab3" data-toggle="tab">公式</a></li>
+                    <li><a href="#attribute-tab4" data-toggle="tab">样式</a></li>
+                </ul>
+                <div id="attributeTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="attribute-tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="field-name">名称</label>
+                            <input id="field-name" name="field-name" type="text" class="form-control input-sm" maxlength="20" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label for="field-label">标签</label>
+                            <input id="field-label" name="field-label" type="text" class="form-control input-sm" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <label for="field-colspan">所占列数</label>
+                            <input id="field-colspan" name="field-colspan" type="text" class="form-control input-sm" data-type="int" />
+                        </div>
+                        <div class="form-group">
+                            <label for="field-isshowlabel">
+                                显示标签
+                                <input id="field-isshowlabel" name="field-isshowlabel" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="field-isvisible">
+                                可见
+                                <input id="field-isvisible" name="field-isvisible" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="field-isreadonly">
+                                只读
+                                <input id="field-isreadonly" name="field-isreadonly" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group field-IsFilterRelationctrl">
+                            <label for="field-IsFilterRelation">
+                                记录筛选
+                                <input id="field-IsFilterRelation" name="field-IsFilterRelation" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group field-IsFilterRelationctrl" id="field-RelationRecordBox" style="display:none;">
+                            <select id="field-RelationRecordSourc" class="form-control input-sm" name="field-RelationRecordSourc"></select>
+                            <div>包含</div>
+                            <select id="field-RelationRecord" class="form-control input-sm" name="field-RelationRecord"></select>
+                            <label for="field-AllowFilterOff">
+                                <input id="field-AllowFilterOff" name="field-AllowFilterOff" value="false" type="checkbox" />
+                                允许用户关闭筛选器
+                            </label>
+                        </div>
+                        <div class="form-group" id="field-viewbox" style="display:none;">
+                            <label for="field-viewid">视图</label>
+                            <select size="3" id="field-viewid" class="form-control" name="field-viewid"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="field-EntityName">扩展属性</label>
+                            <select id="field-EntityName" class="form-control input-sm" name="field-EntityName"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="field-AttributeName">扩展属性值</label>
+                            <select id="field-AttributeName" class="form-control input-sm" name="field-AttributeName"></select>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="attribute-tab2" style="padding:5px;">
+                        <fieldset>
+                            <legend>脚本库</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>名称</th><th>说明</th></tr></thead>
+                                    <tbody id="fieldScript">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>事件</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="addEvent('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>脚本库</th><th>事件</th><th>函数</th></tr></thead>
+                                    <tbody id="fieldEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="tab-pane fade" id="attribute-tab3" style="padding:5px;">
+                        <div class="form-group">
+                            <label>类型</label>
+                            <select class="form-control input-sm" name="subgrid-entityedit-type">
+                                <option value="1" selected="selected">数学运算</option>
+                                <option value="2">时间差</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="formulaPRule">
+                            <label style="width:100%;" id="formulaPAdd">公式规则<a data-type="formula">+子运算</a><a data-type="constant">+常数</a><a data-type="field">+字段</a></label>
+                            <div id="formulaPGroup">
+                                <!--<div class="formulaP-item" data-type="field" data-field="TotalTax"><font></font><span>税金</span></div>
+                                                                <div class="formulaP-item" data-type="constant"><font>+</font><span>15</span><em>×</em></div>
+                                                                <div class="formulaP-item" data-type="constant"><font>*</font><span>15</span><em>×</em></div>
+                                                                <div class="formulaP-item active formulaP-item-group" data-type="formula"><font>+</font>（<div class="group-main">
+                                                                    <div class="formulaP-item" data-type="field" data-field="FreightAmount"><font></font><span>运费金额</span></div>
+                                                                    <div class="formulaP-item" data-type="field" data-field="DiscountAmount"><font>+</font><span>折扣金额</span><em>×</em></div>
+                                                                </div>）<em>×</em></div>
+                                -->
+                            </div>
+                            <div class="formulaP-change" style="margin-top:20px;">
+                                <div class="col-sm-5" style="padding-left:0px;padding-right:10px;">
+                                    <select size="6" id="formulaPField" class="form-control input-sm" style="height:120px;" disabled="disabled"></select>
+                                </div>
+                                <div class="col-sm-7" style="padding-right:0px;padding-left:10px;">
+                                    <div id="formulaPOperator" style="margin-bottom:20px;">
+                                        <span class="btn btn-default" data-key="+" disabled="disabled">+</span>
+                                        <span class="btn btn-default" data-key="-" disabled="disabled">-</span>
+                                        <span class="btn btn-default" data-key="*" disabled="disabled">×</span>
+                                        <span class="btn btn-default" data-key="/" disabled="disabled">÷</span>
+                                        <span class="btn btn-default" data-key="" disabled="disabled">无</span>
+                                    </div>
+                                    <input type="text" id="formulaPConstant" placeholder="输入常数" class="form-control input-sm" disabled="disabled" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane  fade " id="attribute-tab4" style="padding:10px;">
+                        <h4 class="text-primary"><span class="glyphicon glyphicon-tags"></span> 标签 <span class="text-danger">请勾选后启用</span></h4>
+                        <div class="form-group clearfix" style="">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-labelfontcolor">字体颜色：</label></div>
+                            <div class="col-sm-6"><input id="table-fontcolor" name="tableattribute-labelfontcolor" type="text" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabelfontcolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-labelfontsize" style="margin-bottom:20px;">字体大小：</label></div>
+                            <div class="col-sm-6" style="padding-top:8px;">
+                                <input id="tableattribute-labelfontsize" name="tableattribute-labelfontsize" type="hidden" class="form-control input-sm fontsize-picker" />
+                            </div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabelfontsize" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-labelbackgroundcolor">背景颜色：</label></div>
+                            <div class="col-sm-6"> <input id="tableattribute-labelbackgroundcolor" name="tableattribute-labelbackgroundcolor" type="text" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabelbackgroundcolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-labeltextalign">对齐：</label></div>
+                            <div class="col-sm-6">
+                                <label><input type="radio" value="left" name="tableattribute-labeltextalign" />左边</label>
+                                <label><input type="radio" value="center" name="tableattribute-labeltextalign" />中间</label>
+                                <label><input type="radio" value="right" name="tableattribute-labeltextalign" />右边</label>
+                            </div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabeltextalign" /></label></div>
+                        </div>
+
+
+                        <h4 class="text-primary"><span class="glyphicon glyphicon-text-size"></span> 输入框 <span class="text-danger">请勾选后启用</span> </h4>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputbordercolor">边框颜色：</label></div>
+                            <div class="col-sm-6"><input id="tableattribute-inputbordercolor" name="tableattribute-inputbordercolor" type="hidden" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputbordercolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix" style="height:50px;">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputbordersize" style="margin-bottom:20px;">边框大小：</label></div>
+                            <div class="col-sm-6" style="padding-top:8px;"><input id="tableattribute-inputbordersize" name="tableattribute-inputbordersize" type="text" class="form-control input-sm borderwidth-picker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputbordersize" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputbackgroundcolor">背景颜色：</label></div>
+                            <div class="col-sm-6"><input id="tableattribute-inputbackgroundcolor" name="tableattribute-inputbackgroundcolor" type="text" class="form-control input-sm colorpicker" /></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputbackgroundcolor" /></label></div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputtextalign">对齐：</label></div>
+                            <div class="col-sm-6">
+                                <label><input type="radio" value="left" name="tableattribute-inputtextalign" />左边</label>
+                                <label><input type="radio" value="center" name="tableattribute-inputtextalign" />中间</label>
+                                <label><input type="radio" value="right" name="tableattribute-inputtextalign" />右边</label>
+                            </div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputtextalign" /></label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveField()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 单据体设置（Modal） -->
+<div class="modal fade" id="subGridModal" tabindex="-1" role="dialog" data-isnew="true"
+     aria-labelledby="subGridModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="subGridModalLabel">
+                    单据体
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="attributeTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#subgrid-tab1" data-toggle="tab">
+                            显示
+                        </a>
+                    </li>
+                    <li><a href="#subgrid-tab2" data-toggle="tab">事件</a></li>
+                </ul>
+                <div id="subgridTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="subgrid-tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="subgrid-name">唯一标识*</label>
+                            <input id="subgrid-name" name="subgrid-name" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-label">标签*</label>
+                            <input id="subgrid-label" name="subgrid-label" type="text" class="form-control input-sm" />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="subgrid-isshowlabel">显示标签</label>
+                            <input id="subgrid-isshowlabel" name="subgrid-isshowlabel" type="checkbox" />
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-isvisible">可见</label>
+                            <input id="subgrid-isvisible" name="subgrid-isvisible" type="checkbox" />
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-editable">允许编辑</label>
+                            <input id="subgrid-editable" name="subgrid-editable" type="checkbox" />
+                        </div>
+                        <div class="form-group" id="subgrid-rowcount-input" style="display:none;">
+                            <label for="subgrid-rowcount">默认空行</label>
+                            <input id="subgrid-rowcount" name="subgrid-rowcount" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-ispager">是否分页</label>
+                            <input id="subgrid-ispager" name="subgrid-ispager" type="checkbox" />
+                        </div>
+                        <div class="form-group" id="subgrid-pagesize-input" style="display:none;">
+                            <label for="subgrid-pagesize">行数</label>
+                            <input id="subgrid-pagesize" name="subgrid-pagesize" value="5" type="text" class="form-control input-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-record">记录</label>
+                            <select id="subgrid-record" class="form-control input-sm" name="subgrid-record" onchange="getEntity(this)">
+                                <option value="related">仅相关记录</option>
+                                <option value="entity">所有记录</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-entity">实体</label>
+                            <select id="subgrid-entity" class="form-control input-sm" name="subgrid-entity" onchange="getViewid(this, null, 'edit')"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subgrid-viewid">视图</label>
+                            <select id="subgrid-viewid" class="form-control input-sm" name="subgrid-viewid"></select>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="subgrid-tab2" style="padding:5px;">
+                        <div class="subgrid-entity-item">
+                            <div class="form-group">
+                                <label for="subgrid-entityedit">字段</label>
+                                <select id="subgrid-entityedit" class="form-control input-sm" name="subgrid-entityedit">
+                                    <option value="-1"></option>
+                                    <option value="count" data-type="int">个数</option>
+                                    <option value="money" data-type="decemil">金额</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subgrid-entityedit-type">类型</label>
+                                <select id="subgrid-entityedit-type" disabled onchange="changeSubgridTypeShow(this);" class="form-control input-sm" name="subgrid-entityedit-type">
+                                    <option value="1">公式</option>
+                                    <option value="2">扩展属性</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="subgrid-formula-edit">
+                                @*<span class="btn btn-primary" onclick="editFormula();">添加公式</span>*@
+                                <div class="subgrid-formula-show clearfix" id="subgrid-formula-show" style="display:none;">
+                                    <div class="formula-entitysRender col-sm-5" id="formula-entitysRender">
+                                        <select id="subgrid-formula-entitys" size="6" class="form-control input-sm" name="subgrid-formula-entitys" style="height:120px;">
+                                            <option value="sum">合计</option>
+                                            <option value="count">个数</option>
+                                            <option value="money">金额</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="formula-typerender col-sm-7" id="formula-typerender">
+                                        <span class="btn btn-default formula-type-item" data-key="+">+</span>
+                                        <span class="btn btn-default formula-type-item" data-key="-">-</span>
+                                        <span class="btn btn-default formula-type-item" data-key="*">*</span>
+                                        <span class="btn btn-default formula-type-item" data-key="/">/</span>
+                                        <span class="btn btn-default formula-type-item" data-key="(">(</span>
+                                        <span class="btn btn-default formula-type-item" data-key=")">)</span>
+                                        <span class="btn btn-default formula-type-item" data-key="=">=</span>
+                                    </div>
+                                    <div class="col-sm-12 formula-show-rule" id="formula-show-rule" style="min-height:60px; border:1px solid #ddd;">
+
+                                    </div>
+                                </div>
+                                <input type="hidden" id="subgrid-formulaedit" name="subgrid-formulaedit" />
+                            </div>
+                            <div class="form-group" id="subgrid-ext-edit" style="display:none;">
+
+                                <div class="subgrid-entityedit-extlist">
+                                    <table class="table subgrid-entityedit-extable">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <label for="subgrid-entityedit-ext">目标字段</label>
+                                                    <select id="subgrid-entityedit-ext" class="form-control input-sm" name="subgrid-entityedit-ext"></select>
+                                                </th>
+                                                <th>
+                                                    <label for="subgrid-entityedit-ext-res">来源字段</label>
+                                                    <select id="subgrid-entityedit-ext-res" class="form-control input-sm" name="subgrid-entityedit-ext"></select>
+                                                </th>
+                                                <th><button class="subgrid-entityedit-addext btn btn-primary btn-sm"><em>+</em>添加</button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveSubGrid()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 导航链接（Modal） -->
+<div class="modal fade" id="addNavLinkModal" tabindex="-1" role="dialog" data-isnew="true"
+     aria-labelledby="navLinkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="navLinkModalLabel">
+                    导航链接
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="navLink-name">名称*</label>
+                    <input id="navLink-name" name="navLink-name" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="navLink-icon">图标</label>
+                    <input id="navLink-icon" name="navLink-icon" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="navLink-urlType"><input id="navLink-urlType" checked type="radio" name="navLinkType" value="0" />链接</label>
+                    <input id="navLink-url" name="navLink-url" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="navLink-entityType"><input id="navLink-entityType" type="radio" name="navLinkType" value="1" />实体</label>
+                    <select id="navLink-entity" disabled class="form-control input-sm" name="navLink-entity"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="addNavLink()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- iframe设置（Modal） -->
+<div class="modal fade" id="iframeModal" tabindex="-1" role="dialog"
+     aria-labelledby="iframeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="iframeModalLabel">
+                    嵌入页面
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="iframe-name">名称*</label>
+                    <input id="iframe-name" name="iframe-name" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="iframe-url">链接*</label>
+                    <input id="iframe-url" name="iframe-url" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="iframe-rowsize">行数*</label>
+                    <input id="iframe-rowsize" name="iframe-rowsize" type="text" class="form-control input-sm" />
+                </div>
+                <div class="form-group">
+                    <label for="iframe-scroll">滚动</label>
+                    <select id="iframe-scroll" class="form-control input-sm" name="iframe-scroll">
+                        <option value="lookfor">视需要而定</option>
+                        <option value="all">始终</option>
+                        <option value="not">从不</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iframe-isshowlabel">显示标签</label>
+                    <input id="iframe-isshowlabel" name="iframe-isshowlabel" type="checkbox" />
+                </div>
+                <div class="form-group">
+                    <label for="iframe-border">
+                        显示边框
+                        <input id="iframe-border" name="iframe-border" type="checkbox" />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="iframe-allowcrossdomain">
+                        允许跨域
+                        <input id="iframe-allowcrossdomain" name="iframe-allowcrossdomain" type="checkbox" />
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveIframe()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 标签参数设置（Modal） -->
+<div class="modal fade" id="setLabelModal" tabindex="-1" role="dialog"
+     aria-labelledby="setLabelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="setLabelModalLabel">
+                    标签参数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="setLabelTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#setLabel-tab1" data-toggle="tab">
+                            显示
+                        </a>
+                    </li>
+                    <li><a href="#setLabel-tab2" data-toggle="tab">事件</a></li>
+                </ul>
+                <div id="setLabelContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="setLabel-tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <label for="setLabel-name">名称</label>
+                            <input id="setLabel-name" name="setLabel-name" type="text" class="form-control input-sm" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <label for="setLabellabel">标签</label>
+                            <input id="setLabellabel" name="setLabellabel" type="text" class="form-control input-sm" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <label for="setLabelcolspan">所占列数</label>
+                            <input id="setLabelcolspan" name="setLabelcolspan" type="text" class="form-control input-sm" data-type="int" />
+                        </div>
+                        <div class="form-group">
+                            <label for="setLabelisshowlabel">
+                                显示标题
+                                <input id="setLabelisshowlabel" name="setLabelisshowlabel" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="setLabelIsVisible">
+                                可见
+                                <input id="setLabelIsVisible" name="setLabelIsVisible" value="true" type="checkbox" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="setLabel-EntityName">扩展属性</label>
+                            <select id="setLabel-EntityName" onchange="changeGetEntityName(this);" class="form-control input-sm" name="setLabel-EntityName"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="setLabel-AttributeName">扩展属性值</label>
+                            <select id="setLabel-AttributeName" class="form-control input-sm" name="setLabel-AttributeName"></select>
+                        </div>
+                        <div class="form-group" id="setLabelviewbox" style="display:none;">
+                            <label for="setLabelviewid">视图</label>
+                            <select size="4" id="setLabelviewid" class="form-control input-sm" name="setLabelviewid"></select>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="setLabel-tab2" style="padding:5px;">
+                        <fieldset>
+                            <legend>脚本库</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>名称</th><th>说明</th></tr></thead>
+                                    <tbody id="fieldScript">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>事件</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="addEvent('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>脚本库</th><th>事件</th><th>函数</th></tr></thead>
+                                    <tbody id="fieldEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveLabel()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 自定义内容参数设置（Modal） -->
+<div class="modal fade" id="setfreetextModal" tabindex="-1" role="dialog"
+     aria-freetextledby="setfreetextModalfreetext" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="setfreetextModalfreetext">
+                    自定义内容参数
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="setfreetextTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#setfreetext-tab1" data-toggle="tab">
+                            显示
+                        </a>
+                    </li>
+                    <li><a href="#setfreetext-tab2" data-toggle="tab">事件</a></li>
+                    <li><a href="#setfreetext-tab3" data-toggle="tab">内容</a></li>
+                </ul>
+                <div id="setfreetextContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="setfreetext-tab1" style="padding:5px;">
+                        <div class="form-group">
+                            <freetext for="setfreetext-name">名称</freetext>
+                            <input id="setfreetext-name" readonly name="setfreetext-name" type="text" class="form-control input-sm" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <freetext for="setfreetext-freetext">标签</freetext>
+                            <input id="setfreetext-freetext" name="setfreetext-freetext" type="text" class="form-control input-sm" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <freetext for="setfreetext-colspan">所占列数</freetext>
+                            <input id="setfreetext-colspan" name="setfreetext-colspan" type="text" class="form-control input-sm" data-type="int" />
+                        </div>
+                        <div class="form-group">
+                            <freetext for="setfreetext-isshowfreetext">
+                                显示标题
+                                <input id="setfreetext-isshowfreetext" name="setfreetext-isshowfreetext" type="checkbox" />
+                            </freetext>
+                        </div>
+                        <div class="form-group">
+                            <freetext for="setfreetext-isvisible">
+                                可见
+                                <input id="setfreetext-isvisible" name="setfreetext-isvisible" value="true" type="checkbox" />
+                            </freetext>
+                        </div>
+                        <div class="form-group">
+                            <freetext for="setfreetext-EntityName">扩展属性</freetext>
+                            <select id="setfreetext-EntityName" onchange="changeGetEntityName(this);" class="form-control input-sm" name="setfreetext-EntityName"></select>
+                        </div>
+                        <div class="form-group">
+                            <freetext for="setfreetext-AttributeName">扩展属性值</freetext>
+                            <select id="setfreetext-AttributeName" class="form-control input-sm" name="setfreetext-AttributeName"></select>
+                        </div>
+                        <div class="form-group" id="setfreetext-viewbox" style="display:none;">
+                            <freetext for="setfreetext-viewid">视图</freetext>
+                            <select size="4" id="setfreetext-viewid" class="form-control input-sm" name="setfreetext-viewid"></select>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="setfreetext-tab2" style="padding:5px;">
+                        <fieldset>
+                            <legend>脚本库</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>名称</th><th>说明</th></tr></thead>
+                                    <tbody id="fieldScript">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>事件</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="addEvent('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>脚本库</th><th>事件</th><th>函数</th></tr></thead>
+                                    <tbody id="fieldEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="tab-pane fade in" id="setfreetext-tab3" style="padding:5px;">
+                        <div class="form-group">
+                            <freetext for="serfreetextContextHtml">内容</freetext>
+                            <script id="serfreetextContextHtml" class="freetext-wrap" type="text/plain">
+                            </script>
+                            <textarea id="freetext_value" class="freetext hide"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="savefreetext()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 新建字段（Modal） -->
+<div class="modal fade" id="newAttributeModal" tabindex="-1" role="dialog"
+     aria-labelledby="newAttributeModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="newAttributeModalLabel">
+                    新建字段
+                </h4>
+            </div>
+            <div class="modal-body clearfix" style="max-height:500px; overflow-y:auto;">
+                <iframe name="bodyframe" id="newAttributframe" frameborder="0" src="" width="100%" height="620"></iframe>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 总事件设置（Modal） -->
+<div class="modal fade" id="setEventsModal" tabindex="-1" role="dialog"
+     aria-labelledby="setEventsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="setEventsModalLabel">
+                    事件设置
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="setEventsTab" class="nav nav-tabs">
+
+                    <li class="active"><a href="#setEvents-tab2" data-toggle="tab">事件</a></li>
+                </ul>
+                <div id="setEventsContent" class="tab-content">
+
+                    <div class="tab-pane fade in active" id="setEvents-tab2" style="padding:5px;">
+                        <fieldset>
+                            <legend>脚本库</legend>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info btn-xs" onclick="loadScript('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'script')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveRow('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>名称</th><th>说明</th></tr></thead>
+                                    <tbody id="fieldScript">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>事件</legend>
+                            <div class="btn-group">
+                                @*<button type="button" class="btn btn-info btn-xs" onclick="addEvent('field')"><span class="glyphicon glyphicon-plus-sign"></span> 添加</button>*@
+                                <button type="button" class="btn btn-info btn-xs" onclick="removeRow(this,'event')"><span class="glyphicon glyphicon-trash"></span> 移除</button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('before', this)" title="上移">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> 上移
+                                </button>
+                                <button type="button" class="btn btn-info btn-xs" onclick="moveColumn('after', this)" title="下移">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> 下移
+                                </button>
+                                @*<button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span> 编辑</button>*@
+                            </div>
+                            <div class="table-responsive" style="height:150px;">
+                                <table class="table">
+                                    <thead><tr><th>字段</th><th>脚本库</th><th>事件</th><th>函数</th></tr></thead>
+                                    <tbody id="fieldEvent"></tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveEvents()">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@section Header{
+    <link href="/content/js/colorpicker/spectrum.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    <link href="/content/js/jquery-range/jquery.range.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .tab-pane {
+            max-height: 350px;
+            overflow-y: scroll;
+        }
+
+        #subGridModal .modal-body {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+
+        .btn-toolbar-group {
+                     padding:5px;
+            border-right: 1px #ccc solid;
+        }
+
+        .collapse-title {
+            color: black;
+        }
+
+        .navGroup {
+            clear: both;
+            border: 1px #ccc dashed;
+            background: #f6f8fa;
+            cursor: pointer;
+        }
+
+        .nav-child {
+            text-indent: 1em;
+        }
+
+            .nav-child li {
+                border: 1px #ccc dashed;
+                margin-bottom: 2px;
+            }
+
+        .header, .footer {
+            margin: 5px 0;
+            border: 1px #ccc dashed;
+            background: #f6f8fa;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .section, .tab {
+            margin: 5px 0;
+            border: 1px #ccc dashed;
+            background: #f6f8fa;
+            padding: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .section-title {
+            color: #999;
+            height: 22px;
+            border-bottom: 1px #ccc solid;
+            clear: both;
+        }
+
+        .section table {
+            margin: 5px 0;
+            clear: both;
+            table-layout: fixed;
+        }
+
+            .section table th {
+                background: #f1f3f5 !important;
+                cursor: default;
+            }
+
+            .section table td {
+                background: #fff;
+                vertical-align: top;
+                color: #999;
+                cursor: default;
+            }
+
+        td.placeholder {
+            background: #f1f3f5 !important;
+            height: 30px;
+        }
+
+        td.field {
+            padding: 0px !important;
+        }
+
+        table.cell {
+            margin: 0;
+        }
+
+        .cell th, td {
+            border-top: 0px !important;
+            /*cursor: pointer !important;*/
+        }
+
+        #attributes li {
+            border-bottom: 1px solid #C4DDFF;
+            line-height: 22px;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            padding: 3px;
+        }
+
+            #attributes li:hover {
+                background: #B1D6F0 !important;
+            }
+
+        .drag-placeholder {
+            border-bottom: 5px solid red !important;
+            clear: both;
+        }
+
+        .selected {
+            border: 1px solid rgb(0, 118, 163) !important;
+        }
+
+        .edit {
+            position: absolute;
+            right: 5px;
+        }
+
+        .modal-backdrop {
+            z-index: 999;
+        }
+
+        .modal {
+            z-index: 1000;
+        }
+    </style>
+}
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.sortable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.droppable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.accordion.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/ueditor/ueditor.config.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/ueditor/ueditor.all.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/ueditor/addcustomizebutton.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/renderform.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/entitybuttons.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/calculation.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/colorpicker/spectrum.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-range/jquery.range.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script type="text/javascript" language=JavaScript charset="UTF-8">
+        document.onkeydown = function (event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode == 46) { //delete
+                removeObject();
+            }
+        };
+    </script>
+    <script>
+    var entityid = $('#EntityId').val();
+    var SolutionId = $('#SolutionId').val();
+    var attributes = [];
+    var eventlist = [];
+    var scriptlist = [];
+    var formEditType = 'create';
+    $(function () {
+        //表单验证
+        //Xms.Web.Form($("#editform"));
+        $(".modal").draggable({
+            handle: ".modal-header",
+            cursor: 'move',
+            refreshPositions: false
+        });
+        //加载字段
+        loadAttributes();
+
+        $('.layoutItem').on('click', null, function (e) {
+            $(this).prev().prop('checked', true);
+        });
+
+        $(document).on('click', '.collapse-title', function (e) {
+            var self = $(this);
+            var target = $('#' + self.attr('data-target'));
+            var c = target.is('.in') ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down';
+            self.find('span:first').prop('class', c);
+            target.toggleClass('in');
+            e.stopPropagation();
+        });
+        //$('a[data-toggle="collapse"]').collapse({
+        //    toggle: false
+        //});
+        //layout
+        $('.header,.footer').on('click', null, function (e) {
+            $('.selected').removeClass('selected');
+            var self = $(this);
+            self.addClass('selected');
+            if (Xms.Web.IsDbClick(self)) {
+                editSection();
+            }
+            e.stopPropagation();
+        }).disableSelection();
+        $('#formBody,#formHeader,#formFooter').on('click', '.tab', function (e) {
+            $('.selected').removeClass('selected');
+            var self = $(this);
+            self.addClass('selected');
+            if (Xms.Web.IsDbClick(self)) {
+                editTab();
+            }
+            e.stopPropagation();
+        }).disableSelection();
+        $('#formBody,#formHeader,#formFooter').on('click', '.section', function (e) {
+            $('.selected').removeClass('selected');
+            var self = $(this);
+            self.addClass('selected');
+            if (Xms.Web.IsDbClick(self)) {
+                editSection();
+            }
+            e.stopPropagation();
+        }).disableSelection();
+        $('#formHeader,#formFooter').on('click', '.field:not(.placeholder)', function (e) {
+            $('.selected').removeClass('selected')//.addClass('table-bordered');
+            var self = $(this), isDblclick = false, isEdit = self.children('table').attr('data-isedit');
+
+            isDblclick = Xms.Web.IsDbClick(self);
+            self.find('.cell').addClass('selected')//.removeClass('table-bordered');
+            if (self.children('table').length > 0 && isEdit === '0') return false;
+            if (isDblclick) {
+                if (self.hasClass("labelbox")) {
+                    editLabel();
+                } else if (self.hasClass("freetextbox")) {
+                    editFreeText();
+                } else {
+                    editField();
+                }
+            }
+            e.stopPropagation();
+        }).disableSelection();
+        $('#formBody,#formHeader,#formFooter').on('click', '.section .field:not(.placeholder)', function (e) {
+            $('.selected').removeClass('selected')//.addClass('table-bordered');
+            var self = $(this), isEdit = self.children('table').attr('data-isedit');
+            self.find('.cell').addClass('selected')//.removeClass('table-bordered');
+            if (self.children('table').length > 0 && isEdit === '0') return false;
+            if (Xms.Web.IsDbClick(self)) {
+                if (self.hasClass("labelbox")) {
+                    editLabel();
+                } else if (self.hasClass("freetextbox")) {
+                    editFreeText();
+                }  else {
+                    editField();
+                }
+            }
+            e.stopPropagation();
+        }).disableSelection();
+        //nav
+        $('#formNav').on('click', '.navGroup', function (e) {
+            var self = $(this);
+            //if (self.is('.selected')) return;
+            $('.selected').removeClass('selected');
+            self.addClass('selected');
+            if (Xms.Web.IsDbClick(self)) {
+                editNavGroup();
+            }
+            e.stopPropagation();
+        }).disableSelection();
+        $('.navGroup').on('click', '.nav-child > li', function (e) {
+            $('.selected').removeClass('selected');
+            var self = $(this);
+            self.addClass('selected');
+            if (Xms.Web.IsDbClick(self)) {
+                editNavItem();
+            }
+            e.stopPropagation();
+        }).disableSelection();
+
+        //
+        $("input[name='navLinkType']").change(function () {
+            var type = $(this).val();
+            if (type == 0) {
+                $("#navLink-entity").prop("disabled", true);
+                $("#navLink-url").prop("disabled", false)
+            } else if (type == 1) {
+                $("#navLink-entity").prop("disabled", false);
+                $("#navLink-url").prop("disabled", true)
+            }
+        });
+
+        $("#field-IsFilterRelation").change(function () {
+            changeRelationState(this);
+        });
+
+        var $CustomButtons = $('#CustomButtons');
+        var $IsCustomButton = $('#IsCustomButton');
+        
+        var setttings = entityButtons.getSettings();
+
+        $('#buttonSetallbtn').on('click', function (e) {
+            entityButtons.datas = [];
+            $('#CustomButtons').val('');
+            $IsCustomButton.val(false);
+            $('#delbtnList,#formButtons').hide();
+
+        });
+        $('#buttonSetcusbtn').on('click', function (e) {
+            entityButtons.loadButtons(function () {
+                 $IsCustomButton.val(true);
+                $('#delbtnList,#formButtons').show();
+            });
+           
+        });
+
+        initFieldEvent();
+        initSortEvent();
+        if ($('#Name').val() == '') {
+            $('#Name').val('@app.T["new_form"]');
+        }
+        editFormParams();
+
+        loadFreeText();
+
+        $('body').xmsDialogContent({})
+
+        $('.colorpicker').spectrum({
+            flat: false,
+            preferredFormat: 'rgb'
+        });
+
+        $('.borderwidth-picker').jRange({
+            from: 0,
+            to: 5,
+            step: 1,
+            //scale: [-2.0, -1.0, 0.0, 1.0, 2.0],
+            format: '%s',
+            width: 150,
+            showLabels: true,
+            snap: true
+        });
+        $('.fontsize-picker').jRange({
+            from: 12,
+            to: 40.0,
+            step: 0.5,
+            //scale: [-2.0, -1.0, 0.0, 1.0, 2.0],
+            format: '%s',
+            width: 150,
+            showLabels: true,
+            snap: true
+        });
+        if (FormConfig.CustomCss) {
+            $('#CustomCss').val(FormConfig.CustomCss);
+        }
+    });
+
+    </script>
+}

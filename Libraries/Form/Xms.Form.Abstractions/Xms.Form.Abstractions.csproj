@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency.Abstractions\Xms.Dependency.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Security.Abstractions\Xms.Security.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution.Abstractions\Xms.Solution.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

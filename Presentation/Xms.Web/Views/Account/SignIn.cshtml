@@ -1,0 +1,225 @@
+﻿@using Xms.Organization.Domain;
+
+@model Xms.Web.Models.SignInModel
+@{
+    Layout = null;
+}
+
+@{
+    List<OrganizationBase> orglist = ViewData["orglist"] as List<OrganizationBase>;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <link rel="icon" href="/favicon.ico">
+    <title></title>
+
+    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css?v=1" rel="stylesheet">
+    <link href="/content/js/jquery-toast/jquery.toast.min.css?v=1" rel="stylesheet">
+    <link href="/content/customize/layui/css/layui.css?v=1" rel="stylesheet" />
+    <link href="/content/css/loaders.css?v=1" rel="stylesheet" />
+    <link href="/content/css/signin.css?v=1" rel="stylesheet" />
+</head>
+<body class="bg-info login-bg">
+    <div class="login-wrap" data-VerifyCodeEnabled="false">
+        <div class="login-success">
+            <div class="login-user-boder">
+                <div class="login-user-img"></div>
+            </div>
+            <div class="login-success-text">
+                <p>===欢迎&nbsp;<span><i class="layui-icon layui-icon-username"></i><span class="login-user-name">张三</span></span>&nbsp;登录===</p>
+                <p class="masked">正在进入</p>
+
+            </div>
+        </div>
+        <div class="text-left login-title">
+            <h3>登录</h3>
+        </div>
+        <div class="login-content" style="margin-top: 30px;">
+            <div class="col-sm-12">
+                <form id="signinForm" action="/xms/api/account" method="post" data-jsonajax="true">
+                    @*@Html.AntiForgeryToken()*@
+                    @Html.HiddenFor(x => x.ReturnUrl)
+                    <div class="form-group orgname-group">
+                        @if (string.IsNullOrWhiteSpace(Model.OrgUniqueName))
+                        {
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="layui-icon layui-icon-group"></i></span>
+                                @*<input type="text" name="OrgUniqueName" class="form-text" placeholder="组织代码" />*@
+                                @Html.ValidationMessageFor(x => x.OrgUniqueName)
+                                <select class="form-control" name="OrgUniqueName" id="OrgUniqueName">
+                                    @{ 
+                                        foreach (var org in orglist) { 
+                                            <option value="@org.UniqueName">@org.Name</option>
+                                        }
+
+                                    }
+                                    
+                                </select>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="layui-icon layui-icon-group"></i></span>
+                                <input type="text" class="form-text" value="@Model.OrgName" disabled="disabled" />
+                            </div>
+                            <input type="hidden" value="@Model.OrgUniqueName" name="OrgUniqueName" />
+                        }
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="layui-icon layui-icon-username"></i></span>
+                            <input type="text" name="loginname" id="LoginName" autocomplete="off" class="form-text loginname" placeholder="帐号" required value="@Model.LoginName" autofocus />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">  <i class="layui-icon layui-icon-password"></i></span>
+                            <input type="password" name="password" id="password" autocomplete="off" class="form-text loginpwd" placeholder="密码" required value="@Model.Password" />
+                        </div>
+                    </div>
+                    @if (false)
+                    {
+                        <div class="form-group">
+                            <div class="input-group verifycode-group">
+                                <span class="input-group-addon">  <i class="layui-icon  layui-icon-vercode"></i></span>
+                                <input type="text" name="verifycode" id="verifycode" class="form-text" autocomplete="off" placeholder="验证码" required />
+                                <span class="input-group-addon">    <img id="verifyImage" style="cursor:pointer;" title="点击刷新验证码" onclick="this.src='@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage?time=' + new Date()" src="@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage" height="30" class="left" /></span>
+                            </div>
+
+                        </div>
+                    }
+                    <div class="form-group checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.RememberMe)&nbsp;&nbsp;记住我
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn login-submit login login-btn" type="submit">登录</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-lg-12 text-center versionnumber-text">版本：1</div>
+        </div>
+    </div>
+    <div class='authent'>
+        <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
+            <div class="loader-inner ball-clip-rotate-multiple">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <p>认证中...</p>
+    </div>
+    @*<div class="page-footer">
+            <div class="copyright">版权所有：<a href="http://www.juyunzh.net" target="_blank">广东云聚天下科技有限公司</a></div>
+        </div>*@
+    <script src="/content/js/jquery.min.js"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=1"></script>
+    <script src="/content/js/jquery.form.js?v=1"></script>
+    <script src="/content/js/jquery-toast/jquery.toast.min.js?v=1"></script>
+    <script src="/content/js/xms.web.js"></script>
+    <script src="/content/js/xms.jquery.js"></script>
+    <script src="~/content/js/jquery-ui-1.10.3/ui/jquery.ui.effect.js"></script>
+
+    <script>
+        var ORG_SERVERURL = '/xms';
+        window.onload = function () {
+            if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+                alert("为了您的更好体验，请使用IE9及以上版本浏览网页");
+            }
+        }
+        $(function () {
+            if (top.location != location) {
+                top.location.href = location.href;
+            }
+            var returnUrl = $('#ReturnUrl').val();
+            var actionPre = '/api/account';
+            var $OrgUniqueName = $('#OrgUniqueName');
+            $OrgUniqueName.on('change', function (e) {
+                var val = $(this).val();
+                ORG_SERVERURL = val;
+                var action = '/' + val + actionPre;
+                $('form').attr('action', action);
+            }).trigger('change');
+
+            var debound = $.deboundsEvent(3000, true);
+            $('form').submit(function () {
+                var that = this;
+                debound(function () {
+                    $('.login-wrap').addClass('test'); //倾斜特效
+                    setTimeout(function () {
+                        $('.login-wrap').addClass('testtwo'); //平移特效
+                    }, 300);
+                    setTimeout(function () {
+                        $('.authent').show().animate({ right: -320 }, {
+                            easing: 'easeOutQuint',
+                            duration: 600,
+                            queue: false
+                        });
+                        $('.authent').animate({ opacity: 1 }, {
+                            duration: 200,
+                            queue: false
+                        }).addClass('visible');
+                    }, 500);
+
+                    $(that).ajaxSubmit(function (response) {
+
+                        setTimeout(function () {
+                            $('.authent').show().animate({ right: 90 }, {
+                                easing: 'easeOutQuint',
+                                duration: 600,
+                                queue: false
+                            });
+                            $('.authent').animate({ opacity: 0 }, {
+                                duration: 200,
+                                queue: false
+                            }).addClass('visible');
+                            $('.login-wrap').removeClass('testtwo'); //平移特效
+                        }, 2000);
+                        setTimeout(function () {
+                            $('.authent').hide();
+                            $('.login-wrap').removeClass('test');
+                            if (response.IsSuccess == true) {
+                                $('.login-success').show();
+                                $('.login-success').nextAll().hide();
+
+                                $('.login-user-name').text($('#LoginName').val());
+                                setTimeout(function () {
+                                    if (returnUrl) {
+                                        location.href = returnUrl;
+                                    } else {
+                                        location.href = ORG_SERVERURL;
+                                    }
+                                }, 1000);
+
+                            } else {
+                                $('#verifyImage').trigger('click');
+                            }
+                        }, 2400);
+
+
+                    });
+                })
+                //console.log(response);
+                return false;
+            });
+
+        });
+    </script>
+</body>
+</html>

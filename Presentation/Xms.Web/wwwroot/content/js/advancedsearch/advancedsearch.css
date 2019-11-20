@@ -1,0 +1,176 @@
+﻿.advancedsearch-filtercontainer {
+    padding: 6px 3px;
+}
+.advancedsearch-header {
+padding:10px;
+}
+.advancedsearch-close > span {
+    font-size: 25px;
+    font-weight:100;
+}
+.has-error .advancedsearch-filteritem-delect {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+.advancedsearch-fullscreen {
+    float: right;
+    font-weight: 700;
+    line-height: 21px;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    font-size: 21px;
+    padding: 0px;
+    margin-right: 10px;
+    margin-top: -3px;
+}
+
+    .advancedsearch-fullscreen > i {
+        font-size: 12px;
+    }
+
+    .advancedsearch-fullscreen:focus, .advancedsearch-fullscreen:hover {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        filter: alpha(opacity=50);
+        opacity: .5;
+    }
+
+.advancedsearch-filtergroup {
+    display: flex;
+    align-items: center;
+}
+
+.advancedsearch-tool-group > .btn {
+    border-radius: 0px;
+    padding:3px 6px;
+    line-height:18px;
+}
+.advancedsearch  .glyphicon {
+    top: 1.5px;
+}
+
+.advancedsearch-combinationand span {
+    line-height: 18px;
+    float: left;
+}
+
+.advancedsearch-combinationor span {
+    line-height: 15px;
+    float: left;
+}
+
+.advancedsearch-filteritems {
+}
+
+.advancedsearch-filteritem {
+    height: 30px;
+}
+
+.advancedsearch-relation {
+    margin: 0px 10px 0 0;
+}
+
+    .advancedsearch-relation:after {
+        border-top: 1px solid #ccc;
+        position: relative;
+        width: 10px;
+        top: -12px;
+        left: 100%;
+        flex: 0 0 auto;
+        content: " ";
+        display: table;
+    }
+
+.advancedsearch-filtergroup > .advancedsearch-filteritems > .advancedsearch-filteritem {
+    display: flex;
+    align-items: center;
+}
+
+    .advancedsearch-filtergroup > .advancedsearch-filteritems > .advancedsearch-filteritem:before {
+        border-top: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        position: relative;
+        height: 30px;
+        width: 10px;
+        top: 14px;
+        left: 0;
+        flex: 0 0 auto;
+        content: " ";
+    }
+
+    .advancedsearch-filtergroup > .advancedsearch-filteritems > .advancedsearch-filteritem:before {
+    }
+
+    .advancedsearch-filtergroup > .advancedsearch-filteritems > .advancedsearch-filteritem:last-child:before {
+        border-top: none;
+        border-bottom: 1px solid #ccc;
+        border-left: none;
+        top: -15px;
+    }
+
+.advancedsearch-filteritems > .advancedsearch-filtergroup > .advancedsearch-line {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    width: 10px;
+    position: relative;
+}
+
+.advancedsearch-filteritems > .advancedsearch-filteritem > .advancedsearch-line {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    width: 10px;
+    position: relative;
+}
+
+.advancedsearch-filteritem select, .advancedsearch-filteritem input, .advancedsearch-filteritem button, .advancedsearch-relation button {
+    font-size: 12px;
+    padding: 0 5px;
+    height: 24px;
+    line-height: 12px;
+}
+
+.advancedsearch-filteritem-select, .advancedsearch-relation-select {
+    zoom: 0.7;
+    top: 5px;
+}
+
+.advancedsearch-relation-select {
+    top: -2px;
+}
+
+.advancedsearch-filteritem-field, .advancedsearch-filteritem-conditionoperator {
+    width: 100px !important;
+}
+
+.advancedsearch-filteritem .input-group-addon, .advancedsearch-relation .input-group-addon {
+    padding: 0 7px;
+}
+
+.advancedsearch-filteritem .input-group-addon, .advancedsearch-filteritem .input-group-btn, .advancedsearch-relation .input-group-addon, .advancedsearch-relation .input-group-btn {
+    width: auto;
+}
+
+.advancedsearch-filteritem-value input, .advancedsearch-filteritem-value button {
+    border-radius: 0;
+}
+
+.advancedsearch-filteritem-value .input-group-btn {
+    display: none;
+    left: -48px;
+}
+
+.advancedsearch-filteritem-value:hover .input-group-btn {
+    display: block;
+}
+
+.advancedsearch-filteritem-value .form-control {
+    width: 120px;
+}
+
+.before-hide:before {
+    display: none;
+}

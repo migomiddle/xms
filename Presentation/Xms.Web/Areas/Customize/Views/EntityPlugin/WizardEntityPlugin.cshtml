@@ -1,0 +1,306 @@
+﻿@{
+    Layout = null;
+}
+@model WizardEntityPluginModel
+
+<link href="/content/js/bootstrap-application-wizard/bootstrap-wizard.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+<link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+<div class="wizard" id="some-wizard" data-title="导入数据">
+    <div class="wizard-card" data-cardname="card1" style="display: block;">
+        <h3>上传数据</h3>
+        <form id="importForm" action="/@app.OrganizationUniqueName/dataimport/mapping" method="post" enctype="multipart/form-data">
+            @Html.HiddenFor(x => x.EntityId)
+            @Html.HiddenFor(x => x.EntityName)
+            <ul class="layui-timeline">
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">一、请按照数据模板的格式准备要导入的数据</h4>
+                        <p>
+                            <div>
+                                <a class="btn btn-link" style="padding-left:0;" href="/@app.OrganizationUniqueName/dataimport/template?entityid=@Model.EntityId">下载数据模板</a>
+                            </div>
+                        </p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">二、请选择数据重复时的操作方式</h4>
+                        <p>
+                            <div>
+                                <select name="DuplicateDetection" class="form-control" data-value="@Model.DuplicateDetection">
+                                    <option value="1">不导入</option>
+                                    <option value="2">覆盖导入</option>
+                                    <option value="3">不导入新数据，仅覆盖重复数据</option>
+                                </select>
+                            </div>
+                        </p>
+
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h4 class="layui-timeline-title">三、请选择需要导入的文件</h4>
+                        <p>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btn-datafile">
+                                        @*<i class="glyphicon glyphicon-cloud-upload"></i> @if (Model.DataFileName.IsNotEmpty())
+                                        {
+                                            <span>重新上传</span>
+                                        }
+                                        else
+                                        {
+                                            <span>文件上传</span>
+                                        }*@
+                                    </button>
+                                </span>
+                                @*<input type="text" class="form-control" placeholder="文件类型：.xls,.xlsx" value="@Model.DataFileName" readonly="readonly" id="text-datafile" style="cursor:pointer;" onclick="$('#btn-datafile').trigger('click')">*@
+
+                            </div><!-- /input-group -->
+                            <input id="datafile" name="datafile" type="file" class="form-control input-sm hide" accept=".xls,.xlsx" />
+                        </p>
+                    </div>
+                </li>
+
+            </ul>
+
+        </form>
+    </div>
+
+    <div class="wizard-card" data-cardname="card2" style="padding-right: 0px;">
+        <h3>映射配置</h3>
+        <div id="mappingContainer" style="overflow-x:hidden;overflow-y:auto;padding: 0 20px 0 15px;">
+
+        </div>
+    </div>
+    <div class="wizard-card" data-cardname="card3">
+        <h3>提交数据</h3>
+        <div id="importConfirmContainer">
+
+        </div>
+    </div>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-application-wizard/bootstrap-wizard.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //$.fn.wizard.logging = true;
+            var options = {
+                keyboard: false,
+                contentHeight: 420,
+                contentWidth: 700,
+                backdrop: 'static',
+                buttons: {
+                    cancelText: '取&nbsp;&nbsp;&nbsp;&nbsp;消',
+                    nextText: '下一步&gt;',
+                    backText: '&lt;上一步',
+                    submitText: '提&nbsp;&nbsp;&nbsp;&nbsp;交',
+                    submittingText: '提交中',
+                    okText: '完&nbsp;&nbsp;&nbsp;&nbsp;成'
+                },
+                isSuccess: false,
+                mappingChange: false,
+                isFirstOpen:true,
+            };
+            setTimeout(function () {
+                if (!window.someWizard) {
+                    window.someWizard = $('#some-wizard').wizard(options);
+                    window.someWizard.on('incrementCard', function (wizard) {
+                        var index = wizard.getActiveCard().index;
+                        if (index == 1) {
+                            $('#mappingContainer').height(window.someWizard.dimensions.cardContainer - $('#mappingContainer').prev().outerHeight(true) - 5);
+                            if (window.someWizard.args.mappingChange||window.someWizard.args.isFirstOpen) {
+                                $('#importForm').ajaxSubmit(function (response) {
+                                    $('#mappingContainer').empty();
+                                    window.someWizard.args.mappingChange = false;
+                                    isFirstOpen = false;
+                                    if (typeof (response) == 'object' && !response.IsSuccess) {
+                                        Xms.Web.Alert(false, response.Content);
+                                        window.someWizard.updateProgressBar(0);
+                                        window.someWizard.decrementCard();
+
+                                        return;
+                                    }
+                                    $('#mappingContainer').append(response);
+                                    $('#mapping', '#mappingContainer').on('click', '[name=configBtn]>.btn', function () {
+                                        var $this = $(this);
+                                        if ($this.parents('td').find('.configSection').length > 0) {
+                                            $this.parents('td').find('.configSection').toggleClass('hide');
+                                            return;
+                                        }
+                                        var selector = $this.parents('td').find('select[name=fields]');
+                                        var type = selector.find('option:selected').attr('data-type');
+                                        var _html = [];
+                                        _html.push('<div class="configSection form-group hide" style="margin-top:5px;">');
+                                        if (type == 'picklist' || type == 'status') {
+                                            _html.push('<div class="col-sm-9">');
+                                            _html.push('<label class="col-sm-3">空值</label>');
+                                            _html.push('<select class="configOption input-xs">');
+                                            _html.push('<optgroup label="操作"></optgroup>');
+                                            _html.push('<option value="ignore">忽略</option>');
+                                            _html.push('<option value="defaultvalue" selected>默认值</option>');
+                                            _html.push('<optgroup label="系统选项"></optgroup>');
+                                            Xms.Ajax.GetJson('/api/schema/optionset/getitems/' + $this.parents('td').attr('data-optionsetid'), null, function (response) {
+                                                var data = JSON.parse(response.Content);
+                                                $(data).each(function (i, n) {
+                                                    _html.push('<option value="' + n.value + '">' + n.name + '</option>');
+                                                });
+                                            });
+                                            _html.push('</select>');
+                                            _html.push('</div>');
+                                        }
+                                        else if (type == 'bit' || type == 'state') {
+                                            _html.push('<div class="col-sm-12">');
+                                            _html.push('<label class="col-sm-3 control-label">空值</label>');
+                                            _html.push('<select class="configOption input-xs">');
+                                            _html.push('<optgroup label="操作"></optgroup>');
+                                            _html.push('<option value="ignore">忽略</option>');
+                                            _html.push('<option value="defaultvalue" selected>默认值</option>');
+                                            _html.push('<optgroup label="系统选项"></optgroup>');
+                                            Xms.Ajax.GetJson('/api/schema/stringmap/' + $this.parents('td').attr('data-attributeid'), null, function (response) {
+                                                var data = JSON.parse(response.Content);
+                                                $(data).each(function (i, n) {
+                                                    _html.push('<option value="' + n.value + '">' + n.name + '</option>');
+                                                });
+                                            });
+                                            _html.push('</select>');
+                                            _html.push('</div>');
+                                        }
+                                        else if (type == 'lookup' || type == 'owner') {
+                                            var refentityname = $this.parents('td').attr('data-referencedentityname');
+                                            Xms.Ajax.GetJson('/api/schema/attribute/getbyentityname/' + refentityname, null, function (response) {
+                                                console.log(response);
+                                                var data = JSON.parse(response.Content);
+                                                _html.push('<div class="col-sm-12">');
+                                                _html.push('<label class="control-label col-sm-3">' + data[0].entitylocalizedname + '</label>');
+                                                _html.push('<div class="col-sm-9">');
+                                                _html.push('<select class="configOption input-xs">');
+                                                _html.push('<optgroup label="查找字段"></optgroup>');
+                                                $(data).each(function (i, n) {
+                                                    _html.push('<option value="' + n.attributeid + '" data-name="' + n.name + '"' + (n.name.toLowerCase() == 'name' ? ' selected' : '') + '>' + n.localizedname + '</option>');
+                                                });
+                                                _html.push('</select>');
+                                                _html.push('<span class="text-muted">或(主键)</span>');
+                                                _html.push('</div>');
+                                                _html.push('</div>');
+                                            });
+                                        }
+                                        _html.push('</div>');
+                                        $this.parents('td').append($(_html.join('')).removeClass('hide'));
+                                    });
+                                    $('#mapping', "#mappingContainer").on('click', '[name=fields]', function () {
+                                        var $this = $(this);
+                                        var type = $this.find('option:selected').attr('data-type');
+                                        if (type == 'picklist' || type == 'status' || type == 'bit' || type == 'state' || type == 'lookup' || type == 'owner') {
+                                            $this.prev().removeClass('hide');
+                                        }
+                                        else {
+                                            $this.prev().addClass('hide');
+                                        }
+                                        $this.parents('td').find('[name=configSection]').remove();
+                                    });
+                                    //if(response.IsSuccess){
+                                    //ImportModel.dialog.modal('hide');
+                                    //}
+                                    //Xms.Web.Alert(response.IsSuccess, response.Content);
+                                    //Xms.Web.OpenDialog('/entity/importmap?entityid=' + ImportModel.dialog.find('input[name=entityid]').val());
+                                    //ImportModel.dialog.find('#import-body').after($(response).find('.modal-content').removeClass('hide'));
+                                    //ImportModel.dialog.find('#import-body').addClass('hide');
+                                    //ImportModel.dialog.modal('hide');
+                                });
+                            }
+
+                        }
+                        else if (index == 2) {
+                            var mapping = [];
+                            $('#mapping>tbody>tr', '#mappingContainer').each(function (i, n) {
+                                var $item = $(n).find('td:eq(2)');
+                                var data = {};
+                                data.column = $(n).find('td:eq(1)').text();
+                                data.mapping = { "attribute": Xms.Web.SelectedValue($item.find('select[name=fields]')) };
+                                data.IsUpdatePrimaryField = $(n).find('input[name="IsUpdatePrimaryField"]').prop('checked');
+                                var type = $item.attr('data-attributetypename');
+                                if ($item.find('.configOption').length == 1) {
+                                    if (type == 'picklist' || type == 'status' || type == 'bit' || type == 'state') {
+                                        data.mapping.nullhandle = Xms.Web.SelectedValue($item.find('.configOption'));
+                                    }
+                                    else if (type == 'owner' || type == 'lookup') {
+                                        data.mapping.lookupname = Xms.Web.SelectedValue($item.find('.configOption'));
+                                    }
+                                }
+                                mapping.push(data);
+                            });
+                            console.log(mapping); //return;
+                            $('#MapCustomizations').val(encodeURI(JSON.stringify(mapping)));
+                            $('#mappingForm').ajaxSubmit(function (response) {
+                                $('#importConfirmContainer').empty();
+                                if (typeof (response) == 'object' && !response.IsSuccess) {
+                                    Xms.Web.Alert(false, response.Content);
+                                    window.someWizard.updateProgressBar(100 / 3);
+                                    window.someWizard.decrementCard();
+                                    return;
+                                }
+                                $('#importConfirmContainer').append(response);
+
+                                //ImportMapModel.dialog.find('#mapping-body').after($(response).find('.modal-content').removeClass('hide'));
+                                //ImportMapModel.dialog.find('#mapping-body').addClass('hide');
+                                //ImportModel.dialog.modal('hide');
+                            });
+                        }
+                    });
+                    window.someWizard.on('submit', function (wizard) {
+                        if (window.someWizard.args.isSuccess) {
+                            window.someWizard.closeButton.trigger("click");
+                            return;
+                        } else {
+                            $('#startingForm').ajaxSubmit(function (response) {
+                                console.log(response);
+                                window.someWizard.enableNextButton();
+                                if (response.IsSuccess) {
+                                    var d = JSON.parse(response.Content);
+                                    $('.importresult').parent().removeClass("hide");
+                                    $('.importresult').empty();
+                                    $('.importresult').append($('<span class="text-success"><strong>'+d.successcount + '</strong> 条成功</span>，<span class="text-danger"><strong>' + d.failurecount + '</strong> 条失败</span>'));
+                                    $('.importresult').append($('<a style="padding-left:10px;" class="text-primary" href="javascript:entityIframe(\'show\', \'/entity/create?entityname=importfile&recordid=' + d.importfileid + '\');window.someWizard.hide();rebind();">查看详情</a>'));
+                                    window.someWizard.args.isSuccess = true;
+                                    window.someWizard.changeNextButton(window.someWizard.args.buttons.okText, "btn-success");
+                                    return;
+                                }
+                                window.someWizard.submitFailure();
+                                window.someWizard.updateProgressBar(100 / 3 * 2);
+                                window.someWizard.backButton.show();
+                                window.someWizard.closeButton.show();
+                                window.someWizard.decrementCard();
+                                Xms.Web.Alert(response.IsSuccess, response.Content);
+                            });
+                            return;
+                        }
+                    });
+                    window.someWizard.on('closed', function (wizard) {
+                        $('#some-wizard').parent().remove();
+                        window.someWizard.modal.siblings(".modal-backdrop").remove();
+                        window.someWizard.modal.remove();
+                        window.someWizard = null;
+                    });
+                }
+                window.someWizard.show();
+            }, 20);
+            $("#btn-datafile").on("click", function () {
+                $("#datafile").click();
+            });
+            $("#datafile").on("change", function () {
+                $("#text-datafile").val($(this).val());
+                window.someWizard.args.mappingChange = true;
+            });
+            $('body').on('click','#customize', function () {
+                if ($(this).prop('checked') == true) {
+                    $('#customizeArea').removeClass('hide');
+                }
+                else {
+                    $('#customizeArea').addClass('hide');
+                }
+            });
+        });
+    </script>

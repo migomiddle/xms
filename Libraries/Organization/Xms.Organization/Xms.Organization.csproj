@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstractions\**" />
+    <EmbeddedResource Remove="Abstractions\**" />
+    <None Remove="Abstractions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\ITeamRolesRepository.cs" />
+    <Compile Remove="Data\TeamRolesRepository.cs" />
+    <Compile Remove="ITeamRolesService.cs" />
+    <Compile Remove="TeamRolesService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Organization.Domain\Xms.Organization.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

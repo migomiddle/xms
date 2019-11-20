@@ -1,0 +1,9 @@
+G:\projects\xms_v2\Presentation\Xms.Web\bin\Debug\eventconsumers\netstandard2.0\Xms.EventConsumers.QueryView.deps.json
+G:\projects\xms_v2\Presentation\Xms.Web\bin\Debug\eventconsumers\netstandard2.0\Xms.EventConsumers.QueryView.dll
+G:\projects\xms_v2\Presentation\Xms.Web\bin\Debug\eventconsumers\netstandard2.0\Xms.EventConsumers.QueryView.pdb
+G:\projects\xms_v2\Libraries\EventConsumers\Xms.EventConsumers.QueryView\obj\Debug\netstandard2.0\Xms.EventConsumers.QueryView.csprojAssemblyReference.cache
+G:\projects\xms_v2\Libraries\EventConsumers\Xms.EventConsumers.QueryView\obj\Debug\netstandard2.0\Xms.EventConsumers.QueryView.AssemblyInfoInputs.cache
+G:\projects\xms_v2\Libraries\EventConsumers\Xms.EventConsumers.QueryView\obj\Debug\netstandard2.0\Xms.EventConsumers.QueryView.AssemblyInfo.cs
+G:\projects\xms_v2\Libraries\EventConsumers\Xms.EventConsumers.QueryView\obj\Debug\netstandard2.0\Xms.EventConsumers.QueryView.csproj.CopyComplete
+G:\projects\xms_v2\Libraries\EventConsumers\Xms.EventConsumers.QueryView\obj\Debug\netstandard2.0\Xms.EventConsumers.QueryView.dll
+G:\projects\xms_v2\Libraries\EventConsumers\Xms.EventConsumers.QueryView\obj\Debug\netstandard2.0\Xms.EventConsumers.QueryView.pdb

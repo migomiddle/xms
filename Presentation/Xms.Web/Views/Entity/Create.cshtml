@@ -1,0 +1,449 @@
+﻿@using Xms.Flow.Abstractions;
+@model Xms.Web.Models.EditRecordModel
+
+@{
+    var jsLibs = new List<string>();
+    var resources = new List<Guid>();
+    if (Model.RibbonButtons.NotEmpty())
+    {
+        foreach (var btn in Model.RibbonButtons)
+        {
+            if (btn.JsLibrary.IsNotEmpty())
+            {
+                if (btn.JsLibrary.StartsWith("$webresource:"))
+                {
+                    resources.Add(Guid.Parse(btn.JsLibrary.Replace("$webresource:", "")));
+                }
+                else if (!jsLibs.Contains(btn.JsLibrary))
+                {
+                    jsLibs.Add(btn.JsLibrary);
+                }
+            }
+        }
+    }
+    if (Model.Form.ClientResources.NotEmpty())
+    {
+        foreach (var item in Model.Form.ClientResources)
+        {
+            if (item.StartsWith("$webresource:"))
+            {
+                resources.Add(Guid.Parse(item.Replace("$webresource:", "")));
+            }
+            else
+            {
+                resources.Add(Guid.Parse(item));
+            }
+        }
+    }
+    resources = resources.Distinct().ToList();
+}
+
+<div id="formNotify" class="alert hide">
+    <a href="#" class="close" data-dismiss="alert">
+        &times;
+    </a>
+    <span class="glyphicon glyphicon-info-sign"></span><strong>@app.T["notify_title"]</strong><span id="formNotifyLabel"></span>
+</div>
+<div id="form-section" class="form-section">
+    @if (Model.WorkFlowProcessState == (int)WorkFlowProcessState.Processing)
+    {
+        <div class="container-fluid margin-bottom" style="border:1px #eee dashed; padding:3px;" id="toolbar">
+            <button class="btn btn-info btn-sm" type="button" onclick="WorkFlowProcessing(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-ok"></span> 审批处理</button>
+            <button class="btn btn-info btn-sm" type="button" onclick="WorkFlowProcessDetail(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-th"></span> 审批详情</button>
+            <button class="btn btn-info btn-sm" type="button" onclick="WorkFlowCancel(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-remove"></span> 撤消审批</button>
+        </div>
+    }
+    else if (Model.WorkFlowProcessState == (int)WorkFlowProcessState.UnPassed)
+    {
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert">
+                &times;
+            </a>
+            <span class="glyphicon glyphicon-info-sign"></span><strong>@app.T["notify_title"]</strong>
+            本次审批结果为“不通过”，请重新提交审批。
+            <button class="btn btn-link btn-sm" type="button" onclick="WorkFlowProcessDetail(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-th"></span> 审批详情</button>
+        </div>
+    }
+    else if (Model.WorkFlowProcessState == (int)WorkFlowProcessState.Passed)
+    {
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert">
+                &times;
+            </a>
+            <span class="glyphicon glyphicon-info-sign"></span><strong>@app.T["notify_title"]</strong>
+            本次审批结果为“通过”。
+            <button class="btn btn-link btn-sm" type="button" onclick="WorkFlowProcessDetail(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-th"></span> 审批详情</button>
+        </div>
+    }
+<form id="editForm" method="post" action="/@app.OrganizationUniqueName/api/data/aggrootsave" data-jsonajax="true" data-hiddendata="data" class="form-horizontal xms-form-wrap" data-autoreset="false">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="entityid" data-hiddendata="true" name="entityid" value="@Model.EntityId" />
+    <input type="hidden" id="formid" data-hiddendata="true" name="formid" value="@Model.FormId" />
+    <input type="hidden" id="recordid" data-hiddendata="true" name="recordid" value="@Model.RecordId" />
+    <input type="hidden" id="relationshipname" data-hiddendata="true" name="relationshipname" value="@Model.RelationShipName" />
+    <input type="hidden" id="recordid" data-hiddendata="true" name="referencedrecordid" value="@Model.ReferencedRecordId" />
+    <input type="hidden" id="child" data-hiddendata="true" name="child" value="" />
+    <input type="hidden" id="attributechanged" data-hiddendata="true" name="attributechanged" value="" />
+    @if (!Model.StageId.Equals(Guid.Empty))
+    {
+        <input type="hidden" id="stageid" data-hiddendata="true" name="stageid" value="@Model.StageId" />
+        <input type="hidden" id="businessflowid" data-hiddendata="true" name="businessflowid" value="@Model.BusinessFlowId" />
+        <input type="hidden" id="businessflowinstanceid" data-hiddendata="true" name="businessflowinstanceid" value="@Model.BusinessFlowInstanceId" />
+    }
+    @if (!Model.ReadOnly)
+    {
+        <div class="container-fluid margin-bottom clearfix" style="border:1px #eee dashed; padding:3px;" id="toolbar">
+
+            @if (Model.RibbonButtons.NotEmpty())
+            {
+                foreach (var btn in Model.RibbonButtons)
+                {
+                    <a class="@btn.CssClass@(btn.IsVisibled ? "" : " hide") btn-sm hideBySizeItem" title="@(btn.ShowLabel ? btn.Label : "")" href="javascript:void(0)" onclick="@(btn.IsEnabled && btn.IsVisibled ? btn.JsAction : "")" @(btn.IsEnabled ? "" : " disabled")><span class="@btn.Icon"></span> @(btn.ShowLabel ? btn.Label : "")</a>
+                }
+            }
+            @if (Model.RecordId.HasValue && !Model.RecordId.Equals(Guid.Empty) && Model.EntityMetaData.WorkFlowEnabled && (Model.WorkFlowProcessState != (int)WorkFlowProcessState.Processing || Model.WorkFlowProcessState != (int)WorkFlowProcessState.Passed))
+            {
+                <a class="btn btn-link btn-sm hideBySizeItem" href="javascript:void(0)" onclick="StartWorkFlow(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-check"></span> 启动审批</a>
+            }
+
+        </div>
+    }
+
+    <div class="pull-right btn-group pt-1 toolbar-right">
+        <a class="btn btn-info btn-xs createForm-refresh" href="javascript:location.reload()" title="刷新"><span class="glyphicon glyphicon-refresh"></span></a>
+        <a class="btn btn-info btn-xs createForm-openWin" target="_blank" data-href="@app.Url" title="@app.T["window_opennew"]"><span class="glyphicon glyphicon-fullscreen"></span></a>
+        @if (app.CurrentUser.IsSuperAdmin)
+        {
+            <a class="btn btn-info btn-xs" href="/@(app.OrganizationUniqueName)/customize/systemform/editform?id=@Model.FormId" target="_blank" title="配置表单"><span class="glyphicon glyphicon-cog"></span></a>
+        }
+    </div>
+</form>
+    <div class="attach-section" id="attachSection" style="display:none;">
+        <ul>
+            <li><a href="javascript:;" class="subtools" data-type="attach"><em class="glyphicon glyphicon-hdd"></em> 附件</a></li>
+        </ul>
+    </div>
+</div>
+<!-- （Modal） -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog"
+     aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="createModalLabel">
+                    <span class="glyphicon glyphicon-file"></span> @app.T["new"]
+                </h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@section Header {
+    <link href="/content/js/bootstrap-datetimepicker/jquery.datetimepicker.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/uploadify/uploadify.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <script src="/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <link href="/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    @*<link href="/content/css/Form.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">*@
+    <style>
+        .header > .table > thead > tr > th, .header > .table > thead > tr > td, .header > .table > tbody > tr > th, .header > .table > tbody > tr > td {
+            border: none !important;
+        }
+
+        .footer > .table > thead > tr > th, .footer > .table > thead > tr > td, .footer > .table > tbody > tr > th, .footer > .table > tbody > tr > td {
+            border: none !important;
+        }
+
+        .header .table {
+            margin-bottom: 0 !important;
+        }
+
+        .header, .footer {
+            margin: 5px 0;
+            border: 1px #ccc solid;
+            background: #f6f8fa;
+            padding: 5px;
+        }
+
+        .section, .tab {
+            margin: 5px 0;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            color: #999;
+            height: 22px;
+            border-bottom: 1px #ccc solid;
+            clear: both;
+            margin: 12px 0 8px;
+        }
+
+        .section table th {
+            background: #f1f3f5;
+            padding: 2px;
+        }
+
+        .section table {
+            /*margin: 5px 0;*/
+            clear: both;
+        }
+
+        .section > table td {
+            background: #fff;
+            vertical-align: top;
+        }
+
+        .subgrid .table {
+            margin: 0;
+        }
+
+        .header label, #xmsFormFooter label {
+            white-space: nowrap;
+        }
+        /*.form-group label,*/
+    </style>
+}
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.dirtyforms.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/ueditor/ueditor.config.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/ueditor/ueditor.all.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/ueditor/addcustomizebutton.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+    <script src="/content/js/form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.tmpl.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/renderform.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/calculation.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datetimepicker/jquery.datetimepicker.full.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.droppable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/jquery-ui-1.10.3/ui/jquery.ui.position.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/jquery-ui-1.10.3/ui/jquery.ui.effect.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/common/dirtychecker.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/common/formular.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/pages/m.datagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+         var formula  = new Formula();
+        var _form = @Html.Raw(ViewData["form"]);
+        var _record = @Html.Raw(ViewData["record"]);
+        var _readOnly = @(Model.ReadOnly ? "true":"false");
+        var _nonePermissions = @Html.Raw(ViewData["NonePermissionFields"]);
+        var _serialNumberField = '@(Model.SnRule != null ? Model.SnRule.AttributeName.ToLower() : "")';
+        var _formSaveAction = Xms.FormSaveAction.save;
+        Xms.Page.Form.State = '@Model.FormState.ToString().ToLower()';
+        Xms.Page.PageContext.EntityId = '@Model.EntityId.Value';
+        Xms.Page.PageContext.EntityName = '@Model.EntityMetaData.Name';
+        Xms.Page.PageContext.EntityLocalizedName = '@Model.EntityMetaData.LocalizedName';
+        Xms.Page.PageContext.RecordId = @Html.Raw(Model.RecordId.HasValue? "'"+Model.RecordId.Value.ToString()+"'":"null");
+        Xms.Page.PageContext.RelationShipName = '@Model.RelationShipName';
+        Xms.Page.PageContext.ReferencedRecordId = @Html.Raw(Model.ReferencedRecordId.HasValue? "'"+Model.ReferencedRecordId.Value.ToString()+"'":"null");
+        Xms.Page.PageContext.WorkFlowEnabled = @(Model.EntityMetaData.WorkFlowEnabled ? "true":"false");
+        Xms.Page.PageContext.BusinessFlowEnabled = @(Model.EntityMetaData.BusinessFlowEnabled ? "true":"false");
+        Xms.Page.PageContext.BusinessFlowInstanceId = @Html.Raw(!Model.BusinessFlowInstanceId.Equals(Guid.Empty)? "'"+Model.BusinessFlowInstanceId.ToString()+"'":"null");
+        Xms.Page.PageContext.Scope = 'form';
+        Xms.Page.Form.MetaData = _form;
+        Xms.Page.Form.HasBasePermission = @(Model.HasBasePermission ? "true":"false");
+
+        //页面需要的数据信息
+        /*
+         *页面相关数据
+         */
+        var page_Common_Info = {};
+        page_Common_Info.localizeName = '@Model.EntityMetaData.LocalizedName';
+        page_Common_Info.formName = '@Model.FormInfo.Name';
+        page_Common_Info.title =  page_Common_Info.formName + " - " + page_Common_Info.localizeName;
+        page_Common_Info.breadcrumb_url = '@app.UrlReferrer';
+
+
+        //添加整个表单的自定义样式
+
+    </script>
+    <script src="/content/js/pages/entity.create.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+
+    @foreach (var item in jsLibs)
+    {
+        <script type="text/javascript" src="@item" charset="UTF-8"></script>
+    }
+    @if (resources.Count > 0)
+    {
+        <script>
+           
+            var services = {
+                getEvents: ORG_SERVERURL + "/api/webresource?ids=@(string.Join(",", resources))"
+            }
+
+
+            var getEvents = function (url,callback) {
+                $.getScript(url,function(){
+                    console.log('js loaded');
+                    //事件
+                    if(_form.Events != null){
+                        $(_form.Events).each(function(i, n){
+                            var event = n;
+                            if(event.Name == 'onload'){
+                                console.log(event.JsAction);
+                                try{
+                                    var func = getFunction(event.JsAction);
+                                    if(func){
+                                        func.call(this);
+                                    }
+                                }catch(e){}
+                            }else if(event.Name == 'onsave'){
+                                try{
+                                    var func = getFunction(event.JsAction);
+                                    if(func){
+                                        Xms.FormPrevSubmit.add(func);
+                                    }
+                                }catch(e){}
+                            }else{
+                                if(event["Attribute"]){
+                                    var eventTarget = $("#"+event["Attribute"]);
+                                    if(eventTarget.length==0){eventTarget = $("input[name='"+event["Attribute"].toLowerCase()+"']");}
+                                    if(eventTarget.hasClass("haslookup")){
+                                        eventTarget = eventTarget.prev().find(".lookup");
+                                        if(event.Name.replace("on","")=="change"){
+                                            if(eventTarget.length>0){
+                                                var ischange = false;//防止重复触发事件
+                                                eventTarget.on("lookup.triggerChange",function(e){
+                                                    if(ischange==true)return false;
+                                                    ischange = true;
+                                                    var func = getFunction(event.JsAction);
+                                                    setTimeout(function(){
+                                                        func && func(e,this);
+                                                        ischange = false;
+                                                    },200);
+                                                });
+                                                eventTarget.on("change",function(e){
+                                                    ischange = true;
+                                                    var func = getFunction(event.JsAction);
+                                                    setTimeout(function(){
+                                                        func && func(e,this);
+                                                        ischange = false;
+                                                    },200);
+                                                });
+                                            }
+                                        }else{
+                                            if(eventTarget.length>0){
+                                                eventTarget.on(event.Name.replace("on",""),function(e){
+                                                    var func = getFunction(event.JsAction);
+                                                    setTimeout(function(){
+                                                        func && func(e,this);
+                                                    },200);
+
+                                                });
+                                            }
+                                        }
+                                    }else{
+                                        var entityType = eventTarget.attr("data-controltype");
+                                        if(entityType=="state"){
+                                            eventTarget = eventTarget.parent().find("input[name^=state]");
+                                        }else if(entityType=="picklist"){
+                                            eventTarget = eventTarget.siblings("select");
+                                        }
+                                        eventTarget.on(event.Name.replace("on",""),function(e){
+                                            var func = getFunction(event.JsAction);
+                                            //console.log(func);
+                                            func && func(e,this);
+                                        });
+                                    }
+
+                                }
+                            }
+
+                        });
+                        $('body').trigger('eventAllLoaded');
+                    }
+                });
+
+            }
+        </script>
+    }
+
+
+    <script>
+        pageWrap_Create.init();
+
+
+
+
+        function getRecordInfo(id, callback) {
+            //if(!_record) return false;
+            //var res = {
+            //    id:_record[id],
+            //    value:_record[id+"name"]
+            //}
+            callback && callback(_record);
+        }
+
+        function getIframeHeight() {
+            if ($("#formIframeContent").length > 0) {
+                var iframeH = $("#formIframeContent").contents().find("html").height();
+                //console.log(iframeH);
+                $("#formIframeContent").height(iframeH);
+            }
+        }
+        function SetWinHeight(obj) {
+            // var setIframeTimer = setInterval(function () {
+            getIframeHeight()
+            // }, 27);
+        }
+        function changeFormIframe($obj) {
+            var $formIframe = $("#formIframeContent");
+            var url = $obj.attr("data-href");
+            $formIframe.attr("src", url).show();
+            $(".body").hide();
+        }
+
+        var isFormDirty = false;
+        var isBindUnload = false;
+        var unbindText = LOC_MODIFIED_STATE_NOTIFY;
+        function bindBeforeUnload() {
+            isFormDirty = dirtyChecker.isDirty;
+            if (isFormDirty == false) return false;
+            if (isBindUnload == true) return false;
+            isBindUnload = true;
+            $(window).bind("beforeunload", function () {
+                return unbindText;
+            });
+            isFormDirty = false;
+        }
+        function unBindBeforeUnload() {
+            $(window).unbind("beforeunload");
+            isFormDirty = false;
+            isBindUnload = false;
+        }
+
+        //function checkFormDirty() {
+        //    return false;
+        //}
+
+        var WindowPostMessage = function (a) {
+            //console.log(a);
+            Xms.Web.Event.publish(a);
+        }
+
+    </script>
+}

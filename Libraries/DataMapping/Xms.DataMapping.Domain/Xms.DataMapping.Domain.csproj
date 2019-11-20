@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\..\Xms.Domain\Xms.Domain.csproj" />
+    <ProjectReference Include="..\Xms.DataMapping.Abstractions\Xms.DataMapping.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

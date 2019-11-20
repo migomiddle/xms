@@ -1,0 +1,539 @@
+﻿@using Xms.Solution.Abstractions
+@model Xms.Web.Customize.Models.HomePageModel
+<div class="row" id="shortcutContainer">
+    <div class="col-sm-4">
+        <div class="panel">
+            <div class="panel-heading">快捷方式</div>
+            <div class="">
+                <div class="clearfix pl-1 carousel slide panel-body pt-2" id="shortcutList" style="min-height:188px;" data-ride="carousel">
+                    <ol class="carousel-indicators pr-1 pt-1">
+                       
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel">
+            <div class="panel-heading">系统概括</div>
+            <div class="panel-body systeminfo-body">
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @{
+                            int index = 0;
+                            int count = 0;
+                            string active = "active";
+                        }
+                        @foreach (var item in Model.SolutionComponents)
+                        {
+                            @if (count == 0)
+                            {
+                                if (index != 0)
+                                {
+                                    active = "";
+                                }
+                                <li data-target="#carousel-example-generic" data-slide-to="@index" class="@active"></li>
+                            }
+                            count++;
+                            @if (count % 4 == 0)
+                            {
+                                index++;
+                                count = 0;
+                            }
+
+                        }
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        @{
+                            index = 0;
+                            count = 0;
+                            var len = 0;
+                            active = "active";
+                        }
+                        @foreach (var item in Model.SolutionComponents)
+                        {
+                            @if (count == 0)
+                            {
+                                if (index != 0)
+                                {
+                                    active = "";
+                                }
+                                @:<div class="item @active">
+                                    @: <div>
+                                    }
+                            <div class="col-xs-6 systeminfo-body">
+                                <a href="javascript:void(0)" class="systeminfo-backlog-body">
+                                    <h3>@item.LocalizedName</h3>
+                                    <p><cite>@item.TotalCount</cite></p>
+                                </a>
+                            </div>
+                            count++;
+                            len++;
+                            @if ((count != 0 && count % 4 == 0)||len==Model.SolutionComponents.Count)
+                            {
+                                index++;
+                                count = 0;
+                            @:</div>
+                        @:</div>
+                        }
+
+                        }
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel">
+            <div class="panel-heading">版本信息</div>
+            <div class="panel-body">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="100">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>系统名称</td>
+                            <td>
+                                @app.PlatformSettings.AppName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>组织名称</td>
+                            <td>@app.OrganizationName</td>
+                        </tr>
+                        <tr>
+                            <td>当前版本</td>
+                            <td>
+                                @app.PlatformSettings.VersionNumber
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>架构描述</td>
+                            <td id="system_frameworkdescription"><span></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title col-sm-8">组件信息</div>
+                <div class="panel-top-tool-group col-sm-4">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select class="form-control" id="ComponentType" name="ComponentType">
+                            @foreach (var item in SolutionComponentCollection.SortedDescriptors)
+                            {
+                                <option value="@item.ComponentsEndpoint" data-componenttype="@item.Module.Name">@app.T[item.Module.Name].IfEmpty(item.Module.Name)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="datagrid-view" id="datagrid-view">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-heading">主机概况</div>
+            <div class="panel-body">
+                <div class="row">
+
+
+                    <div class="col-sm-3 col-xs-3">
+                        <div class=" xms-table xms-table-center  label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left" style="width:30%; text-align:center;"><span class="glyphicon glyphicon-cd"></span></div>
+                                <div class="xms-table-cell text-center label-box-right"><p id="system_cpuname"><span></span></p><p>CPU</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class=" xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-deepblue" style="width:30%; text-align:center;"><span class="layui-icon layui-icon-rate"></span></div>
+                                <div class="xms-table-cell text-center label-box-right label-box-deepblue"><p id="system_processorcount"><span></span></p><p>核心数</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class=" xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-green" style="width:30%; text-align:center;"><span class="glyphicon glyphicon-tasks"></span></div>
+                                <div class="xms-table-cell text-center label-box-right label-box-green"><p id="system_systempagesize"><span></span></p><p>内存（M）</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class=" xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-violet" style="width:30%; text-align:center;">
+                                    <span class="layui-icon layui-icon-engine"></span>
+                                </div>
+                                <div class="xms-table-cell text-center label-box-right label-box-violet"><p id="system_cpucounter"><span></span></p><p>CPU使用率</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-xs-3">
+                        <div class="xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left" style="width:30%; text-align:center;"><span class="glyphicon glyphicon-th-large"></span></div>
+                                <div class="xms-table-cell text-center label-box-right"><p id="system_osdescription"><span></span></p><p>当前系统</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class=" xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-deepblue" style="width:30%; text-align:center;"><span class="glyphicon glyphicon-oil"></span></div>
+                                <div class="xms-table-cell text-center label-box-right label-box-violet label-box-deepblue"><p id="system_osarchitecture"><span></span></p><p>系统架构</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class="xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left  label-box-green" style="width:30%; text-align:center;"><span class="glyphicon glyphicon-blackboard"></span></div>
+                                <div class="xms-table-cell text-center label-box-right  label-box-green"><p id="system_machinename"><span></span></p><p>主机名称</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-3 col-xs-3">
+                        <div class=" xms-table xms-table-center label-box m-width xms-table-layoutfixed">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-violet" style="width:30%; text-align:center;"><span class="layui-icon layui-icon-log"></span></div>
+                                <div class="xms-table-cell text-center label-box-right label-box-violet"><p id="system_tickcount"><span></span></p><p>运行时长</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class=" xms-table xms-table-center label-box m-width">
+                            <div class="xms-table-row">
+                                <div class="xms-table-cell" id="system_diskinfos">
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title col-sm-8">系统日志</div>
+                <div class="panel-top-tool-group col-sm-4">
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="datagrid-view-logs">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="logModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">日志</h4>
+            </div>
+            <div class="modal-body  log-detail-body">
+
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="100">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>@app.T["log_title"]</td>
+                            <td class="col-sm-12" data-title>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @app.T["log_clientip"]
+                            </td>
+                            <td class="col-sm-12" data-clientip>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @app.T["user"]
+                            </td>
+                            <td class="col-sm-12" data-username>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@app.T["link"]</td>
+                            <td class="col-sm-12" data-url>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@app.T["log_urlreferrer"]</td>
+                            <td class="col-sm-12" data-urlreferrer>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@app.T["operation_time"]</td>
+                            <td class="col-sm-12" data-createdon>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @app.T["log_statuscode"]
+                            </td>
+                            <td class="col-sm-12" data-statuscode>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @app.T["description"]
+                            </td>
+                            <td class="col-sm-12" data-description>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Header {
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="/content/css/theme/@(app.Theme).css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    <link href="/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/customize/css/homepage.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    <link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.sortable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/common/userpagesetting.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/pages/customizehome.js?v=@app.PlatformSettings.VersionNumber"></script>
+}
+<script>
+
+
+        var theaders = {
+             typename:'@app.T["typename"]',
+             name:'@app.T["name"]',
+             displayname:'@app.T["displayname"]',
+             entity_sys_createdby:'@app.T["entity_sys_createdby"]',
+             create_time:'@app.T["create_time"]',
+             operation:'@app.T["operation"]',
+        }
+
+        var pageUrl = '', solutionid = '@Model.SolutionId';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                //{
+                //    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                //    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                //    render: function (ui) {
+                //      //  console.log(ui)
+                //        return '<input type="checkbox" value="' + ui.rowData.objectid + '" name="recordid" class="">'
+                //    },
+                //    cb: { all: true, header: true }
+                //},
+                {
+                    title: "", dataIndx: "componenttypename", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.componenttypename + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                { "dataIndx": "componenttypename", "title": theaders.typename, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "name", "title": theaders.name, "dataType": "string", editable: false, "width": 250, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "localizedname", "title": theaders.displayname, editable: false, "dataType": "string", "width": 250, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "createdon", "title": theaders.create_time, editable: false, "dataType": "string", "width": 200, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 75, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        return '<a class="btn btn-warning btn-xs removeBtn text-white" href="javascript:;"><span class="glyphicon glyphicon-remove"></span> 移除</a>';
+                    }
+                }
+            ];
+            var datagridconfig = {
+                //获取数据的方法
+                getDataUrl: function (cdatagrid) {
+                    var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+                    return ORG_SERVERURL + serviceUrl + '?insolution=true&solutionid=' + solutionid+'&pagesize=' + cdatagrid.opts.pageModel.rPP + '&page=' + cdatagrid.opts.pageModel.page
+                },
+                height: 260,
+                filterColModel: function (opts) { opts.colModel = columnConfigs; return opts; },//配置列类型的过滤方法
+
+                columnFilter: function (items) {//如果是从后台获取的数据，可在此处给列添加更多的选项
+                    return items;
+                }
+
+            }
+            datagridconfig.extend = function (datagrid) {
+                //因为需要修改为GET获取数据，要重新配置列排序信息
+                var filter = function (postData, objP, DM, PM, FM) {
+                    $.extend(postData, { sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1', pagesize: PM.rPP });
+                    return postData;
+                }
+
+                //修改为GET方式获取数据，配置分页信息
+                $.extend(datagrid.opts.dataModel, {
+                    isJsonAjax: true,
+                    beforeAjax: function (grid) {
+                        var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+                        if (serviceUrl) {
+                            return true;
+                        } else {
+                            grid.hideLoading();
+                            grid.loading = false;
+                            return false;
+                        }
+                    },
+                    filterSendData: filter,
+                    method: 'GET',
+                    getData: function (dataJSON, textStatus, jqXHR) {
+                        if (typeof dataJSON.Content == 'string') {
+                            dataContent = JSON.parse(dataJSON.Content);
+                        }
+                        var data = dataContent.items;
+                        var res = { curPage: dataContent.currentpage || 1, totalRecords: dataContent.totalitems, data: data }
+                        console.log(res);
+                        return res;
+                    }
+                })
+            }
+            datagridconfig.pageModel = { type: "remote", rPP: 5, page: 1, strRpp: "{0}" },
+
+            datagridconfig.height = 260;
+            //  console.log(itemtmpl);
+            $('.datagrid-view').cDatagrid(datagridconfig);
+
+            $('#ComponentType').bind('change', function () {
+                rebind();
+            });
+            $('#removeBtn').on('click', function (e) {
+
+                var target = $('.datagrid-view');
+                var id = Xms.Web.GetTableSelected(target);
+                var ctype = $('#ComponentType').find('option:selected').attr('data-componenttype')
+                Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid +'&ComponentType='+ctype, false, rebind, null, LOC_CONFIRM_REMOVE);
+            });
+            $('.datagrid-view').on('click', '.removeBtn', function (e) {
+                var target = $('.datagrid-view');
+                Xms.Web.SelectingRow(e.target);
+                var id = Xms.Web.GetTableSelected(target);
+                var ctype = $('#ComponentType').find('option:selected').attr('data-componenttype')
+                Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid + '&ComponentType=' + ctype, false, rebind, null, LOC_CONFIRM_REMOVE);
+            });
+
+
+        });
+        function rebind() {
+            $('.datagrid-view').cDatagrid('refreshDataAndView');
+        }
+
+</script>
+<script>
+    $(function () {
+        var theaders_logs = {
+            'title': '@app.T["log_title"]',
+            'username': '@app.T["user"]',
+            'clientip': '@app.T["log_clientip"]',
+            'url': '@app.T["link"]',
+            'statuscode': '@app.T["statecode"]',
+            'createdon': '@app.T["operation_time"]',
+            'operation': '@app.T["operation"]'
+        }
+        //列数据配置数据
+        var columnConfigs_logs = [
+            //从新配置复选框列的渲染方式，
+
+            { "dataIndx": "title", "title": theaders_logs.title, editable: false, "dataType": "string", "width": 600, "isprimaryfield": false, "attributetypename": "string" },
+            { "dataIndx": "username", "title": theaders_logs.username, "dataType": "string", editable: false, "width": 50, "isprimaryfield": false, "attributetypename": "string" },
+            { "dataIndx": "clientip", "title": theaders_logs.clientip, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+            { "dataIndx": "statuscode", "title": theaders_logs.statuscode, editable: false, "dataType": "string", "width": 50, "isprimaryfield": false, "attributetypename": "string" },
+            { "dataIndx": "createdon", "title": theaders_logs.createdon, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string" },
+            {
+                title: "操作", editable: false, minWidth: 40, width: 40, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                    var datas = ui.rowData;
+                    var recordid = datas['visitedlogid'];
+                    var html = ''
+                    html = ' <a class="btn btn-info btn-xs" data-toggle="modal" data-target="#logModal" data-log="' + recordid + '" ><i class="layui-icon layui-icon-form"></i> 详情</a>';
+
+                    return html
+                }
+            }
+        ];
+        var url_logs = ORG_SERVERURL + '/platform/log?LoadData=true&';
+        var $form_logs = $();
+        var roles_filters_logs = new XmsFilter();
+        var datagridconfig_logs = {
+            scrollModel: { autoFit: true },
+            baseUrl: url_logs,
+            columnConfigs: columnConfigs_logs,//字段配置信息
+            filters: roles_filters_logs,//post提交时过滤条件
+            searchForm: $form_logs,//GET提交时查询的数据
+            height: 260
+        };
+        datagridconfig_logs.pageModel = { type: "remote", rPP: 5, page: 1, strRpp: "{0}" },
+            $('.datagrid-view-logs').xmsDataTable(datagridconfig_logs);
+        $('#logModal').on('show.bs.modal', function (e) {
+            var logid = $(e.relatedTarget).data('log');
+            var url_logDetail = ORG_SERVERURL + '/platform/logdetail';
+            Xms.Web.GetJson(url_logDetail, { LoadData: true, logid: logid }, function (result) {
+                if (result.IsSuccess) {
+                    for (var key in result.content.logdetail) {
+                        $('[data-' + key + ']', '.log-detail-body').text(result.content.logdetail[key]);
+                    }
+                }
+            });
+        });
+
+
+    });
+</script>

@@ -1,0 +1,11 @@
+﻿<div style="margin-left: -15px; margin-right: -15px;">
+
+    <ol class="breadcrumb">
+        <li>&rsaquo;&rsaquo;</li>
+        @foreach (var item in app.PrivilegeTree)
+        {
+            var url = item.Url.IsEmpty() ? "javascript:;" : item.Url;
+            @:<li><a href="@url">@item.DisplayName</a></li>
+        }
+    </ol>
+</div>

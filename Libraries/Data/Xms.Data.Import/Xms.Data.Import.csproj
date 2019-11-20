@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema\Xms.Schema.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk.Extensions\Xms.Sdk.Extensions.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk\Xms.Sdk.csproj" />
+    <ProjectReference Include="..\..\Xms.Context\Xms.Context.csproj" />
+  </ItemGroup>
+
+</Project>

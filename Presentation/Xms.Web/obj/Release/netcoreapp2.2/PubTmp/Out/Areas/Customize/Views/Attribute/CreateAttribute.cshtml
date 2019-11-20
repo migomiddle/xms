@@ -1,0 +1,781 @@
+﻿@model Xms.Web.Customize.Models.CreateAttributeModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@Model.Entity.LocalizedName - @app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/attribute/createattribute" method="post" id="createattributeForm" class="form-horizontal" role="form" data-autoreset="true">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.AttributeId)
+                @Html.HiddenFor(x => x.EntityId)
+                @Html.HiddenFor(x => x.SolutionId)
+                @Html.HiddenFor(x => x.SummaryExpression)
+                @Html.HiddenFor(x => x.FormulaExpression)
+                <input type="hidden" id="filterConditions" value="" />
+                <input type="hidden" id="valueSetJson" value="" />
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Name, app.T["attribute_name"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control required", @data_custom = "validName", validName = true, @data_customMsg = "首字符为字母，只能输入数字，字母或者下划线", @data_customReg = "^[a-zA-Z]+[\\w_]*$", @autofocus = true })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.LocalizedName, app.T["attribute_displayname"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.LocalizedName, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.IsRequired, app.T["required"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.IsRequired, true, new { @class = "required" }) @app.T["yes"]
+                        </label>
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.IsRequired, false, new { @class = "required" }) @app.T["no"]
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.IsLoged, app.T["attribute_isloged"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.IsLoged, true, new { @class = "required" }) @app.T["enabled"]
+                        </label>
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.IsLoged, false, new { @class = "required" }) @app.T["disabled"]
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.IsSecured, app.T["attribute_issecured"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.IsSecured, true, new { @class = "required" }) @app.T["enabled"]
+                        </label>
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.IsSecured, false, new { @class = "required" }) @app.T["disabled"]
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Description, app.T["attribute_description"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @row = 5 })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label" for="attributetype">@app.T["attribute_typename"]</label>
+                    <div class="col-sm-10">
+                        <select name="attributetype" id="attributetype" class="form-control required">
+                            <option value="">@app.T["select"]</option>
+                            <option value="nvarchar">@app.T["text"]</option>
+                            <option value="ntext">@app.T["large_text"]</option>
+                            <option value="int">@app.T["integer"]</option>
+                            <option value="float">@app.T["float"]</option>
+                            <option value="money">@app.T["money"]</option>
+                            <option value="picklist">@app.T["optionset"]</option>
+                            <option value="bit">@app.T["yes_or_no"]</option>
+                            <option value="datetime">@app.T["attribute_datetime"]</option>
+                            <option value="lookup">@app.T["entity_quote"]</option>
+                            <option value="uniqueidentifier">全局唯一码</option>
+                            @*<option value="partylist">多选</option>
+        <option value="summary">汇总</option>
+            <option value="formula">公式</option>*@
+                        </select>
+                    </div>
+                </div>
+                <div id="settings">
+                    <div class="hide" id="nvarcharSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="nvarchar-format">@app.T["attribute_format"]</label>
+                            <div class="col-sm-10">
+                                <select name="textformat" id="nvarchar-format" class="form-control">
+                                    <option value="text">@app.T["unlimited"]</option>
+                                    <option value="email">@app.T["email"]</option>
+                                    <option value="url">@app.T["link"]</option>
+                                    <option value="unlink">@app.T["text"]</option>
+                                    <option value="password">@app.T["password"]</option>
+                                    <option value="textarea">多行文本</option>
+                                    <option value="fileupload">文件上传</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="nvarchar-length">@app.T["attribute_maxlength"]</label>
+                            <div class="col-sm-10">
+                                <input name="maxlength" id="nvarchar-length" value="50" class="form-control input-sm" data-type="int" data-range="[10,4000]" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="ntextSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="ntext-format">@app.T["attribute_format"]</label>
+                            <div class="col-sm-10">
+                                <select name="ntextformat" id="ntext-format" class="form-control">
+                                    <option value="text">@app.T["unlimited"]</option>
+                                    <option value="email">@app.T["rich_text"]</option>
+                                    <option value="fileupload">文件上传</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="intSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="int-minvalue">@app.T["attribute_minvalue"]</label>
+                            <div class="col-sm-10"><input name="intminvalue" id="int-minvalue" class="form-control input-sm" data-range="[-2147483648,2147483647]" value="0" /></div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="int-maxvalue">@app.T["attribute_maxvalue"]</label>
+                            <div class="col-sm-10"><input name="intmaxvalue" id="int-maxvalue" class="form-control input-sm" data-range="[-2147483648,2147483647]" value="2147483647" /></div>
+                        </div>
+                    </div>
+                    <div class="hide" id="floatSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="float-precision">@app.T["attribute_precision"]</label>
+                            <div class="col-sm-10">
+                                <input name="floatprecision" id="float-precision" class="form-control input-sm" value="2" data-range="[0,8]" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="float-minvalue">@app.T["attribute_minvalue"]</label>
+                            <div class="col-sm-10">
+                                <input name="floatminvalue" id="float-minvalue" class="form-control input-sm" data-range="[-2147483648,2147483647]" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="float-maxvalue">@app.T["attribute_maxvalue"]</label>
+                            <div class="col-sm-10">
+                                <input name="floatmaxvalue" id="float-maxvalue" class="form-control input-sm" data-range="[-2147483648,2147483647]" value="2147483647" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="moneySetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="money-precision">@app.T["attribute_precision"]</label>
+                            <div class="col-sm-10">
+                                <input name="moneyprecision" id="money-precision" class="form-control input-sm" value="2" data-range="[0,8]" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="money-minvalue">@app.T["attribute_minvalue"]</label>
+                            <div class="col-sm-10">
+                                <input name="moneyminvalue" id="money-minvalue" class="form-control input-sm" data-range="[-2147483648,2147483647]" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="money-maxvalue">@app.T["attribute_maxvalue"]</label>
+                            <div class="col-sm-10">
+                                <input name="moneymaxvalue" id="money-maxvalue" class="form-control input-sm" data-range="[-2147483648,2147483647]" value="2147483647" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="picklistSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="optionset-type">@app.T["attribute_format"]</label>
+                            <div class="col-sm-10">
+                                <select name="optionsettype" id="optionset-type" class="form-control">
+                                    <option value="select">@app.T["drop_down"]</option>
+                                    <option value="radio">@app.T["radiobox"]</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="optionset-picklist">@app.T["attribute_optionset_items"]</label>
+                            <div class="col-sm-10">
+                                <label class="control-label"><input type="checkbox" value="true" name="iscommonoptionset" onclick="selectOptionset(this)" />@app.T["attribute_select_existing_option"]</label>
+                                <div id="optionset-commonarea" class="input-group hide col-sm-12">
+                                    <select name="commonoptionset" id="optionset-common" class="form-control input-sm"></select>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-sm" onclick="loadOptionSet()" title="@app.T["refresh"]">
+                                            <span class="glyphicon glyphicon-refresh"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="Xms.Web.OpenWindow(ORG_SERVERURL+'/customize/optionset/createoptionset?solutionid=@Model.SolutionId')">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> @app.T["new"]
+                                        </button>
+                                    </span>
+                                </div>
+                                <div id="optionset-privatearea">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="addOption('optionset-picklist')">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> @app.T["item_add"]
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-xs" onclick="clearOption('optionset-picklist')">
+                                            <span class="glyphicon glyphicon-trash"></span> @app.T["clear"]
+                                        </button>
+                                    </div>
+                                    <table id="optionset-picklist" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>@app.T["optionset_item_name"]</th>
+                                                <th>@app.T["optionset_item_value"]</th>
+                                                <th>@app.T["optionset_item_defaultselected"]</th>
+                                                <th>@app.T["operation"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input onblur="CheckRepeat('optionsetname')" type="text" class="optionsetname" name="optionsetname" maxlength="200" /></td>
+                                                <td><input onblur="CheckRepeat('optionsetvalue')" type="text" class="optionsetvalue" name="optionsetvalue" value="0" data-range="[-2147483648,2147483648]" /></td>
+                                                <td>
+                                                    <input type="checkbox" name="optionListChecker" onclick="$(this).next().val($(this).prop('checked'))" />
+                                                    <input name="isselectedoption" type="hidden" value="false" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning btn-xs" onclick="removeOption('optionset-picklist', this)">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, true)">
+                                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, false)">
+                                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="bitSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="bit-option">@app.T["attribute_optionset_items"]</label>
+                            <div class="col-sm-10">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>@app.T["optionset_item_name"]</th>
+                                            <th>@app.T["optionset_item_defaultselected"]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@app.T["true"]<input type="text" name="bitoptionname" value="@app.T["yes"]" maxlength="200" /></td>
+                                            <td>
+                                                <input type="checkbox" name="bitisdefault" value="true" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>@app.T["false"]<input type="text" name="bitoptionname" value="@app.T["no"]" maxlength="200" /></td>
+                                            <td>
+                                                <input type="checkbox" name="bitisdefault" value="false" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="datetimeSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="datetime-format">@app.T["attribute_format"]</label>
+                            <div class="col-sm-10">
+                                <select name="datetimeformat" id="datetime-format" class="form-control">
+                                    <option value="yyyy/MM/dd">@app.T["attribute_dateformat_date"]</option>
+                                    <option value="yyyy/MM/dd hh:mm:ss">@app.T["attribute_dateformat_datetime"]</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hide" id="lookupSetting">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="lookup-entity">相关实体</label>
+                            <div class="col-sm-10">
+                                <input name="lookupentity" id="lookup-entity" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="form-format">@app.T["attribute_format"]</label>
+                            <div class="col-sm-10">
+                                <select name="lookuptype" id="lookup-type" class="form-control">
+                                    <option value="link">@app.T["link"]</option>
+                                    <option value="unlink">@app.T["text"]</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hide" id="partylistSetting">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="partylist-format">@app.T["attribute_format"]</label>
+                        <div class="col-sm-10">
+                            <select name="partylistformat" id="partylist-format" class="form-control">
+                                <option value="checkbox">复选框</option>
+                                <option value="lookup">查找框</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <fieldset class="col-sm-12" id="valueSetting">
+                    <legend>值设置</legend>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="valuetype">来源</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="valuetype" id="valuetype">
+                                <option value="0">无</option>
+                                <option value="1">默认值</option>
+                                <option value="2">计算公式</option>
+                                <option value="3">累计汇总</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="valueSection">
+                        <div class="hide" id="defaultSection">
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label" id="defaultvalue">输入值</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="defaultvalue"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide" id="summarySection">
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label" for="int-minvalue">汇总对象</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="summaryentityid" id="summaryentityid"></select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label" for="summarytype">运算类型</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="summarytype" id="summarytype">
+                                        <option>计数</option>
+                                        <option>合计</option>
+                                        <option>最大值</option>
+                                        <option>最小值</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label" for="summaryfield">运算字段</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="summaryfield" id="summaryfield"></select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label" for="summaryfiltertype">过滤条件</label>
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline"><input type="radio" name="summaryfiltertype" id="summaryfiltertype" value="1" checked />包含所有记录</label>
+                                    <label class="checkbox-inline"><input type="radio" name="summaryfiltertype" id="summaryfiltertype" value="2" />指定条件记录</label>
+                                </div>
+                                <div class="col-sm-10 col-sm-offset-2 hide" id="filterSection">
+                                    <table class="table">
+                                        <thead><tr><th>字段</th><th>运算符</th><th>值</th><th class="col-sm-4"></th></tr></thead>
+                                        <tbody>
+                                            <tr class="condition-clone-default" style="display:none;">
+                                                <td>
+                                                    <select class="form-control filter-filed-name"></select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control filter-filed-Operator"></select>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control filter-filed-value" name="value" type="text" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-xs btn-warning" onclick="removeCondition(this)">
+                                                        <span class="glyphicon glyphicon-minus-sign"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr class="condition-item">
+                                                <td>
+                                                    <select class="form-control filter-filed-name"></select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control filter-filed-Operator"></select>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control filter-filed-value" name="value" type="text" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-xs btn-info" onclick="addCondition(this)">
+                                                        <span class="glyphicon glyphicon-plus-sign"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide" id="formulaSection">
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">公式</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="formula"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/filterdialog.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script id="formvalidateAttr">
+        $(function () {
+            //表单验证
+            if (typeof $ !== undefined) {
+                Xms.Web.Form($("#createattributeForm"), function (response) {
+                    if (response.IsSuccess) {
+                        $('#settings').children().addClass('hide');
+                    }
+                    Xms.Web.Alert(response.IsSuccess, response.Content, function () {
+
+                    });
+
+                    Xms.Web.Event.publish('refresh');
+                    Xms.Web.Event.publish('success&&&' + response.Extra.id, true);
+                    $('#createattributeForm').trigger('formSuccess', { res: response });
+                }, true, function () {
+                    var checkName = CheckRepeat('optionsetname');
+                    var checkVal = CheckRepeat('optionsetvalue');
+                    var selThat = Xms.Web.SelectedValue($('#attributetype'));
+                    if (!checkName || !checkVal) {
+                        return false;
+                    }
+                });
+            }
+
+        });
+
+        "loadend"</script>
+
+    <script>
+        $(function () {
+            //字段类型
+            $('#attributetype').on("change", null, function (e) {
+                $('#settings').children().addClass('hide');
+                var type = $(this).val();
+                if (type != '') {
+                    $(this).next('label[name="errorTip"]').remove();
+                    //$('#valueSetting').removeClass('hide');
+                }
+                else {
+                    //$('#valueSetting').addClass('hide');
+                    return;
+                }
+                $('#' + type + 'Setting').removeClass('hide');
+                if (type == 'lookup') {
+                    //绑定引用实体
+                    loadEntities();
+                }
+            });
+            $('#summaryentityid').on('change', null, function (e) {
+                LoadSummaryAttributes();
+            });
+            $('#valuetype').on('change', null, function (e) {
+                var vt = $(this).val();
+                //var at = Xms.Web.SelectedValue($('#attributetype'));
+                $('#valueSection').children().addClass('hide');
+                if (vt == 1) {
+                    $('#defaultSection').removeClass('hide');
+                }
+                else if (vt == 2) {
+                    $('#formulaSection').removeClass('hide');
+                }
+                else if (vt == 3) {
+                    LoadRelatedEntities();
+                    $('#summarySection').removeClass('hide');
+                }
+            });
+            $('input[name=summaryfiltertype]').on('change', null, function (e) {
+                var t = $(this).val();
+                if (t == 2) {
+                    $('#filterSection').removeClass('hide');
+                    /*加载字段*/
+                    var entityid = $('#EntityId').val();
+                    var filters = Xms.Fetch.FilterExpression();
+                    filters.Conditions = [];
+                    var postData = {
+                        entityid: entityid,
+                        filter: filters
+                    }
+                    Xms.Web.Post('/filter/simplefiltersection', postData, false, function (res) {
+                        $('#filterSection').html(res);
+                    });
+                } else {
+                    $('#filterSection').addClass('hide');
+                }
+            });
+            //选项集
+            Xms.Web.SingleCheckbox('#optionset-picklist', 'input[type=checkbox]', 'single', function (context) {
+                console.log($(this))
+                var hideIn = $(this).siblings("input[name='isselectedoption']");
+                $("input[name='isselectedoption']").val('false');
+                hideIn.val(true);
+            });
+            $('#optionset-type').bind("change", function () {
+                var t = $(this).find('option:selected').val();
+                if (t == 'checkbox') {
+                    Xms.Web.SingleCheckbox('#optionset-picklist', 'input[type=checkbox]', 'multi');
+                    $("input[type=checkbox]", '#optionset-picklist').unbind("click").bind("click", function (context) {
+                        var hideIn = $(this).siblings("input[name='isselectedoption']");
+                        hideIn.val($(this).prop("checked"));
+                    });
+                }
+                else {
+                    Xms.Web.SingleCheckbox('#optionset-picklist', 'input[type=checkbox]', 'single', function (context) {
+                        var hideIn = $(this).siblings("input[name='isselectedoption']");
+                        $("input[name='isselectedoption']").val('false');
+                        hideIn.val(true);
+                    });
+                }
+            });
+            //复选框设置为单选
+            Xms.Web.SingleCheckbox('#bitSetting', 'input[type=checkbox]', 'single', function (context) {
+                console.log($(this))
+                var hideIn = $(this);//.siblings("input[name='isselectedoption'],input[name='bitisdefault']");
+                $("input[type=checkbox]", '#bitSetting').val(false);
+                hideIn.val(true);
+            });
+            //检查名称是否已存在
+            $('#Name').bind('change', function () {
+                var $this = $(this);
+                var name = $this.val();
+                if (name != '') {
+                    Xms.Web.Get('/customize/attribute/exists?entityid=' + $('#EntityId').val() + '&name=' + name, function (response) {
+                        $this.next().remove();
+                        $this.parents('.form-group').removeClass('has-error');
+                        if (!response.IsSuccess) {
+                            $this.after($('<div class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span>' + LOC_ATTRIBUTE_NAME_EXISTS + '</div>'));
+                            $this.parents('.form-group').addClass('has-error');
+                        }
+                    });
+                }
+            });
+            $('button[type="submit"]').off('click').on('click', function (e) {
+                e.preventDefault();
+                valueSetJson();
+                $('form:first').submit();
+            });
+
+        });
+
+        function checkOptionsData() {
+            var flag = true;
+            var $optionsetpicklist = $('#optionset-picklist');
+            var $list = $optionsetpicklist.find('tbody>tr');
+            var namelist = [];
+            var valuelist = [];
+            if ($list.length > 1) {
+                $list.each(function () {
+                    var _name = $(this).find('input[name="optionsetname"]');
+                    var _value = $(this).find('input[name="optionsetvalue"]');
+                    if ($.inArray(_name, namelist) || $.inArray(_value, valuelist)) {
+                        flag = false;
+                        return false;
+                    }
+                });
+            }
+            return flag;
+        }
+
+
+        //选项集-增加选项
+        function addOption(id) {
+            var $target = $("#" + id);
+            var newRow = $target.find('tr:last').clone();
+            newRow.find('input[type=text]').val('');
+            newRow.find('input[type=checkbox]').prop('checked', false);
+            $target.append(newRow);
+        }
+        //选项集-删除选项
+        function removeOption(id, row) {
+            var $target = $("#" + id);
+            if ($(row).parents('tr').siblings().length > 0) {
+                $(row).parents('tr').remove();
+            }
+            else {
+                var newRow = $(row).parents('tr');
+                newRow.find('input[type=text]').val('');
+                newRow.find('input[type=checkbox]').prop('checked', false);
+            }
+        }
+        //选项集-清空选项
+        function clearOption(id) {
+            var $target = $("#" + id);
+            $target.find('tbody').find('tr:gt(0)').remove();
+            var newRow = $target.find('tbody').find('tr:last');
+            newRow.find('input[type=text]').val('');
+            newRow.find('input[type=checkbox]').prop('checked', false);
+        }
+        //选项集-排序选项
+        function moveOption(id, row, isup) {
+            var $target = $("#" + id);
+            var $this = $(row).parents('tr');
+            if (isup == true && $this.prev().length > 0) {
+                $this.insertBefore($this.prev());
+            }
+            else if (isup == false && $this.next().length > 0) {
+                $this.insertAfter($this.next());
+            }
+        }
+        //公共选项集or私有
+        function selectOptionset(o) {
+            var $this = $(o);
+            if ($this.prop('checked') == true) {
+                $('#optionset-commonarea').removeClass('hide');
+                $('#optionset-privatearea').addClass('hide');
+                loadOptionSet();
+            }
+            else {
+                $('#optionset-privatearea').removeClass('hide');
+                $('#optionset-commonarea').addClass('hide');
+            }
+        }
+        //加载公共选项集
+        function loadOptionSet() {
+            var optionsetSelect = $('#optionset-common');
+            optionsetSelect.empty();
+            Xms.Schema.GetOptionsets({ ispublic: true, getall: true }, function (data) {
+                //console.log(data);
+                if (!data || data.length == 0) return;
+                $(data).each(function (i, n) {
+                    optionsetSelect.append("<option value=\"" + n.optionsetid + "\">" + n.name + "</option>");
+                });
+            });
+        }
+        //加载引用实体
+        function loadEntities() {
+            var entitySelect = $('#lookup-entity');
+            entitySelect.empty();
+            entitySelect.mutilAutoComplete({
+                getType: 'ajax',
+                ajax: {
+                    url: "/api/schema/entity",
+                    data: { getall: true },
+                },
+                replaceList: [{ key: 'itemClass', value: 'itemClass' }, { key: 'itemValue', value: 'entityid' }, { key: 'itemOther', value: 'other' }, { key: 'itemTitle', value: 'localizedname' }],
+                dataFilter: function (data) {
+                    return data.content;
+                }
+
+            });
+        }
+
+        //检查是否有重复的值
+        function CheckRepeat(classname) {
+            var check = true;
+            $('.' + classname).each(function (i, n) {
+                var nVal = $(n).val();
+                var ncheck = true;
+                if (nVal == '') {
+                    return true;
+                }
+                $('.' + classname).each(function (ii, nn) {
+                    var nnVal = $(nn).val();
+                    if (nnVal == '') {
+                        return true;
+                    }
+                    if (nVal == nnVal && i != ii) {
+                        if ($(n).next('label[name="repeatTip"]').length == 0) {
+                            $('<label name="repeatTip">' + LOC_ATTRIBUTE_OPTION_DUPLICATED + '</label>').insertAfter($(n));
+                        }
+                        ncheck = false;
+                        check = false;
+                        return false;
+                    }
+                });
+                if (ncheck == true) {
+                    $(n).next('label[name="repeatTip"]').remove();
+                }
+            });
+            return check;
+        }
+        //加载汇总来源实体
+        function LoadRelatedEntities() {
+            var _target = $('#summaryentityid');
+            var entityid = $('#EntityId').val();
+            Xms.Schema.GetEntityRelations(null, entityid, function (data) {
+                if (!data || data.length == 0) return;
+                //_target.append('<option value="">--请选择--</option>');
+                var html = [];
+
+                $(data).each(function (i, n) {
+                    html.push('<option data-relationshipname="' + n.name + '" data-referencingentityname="' + n.referencingentityname + '" value="' + n.referencingentityid + '">' + n.referencingentitylocalizedname + '(' + n.referencedentitylocalizedname + ')' + '</option>')
+
+                });
+                _target.html(html.join(''));
+                _target.trigger('change');
+            }, null, false);
+        }
+        //加载汇总来源字段
+        function LoadSummaryAttributes() {
+            var entityid = Xms.Web.SelectedValue($('#summaryentityid'));
+            if (!entityid) return;
+            var _target = $('#summaryfield');
+            _target.empty();
+            Xms.Schema.GetAttributes({ getall: true, entityid: entityid, attributetypename: ["int", "float", "money"] }, function (data) {
+                if (!data || data.length == 0) return;
+                var html = [];
+                $(data).each(function (i, n) {
+                    html.push('<option value="' + n.attributeid + '" data-name="' + n.name + '" data-attributename="' + n.attributetypename + '">' + n.localizedname + '</option>')
+
+                });
+                _target.html(html.join(''));
+            });
+        }
+        //设置值得JSON数据
+        function valueSetJson() {
+            var $value = $('#SummaryExpression');
+            var $valuetype = $('#valuetype');
+            if ($valuetype.val() == 0) {
+                $value.val('');
+            } else {
+                se.aggregate = $('#summarytype').val();
+                se.entityname = $('#summaryentityid option:selected').attr('data-referencingentityname');
+                se.field = $('#summaryfield option:selected').attr('data-name');
+                if ($('input[name="summaryfiltertype"]:checked').val() == 1) {
+                    se.filter = null;
+                } else {
+                    setFiltersData();
+                    if ($('#filterConditions').val() != "") {
+                        se.filter = JSON.parse(decodeURIComponent($('#filterConditions').val()));
+                    }
+                }
+                se.relationshipname = $('#summaryentityid option:selected').attr('data-relationshipname');
+                console.log('过滤条件数据', se);
+                $value.val('').val(JSON.stringify(se));
+            }
+        }
+        function setFiltersData() {
+            var filterConditions = $('#filterConditions');
+            var $conditions = $('.condition-item');
+            var filters = Xms.Fetch.FilterExpression();
+            $conditions.each(function () {
+                var item = Xms.Fetch.ConditionExpression();
+                item.AttributeName = $(this).find('.filter-filed-name').val();
+                item.Operator = $(this).find('.filter-filed-Operator').val();
+                item.Values.push($(this).find('input[name="value"]').val());
+                if ($(this).find('input[name="value"]').val() != "") {
+                    filters.Conditions.push(item);
+                }
+            });
+
+            filterConditions.val(encodeURIComponent(JSON.stringify(filters)));
+        }
+
+    </script>
+}

@@ -1,0 +1,11 @@
+G:\projects\xms_v2\Libraries\Xms.Caching\bin\Debug\netstandard2.0\Xms.Caching.deps.json
+G:\projects\xms_v2\Libraries\Xms.Caching\bin\Debug\netstandard2.0\Xms.Caching.dll
+G:\projects\xms_v2\Libraries\Xms.Caching\bin\Debug\netstandard2.0\Xms.Caching.pdb
+G:\projects\xms_v2\Libraries\Xms.Caching\bin\Debug\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_v2\Libraries\Xms.Caching\bin\Debug\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_v2\Libraries\Xms.Caching\obj\Debug\netstandard2.0\Xms.Caching.AssemblyInfoInputs.cache
+G:\projects\xms_v2\Libraries\Xms.Caching\obj\Debug\netstandard2.0\Xms.Caching.AssemblyInfo.cs
+G:\projects\xms_v2\Libraries\Xms.Caching\obj\Debug\netstandard2.0\Xms.Caching.csproj.CopyComplete
+G:\projects\xms_v2\Libraries\Xms.Caching\obj\Debug\netstandard2.0\Xms.Caching.dll
+G:\projects\xms_v2\Libraries\Xms.Caching\obj\Debug\netstandard2.0\Xms.Caching.pdb
+G:\projects\xms_v2\Libraries\Xms.Caching\obj\Debug\netstandard2.0\Xms.Caching.csprojAssemblyReference.cache

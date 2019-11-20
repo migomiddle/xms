@@ -1,0 +1,180 @@
+﻿@model Xms.Web.Customize.Models.EditBusinessFlowModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="cntr">
+                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" data-autoreset="true">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                    <input type="hidden" name="StepData" id="StepData" value="@Model.StepData" />
+                    <input type="hidden" name="WorkFlowId" id="WorkFlowId" value="@Model.WorkFlowId" />
+                    <div class="container-fluid">
+                        <div class="form-group col-sm-12">
+                            @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label">实体</label>
+                            <div class="col-sm-10">
+                                @Html.HiddenFor(x => x.EntityId)
+                                <select class="form-control" id="EntitySel" data-value="@Model.EntityId" onchange="$('#EntityId').val($(this).val())" disabled></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            @Html.LabelFor(x => x.Description, "描述", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-10">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bussinessWrap" class="bussinessWrap">
+                        <ul class="pcc-tab ul-clr" id="entityMenu" data-bind=" foreach: { data: entityList.list, as: 'item' }">
+                            <li>
+                                <i class="icon-sm-right-arrow"></i>
+                            </li>
+                            <li class="menu-item" data-bind="css:{active:item.isShow()}">
+                                <span data-bind="text:item.entityname(),attr:{'data-id':item.entityid()},click:entityHandle"></span>
+                            </li>
+                        </ul>
+                        <div class="dropdown add-business-btn " style="display: inline;">
+                            <span class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="addminus-config">
+                                    <i class="icon-addminus-config hv" id="addEntityRelationBtn"></i>
+                                </span>
+                                <span>选项</span>
+                            </span>
+                            <div class="dropdown-menu add-business-menu">
+                                <ul class="menu business-list" id="entityMenu" data-bind="foreach: entityMenulist.list">
+                                    <li>
+                                        <a href="#" data-bind="attr:{'data-id':key,'data-name':name},click:addStep"><span data-bind="text:value,attr:{'data-id':key}"></span></a>
+                                    </li>
+                                </ul>
+                                <div class="placeRemover" data-bind="visible:entityList.isDelete(),click:function(){entityList.remove();entityMenulist.remove();}">删除最后一个实体</div>
+                            </div>
+                        </div>
+                        <div class="stage-items" data-bind=" foreach: { data: entityList.list, as: 'litem' }">
+                            <table class="pcc-tbl wMax" data-bind="visible:litem.isShow">
+                                <thead>
+                                    <tr>
+                                        <th width="200" colspan="2">
+                                            <span>阶段</span>
+                                            <i class="icon-plus hv add-stage-btn active" id="add-stage-btn" data-bind="click:function(){litem.addItems()}"></i>
+                                        </th>
+                                        <th class="lbor" width="140">
+                                            <i class="icon-line"></i>
+                                            <span>阶段类别</span>
+                                        </th>
+                                        <th class="lbor resizeW-first" colspan="3">
+                                            <table cellpadding="0" cellspacing="0" class="stepItems">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="lbor" width=" 33.33%">
+                                                            <span>步骤</span>
+                                                            <i class="icon-plus add-step-btn hv active" id="add-step-btn" data-bind="click:function(){litem.addLastStep('','');}"></i>
+                                                        </td>
+                                                        <td class="lbor resizeW-second" width="33.33%"><span>字段</span></td>
+                                                        <td class="lbor resizeW-third" width="33.33%"><span>必填</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stepItems" class="stepItems" data-bind="foreach:{ data: litem.items, as: 'kitem' }">
+                                    <tr class="step-item" data-bind="click:stageHandler">
+                                        <td width="38"></td>
+                                        <td width="162">
+                                            <span data-bind="text:kitem.name,event:{'mouseenter':nameMouseEnter}"></span>
+                                            <input type="text" class="c-hide" name="step-name" data-bind="value:kitem.name,event:{'mouseout':nameMouseOut}" />
+                                        </td>
+                                        <td><span data-bind="text:kitem.stagetype"></span></td>
+                                        <td colspan="3" class="pos-rt">
+                                            <table cellpadding="0" cellspacing="0" class="stepItems">
+                                                <tbody data-bind="foreach:{ data: kitem.steps, as: 'step' }">
+                                                    <tr>
+                                                        <td class="setW-first" width="33.33%">
+                                                            <span data-bind="text:step.displayname(),event:{'mouseenter':nameMouseEnter}"></span>
+                                                            <input type="text" class="c-hide" name="step-name" data-bind="value:step.displayname(),event:{'mouseout':nameMouseOut}" />
+                                                        </td>
+                                                        <td class="setW-second" width="33.33%">
+                                                            <span data-bind="text:step.attrname(),event:{'mouseenter':attrMouseEnter}"></span>
+                                                            <select class="attr-selector c-hide" name="step-attribute" data-bind="
+                                                        options:step.options(),
+                                                        optionsText: 'optionText' ,
+                                                        optionsValue:'optionValue',
+                                                        event:{'change':attrChange,'mouseout':attrMouseOut}
+                                                        ">
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="setW-third" width="33.33%">
+                                                            <input type="checkbox" data-bind="checked:step.isrequired" />
+                                                            <div class="delstepBtn" data-bind="click:kitem.delStep">x</div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="delstepBtn" data-bind="click:litem.delStage">x</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" width="200">
+                                            <ul class="ul-clr clr">
+                                                <li>
+                                                    <i class="icon-move-up move-up-btn" data-bind="click:litem.moveUp"></i>
+                                                </li>
+                                                <li>
+                                                    <i class="icon-move-down move-down-btn" data-bind="click:litem.moveDown"></i>
+                                                </li>
+                                                <li class="move-status">移动</li>
+                                            </ul>
+
+                                        </td>
+                                    </tr>
+
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <footer class="footer"></footer>
+                    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" id="body-footer">
+                        <div class="container">
+                            <div class="navbar-form navbar-right" id="body-footer-content">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> 保存</button> <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> 重置</button>
+                            </div>
+                        </div>
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @section Header {
+        <link href="/content/customize/css/businessworkflow.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+    }
+    @section Scripts {
+        <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script src="/content/js/jsviews.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script src="/content/js/knockout-2.2.0.js?v=@app.PlatformSettings.VersionNumber"></script>
+        <script>
+            var PAGE_TYPE = 'EDIT';
+        </script>
+        <script src="/content/js/businessworkflow.js?v=@app.PlatformSettings.VersionNumber"></script>
+    }

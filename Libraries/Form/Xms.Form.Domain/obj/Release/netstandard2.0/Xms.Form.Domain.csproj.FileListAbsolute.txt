@@ -1,0 +1,16 @@
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Form.Domain.deps.json
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Form.Domain.dll
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Form.Domain.pdb
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Core.dll
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Domain.dll
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Domain.pdb
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Core.pdb
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\bin\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.csproj.CoreCompileInputs.cache
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.AssemblyInfoInputs.cache
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.AssemblyInfo.cs
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.csproj.CopyComplete
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.dll
+G:\projects\Xms_V2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.pdb
+G:\projects\xms_v2\Libraries\Form\Xms.Form.Domain\obj\Release\netstandard2.0\Xms.Form.Domain.csprojAssemblyReference.cache

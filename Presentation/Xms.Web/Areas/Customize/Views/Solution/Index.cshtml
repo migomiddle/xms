@@ -1,0 +1,193 @@
+﻿@model Xms.Web.Customize.Models.SolutionModel
+
+<div class="panel panel-info" id="gridview">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            <div class="pull-right">
+                <a class="btn btn-info btn-xs" data-toggle="collapse"
+                   href="#collapseOne">
+                    <span class="caret"></span> @app.T["search"]
+                </a>
+                <a class="btn btn-info btn-xs" href="@Url.Action("createsolution")"><span class="glyphicon glyphicon-file"></span> @app.T["add"]</a>
+                <a class="btn btn-info btn-xs" href="#" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-import"></span> @app.T["import"]</a>
+            </div>
+        </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <!--in-->
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                @Html.ValidationSummary()
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="Name">@app.T["name"]</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th data-name="name">
+                        @app.T["name"]
+                    </th>
+                    <th width="20%" data-name="LocalizedName">
+                        @app.T["versions"]
+                    </th>
+                    <th width="10%" data-name="IsAuthorization">
+                        @app.T["createdby"]
+                    </th>
+                    <th width="10%" data-name="isloged">
+                        @app.T["promulgator"]
+                    </th>
+                    <th width="15%" data-name="createdon">
+                        @app.T["create_time"]
+                    </th>
+                    <th width="20%">@app.T["operation"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/solution/editsolution?id=@item.SolutionId'">
+                        <td><input type="checkbox" value="@item.SolutionId" name="recordid" /></td>
+                        <td><a href="@("/"+app.OrganizationUniqueName)/customize/index?solutionid=@item.SolutionId">@item.Name</a></td>
+                        <td>@item.Version</td>
+                        <td>@item.CreatedByName</td>
+                        <td>@item.PublisherIdName</td>
+                        <td>@item.CreatedOn</td>
+                        <td>
+                            <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/solution/exportsolution?id=@item.SolutionId"><span class="glyphicon glyphicon-export"></span> @app.T["export"]</a>
+                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/solution/editsolution?id=@item.SolutionId"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</a>
+                            <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del('@item.SolutionId','/customize/solution/deletesolution',false,rebind,null,'删除后相关数据也将一并删除，请提前备份数据',true)"><span class="glyphicon glyphicon-trash"></span> @app.T["delete"]</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="active">
+                        <button type="button" class="btn btn-xs btn-primary" data-action="/customize/solution/deletesolution" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-4">
+                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+            </div>
+            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+        </div>
+    </div>
+</div>
+<!-- （Modal） -->
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog"
+     aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    @app.T["times_sign"]
+                </button>
+                <h4 class="modal-title" id="importModalLabel">
+                    @app.T["import_solution"]
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="importForm" action="@("/"+app.OrganizationUniqueName)/customize/solution/importsolution" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="col-sm-2 control-label">@app.T["file"]</label>
+                        <div class="col-sm-10">
+                            <input id="solutionfile" name="file" type="file" class="form-control input-sm" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> @app.T["cancel"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="importSolution()">
+                    <span class="glyphicon glyphicon-ok"></span> @app.T["confirm"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Header {
+}
+@section Scripts {
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+            $(".modal").draggable({
+                handle: ".modal-header",
+                cursor: 'move',
+                refreshPositions: false
+            });
+            Xms.Web.Event.localStorageEvent.on('list_solution_rebind', function () {
+                setTimeout(function () {
+                    location.reload();
+                },100)
+            });
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                pageUrl = $("#datatable").attr('data-pageurl');
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+         function rebind() {
+            //$('#searchForm').submit();
+             $('.datagrid-view').cDatagrid('refreshDataAndView')
+        }
+        function importSolution() {
+            $('#importForm').ajaxSubmit(function (response) {
+                console.log(response);
+                if (response.IsSuccess) {
+                    $('#importModal').modal('hide');
+                }
+                Xms.Web.Alert(response.IsSuccess, response.Content);
+                rebind();
+            });
+        }
+    </script>
+}

@@ -1,0 +1,62 @@
+﻿@model Xms.Web.Models.SendEmailsModel
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseTwo">
+                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("sendemails", "settings", FormMethod.Post, new { @id = "editform", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.EmailAddresses, "收件人", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(x => x.EmailAddresses, new { @class = "form-control required", @rows = 5 })
+                        <div class="text-muted">多个收件人请用半角逗号分隔</div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Subject, "主题", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Subject, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Content, "内容", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(x => x.Content, new { @class = "form-control required", @rows = 5 })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> 确定发送</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> 重置</button>
+                </div>
+            }
+        </div>
+    </div>
+
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"));
+        });
+        function addRow(e) {
+            var row = [];
+            row.push('<tr>');
+            row.push('<td><input class="form-control" name="name" /></td>');
+            row.push('<td>');
+            row.push('<input type="text" class="form-control" name="content" />');
+            row.push('</td>');
+            row.push('</tr>');
+            $('#contents tbody').append($(row.join('')));
+        }
+    </script>
+}

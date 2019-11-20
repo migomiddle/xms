@@ -1,0 +1,157 @@
+﻿@model Xms.Web.Customize.Models.EditSerialNumberModel
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseTwo">
+                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                </a>
+            </h3>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" data-autoreset="true" id="editform" class="form-horizontal" role="form">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                    @Html.HiddenFor(x => x.SerialNumberRuleId)
+                    <div class="form-group col-sm-12">
+                        @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        @Html.LabelFor(x => x.Description, "描述", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-10">
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label">@app.T["serial_number_entity"]</label>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(x => x.EntityName, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <label class="col-sm-2 control-label">@app.T["serial_number_field"]</label>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(x => x.AttributeName, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="Prefix">@app.T["serial_number_prefix"]</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.Prefix, new { @class = "form-control " })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="DateSelect">@app.T["serial_number_date"]</label>
+                        <div class="col-sm-10">
+                            @Html.HiddenFor(x => x.DateFormatType)
+                            <select class="form-control" id="DateSelect" name="DateSelect">
+                                <option value="-1">@app.T["serial_number_empty"]</option>
+                                <option value="0">@app.T["serial_number_yyyymmdd"]</option>
+                                <option value="1">@app.T["serial_number_yymmdd"]</option>
+                                <option value="2">@app.T["serial_number_yyyymm"]</option>
+                                <option value="3">@app.T["serial_number_yymm"]</option>
+                                <option value="4">@app.T["serial_number_mmdd"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="IncrementLength">@app.T["serial_number_watercourse"]</label>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(x => x.IncrementLength, new { @class = "form-control col-sm-5" })
+                        </div>
+                        <label class="col-sm-2 control-label" for="Increment">@app.T["serial_number_start"]</label>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(x => x.Increment, new { @class = "form-control col-sm-5" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12" for="Seprator">
+                        <label class="col-sm-2 control-label">@app.T["serial_number_seprator"]</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.Seprator, new { @class = "form-control " })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label">@app.T["preview"]</label>
+                        <div class="col-sm-10">
+                            <input id="preview" name="preview" type="text" class="form-control" value="" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 text-center" id="form-buttons">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span>@app.T["save"]</button>
+                        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span>@app.T["reset"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"));
+            $('body').on('keyup', 'input', function () {
+                SplitString();
+            });
+            $('#DateSelect').find('option[value="' + $('#DateFormatType').val() + '"]').prop('selected', true);
+            $('body').on('change', '#DateSelect', function () {
+                $('#DateFormatType').val($('#DateSelect').find('option:selected').val());
+                SplitString();
+            })
+            $('body').on('change', '#AttributeSel', function () {
+                $('#AttributeId').val($('#AttributeSel').find('option:selected').val());
+            })
+            SplitString();
+        });
+
+        function loadEntities() {
+            Xms.Web.GetJson('/customize/Entity?getall=true', function (data) {
+                if (!data || data.content.length == 0) return;
+                $(data.content.items).each(function (i, n) {
+                    $('#EntitySel').append('<option data-relationship="' + n.name + '"  value="' + n.entityid + '">' + n.localizedname + '</option>');
+                });
+                $('#EntitySel').find('option[value="' + $('#EntityId').val() + '"]').prop('selected', true);
+            });
+        }
+        function SplitString() {
+            var myDate = new Date();
+            var time = '';
+            var month = myDate.getMonth() * 1 + 1;
+            month = (month < 10 ? "0" + month : month);
+            var day = myDate.getDate();
+            day = (day < 10 ? "0" + day : day);
+            var length = '';
+            var result = '';
+
+            var prefix = $('#Prefix').val();
+            var dateSel = $('#DateSelect').find('option:selected').val();
+            var numLength = $('#IncrementLength').val();
+            var numStrat = $('#Increment').val();
+            var sep = $('#Seprator').val();
+            if (dateSel == '0') {
+                time = myDate.getFullYear().toString() + month.toString() + day.toString();
+            } else if (dateSel == '1') {
+                time = myDate.getFullYear().toString().substring(2) + month.toString() + day.toString();
+            } else if (dateSel == '2') {
+                time = myDate.getFullYear().toString() + month.toString();
+            } else if (dateSel == '3') {
+                time = myDate.getFullYear().toString().substring(2) + month.toString();
+            } else if (dateSel == '4') {
+                time = month.toString() + day.toString();
+            } else {
+                time = '';
+            }
+            for (var i = 0; i < numLength - numStrat.length; i++) {
+                length += 0;
+            }
+            result = (prefix ? prefix + sep : '') + (time ? time + sep : '') + length + numStrat;
+            $('#preview').val(result);
+            return result;
+        }
+    </script>
+}

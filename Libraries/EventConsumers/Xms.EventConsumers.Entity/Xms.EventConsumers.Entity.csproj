@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\Presentation\Xms.Web\bin\Debug\eventconsumers\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\Presentation\Xms.Web\bin\Debug\\eventconsumers\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Flow\Xms.Flow.Abstractions\Xms.Flow.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Flow\Xms.Flow.Core\Xms.Flow.Core.csproj" />
+    <ProjectReference Include="..\..\Flow\Xms.Flow\Xms.Flow.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk.Abstractions\Xms.Sdk.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk\Xms.Sdk.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Security.DataAuthorization\Xms.Security.DataAuthorization.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency.Abstractions\Xms.Dependency.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency\Xms.Dependency.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Plugin\Xms.Plugin.Abstractions\Xms.Plugin.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Plugin\Xms.Plugin.Domain\Xms.Plugin.Domain.csproj" />
+    <ProjectReference Include="..\..\Plugin\Xms.Plugin\Xms.Plugin.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk.Extensions\Xms.Sdk.Extensions.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk\Xms.Sdk.csproj" />
+    <ProjectReference Include="..\..\Xms.Caching\Xms.Caching.csproj" />
+    <ProjectReference Include="..\..\Xms.Context\Xms.Context.csproj" />
+    <ProjectReference Include="..\..\Xms.Identity\Xms.Identity.csproj" />
+  </ItemGroup>
+
+</Project>

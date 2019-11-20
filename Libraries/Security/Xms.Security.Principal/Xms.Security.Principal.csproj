@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Abstractions\Xms.Schema.Abstractions.csproj" />
+    <ProjectReference Include="..\..\SiteMap\Xms.SiteMap.Domain\Xms.SiteMap.Domain.csproj" />
+    <ProjectReference Include="..\..\SiteMap\Xms.SiteMap\Xms.SiteMap.csproj" />
+    <ProjectReference Include="..\..\Xms.Identity\Xms.Identity.csproj" />
+    <ProjectReference Include="..\Xms.Security.Abstractions\Xms.Security.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Security.Domain\Xms.Security.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

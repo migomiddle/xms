@@ -1,0 +1,1152 @@
+﻿2019-05-24 10:17:52,163 [20] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - System.NullReferenceException: Object reference not set to an instance of an object.
+   at AspNetCore.views_entity_merge.<ExecuteAsync>b__10_0() in G:\projects\xms_v2\Presentation\Xms.Web\publish\views\entity\merge.cshtml:line 36
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.GetChildContentAsync(Boolean useCachedResult, HtmlEncoder encoder)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.RunAsync(TagHelperExecutionContext executionContext)
+   at AspNetCore.views_entity_merge.ExecuteAsync() in G:\projects\xms_v2\Presentation\Xms.Web\publish\views\entity\merge.cshtml:line 23
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 32
+2019-05-24 10:18:43,507 [28] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - System.NullReferenceException: Object reference not set to an instance of an object.
+   at AspNetCore.views_entity_merge.<ExecuteAsync>b__10_0() in G:\projects\xms_v2\Presentation\Xms.Web\publish\views\entity\merge.cshtml:line 36
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.GetChildContentAsync(Boolean useCachedResult, HtmlEncoder encoder)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.RenderAtEndOfFormTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.RunAsync(TagHelperExecutionContext executionContext)
+   at AspNetCore.views_entity_merge.ExecuteAsync() in G:\projects\xms_v2\Presentation\Xms.Web\publish\views\entity\merge.cshtml:line 23
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 32
+2019-05-24 13:38:40,730 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: Non-static method requires a target.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 134
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:46:03,035 [26] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: Non-static method requires a target.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 134
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:45,179 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:48,100 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:49,098 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:50,077 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:50,935 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:51,696 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:52,415 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:52,790 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:53,151 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:53,419 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:53,800 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:54,128 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:54,427 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:54,806 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:55,035 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:55,181 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:55,349 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:55,506 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:55,673 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:55,854 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:56,012 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:56,177 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:56,347 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:56,557 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:56,707 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:56,881 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:57,067 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:57,237 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:57,394 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:57,560 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:57,725 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:57,912 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:58,089 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:58,274 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:58,449 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:58,620 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:58,797 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:58,984 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:59,143 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:59,319 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:59,484 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:59,670 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:57:59,832 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:00,000 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:00,180 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:00,338 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:00,509 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:00,674 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:00,844 [6] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:01,027 [11] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:01,182 [10] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:01,360 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 13:58:01,581 [9] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 14:00:27,446 [22] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 14:03:22,755 [26] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33
+2019-05-24 14:05:47,178 [31] ERROR Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware [(null)] - Xms.Infrastructure.XmsException: The given key 'BankInfoid' was not present in the dictionary.
+   at Xms.Sdk.Client.DataProviderBase.OnException(Exception e) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataProviderBase.cs:line 105
+   at Xms.Sdk.Client.DataMerger.Merge(Guid entityId, Guid mainRecordId, Guid mergedRecordId, Dictionary`2 attributeMaps, Boolean ignorePermissions) in G:\projects\Xms_V2\Libraries\Sdk\Xms.Sdk\Client\DataMerger.cs:line 136
+   at Xms.Web.Api.DataMergeController.Post(MergeModel model) in G:\projects\Xms_V2\Presentation\Xms.Web\Api\DataMergeController.cs:line 61
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Xms.Web.Framework.Middlewares.ExceptionHandlerMiddleware.Invoke(HttpContext context) in G:\projects\Xms_V2\Presentation\Xms.Web.FrameWork\Middlewares\ExceptionHandlerMiddleWare.cs:line 33

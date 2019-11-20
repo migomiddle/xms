@@ -1,0 +1,259 @@
+﻿@model Xms.Web.Models.SharedModel
+@{
+    Layout = null;
+}
+
+<!-- （Modal） -->
+<div class="modal fade" id="sharingModal" tabindex="-1" role="dialog"
+     aria-labelledby="sharingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="sharingModalLabel">
+                    <span class="glyphicon glyphicon-share"></span> @app.T["share"]
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row container-fluid">
+                    <form class="form-horizontal" action="/@(app.OrganizationUniqueName)/api/data/share" data-jsonajax="true" method="post">
+                        <input type="hidden" name="entityid" value="@Model.EntityId" />
+                        <input type="hidden" name="objectid" value="@Model.ObjectId" />
+                        <input type="hidden" name="principalsjson" value="" />
+                        <div class="form-group col-sm-12">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-xs" name="addBtn">
+                                    <span class="glyphicon glyphicon-plus-sign"></span> @app.T["share_adduser"]
+                                </button>
+                                <button type="button" class="btn btn-warning btn-xs" name="removeBtn">
+                                    <span class="glyphicon glyphicon-trash"></span> @app.T["remove"]
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" name="clearBtn">
+                                    <span class="glyphicon glyphicon-refresh"></span> @app.T["clear"]
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" name="checkall" /></th>
+                                            <th>@app.T["share_username"]</th>
+                                            <th>@app.T["security_read"]</th>
+                                            <th>@app.T["security_update"]</th>
+                                            <th>@app.T["security_delete"]</th>
+                                            <th>@app.T["security_assign"]</th>
+                                            <th>@app.T["security_share"]</th>
+                                            <th>@app.T["security_append"]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="hide">
+                                            <td>
+                                                <input type="checkbox" name="recordid" />
+                                                <input type="hidden" name="principalid" value="@app.CurrentUser.SystemUserId" />
+                                            </td>
+                                            <td>
+                                                @app.CurrentUser.UserName
+                                            </td>
+                                            <td><input type="checkbox" name="read" /></td>
+                                            <td><input type="checkbox" name="update" /></td>
+                                            <td><input type="checkbox" name="delete" /></td>
+                                            <td><input type="checkbox" name="assign" /></td>
+                                            <td><input type="checkbox" name="share" /></td>
+                                            <td><input type="checkbox" name="append" /></td>
+                                        </tr>
+                                        @{
+                                            var principalIds = Model.Principals.Select(n => n.PrincipalId).Distinct().ToList();
+                                        }
+                                        @foreach (var pid in principalIds)
+                                        {
+                                            var item = Model.Principals.First(n => n.PrincipalId == pid);
+                                            var readItem = Model.Principals.Find(n => n.PrincipalId == pid && n.AccessRightsMask == Xms.Core.AccessRightValue.Read);
+                                            var updateItem = Model.Principals.Find(n => n.PrincipalId == pid && n.AccessRightsMask == Xms.Core.AccessRightValue.Update);
+                                            var deleteItem = Model.Principals.Find(n => n.PrincipalId == pid && n.AccessRightsMask == Xms.Core.AccessRightValue.Delete);
+                                            var assignItem = Model.Principals.Find(n => n.PrincipalId == pid && n.AccessRightsMask == Xms.Core.AccessRightValue.Assign);
+                                            var shareItem = Model.Principals.Find(n => n.PrincipalId == pid && n.AccessRightsMask == Xms.Core.AccessRightValue.Share);
+                                            var appendItem = Model.Principals.Find(n => n.PrincipalId == pid && n.AccessRightsMask == Xms.Core.AccessRightValue.Append);
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="recordid" value="" />
+                                                    <input type="hidden" name="principalid" value="@pid" />
+                                                </td>
+                                                <td>
+                                                    @item.PrincipalUserName
+                                                </td>
+                                                <td><input type="checkbox" name="read" @(readItem != null ? " checked" : "") /></td>
+                                                <td><input type="checkbox" name="update" @(updateItem != null ? " checked" : "") /></td>
+                                                <td><input type="checkbox" name="delete" @(deleteItem != null ? " checked" : "") /></td>
+                                                <td><input type="checkbox" name="assign" @(assignItem != null ? " checked" : "") /></td>
+                                                <td><input type="checkbox" name="share" @(shareItem != null ? " checked" : "") /></td>
+                                                <td><input type="checkbox" name="append" @(appendItem != null ? " checked" : "") /></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    var SharingModel = {
+                        dialog: $('#sharingModal'),
+                        dialogid: 'sharingModal',
+                        datatable: $('#sharingModal #datatable'),
+                        entityid: '@Model.EntityId',
+                        objectid: '@Model.ObjectId',
+                        submit: function () {
+                            var pjson = [];
+                            SharingModel.datatable.find('tbody>tr:not(.hide)').each(function (i, n) {
+                                if ($(n).find('input[name=read]').prop('checked') == true) {
+                                    var obj = {};
+                                    obj.principalid = $(n).find('input[name=principalid]').val();
+                                    obj.entityid = SharingModel.entityid;
+                                    obj.objectid = SharingModel.objectid;
+                                    obj.accessrightsmask = 1;
+                                    pjson.push(obj);
+                                }
+                                if ($(n).find('input[name=update]').prop('checked') == true) {
+                                    var obj = {};
+                                    obj.principalid = $(n).find('input[name=principalid]').val();
+                                    obj.entityid = SharingModel.entityid;
+                                    obj.objectid = SharingModel.objectid;
+                                    obj.accessrightsmask = 3;
+                                    pjson.push(obj);
+                                }
+                                if ($(n).find('input[name=delete]').prop('checked') == true) {
+                                    var obj = {};
+                                    obj.principalid = $(n).find('input[name=principalid]').val();
+                                    obj.entityid = SharingModel.entityid;
+                                    obj.objectid = SharingModel.objectid;
+                                    obj.accessrightsmask = 4;
+                                    pjson.push(obj);
+                                }
+                                if ($(n).find('input[name=assign]').prop('checked') == true) {
+                                    var obj = {};
+                                    obj.principalid = $(n).find('input[name=principalid]').val();
+                                    obj.entityid = SharingModel.entityid;
+                                    obj.objectid = SharingModel.objectid;
+                                    obj.accessrightsmask = 10;
+                                    pjson.push(obj);
+                                }
+                                if ($(n).find('input[name=share]').prop('checked') == true) {
+                                    var obj = {};
+                                    obj.principalid = $(n).find('input[name=principalid]').val();
+                                    obj.entityid = SharingModel.entityid;
+                                    obj.objectid = SharingModel.objectid;
+                                    obj.accessrightsmask = 5;
+                                    pjson.push(obj);
+                                }
+                                if ($(n).find('input[name=append]').prop('checked') == true) {
+                                    var obj = {};
+                                    obj.principalid = $(n).find('input[name=principalid]').val();
+                                    obj.entityid = SharingModel.entityid;
+                                    obj.objectid = SharingModel.objectid;
+                                    obj.accessrightsmask = 6;
+                                    pjson.push(obj);
+                                }
+                            });
+                            console.log(pjson);
+                            //if (pjson.length == 0) {
+                            //    Xms.Web.Alert(false, '请勾选相关共享权限');
+                            //    return;
+                            //}
+                            var str = encodeURIComponent(JSON.stringify(pjson));
+                            SharingModel.dialog.find('input[name=principalsjson]').val(str);
+                            SharingModel.disabledForm();
+                            SharingModel.dialog.find('form').submit();
+                        },
+                        disabledForm: function () {
+                            SharingModel.dialog.find('button').prop('disabled', true);
+                        },
+                        resetForm: function () {
+                            SharingModel.dialog.find('button').prop('disabled', false);
+                        },
+                        dialog_return: function () {
+                            SharingModel.dialog.modal('hide');
+                        },
+                        bindselected: function (result) {
+                            console.log(result);
+                            var target = [];
+                            $(result).each(function (i, n) {
+                                target.push(n.id);
+                                var row = SharingModel.datatable.find('tbody>tr:first').clone();
+                                row.find('td:eq(1)').text(n.name);
+                                row.removeClass('hide');
+                                row.find('input[name=principalid]').val(n.id);
+                                SharingModel.datatable.find('tbody').append(row);
+                                //SharingModel.dialog.find('form').append($('<input type="hidden" name="targetid[' + i + ']" value="' + n.id + '" />'));
+                            });
+                            console.log(target);
+                            //Xms.Web.Post('/entity/shared', { entityid: SharingModel.entityid, objectid: SharingModel.objectid, targettype:1, targetid: target }, false, function (response) {
+                            //    Xms.Web.Toast(response.Content, response.IsSuccess);
+                            //});
+                        },
+                        removeselected: function () {
+                            SharingModel.datatable.find('tbody>tr:gt(0)').each(function (i, n) {
+                                if ($(n).find('input[name=recordid]').is(':checked')) {
+                                    $(n).remove();
+                                }
+                            });
+                        },
+                        clear: function () {
+                            Xms.Web.Confirm(LOC_CLEAR, LOC_CONFIRM_OPERATION_TITLE, function () {
+                                SharingModel.datatable.find('tbody>tr:gt(0)').remove();
+                                SharingModel.dialog.find('form').find('input[name^="targetid"]');
+                            });
+                        }
+                    };
+                    $(function () {
+                        SharingModel.dialog.modal({
+                            backdrop: 'static'
+                        });
+                        SharingModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(SharingModel.dialogid);
+                        });
+                        SharingModel.dialog.on('click', 'button[name=addBtn]', function (e) {
+                            Xms.Web.OpenDialog('/entity/RecordsDialog?entityname=systemuser', 'SharingModel.bindselected')
+                        });
+                        SharingModel.dialog.on('click', 'button[name=removeBtn]', function (e) {
+                            SharingModel.removeselected();
+                        });
+                        SharingModel.dialog.on('click', 'button[name=clearBtn]', function (e) {
+                            SharingModel.clear();
+                        });
+                        Xms.Web.Form(SharingModel.dialog.find('form'), function (response) {
+                            if (response.IsSuccess) {
+                                //Xms.Web.Alert(true, response.Content, function () {
+                                //    location.reload(true);
+                                //});
+                                SharingModel.dialog_return();
+                                SharingModel.resetForm();
+                                //location.reload(true);
+                                return;
+                            }
+                            Xms.Web.Alert(false, response.Content);
+                            SharingModel.resetForm();
+                        });
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="SharingModel.submit()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

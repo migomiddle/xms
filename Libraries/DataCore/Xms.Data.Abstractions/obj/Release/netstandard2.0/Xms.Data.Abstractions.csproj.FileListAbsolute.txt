@@ -1,0 +1,14 @@
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Data.Abstractions.deps.json
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Data.Abstractions.dll
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Data.Abstractions.pdb
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Core.dll
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Core.pdb
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\bin\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.csproj.CoreCompileInputs.cache
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.AssemblyInfoInputs.cache
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.AssemblyInfo.cs
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.csproj.CopyComplete
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.dll
+G:\projects\xms_v2\Libraries\DataCore\Xms.Data.Abstractions\obj\Release\netstandard2.0\Xms.Data.Abstractions.pdb

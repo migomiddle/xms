@@ -1,0 +1,146 @@
+﻿@using Xms;
+@model Xms.Web.Models.EntityPermissionsModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            <div class="pull-right">
+                <a class="btn btn-info btn-xs" data-toggle="collapse"
+                   href="#collapseOne">
+                    <span class="caret"></span> 查询
+                </a>
+                <a class="btn btn-info btn-xs" href="EditEntityPermission"><span class="glyphicon glyphicon-file"></span> 新增</a>
+            </div>
+        </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <div class="panel-body">
+            @using (Html.BeginForm("EntityPermissions", "security", FormMethod.Get, new { @id = "searchForm", @class = "form-horizontal", @role = "form" }))
+            {
+                @Html.ValidationSummary()
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="clientip">名称</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="url">状态</label>
+                    <div class="col-sm-9">
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.State, Xms.Core.RecordState.Enabled) 启用
+                        </label>
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.State, Xms.Core.RecordState.Disabled) 禁用
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="clientip">实体名称</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.EntityName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="glyphicon glyphicon-search"></span> 查询</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="table-responsive" id="gridview">
+        <table class="table table-striped table-hover table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th width="20%" data-name="name">
+                        名称
+                    </th>
+                    <th width="20%" data-name="entityname">
+                        实体
+                    </th>
+                    <th width="10%" data-name="state">
+                        状态
+                    </th>
+                    <th data-name="createdon">
+                        描述
+                    </th>
+                    <th width="20%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td><input type="checkbox" value="@item.EntityPermissionId" name="recordid" /></td>
+                        <td>@item.Name</td>
+                        <td>@(item.EntityName + "(" + item.EntityLocalizedName + ")")</td>
+                        <td>@(item.State == Xms.Core.RecordState.Enabled ? "<span class=\"label label-info\">可用</span>" : "<span class=\"label label-default\">禁用</span>")</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/security/editEntityPermission?id=@item.EntityPermissionId"><span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                            <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del('@item.EntityPermissionId','/security/deleteEntityPermission',false,rebind)"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="active">
+                        <button type="button" class="btn btn-xs btn-primary" data-action="/security/deleteEntityPermission" data-role="delete"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-4">@("当前" + @Model.Page + "/" + @Model.TotalPages + "页, 共" + @Model.TotalItems + "行记录")</div>
+                <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+            </div>
+        </div>
+        <script>
+        var pageUrl = '@app.Url';
+        </script>
+    </div>
+</div>
+@section Header {
+}
+@section Scripts {
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    //$("#gridview").replaceWith($(this)); // some ajax content loading...
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+        function rebind() {
+            $('#searchForm').submit();
+        }
+    </script>
+}

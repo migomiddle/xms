@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\Presentation\Xms.Web\bin\Debug\eventconsumers\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\..\Presentation\Xms.Web\bin\Debug\eventconsumers\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Flow\Xms.Flow.Core\Xms.Flow.Core.csproj" />
+    <ProjectReference Include="..\..\Notify\Xms.Notify.Abstractions\Xms.Notify.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Notify\Xms.Notify.Internal\Xms.Notify.Internal.csproj" />
+  </ItemGroup>
+
+</Project>

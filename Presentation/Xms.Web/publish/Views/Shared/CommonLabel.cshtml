@@ -1,0 +1,11 @@
+﻿@{
+    Layout = null;
+}
+@*@inject Xms.Core.IAppContext app*@
+<script>
+    @foreach (var item in app.T.Labels)
+    {
+        var str = "var LOC_" + item.Name.ToUpper() + " = '" + item.Text.Replace("'","\\'").Replace("\n","") + "';";
+        @Html.Raw(str);
+    }
+</script>

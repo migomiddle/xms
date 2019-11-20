@@ -1,0 +1,527 @@
+﻿@model Xms.Web.Models.SimpleFilterModel
+@{
+    Layout = null;
+}
+<div class="container-fluid filterSection">
+    <input type="hidden" class="filtersectionData" value="" />
+    <table class="table">
+        <thead><tr><th>字段</th><th>运算符</th><th>类型/字段</th><th>值</th><th class="col-sm-3"></th></tr></thead>
+        <tbody>
+            <tr class="condition-clone-default" style="display:none;">
+                <td>
+                    <select class="form-control filter-filed-name input-sm"></select>
+                </td>
+                <td>
+                    <select class="form-control filter-filed-Operator input-sm"></select>
+                </td>
+                <td>
+                    <select class="form-control filter-filed-type input-sm"></select>
+                </td>
+                <td class="valueselecter">
+                    <input class="form-control filter-filed-value input-sm" name="value" type="text" />
+                </td>
+                <td class="attributeselecter" style="display:none;">
+                    <select class="form-control filter-compare-attrname input-sm"></select>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-warning" onclick="SimpleFilter.removeCondition(this)">
+                        <span class="glyphicon glyphicon-minus-sign"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr class="condition-item">
+                <td>
+                    <select class="form-control filter-filed-name input-sm"></select>
+                </td>
+                <td>
+                    <select class="form-control filter-filed-Operator input-sm"></select>
+                </td>
+                <td>
+                    <select class="form-control filter-filed-type input-sm">
+                        <option value="value">值</option>
+                        <option value="attribute">字段</option>
+                    </select>
+                </td>
+                <td class="valueselecter">
+                    <input class="form-control filter-filed-value input-sm" name="value" type="text" />
+                </td>
+                <td class="attributeselecter" style="display:none;">
+                    <select class="form-control filter-compare-attrname input-sm"></select>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-info" onclick="SimpleFilter.addCondition(this)">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function digitsValue(e){
+        var val=$(e).val();
+        var check=true;
+        var reg = new RegExp(/^\+?[1-9][0-9]*$/);
+        if(!reg.test(val)||val==''){
+            if($(e).next('label[name="digitsTip"]').length<=0){
+                $('<label name="digitsTip">'+LOC_VALIDATION_DIGIT+'</label>').insertAfter($(e));
+            }
+            check=false;
+        }
+        else{
+            $(e).next('label[name="digitsTip"]').remove();
+            check=true;
+        }
+        return check;
+    }
+    var filterDialogEntityId = '@Model.EntityId';
+    (function($,root,un){
+        var entityId = '@Model.EntityId';
+        var SimpleFilter = {
+            filter: @Html.Raw(Model.Filter.SerializeToJson()),
+            addCondition:addCondition,
+            ScrloadFilterAttributes:ScrloadFilterAttributes,
+            initFilter:initFilter,
+            removeCondition:removeCondition,
+            getFilterData:getFilterData
+        };
+        var _thisFilter = SimpleFilter.filter;
+        root.SimpleFilter = SimpleFilter;
+        loadFilterData(renderFilterDom);
+        $('#summaryentityid').on('change', null, function (e) {
+            LoadSummaryAttributes();
+        });
+        $('.filterSection').trigger('filtersection.get',{data:getFilterData()});
+        /*加载过滤条件字段*/
+        function loadFilterData(callback) {
+            ScrloadFilterAttributes(entityId, 'filter-filed-name', null, function () {
+
+
+                $('.condition-item .filter-filed-name').off('change').on('change', function () {
+                    filterAttrNameChange.call(this);
+                });
+              //  console.log($('.filter-filed-name'))
+                $('.condition-item .filter-filed-name').each(function(){
+                    loadOperators($(this).find('option:selected').attr('data-type'),$(this).parents('.condition-item:first'),function(){
+
+                    },true);
+                });
+
+                $('.condition-item .filter-filed-type').off('change').on('change', function () {
+
+                    filterTypeChange.call(this);
+                });
+                callback && callback();
+            });
+
+        }
+
+        function loadOperators(datatype,context,callback,isdefault){
+            datatype = datatype=="primarykey"? 'nvarchar' : datatype?datatype : "nvarchar";
+            if (datatype == "status") {
+                datatype = 'picklist';
+            } else if (datatype == 'ntext') {
+                datatype = 'nvarchar';
+            }
+              console.log('datatype',datatype)
+            var operators = Xms.Fetch.ConditionOperators[datatype];
+          
+            if(context && context.length>0){
+              //  console.log(context.find('select.filter-filed-name option:selected'))
+                var reentityName = context.find('select.filter-filed-name option:selected').attr('data-referencedentityname');
+                if( (datatype =="lookup" ||datatype =="owner" || datatype =="customer")){
+                 //   console.log(reentityName.toLowerCase())
+                    if(reentityName.toLowerCase()=="systemuser"){
+                        operators =  Xms.Fetch.ConditionOperator.SystemUserOperators;
+                    }else if(reentityName.toLowerCase()=="businessunit"){
+                        operators =  Xms.Fetch.ConditionOperator.BusinessUnitOperators;
+                    }
+                }
+            }
+            //操作符
+            var op = [];
+            var $operator = $(".filter-filed-Operator",context);
+           // console.log($operator)
+            $(operators).each(function (i, n) {
+                op.push('<option data-value="' + n[0] + '" value="' + n[1] + '">' + n[2] + '</option>');
+            });
+           // console.log(op.join(''))
+            $operator.html(op.join(''));
+            $operator.on('change',function(){
+                var _par = context || $operator.parents('.condition-item:first');
+                var datatype = _par.find('select.filter-filed-name option:selected').attr('data-type');
+                var entityname = $operator.find('select.filter-filed-name option:selected').attr('data-referencedentityname');
+                var attrtype = _par.find('select.filter-filed-name option:selected').parent().attr('data-type');
+                var _value = $(this).find('option:selected').val();
+                var attributeid = _par.find('select.filter-filed-name option:selected').attr('data-attributeid');
+                var EntityId = _par.find('select.filter-filed-name option:selected').attr('data-entityid');
+                var ddlitems = getDdlItems(datatype);
+                var optionsetid = _par.find('select.filter-filed-name option:selected').attr('data-optionsetid') || null;
+                datatype = datatype == "primarykey"?'lookup':datatype;
+                if(!isdefault){
+                    if (datatype == "lookup" || datatype == "owner" || datatype == "customer" || datatype == "primarykey") {
+                        console.log("$this.find('option:selected')",_par.find('select.filter-filed-name option:selected').attr('data-referencedentityid'))
+                        if(attrtype=='filed'){
+                            EntityId = _par.find('select.filter-filed-name option:selected').attr('data-referencedentityid');
+                        }
+                        FilterDialog.bindInput($(this), $(this).parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid,true);
+                    } else {
+
+                        FilterDialog.bindInput($(this), $(this).parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid,true);
+                    }
+                }
+                console.log("$operator.on('change'",_value);
+                _par.find('select.filter-filed-type').prop('disabled',false);
+                if(datatype=='datetime'){
+                    // console.log($(this).find('option:selected').val()*1)
+                    if(_value * 1 >= 14 && _value*1 < 31 && (_value * 1 != 26 && _value*1 != 27)){
+                        _par.find('input[name="value"]').prop('disabled',true);
+                        _par.find('select.filter-filed-type').prop('disabled',true);
+                    }else{
+                        _par.find('input[name="value"]').prop('disabled',false);
+                        _par.find('select.filter-filed-type').prop('disabled',false);
+                    }
+                }else if(datatype == "lookup" || datatype == "owner" || datatype == "customer"){
+                    if (_value * 1 >= 41 && _value * 1 <= 44 || (_value * 1 >= 74 && _value * 1 <= 75)) {
+                        _par.children('div:last').hide();
+                        _par.find('select.filter-filed-type').prop('disabled',true);
+                    } else {
+                        _par.children('div:last').show();
+                        _par.find('select.filter-filed-type').prop('disabled',false);
+
+                        //_par.find('input[name="value"],button').prop('disabled', false);
+                    }
+                }
+
+            });
+            $operator.change();
+            callback && callback($operator);
+        }
+
+        //
+        function getFilterData(){
+            var $dataD = $('.filtersectionData');
+            var $conditions = $('.condition-item','.filterSection');
+            var filters = Xms.Fetch.FilterExpression();
+            $conditions.each(function () {
+                var item = Xms.Fetch.ConditionExpression();
+                item.AttributeName = $(this).find('.filter-filed-name').val();
+                item.Operator = $(this).find('.filter-filed-Operator').val();
+                item.Values.push($(this).find('input[name="value"]').val());
+                if ($(this).find('input[name="value"]').val() != "") {
+                    filters.Conditions.push(item);
+                }
+            });
+            $dataD.val(encodeURIComponent(JSON.stringify(filters)));
+            return filters;
+        }
+        function arrTostring(arr){
+            var res = '';
+            if($.isArray(arr)){
+                res = arr.join(',');
+            }else{
+                res = arr;
+            }
+            return res;
+        }
+        //加载已存在的值计算内容
+        function renderFilterDom() {
+            if (_thisFilter == "") {
+                return false;
+            }
+            var expressionData = _thisFilter;
+            //console.log('expressionData',expressionData);
+            //设置过滤条件
+            if (expressionData.conditions && expressionData.conditions != "") {
+                var filterArr = expressionData.conditions;
+                if (filterArr && filterArr.length > 0) {
+                    $.each(filterArr, function (ii,nn) {
+                        var datatype = 'navchar';
+                        if (ii == 0) {
+                            var conditionf = $('tr.condition-item:first');
+                            console.log('nn.attributename',nn.attributename);
+                            if(nn.attributename && nn.attributename.indexOf('.')>-1){//如果为关联字段
+                                var tempop = nn.attributename.split('.');
+
+                                conditionf.find('.filter-filed-name option[data-name="' + tempop[0] + '"][value="'+tempop[1]+'"]').prop('selected', true);
+                            }else{
+                                conditionf.find('.filter-filed-name option[value="' + nn.attributename + '"]').prop('selected', true);
+                            }
+                            datatype = conditionf.find('.filter-filed-name').find('option:selected').attr('data-type');
+
+                           // console.log('conditionf.parents',conditionf.parents('.condition-item:first'))
+                            loadOperators(datatype,conditionf,function($condi){
+                                setTimeout(function(){
+                                    conditionf.find('.filter-filed-Operator option[value="' + nn.operator + '"]').prop('selected', true);
+                                    var compareattr = nn.CompareAttributeName || nn.compareattributename;
+                                    console.log('compareattr1111',nn)
+                                    if(compareattr && compareattr!=null){
+                                        conditionf.find('select.filter-filed-type').val(compareattr);
+                                        conditionf.find('.valueselecter').hide();
+                                    }else{
+                                        conditionf.find('.valueselecter').show();
+                                        conditionf.find('input[name="value"]').val(arrTostring(nn.values));
+                                    }
+                                    setFilterDom(conditionf.find('.filter-filed-name').eq(0),conditionf);
+                                    setTypeInput(conditionf)
+                                },0)
+
+                            });
+
+
+                        } else {
+                            var conditionf = addCondition();
+
+                            console.log('nn.attributename',nn.attributename);
+                            if(nn.attributename && nn.attributename.indexOf('.')>-1){//如果为关联字段
+                                var tempop = nn.attributename.split('.');
+                                conditionf.find('.filter-filed-name option[data-name="' + tempop[0] + '"][value="'+tempop[1]+'"]').prop('selected', true);
+                            }else{
+                                conditionf.find('.filter-filed-name option[value="' + nn.attributename + '"]').prop('selected', true);
+                            }
+                            datatype = conditionf.find('.filter-filed-name').find('option:selected').attr('data-type');
+                           // console.log('conditionf.parents',conditionf.parents('.condition-item:first'))
+                            loadOperators(datatype,conditionf,function(){
+                                setTimeout(function(){
+                                    conditionf.find('.filter-filed-Operator option[value="' + nn.operator + '"]').prop('selected', true);
+                                    var compareattr = nn.CompareAttributeName || nn.compareattributename;
+                                    console.log('compareattr1111',nn)
+                                    if(compareattr && compareattr!=null){
+                                        conditionf.find('select.filter-filed-type').val(compareattr);
+                                        conditionf.find('.valueselecter').hide();
+                                    }else{
+                                        conditionf.find('.valueselecter').show();
+                                        conditionf.find('input[name="value"]').val(arrTostring(nn.values));
+                                    }
+
+                                    setFilterDom(conditionf.find('.filter-filed-name').eq(0),conditionf);
+                                    setTypeInput(conditionf)
+                                },0)
+                            });
+                        }
+                        function setTypeInput(_conditionf){
+                            var _value = nn.operator;
+                            console.log('conditionf',datatype);
+                            console.log('setTypeInput._conditionf',_conditionf)
+                            _conditionf.find('select.filter-filed-type').prop('disabled',false);
+                            if(datatype=='datetime'){
+                                // console.log($(this).find('option:selected').val()*1)
+                                if(_value * 1 >= 14 && _value*1 < 31 && (_value * 1 != 26 && _value*1 != 27)){
+                                    _conditionf.find('input[name="value"]').prop('disabled',true);
+                                    _conditionf.find('select.filter-filed-type').prop('disabled',true);
+                                }else{
+                                    _conditionf.find('input[name="value"]').prop('disabled',false);
+                                    _conditionf.find('select.filter-filed-type').prop('disabled',false);
+                                }
+                            }else if(datatype == "lookup" || datatype == "owner" || datatype == "customer"){
+                                if (_value * 1 >= 41 && _value * 1 <= 44 || (_value * 1 >= 74 && _value * 1 <= 75)) {
+                                    _conditionf.children('div:last').hide();
+                                    _conditionf.find('select.filter-filed-type').prop('disabled',true);
+                                } else {
+                                    _conditionf.children('div:last').show();
+                                    _conditionf.find('select.filter-filed-type').prop('disabled',false);
+                                    //_par.find('input[name="value"],button').prop('disabled', false);
+                                }
+                            }
+                        }
+
+                       // filterAttrNameChange.call(conditionf.find('.filter-filed-name').get(0));
+                    });
+                }
+            }
+        }
+        function getDdlItems(datatype) {
+            var items = [];
+            if (datatype == 'picklist') {
+                items = [{ value: 0, text: '已提交' }, { value: 1, text: '审核中' }];
+            } else if (datatype == 'state') {
+                items = [{ value: 0, text: '否' }, { value: 1, text: '是' }];
+            } else if (datatype == 'bit') {
+                items = [{ value: 0, text: '否' }, { value: 1, text: '是' }];
+            }
+            return items;
+        }
+
+        function setFilterDom($obj,conditionf){
+            var $this = $obj;
+            var datatype = $this.find('option:selected').attr('data-type');
+            var attrtype = $this.find('option:selected').parent().attr('data-type');
+            var attributeid = $this.find('option:selected').attr('data-attributeid');
+            var EntityId = $this.find('option:selected').attr('data-entityid');
+            var ddlitems = getDdlItems(datatype);
+         //   console.log(conditionf.find('.filter-filed-name').val(),conditionf.find('input[name="value"]').val());
+            var optionsetid = $this.find('option:selected').attr('data-optionsetid') || null;
+            datatype = datatype == "primarykey"?'lookup':datatype;
+           // console.log(setFilterDom,datatype)
+            if (datatype == "lookup" || datatype == "owner" || datatype == "customer" || datatype == "primarykey") {
+                console.log("$this.find('option:selected')",$this.find('option:selected').attr('data-referencedentityid'))
+                if(attrtype=='filed'){
+                    EntityId = $this.find('option:selected').attr('data-referencedentityid');
+                }
+                FilterDialog.bindInput($this, $this.parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid);
+            } else if(datatype=='picklist'){
+              //  console.log(conditionf.find('.filter-filed-Operator >option:selected').attr('data-value'));
+                FilterDialog.bindInput($this, $this.parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid,conditionf.find('.filter-filed-Operator >option:selected').attr('data-value'));
+            }else{
+                FilterDialog.bindInput($this, $this.parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid);
+            }
+        }
+
+        function filterAttrNameChange() {
+            var $this = $(this);
+            var datatype = $this.find('option:selected').attr('data-type');
+            var attributeid = $this.find('option:selected').attr('data-attributeid');
+            var EntityId = $this.find('option:selected').attr('data-entityid');
+            var ddlitems = getDdlItems(datatype);
+            var optionsetid = null;
+            //if (datatype == "lookup" || datatype == "owner" || datatype == "customer") {
+            //    FilterDialog.bindInput($(this), $(this).parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid);
+            //} else {
+
+            //    FilterDialog.bindInput($(this), $(this).parents('.condition-item:first').find('input[name="value"]'), datatype, attributeid, EntityId, ddlitems, optionsetid);
+            //}
+            var type = $(this).find('option:selected').attr('data-type');
+            if (type == 'ntext') {
+                type = 'nvarchar';
+            }
+            loadOperators(type,$(this).parents('.condition-item:first'));
+        }
+
+        function filterTypeChange(){
+            var $this = $(this),$par = $this.parents('tr:first');
+            var _type =$this.val();
+            console.log(_type);
+            if(_type=="value"){
+               // $par.find('.attributeselecter').hide();
+                $par.find('.valueselecter').show();
+            }else{
+               // $par.find('.attributeselecter').show();
+                $par.find('.valueselecter').hide();
+            }
+        }
+
+        //加载过滤条件字段选项
+        function ScrloadFilterAttributes(entityid, classname, that, onsuccess) {
+            var _ScrmainOptions = new Array(), _ScrrelatedOptions = new Array();
+            var params = {
+                type: 'Attributes' + entityid,
+                data: { getall: true, entityid: entityid }
+            }
+            Xms.Web.PageCache('attributes', '/api/schema/attribute', params, function (data) {
+                if (!data || !data.content || data.content.length == 0) return;
+                _ScrmainOptions.push('<optgroup data-type="filed" label="字段">');
+               // console.log('Attributes',data.content.items)
+                $(data.content).each(function (i, n) {
+                    var otherData = '';
+                    if (typeof n.optionsetid != 'undefined') {
+                        otherData += ' data-optionsetid="' + n.optionsetid + '" ';
+                    } else {
+                        otherData += ' data-optionsetid="null" ';
+                    }
+                    _ScrmainOptions.push('<option ' + otherData + ' data-entityid="' + n.entityid + '" data-referencedentityid="' + (n.referencedentityid || '') + '" data-attributeid="' + n.attributeid + '" data-relevant="false" value="' + n.name + '" data-entityname="' + n.entityname + '"  data-referencedentityname="' + (n.referencedentityname || '') +'" data-type="' + n.attributetypename + '">' + n.localizedname + '</option>');
+                });
+                _ScrmainOptions.push('</optgroup>');
+                var enParam = {
+                    type: 'referencingentityid' + entityid,
+                    data: { referencingentityid: entityid }
+                }
+                console.log('.filter-filed-type',$(that))
+                if($('.filter-filed-type').length>0){
+                    var typehtml = _ScrmainOptions.join('')
+                    typehtml = '<option value="value">值</option>'+typehtml
+                    $('.filter-filed-type').html(typehtml);
+                }
+                if (classname != '' && classname != null) {
+                    $('.' + classname).html(_ScrmainOptions.join(''));
+                }
+                else if (that != null) {
+                    $(that).append($(_ScrmainOptions.join('')));
+                }
+                if (onsuccess != null) {
+                    onsuccess(_ScrmainOptions.join(''));
+                }
+            });
+        }
+        //加载编辑筛选条件
+        function initFilter(fetchconfig, target) {
+            var type = 'Main';
+            var attrSel = 'connection-result';
+            if (target.attr('data-type') == 'Relevant') {
+                type = 'Relevant';
+                attrSel = 'pilot-fieldR';
+            } else {
+                type = 'Main';
+                attrSel = 'pilot-fieldM';
+            }
+            var filters = fetchconfig.Criteria.Filters;
+            var filterHtml = EditFilterHtml(filters, type, EntityId, EntityName);
+            var condition = fetchconfig.Criteria.Conditions;
+            var conditionHtml = EditRowHtml(condition, type, "false", EntityId, EntityName);
+            var linkEn = fetchconfig.LinkEntities;
+            var linkEnHtml = EditRelevantHtml(linkEn, type);
+            var NewRow = target.find('.pilot-row:last').clone();
+            target.html('');
+            target.prepend(linkEnHtml.join(''));
+            target.prepend(conditionHtml.join(''));
+            target.prepend(filterHtml.join(''));
+            ScrloadFilterAttributes(entityId, attrSel, null, function () {
+                target.find('.pilot-row:not(.relevant-box)').each(function (i, n) {
+                    EditRowSet(n, attrSel, false);
+                });
+                target.find('.relevant-box').each(function (i, n) {
+                    //变为小写
+                    $(n).find('option[data-relevant="true"]').each(function (ii, nn) {
+                        var opRelation = $(nn).attr('data-name').toLowerCase();
+                        $(nn).attr('data-name', opRelation);
+                    });
+                    var relRelation = $(n).attr('data-rrelationship').toLowerCase();
+                    var relEntityid = $(n).attr('data-rentityid');
+                    var relThat = $(n).children('.relevant-item');
+                    relThat.children('.' + attrSel).find('option[data-name="' + relRelation + '"]').prop('selected', true);
+                    ScrloadFilterAttributes(relEntityid, null, null, function (dataHtml) {
+                        var selHtml = $(dataHtml);
+                        selHtml.find('option[data-relevant="true"]').each(function (ii, nn) {
+                            var opRelation = $(nn).attr('data-name').toLowerCase();
+                            $(nn).attr('data-name', opRelation);
+                        });
+                        var ajaxThat = relThat;
+
+                        ajaxThat.children('.relevant-child').children('.pilot-row').children().children('.' + attrSel).html(selHtml);
+                        ajaxThat.children('.relevant-child').children('.pilot-row[data-entity="false"]').each(function (ii, nn) {
+                            EditRowSet(nn, attrSel, true);
+                        });
+                        ajaxThat.children('.relevant-child').children('.pilot-row[data-entity="true"]').each(function (ii, nn) {
+                            var chilRelation = $(nn).attr('data-rrelationship').toLowerCase();
+                            $(nn).attr('data-rrelationship', chilRelation);
+                            $(nn).children('.relevant-item').children('.' + attrSel).find('option[data-name="' + chilRelation + '"]').prop('selected', true);
+                        });
+                    });
+                })
+                target.append(NewRow);
+            });
+
+        }
+
+        function addCondition() {
+            var clone = $('.condition-clone-default').clone();
+            clone.show().removeClass('condition-clone-default').addClass('condition-item');
+            var twrap = $('.filterSection table>tbody');
+            twrap.append(clone);
+            $('.filter-filed-name').off('change').on('change', function () {
+                filterAttrNameChange.call(this);
+            });
+            $('.filter-filed-type').off('change').on('change', function () {
+                filterTypeChange.call(this);
+            });
+            return clone;
+        }
+        function removeCondition(obj) {
+            var $obj = $(obj);
+            var _par = $obj.parents('tr:first');
+            _par.remove();
+        }
+
+    })(jQuery,window);
+</script>

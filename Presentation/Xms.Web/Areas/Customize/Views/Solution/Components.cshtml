@@ -1,0 +1,257 @@
+﻿@using Xms.Solution.Abstractions;
+@model Xms.Web.Customize.Models.SolutionComponentModel
+
+    <div id="gridview">
+        <div class="mb-2 toolbar">
+            <form action="/@app.OrganizationUniqueName/customize/solution/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="btn-toolbar btn-group btn-group-sm">
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-share-alt"></span> @app.T["add_existing"] <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" id="addExistsMenu">
+                                    @foreach (var item in SolutionComponentCollection.Descriptors)
+                                    {
+                                        <li><a href="javascript:;" data-componenttype="@item.Key" data-serviceuri="@item.Value.ComponentsEndpoint">@app.T[item.Key].IfEmpty(item.Key)</a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-info" id="removeBtn">
+                                <span class="glyphicon glyphicon-trash"></span> @app.T["remove"]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon" ><i class="glyphicon glyphicon-list" ></i></span>
+                            <select class="form-control" id="ComponentType" name="ComponentType" data-value="@Model.ComponentType">
+                                <option value="">-@app.T["typename"]-</option>
+                                @foreach (var item in SolutionComponentCollection.SortedDescriptors)
+                                {
+                                    <option value="@item.ComponentsEndpoint" data-componenttype="@item.Module.Name">@app.T[item.Module.Name].IfEmpty(item.Module.Name)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+            @*<div id="collapseOne" class="panel-collapse collapse in">
+                <!--in-->
+
+                <div class="container-fluid">
+                    <form action="/@app.OrganizationUniqueName/customize/solution/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                        @Html.ValidationSummary()
+                        @Html.HiddenFor(x => x.SolutionId)
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <select class="form-control" id="ComponentType" name="ComponentType" data-value="@Model.ComponentType">
+                                    <option value="">-@app.T["typename"]-</option>
+                                    @foreach (var item in SolutionComponentCollection.SortedDescriptors)
+                                    {
+                                        <option value="@item.ComponentsEndpoint" data-componenttype="@item.Module.Name">@app.T[item.Module.Name].IfEmpty(item.Module.Name)</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>*@
+            @*<div class="btn-toolbar btn-group btn-group-sm">
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-share-alt"></span> @app.T["add_existing"] <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" id="addExistsMenu">
+                        @foreach (var item in SolutionComponentCollection.Descriptors)
+                        {
+                            <li><a href="#" data-componenttype="@item.Key" data-serviceuri="@item.Value.ComponentsEndpoint">@app.T[item.Key].IfEmpty(item.Key)</a></li>
+                        }
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-info" id="removeBtn">
+                    <span class="glyphicon glyphicon-trash"></span> @app.T["remove"]
+                </button>
+            </div>*@
+            <div >
+                <div class="datagrid-view">
+
+                </div>
+            </div>
+
+        </div>
+
+
+        @section Header {
+            <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+            <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+            <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+            <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+        }
+        @section Scripts {
+
+            <script>
+
+        var theaders = {
+             typename:'@app.T["typename"]',
+             name:'@app.T["name"]',
+             displayname:'@app.T["displayname"]',
+             entity_sys_createdby:'@app.T["entity_sys_createdby"]',
+             create_time:'@app.T["create_time"]',
+             operation:'@app.T["operation"]',
+        }
+            </script>
+            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+            <script>
+        var pageUrl = '', solutionid = '@Model.SolutionId';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.objectid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    title: "", dataIndx: "componenttypename", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.componenttypename + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                { "dataIndx": "componenttypename", "title": theaders.typename, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "name", "title": theaders.name, "dataType": "string", editable: false, "width": 250, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "localizedname", "title": theaders.displayname, editable: false, "dataType": "string", "width": 250, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "createdon", "title": theaders.create_time, editable: false, "dataType": "string", "width": 200, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 75, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        return '<a class="btn btn-warning btn-xs removeBtn text-white" href="javascript:;"><span class="glyphicon glyphicon-remove"></span> 移除</a>';
+                    }
+                }
+            ];
+            var datagridconfig = {
+                //获取数据的方法
+                getDataUrl: function (cdatagrid) {
+                    var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+                    return ORG_SERVERURL + serviceUrl + '?insolution=true&solutionid=' + solutionid+'&pagesize=' + cdatagrid.opts.pageModel.rPP + '&page=' + cdatagrid.opts.pageModel.page
+                },
+                height: 400,
+                filterColModel: function (opts) { opts.colModel = columnConfigs; return opts; },//配置列类型的过滤方法
+
+                columnFilter: function (items) {//如果是从后台获取的数据，可在此处给列添加更多的选项
+                    return items;
+                }
+            }
+            datagridconfig.extend = function (datagrid) {
+                //因为需要修改为GET获取数据，要重新配置列排序信息
+                var filter = function (postData, objP, DM, PM, FM) {
+                    $.extend(postData, { sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1', pagesize: PM.rPP });
+                    return postData;
+                }
+
+                //修改为GET方式获取数据，配置分页信息
+                $.extend(datagrid.opts.dataModel, {
+                    isJsonAjax: true,
+                    beforeAjax: function (grid) {
+                        var serviceUrl = Xms.Web.SelectedValue($('#ComponentType'));
+                        if (serviceUrl) {
+                            return true;
+                        } else {
+                            grid.hideLoading();
+                            grid.loading = false;
+                            return false;
+                        }
+                    },
+                    filterSendData: filter,
+                    method: 'GET',
+                    getData: function (dataJSON, textStatus, jqXHR) {
+                        if (typeof dataJSON.Content == 'string') {
+                            dataContent = JSON.parse(dataJSON.Content);
+                        }
+                        var data = dataContent.items;
+                        var res = { curPage: dataContent.currentpage || 1, totalRecords: dataContent.totalitems, data: data }
+                        console.log(res);
+                        return res;
+                    }
+                })
+            }
+            //  console.log(itemtmpl);
+            $('.datagrid-view').cDatagrid(datagridconfig);
+
+            $('#ComponentType').bind('change', function () {
+                rebind();
+            }).trigger('change');
+            $('#removeBtn').on('click', function (e) {
+
+                var target = $('.datagrid-view');
+                var id = Xms.Web.GetTableSelected(target);
+                var ctype = $('#ComponentType').find('option:selected').attr('data-componenttype')
+                Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid +'&ComponentType='+ctype, false, rebind, null, LOC_CONFIRM_REMOVE);
+            });
+            $('.datagrid-view').on('click', '.removeBtn', function (e) {
+                var target = $('.datagrid-view');
+                Xms.Web.SelectingRow(e.target);
+                var id = Xms.Web.GetTableSelected(target);
+                var ctype = $('#ComponentType').find('option:selected').attr('data-componenttype')
+                Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid + '&ComponentType=' + ctype, false, rebind, null, LOC_CONFIRM_REMOVE);
+            });
+
+            $('#addExistsMenu').on('click', 'a', function (e) {
+                var $this = $(this);
+                var t = $this.attr('data-componenttype');
+                console.log(t);
+                if (t == 'privilege') {
+                    selectRecordCallback([{id:'00000000-0000-0000-0000-000000000001'}], 10);
+                    return;
+                }
+                else if (t == 'role') {
+                    selectRecordCallback([{ id: '00000000-0000-0000-0000-000000000002' }], 11);
+                    return;
+                }
+                Xms.Web.OpenDialog('/customize/solution/componentsdialog', null, {inputid: t, solutionid: solutionid , componenttype:t, callback: 'selectRecordCallback'});
+            });
+        });
+        function rebind() {
+            $('.datagrid-view').cDatagrid('refreshDataAndView');
+        }
+        function selectRecordCallback(result, inputid) {
+            console.log(result);
+            if (result.length == 0) return;
+            var objectid = [];
+            for (var i = 0; i < result.length; i++) {
+                objectid.push(result[i].id);
+            }
+            var data = { solutionid: solutionid, objectid: objectid, componenttype: inputid };
+            console.log(data);
+            Xms.Web.Post('/customize/solution/CreateSolutionComponent', data , false, function (response) {
+                if (response.IsSuccess) {
+                    rebind();
+                }
+                console.log(response);
+            });
+        }
+            </script>
+        }

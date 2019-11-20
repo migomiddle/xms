@@ -1,0 +1,321 @@
+﻿@model Xms.Web.Models.EntityLogsModel
+
+<div class="" id="gridview">
+    <div class="mb-2 toolbar">
+        @*<div class="panel-heading">
+            <div class="panel-title">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                <div class="pull-right">
+                    <a class="btn btn-info btn-xs" data-toggle="collapse"
+                       href="#collapseOne">
+                        <span class="caret"></span> @app.T["search"]
+                    </a>
+                </div>
+            </div>
+        </div>*@
+        <div  class="">
+            <!--in-->
+            <div class="panel-body">
+                @using (Html.BeginForm("entitylogs", "entity", FormMethod.Get, new { @id = "searchForm", @class = "form-horizontal", @role = "form" }))
+                {
+                    @Html.HiddenFor(x => x.EntityId)
+                    <input type="hidden" name="loaddata" value="true" />
+                    <div class="row">
+                        <div class="col-sm-10 pl-0">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-btn ">
+                                    <select class="form-control input-sm" id="viewSelector" style="width:150px;"></select>
+                                </span>
+
+                                <select class="form-control input-sm" name="OperationType">
+                                    <option></option>
+                                    <option value="create">@app.T["security_create"]</option>
+                                    <option value="update">@app.T["security_update"]</option>
+                                    <option value="delete">@app.T["security_delete"]</option>
+                                    <option value="share">@app.T["security_share"]</option>
+                                    <option value="assign">@app.T["security_assign"]</option>
+                                </select>
+
+                                <span class="input-group-btn ">
+                                    <button type="submit" class="btn btn-primary btn-sm btn-block" style="border-radius:0;"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning btn-sm btn-block" data-role="clearForm"><span class="glyphicon glyphicon-remove"></span> @app.T["clear"]</button>
+                                </span>
+                               
+                            </div>
+                        </div>
+                    </div>
+                 
+                }
+                @using (Html.BeginForm("clearentitylogs", "entity", FormMethod.Get, new {@id="clearForm", @class = "form-horizontal", @role = "form" }))
+                {
+                    
+                    
+                }
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <div class="datagrid-view"></div>
+        <table class="table table-striped table-hover table-condensed" id="datatable" data-pageurl="@app.Url" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-dbclick="rebind()">
+           
+            <tbody>
+                
+            </tbody>
+        </table>
+       
+    </div>
+</div>
+
+@section Header {
+    <link href="/content/js/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker3.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/locales/bootstrap-datepicker.zh-CN.min.js?v=@app.PlatformSettings.VersionNumber" charset="UTF-8"></script>
+    <script src="~/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+           
+            $('#main').css('margin-bottom', 0);
+            var theaders = {
+                'name': ' @app.T["entitylog_optype"]',
+                'default': ' @app.T["entitylog_updating"]',
+                'updataby':'>@app.T["entitylog_updatedby"]',
+                'statecode': '@app.T["entitylog_updated"]',
+                'createdon': '@app.T["operation_time"]',
+                'operation':'@app.T["operation"]'
+            }
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.entitylogid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.entitylogid + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    "dataIndx": "operationtype", "title": theaders.name, editable: false, "dataType": "string", "width": 75, "isprimaryfield": false, "attributetypename": "string",
+                    render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        var html = '';
+                         if (recordid == 1)
+                        {
+                            html = '@app.T["security_create"]';
+                        }
+                        else if (recordid == 2)
+                        {
+                                html = '@app.T["security_update"]';
+                        }
+                        else if (recordid == 3)
+                        {
+                                html = '@app.T["security_delete"]';
+                        }
+                        else if (recordid == 5)
+                        {
+                                html = '@app.T["security_assign"]';
+                        }
+                        else if (recordid == 4)
+                        {
+                                html = '@app.T["security_share"]';
+                        }
+                        return html;
+                    }
+                },
+                { "dataIndx": "isdefault", "title": theaders.default, "dataType": "string", editable: false, "width": 300, sortable: false, "isprimaryfield": false, "attributetypename": "string" , render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas['changedata'];
+                        var type = datas['operationtype'];
+                        var htmls = ['<table class="table table-condensed">']
+                        if (recordid && recordid != '') {
+                            var records = JSON.parse(recordid);
+                            if (type == 2 || type == 5) {
+                                $.each(records,function (i,n) {
+                                    var attrname = n.name;
+                                    var attrdatas = $.queryBykeyValue(current_attributes, 'name', attrname);
+                                    if (attrdatas.length > 0) {
+                                        htmls.push(' <tr><td>' + (attrdatas[0].localizedname) + '</td><td>'+n.original+'</td></tr>');
+                                    } else {
+                                        htmls.push(' <tr><td>' + (attrname) + '</td><td>'+n.original+'</td></tr>');
+                                    }
+                                });
+                            }
+                        }
+                    htmls.push('</table>');
+                    return htmls.join('')
+                    }},
+
+                { "dataIndx": "statecode", "title": theaders.statecode, editable: false, sortable: false, "dataType": "string", "width": 300, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas['changedata'];
+                        var type = datas['operationtype'];
+                        var htmls = ['<table class="table table-condensed">']
+                        if (recordid && recordid != '') {
+                            var records = JSON.parse(recordid);
+                                $.each(records,function (i,n) {
+                                    var attrname = n.name;
+                                    var attrdatas = $.queryBykeyValue(current_attributes, 'name', attrname);
+                                    if (attrdatas.length > 0) {
+                                        htmls.push(' <tr><td>' + (attrdatas[0].localizedname) + '</td><td>'+n.value+'</td></tr>');
+                                    } else {
+                                        htmls.push(' <tr><td>' + (attrname) + '</td><td>'+n.value+'</td></tr>');
+                                    }
+                                });
+                            
+                        }
+                    htmls.push('</table>');
+                    return htmls.join('')
+                    } },
+                 { "dataIndx": "createdon", "title": theaders.createdon, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 70,width:70, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        var html = ''
+                        return html
+                    }
+                }
+            ];
+            var current_attributes = [];
+            var url = ORG_SERVERURL + '/entity/entitylogs';
+            $('#clearForm').attr('action',ORG_SERVERURL + '/entity/ClearEntityLogs')
+            var $form = $('#searchForm');
+            var roles_filters = new XmsFilter();
+            var datagridconfig = {
+                scrollModel: { autoFit: true },
+                baseUrl: url,
+                method:'GET',
+                columnConfigs: columnConfigs,//字段配置信息
+                context: $('#gridview'),//底部操作按钮方法触发
+                filters: roles_filters,//post提交时过滤条件
+                searchForm: $form//GET提交时查询的数据
+                , offsetHeight: -50,
+                datasFilter: function (data) {
+                    console.log(data);
+                    current_attributes = data.attributes;
+                }
+            };
+
+            loadEntities(function () {
+                $('#viewSelector').trigger('change');
+                setTimeout(function () {
+                     $('.datagrid-view').xmsDataTable(datagridconfig);
+                }, 20)
+
+            });
+            $('body').on('change', '#viewSelector', function () {
+                $('#EntityId').val(Xms.Web.SelectedValue($(this)));
+                //rebind();
+                //$('.collapse').removeClass('in');
+            });
+            pageUrl = $("#datatable").attr('data-pageurl');
+            $('.datepicker').datepicker({
+                autoclose: true
+                , clearBtn: true
+                , format: "yyyy-mm-dd"
+                , language: "zh-CN"
+            });
+
+            $('body').on('click', '[data-role="clearForm"]', function (e) {
+               clearEntityLogs()
+            })
+
+            //$("#datatable").ajaxTable();
+            //ajaxgrid_reset();
+        });
+
+        function clearEntityLogs() {
+            
+            var _entityid = $('#EntityId').val();
+            var _url = ORG_SERVERURL + '/entity/ClearEntityLogs?entityid=' + _entityid;
+            Xms.Web.Confirm('确认', '是否清空当前实体的日志', function () { 
+                Xms.Ajax.Get(_url, {}, function (res) {
+                    Xms.Web.Toast(res.Content, res.IsSuccess);
+                }, null);
+            })
+        }
+
+      
+        function rebind() {
+             $('.datagrid-view').cDatagrid('refreshDataAndView')
+           // $('#searchForm').submit();
+        }
+        function loadEntities(callback) {
+            Xms.Schema.GetEntities({ 'GetAll': true }, function (data) {
+                if (!data || data.length == 0) return;
+                $(data).each(function (i, n) {
+                    $('#viewSelector').append('<option data-relationship="' + n.name + '"  value="' + n.entityid + '">' + n.localizedname + '</option>');
+                });
+                var url = ORG_SERVERURL + '/entity/EntityLogs?EntityId=' + $(this).find('option:eq(0)').val();
+              //  $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                   // ajaxgrid_reset();
+
+              //  });
+                 callback && callback();
+            });
+        }
+        function getKeyValue() {
+            $('.dataList').each(function (i, n) {
+                $(n).each(function (ii, nn) {
+                    var KeyTarget = $(nn).find('.ChangeKey');
+                    var ValTarget = $(nn).find('.ChangeValue');
+                    var data = JSON.parse(decodeURI(KeyTarget.attr('data-json')));
+                    for (var j = 0; j < data.length; j++) {
+                        var key = data[j].key;
+                        var val = data[j].value;
+                        KeyTarget.append('<span>' + key + '</span><br/>');
+                        ValTarget.append('<span>' + val + '</span><br/>');
+
+                    }
+                    var userid = $(n).find('.UserName').attr('data-id');
+                    Xms.Web.GetJson(ORG_SERVERURL + '/api/data/Retrieve/ReferencedRecord/' + lookupid + '/' + value, null, function (response) {
+
+                    });
+                });
+            });
+        }
+        function getUser() {
+        }
+    </script>
+}

@@ -1,0 +1,651 @@
+﻿@model Xms.Web.Customize.Models.EditRibbonButtonModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                @Html.HiddenFor(x => x.EntityId)
+                @Html.HiddenFor(x => x.RibbonButtonId)
+                @Html.HiddenFor(x => x.CommandRules)
+                <div class="form-group col-sm-12">
+                    <label for="" class="col-sm-2 control-label">选择常用按钮</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-3">
+                            <button class="btn btn-info btn-xs" type="button" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-plus-sign"></span> 新建</button>
+                            <button class="btn btn-info btn-xs" type="button" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-floppy-disk"></span> 保存</button>
+                            <button class="btn btn-info btn-xs" type="button" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-trash"></span> 删除</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                            <a class="btn btn-warning btn-xs" href="javascript:void(0)" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="btn btn-link btn-sm" href="javascript:void(0)" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-plus-sign"></span> 新建</a>
+                            <a class="btn btn-link btn-sm" href="javascript:void(0)" onclick="setBtnStyle(this)"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Label, "标签", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Label, new { @class = "form-control required" })
+                        <label for="ShowLabel">@Html.CheckBoxFor(x => x.ShowLabel) 显示标签？</label>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.CssClass, "样式", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.CssClass, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Icon, "Icon", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Icon, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.JsLibrary, "JS库", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-sm lookup" name="jslibrary_text" id="jslibrary_text" />
+                        <input type="hidden" name="jslibrary" id="jslibrary" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.JsAction, "JS方法", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.JsAction, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.ShowArea, "显示区域", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.ShowArea, new { @class = "form-control required", @value = "" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.ShowArea, "显示规则", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#ruleModal">
+                            <span class="glyphicon glyphicon-edit"></span> 配置
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.StateCode, "状态", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.StateCode, Xms.Core.RecordState.Enabled, new { @class = "required" }) 可用
+                        </label>
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.StateCode, Xms.Core.RecordState.Disabled, new { @class = "required" }) 禁用
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.DisplayOrder, "排序", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.DisplayOrder, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> 保存</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> 重置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- （Modal） -->
+<div class="modal fade" id="ruleModal" tabindex="-1" role="dialog"
+     aria-labelledby="ruleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="ruleModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> 配置按钮显示规则
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#formstate" data-toggle="tab">
+                            按表单状态
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#attributevalue" data-toggle="tab">
+                            按字段值
+                        </a>
+                    </li>
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="formstate" style="padding:5px;">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-4"><label>当表单为勾选的状态时</label></div>
+                                <div class="col-sm-3">
+                                    <div class="visible">
+                                        <label for="formstate_visibled1">显示</label>
+                                        <input type="radio" name="formstate_visibled" id="formstate_visibled1" value="true" />
+                                        <label for="formstate_visibled2">隐藏</label>
+                                        <input type="radio" name="formstate_visibled" id="formstate_visibled2" checked="checked" value="false" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="enable">
+                                        <label for="formstate_enabled1">可用</label>
+                                        <input type="radio" name="formstate_enabled" id="formstate_enabled1" value="true" />
+                                        <label for="formstate_enabled2">禁用</label>
+                                        <input type="radio" name="formstate_enabled" id="formstate_enabled2" checked="checked" value="false" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="formStatusBody">
+                                <div id="formStatusAddBody" class="col-sm-12 form-group">
+                                    <div class="col-sm-3"><label><input type="checkbox" name="formstate" value="create" />新建</label></div>
+                                    <div class="col-sm-3"><label><input type="checkbox" name="formstate" value="update" />编辑</label></div>
+                                    <div class="col-sm-3"><label><input type="checkbox" name="formstate" value="readonly" />只读</label></div>
+                                    <div class="col-sm-3"><label><input type="checkbox" name="formstate" value="disabled" />禁用</label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="attributevalue" style="padding:5px;">
+                        <div class="row" style="max-height:350px;overflow-y:auto;">
+                            <div class="col-sm-12 form-group">
+                                <div class="col-sm-4"><label>当字段值等于输入值时</label></div>
+                                <div class="col-sm-3">
+                                    <div class="visible">
+                                        <label for="attributevalue_visibled1">显示</label>
+                                        <input type="radio" name="attributevalue_visibled" id="attributevalue_visibled1" value="true" />
+                                        <label for="attributevalue_visibled2">隐藏</label>
+                                        <input type="radio" name="attributevalue_visibled" id="attributevalue_visibled2" checked="checked" value="false" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="enable">
+                                        <label for="attributevalue_enabled1">可用</label>
+                                        <input type="radio" name="attributevalue_enabled" id="attributevalue_enabled1" value="true" />
+                                        <label for="attributevalue_enabled2">禁用</label>
+                                        <input type="radio" name="attributevalue_enabled" id="attributevalue_enabled2" checked="checked" value="false" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs" id="addAttributevalue">
+                                        <span class="glyphicon glyphicon-plus-sign"></span> 增加
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-xs" id="removeAttributevalue">
+                                        <span class="glyphicon glyphicon-trash"></span> 清空
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="attributevalueBody">
+                                <div id="attributevalueOperationBody" class="col-sm-12 col-xs-12 form-group">
+                                    <div class="col-sm-4 col-xs-4">
+                                        <select class="form-control" id="attributevalue_select">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1 col-xs-1">=</div>
+                                    <div class="col-sm-4 col-xs-4">
+                                        <input type="text" class="form-control input-sm" id="attributevalue_text1" name="attributevalue_text" placeholder="值" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> 关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="btnFormStatusConfirm" name="returnBtn">
+                    <span class="glyphicon glyphicon-ok"></span> 确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+    <script>
+        var bsicons = ['glyphicon glyphicon-asterisk',
+                    'glyphicon glyphicon-plus',
+                    'glyphicon glyphicon-minus',
+                    'glyphicon glyphicon-euro',
+                    'glyphicon glyphicon-cloud',
+                    'glyphicon glyphicon-envelope',
+                    'glyphicon glyphicon-pencil',
+                    'glyphicon glyphicon-glass',
+                    'glyphicon glyphicon-music',
+                    'glyphicon glyphicon-search',
+                    'glyphicon glyphicon-heart',
+                    'glyphicon glyphicon-star',
+                    'glyphicon glyphicon-star-empty',
+                    'glyphicon glyphicon-user',
+                    'glyphicon glyphicon-film',
+                    'glyphicon glyphicon-th-large',
+                    'glyphicon glyphicon-th',
+                    'glyphicon glyphicon-th-list',
+                    'glyphicon glyphicon-ok',
+                    'glyphicon glyphicon-remove',
+                    'glyphicon glyphicon-zoom-in',
+                    'glyphicon glyphicon-zoom-out',
+                    'glyphicon glyphicon-off',
+                    'glyphicon glyphicon-signal',
+                    'glyphicon glyphicon-cog',
+                    'glyphicon glyphicon-trash',
+                    'glyphicon glyphicon-home',
+                    'glyphicon glyphicon-file',
+                    'glyphicon glyphicon-time',
+                    'glyphicon glyphicon-road',
+                    'glyphicon glyphicon-download-alt',
+                    'glyphicon glyphicon-download',
+                    'glyphicon glyphicon-upload',
+                    'glyphicon glyphicon-inbox',
+                    'glyphicon glyphicon-play-circle',
+                    'glyphicon glyphicon-repeat',
+                    'glyphicon glyphicon-refresh',
+                    'glyphicon glyphicon-list-alt',
+                    'glyphicon glyphicon-lock',
+                    'glyphicon glyphicon-flag',
+                    'glyphicon glyphicon-headphones',
+                    'glyphicon glyphicon-volume-off',
+                    'glyphicon glyphicon-volume-down',
+                    'glyphicon glyphicon-volume-up',
+                    'glyphicon glyphicon-qrcode',
+                    'glyphicon glyphicon-barcode',
+                    'glyphicon glyphicon-tag',
+                    'glyphicon glyphicon-tags',
+                    'glyphicon glyphicon-book',
+                    'glyphicon glyphicon-bookmark',
+                    'glyphicon glyphicon-print',
+                    'glyphicon glyphicon-camera',
+                    'glyphicon glyphicon-font',
+                    'glyphicon glyphicon-bold',
+                    'glyphicon glyphicon-italic',
+                    'glyphicon glyphicon-text-height',
+                    'glyphicon glyphicon-text-width',
+                    'glyphicon glyphicon-align-left',
+                    'glyphicon glyphicon-align-center',
+                    'glyphicon glyphicon-align-right',
+                    'glyphicon glyphicon-align-justify',
+                    'glyphicon glyphicon-list',
+                    'glyphicon glyphicon-indent-left',
+                    'glyphicon glyphicon-indent-right',
+                    'glyphicon glyphicon-facetime-video',
+                    'glyphicon glyphicon-picture',
+                    'glyphicon glyphicon-map-marker',
+                    'glyphicon glyphicon-adjust',
+                    'glyphicon glyphicon-tint',
+                    'glyphicon glyphicon-edit',
+                    'glyphicon glyphicon-share',
+                    'glyphicon glyphicon-check',
+                    'glyphicon glyphicon-move',
+                    'glyphicon glyphicon-step-backward',
+                    'glyphicon glyphicon-fast-backward',
+                    'glyphicon glyphicon-backward',
+                    'glyphicon glyphicon-play',
+                    'glyphicon glyphicon-pause',
+                    'glyphicon glyphicon-stop',
+                    'glyphicon glyphicon-forward',
+                    'glyphicon glyphicon-fast-forward',
+                    'glyphicon glyphicon-step-forward',
+                    'glyphicon glyphicon-eject',
+                    'glyphicon glyphicon-chevron-left',
+                    'glyphicon glyphicon-chevron-right',
+                    'glyphicon glyphicon-plus-sign',
+                    'glyphicon glyphicon-minus-sign',
+                    'glyphicon glyphicon-remove-sign',
+                    'glyphicon glyphicon-ok-sign',
+                    'glyphicon glyphicon-question-sign',
+                    'glyphicon glyphicon-info-sign',
+                    'glyphicon glyphicon-screenshot',
+                    'glyphicon glyphicon-remove-circle',
+                    'glyphicon glyphicon-ok-circle',
+                    'glyphicon glyphicon-ban-circle',
+                    'glyphicon glyphicon-arrow-left',
+                    'glyphicon glyphicon-arrow-right',
+                    'glyphicon glyphicon-arrow-up',
+                    'glyphicon glyphicon-arrow-down',
+                    'glyphicon glyphicon-share-alt',
+                    'glyphicon glyphicon-resize-full',
+                    'glyphicon glyphicon-resize-small',
+                    'glyphicon glyphicon-exclamation-sign',
+                    'glyphicon glyphicon-gift',
+                    'glyphicon glyphicon-leaf',
+                    'glyphicon glyphicon-fire',
+                    'glyphicon glyphicon-eye-open',
+                    'glyphicon glyphicon-eye-close',
+                    'glyphicon glyphicon-warning-sign',
+                    'glyphicon glyphicon-plane',
+                    'glyphicon glyphicon-calendar',
+                    'glyphicon glyphicon-random',
+                    'glyphicon glyphicon-comment',
+                    'glyphicon glyphicon-magnet',
+                    'glyphicon glyphicon-chevron-up',
+                    'glyphicon glyphicon-chevron-down',
+                    'glyphicon glyphicon-retweet',
+                    'glyphicon glyphicon-shopping-cart',
+                    'glyphicon glyphicon-folder-close',
+                    'glyphicon glyphicon-folder-open',
+                    'glyphicon glyphicon-resize-vertical',
+                    'glyphicon glyphicon-resize-horizontal',
+                    'glyphicon glyphicon-hdd',
+                    'glyphicon glyphicon-bullhorn',
+                    'glyphicon glyphicon-bell',
+                    'glyphicon glyphicon-certificate',
+                    'glyphicon glyphicon-thumbs-up',
+                    'glyphicon glyphicon-thumbs-down',
+                    'glyphicon glyphicon-hand-right',
+                    'glyphicon glyphicon-hand-left',
+                    'glyphicon glyphicon-hand-up',
+                    'glyphicon glyphicon-hand-down',
+                    'glyphicon glyphicon-circle-arrow-right',
+                    'glyphicon glyphicon-circle-arrow-left',
+                    'glyphicon glyphicon-circle-arrow-up',
+                    'glyphicon glyphicon-circle-arrow-down',
+                    'glyphicon glyphicon-globe',
+                    'glyphicon glyphicon-wrench',
+                    'glyphicon glyphicon-tasks',
+                    'glyphicon glyphicon-filter',
+                    'glyphicon glyphicon-briefcase',
+                    'glyphicon glyphicon-fullscreen',
+                    'glyphicon glyphicon-dashboard',
+                    'glyphicon glyphicon-paperclip',
+                    'glyphicon glyphicon-heart-empty',
+                    'glyphicon glyphicon-link',
+                    'glyphicon glyphicon-phone',
+                    'glyphicon glyphicon-pushpin',
+                    'glyphicon glyphicon-usd',
+                    'glyphicon glyphicon-gbp',
+                    'glyphicon glyphicon-sort',
+                    'glyphicon glyphicon-sort-by-alphabet',
+                    'glyphicon glyphicon-sort-by-alphabet-alt',
+                    'glyphicon glyphicon-sort-by-order',
+                    'glyphicon glyphicon-sort-by-order-alt',
+                    'glyphicon glyphicon-sort-by-attributes',
+                    'glyphicon glyphicon-sort-by-attributes-alt',
+                    'glyphicon glyphicon-unchecked',
+                    'glyphicon glyphicon-expand',
+                    'glyphicon glyphicon-collapse-down',
+                    'glyphicon glyphicon-collapse-up',
+                    'glyphicon glyphicon-log-in',
+                    'glyphicon glyphicon-flash',
+                    'glyphicon glyphicon-log-out',
+                    'glyphicon glyphicon-new-window',
+                    'glyphicon glyphicon-record',
+                    'glyphicon glyphicon-save',
+                    'glyphicon glyphicon-open',
+                    'glyphicon glyphicon-saved',
+                    'glyphicon glyphicon-import',
+                    'glyphicon glyphicon-export',
+                    'glyphicon glyphicon-send',
+                    'glyphicon glyphicon-floppy-disk',
+                    'glyphicon glyphicon-floppy-saved',
+                    'glyphicon glyphicon-floppy-remove',
+                    'glyphicon glyphicon-floppy-save',
+                    'glyphicon glyphicon-floppy-open',
+                    'glyphicon glyphicon-credit-card',
+                    'glyphicon glyphicon-transfer',
+                    'glyphicon glyphicon-cutlery',
+                    'glyphicon glyphicon-header',
+                    'glyphicon glyphicon-compressed',
+                    'glyphicon glyphicon-earphone',
+                    'glyphicon glyphicon-phone-alt',
+                    'glyphicon glyphicon-tower',
+                    'glyphicon glyphicon-stats',
+                    'glyphicon glyphicon-sd-video',
+                    'glyphicon glyphicon-hd-video',
+                    'glyphicon glyphicon-subtitles',
+                    'glyphicon glyphicon-sound-stereo',
+                    'glyphicon glyphicon-sound-dolby',
+                    'glyphicon glyphicon-sound-5-1',
+                    'glyphicon glyphicon-sound-6-1',
+                    'glyphicon glyphicon-sound-7-1',
+                    'glyphicon glyphicon-copyright-mark',
+                    'glyphicon glyphicon-registration-mark',
+                    'glyphicon glyphicon-cloud-download',
+                    'glyphicon glyphicon-cloud-upload',
+                    'glyphicon glyphicon-tree-conifer',
+                    'glyphicon glyphicon-tree-deciduous'];
+
+        var btnColorArr = ['btn-default', 'btn-primary', 'btn-success', 'btn-info', 'btn-warning', 'btn-danger', 'btn-link'];
+        var btnSizeArr = ['btn-lg', '', 'btn-sm', 'btn-xs'];
+        $(function () {
+            $('#ShowArea').picklist({
+                items: [{ label: '表单', value: 'Form' }, { label: '列表头部', value: 'ListHead' }, { label: '列表行内', value: 'ListRow' }, { label: '单据体', value: 'SubGrid' }]//
+                , required: true
+                , changeHandler: function (e) {
+                    if ($(this).val() == 'Form') {
+                        $('#visibledRule').removeClass('hide');
+                        $('#ruleTab').find('li:first').removeClass('hide').addClass('active').trigger('click');
+                        $('#ruleTab').find('li:last').removeClass('hide');
+                    }
+                    else if ($(this).val() == 'ListRow') {
+                        $('#visibledRule').removeClass('hide');
+                        $('#ruleTab').find('li:first').addClass('hide').removeClass('active');
+                        $('#ruleTab').find('li:last').removeClass('hide').addClass('active').trigger('click');
+                    }
+                    else {
+                        $('#visibledRule').addClass('hide');
+                    }
+                }
+            });
+            //表单验证
+            Xms.Web.Form($("#editform"), function (response) {
+                Xms.Web.Alert(response.IsSuccess, response.Content, function () {
+                    location.reload();
+                });
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+            }, null, function () {
+                $('#ShowArea').val($('#ShowArea').next().children('option:selected').val());
+            });
+            $(".modal").draggable({
+                handle: ".modal-header",
+                cursor: 'move',
+                refreshPositions: false
+            });
+
+            $('#Icon').xmsAutoComplete({
+                datas: bsicons,
+                itemClass: 'iconsarr',
+                itemTmpl: '<li class="{{itemClass}} {{itemOther}}" value="{{itemValue}}">{{itemTitle}}</li>',
+                dataFilter: function (data) {
+                    var res = [];
+                    $.each(data, function (i, n) {
+                        var obj = {
+                            value: n,
+                            other: n,
+                        }
+                        res.push(obj);
+                    });
+                    return res;
+                }
+            });
+            var btnCssArr = [];
+            $.each(btnColorArr, function (i, n) {
+                $.each(btnSizeArr, function (ii,nn) {
+                    btnCssArr.push('btn ' + n + ' ' + nn);
+                });
+            });
+            $('#CssClass').xmsAutoComplete({
+                datas: btnCssArr,
+                itemClass: 'btnCssarr',
+                itemTmpl: '<li class="{{itemClass}}" value="{{itemValue}}"><div class="{{itemOther}}">按钮</div></li>',
+                dataFilter: function (data) {
+                    var res = [];
+                    $.each(data, function (i, n) {
+                        var obj = {
+                            value: n,
+                            other: n,
+                        }
+                        res.push(obj);
+                    });
+                    return res;
+                }
+            });
+
+
+            /*点击确定时，遍历所有的 拼接字符串*/
+            $("#btnFormStatusConfirm").click(function () {
+                var StatusJson = {};
+                //第一个函数传入父节点 遍历出子节点的数据返回对象
+                StatusJson.FormStateRules = setFormStatusBodyInfo($("#formStatusBody"));
+                StatusJson.ValueRules = setAttributeBody($("#attributevalueBody"));
+                var statusJsonStr = JSON.stringify(StatusJson);
+                $("#CommandRules").val(statusJsonStr);
+                console.log(statusJsonStr);
+                $('#ruleModal').modal('hide');
+            });
+
+            /* 按钮显示规则/按字段值添加*/
+            $("#addAttributevalue").click(function () {
+                var newAttributevalueOperationBody = $("#attributevalueOperationBody").clone();
+                newAttributevalueOperationBody.find(".col-sm-1>button").css("display", "inline");/*获取到newAttributevalueOperationBody里面的button元素 设置其样式*/
+                var idStr = Xms.Utility.Guid.NewGuid().ToString('N');//生成一个guid
+                newAttributevalueOperationBody.prop("id", "attributevalueOperationBody" + idStr); /*修改id */
+
+                newAttributevalueOperationBody.find("#attributevalue_select").attr("id", "attributevalue_select" + idStr).val('');
+                newAttributevalueOperationBody.find("#attributevalue_text1").attr("id", "attributevalue_text1" + idStr).val('');
+                $("#attributevalueBody").append(newAttributevalueOperationBody);
+            });
+
+            /*#按属性进行清空*/
+            $("#removeAttributevalue").click(function () {
+                removeAll($("#attributevalueBody"));
+            });
+
+            $('#jslibrary_text').lookup({
+                disabled: true,
+                dialog: function () {
+                    Xms.Web.OpenDialog('/customize/WebResource/Dialog?singlemode=true&inputid=jslibrary_text', 'selectRecordCallback');
+                }
+                    , clear: function () {
+                        $('#jslibrary_text').val('');
+                        $('#jslibrary').val('');
+                    }
+            });
+            loadAttributes();
+        });
+
+        function setBtnStyle(_this) {
+            var $this = $(_this);
+            $('#Label').val($this.get(0).innerText.trim());
+            $('#CssClass').val($this.prop('class'));
+            $('#Icon').val($this.find('span:first').prop('class'));
+            $('#ShowArea').val($('#ShowArea').next().children('option:selected').val());
+        }
+        /*根据attribute选择的数据 设置对象 返回*/
+        function setAttributeBody(_$attributevalueBody) {
+            var attributeSatusJson = {};
+            attributeSatusJson.Values = [];
+            var childAttributeStatusBodys = _$attributevalueBody.children();
+            childAttributeStatusBodys.each(function (index, obj) {
+                var jsonAttribute = {};
+                var attributeSlectTextValue = Xms.Web.SelectedValue($(this).find("select"));
+                if (!attributeSlectTextValue) return true;
+                jsonAttribute.Field = attributeSlectTextValue;
+                var attributeValue = $(this).find("input[type=text]").val();
+                jsonAttribute.Value = attributeValue;
+                attributeSatusJson.Values.push(jsonAttribute);//加入到对象数组中
+            });
+            if (attributeSatusJson.Values && attributeSatusJson.Values.length > 0) {
+                attributeSatusJson.visibled = $('input[name="attributevalue_visibled"]:checked').val();
+                attributeSatusJson.enabled = $('input[name="attributevalue_enabled"]:checked').val();
+            }
+            else {
+                attributeSatusJson = null;
+            }
+            return attributeSatusJson;
+        }
+
+        /*遍历formStatusBody$对象    返回对应格式的对象*/
+        function setFormStatusBodyInfo(_$formStatusBody) {
+            var formSatusJson = {};
+            formSatusJson.States = [];
+            var childFormStatusBodys = _$formStatusBody.find("input[type=checkbox]:checked"); //得到每一个formStatusBody下的所有行
+            childFormStatusBodys.each(function (index, obj) {
+                formSatusJson.States.push($(obj).val());
+            });
+            if (formSatusJson.States && formSatusJson.States.length > 0) {
+                formSatusJson.visibled = $('input[name="attributevalue_visibled"]:checked').val();
+                formSatusJson.enabled = $('input[name="attributevalue_enabled"]:checked').val();
+            }
+            else {
+                formSatusJson = null;
+            }
+            return formSatusJson;
+        }
+        /*根据父节点循环删除子节点*/
+        function removeAll(_parentElement) {
+            var elementBodyChild = _parentElement.children();
+            for (var i = 1; i < elementBodyChild.length; i++) {
+                elementBodyChild[i].remove();
+            }
+        }
+        /*按钮显示规则/按表单状态单个删除方法,点击的时候调用这个方法，把元素的父节点传递过来*/
+        function deleteLine(_parentElement) {
+            _parentElement.remove();
+        }
+
+
+        /*ajax请求实体的数据*/
+        function loadEntities() {
+            Xms.Web.GetJson('/customize/Entity/index?getall=true', null, function (data) {
+                if (!data || data.content.items.length == 0) return;
+                $(data.content.items).each(function (i, n) {
+                    $('#entityper_select').append("<option value=\"" + n.name + "\">" + n.localizedname + '</option>');
+                });
+                //$('#EntityId').val($('#EntitySel').find('option:selected').val());
+            });
+        }
+
+        /*ajax请求字段数据*/
+        function loadAttributes() {
+            /*获取到点击进来的实体的 所有的字段*/
+            $('#attributevalue_select').find('option:gt(0)').remove();
+            Xms.Schema.GetAttributesByEntityId($('#EntityId').val(), function (data) {
+                if (!data || data.length == 0) return;
+                $(data).each(function (i, n) {
+                    $('#attributevalue_select').append("<option value=\"" + n.name + "\">" + n.localizedname + '</option>');
+                });
+                //$('#AttributeId').val($('#AttributeSel').find('option:selected').val());
+            });
+        }
+
+        function selectRecordCallback(result, inputid) {
+            $('#' + inputid).val(result[0].name);
+            var valueid = inputid.replace(/_text/, '');
+            $('#' + valueid).val('$webresource:' + result[0].id);
+            $('#' + inputid).trigger('change');
+            $('#' + valueid).trigger('change');
+        }
+    </script>
+}

@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="NPOI" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder">
+      <HintPath>..\..\Preferences\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="PetaPoco">
+      <HintPath>..\..\Preferences\PetaPoco.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Caching">
+      <HintPath>..\..\Preferences\Xms.Caching.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Context">
+      <HintPath>..\..\Preferences\Xms.Context.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Core">
+      <HintPath>..\..\Preferences\Xms.Core.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Data">
+      <HintPath>..\..\Preferences\Xms.Data.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Domain">
+      <HintPath>..\..\Preferences\Xms.Domain.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Identity">
+      <HintPath>..\..\Preferences\Xms.Identity.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Infrastructure">
+      <HintPath>..\..\Preferences\Xms.Infrastructure.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Module.Abstractions">
+      <HintPath>..\..\Preferences\Xms.Module.Abstractions.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Schema">
+      <HintPath>..\..\Preferences\Xms.Schema.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Schema.Abstractions">
+      <HintPath>..\..\Preferences\Xms.Schema.Abstractions.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Schema.Domain">
+      <HintPath>..\..\Preferences\Xms.Schema.Domain.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Schema.Extensions">
+      <HintPath>..\..\Preferences\Xms.Schema.Extensions.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Sdk">
+      <HintPath>..\..\Preferences\Xms.Sdk.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Sdk.Abstractions">
+      <HintPath>..\..\Preferences\Xms.Sdk.Abstractions.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Xms.Sdk.Extensions">
+      <HintPath>..\..\Preferences\Xms.Sdk.Extensions.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

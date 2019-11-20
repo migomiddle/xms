@@ -1,0 +1,16 @@
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Security.Domain.deps.json
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Security.Domain.dll
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Security.Domain.pdb
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Core.dll
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Domain.dll
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Core.pdb
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Domain.pdb
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\bin\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.csprojAssemblyReference.cache
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.csproj.CoreCompileInputs.cache
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.AssemblyInfoInputs.cache
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.AssemblyInfo.cs
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.csproj.CopyComplete
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.dll
+G:\projects\Xms_V2\Libraries\Security\Xms.Security.Domain\obj\Release\netstandard2.0\Xms.Security.Domain.pdb

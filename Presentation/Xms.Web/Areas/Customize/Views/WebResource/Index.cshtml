@@ -1,0 +1,151 @@
+﻿@model Xms.Web.Customize.Models.WebResourceModel
+
+<div  id="gridview">
+    <div class="mb-2 toolbar">
+       
+        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+            @Html.HiddenFor(x => x.SolutionId)
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="btn-group btn-group-sm">
+                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/webresource/createwebresource?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增</a>
+                            <button type="button" class="btn btn-info" data-action="/customize/webresource/deletewebresource" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-btn webresourcetype-select">
+                            @Html.TextBoxFor(x => x.WebResourceType, new { @class = "form-control", @data_value = Model.WebResourceType })
+                        </span>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+   
+    <div class="table-datagrid-view">
+        <div class="datagrid-view"></div>
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+           
+        </table>
+    </div>
+   
+</div>
+@section Header {
+    <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        var solutionid = '@Model.SolutionId';
+        var websourcetypes = [{ label: '脚本', value: 'Script' }, { label: '样式', value: 'Css' }, { label: '网页', value: 'Html' }, { label: '图片', value: 'Picture' }]
+     
+        $(function () {
+           
+            var theaders = {
+                'typename':'@app.T["typename"]',
+                'name': '@app.T["name"]',
+                'description': '@app.T["description"]',
+                'createdon': '创建时间',
+                'operation':'@app.T["operation"]'
+            }
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.webresourceid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.webresourceid + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                 { "dataIndx": "webresourcetype", "title": theaders.typename, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" , render: function (ui) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                     var html = ''
+                     html += websourcetypes[recordid].label;
+                        return html
+                    }},
+                { "dataIndx": "name", "title": theaders.name, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "description", "title": theaders.description, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+               
+                 { "dataIndx": "createdon", "title": theaders.createdon, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 120,width:120, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        var html = ''
+                        html=  ' <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/webresource/editwebresource?id='+datas.webresourceid+'&solutionid=' + solutionid + '" ><span class="glyphicon glyphicon-edit"></span> 编辑</a>'+
+                             ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\''+datas.webresourceid+'\',\'/customize/webresource/deletewebresource\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>'
+                        return html
+                    }
+                }
+            ];
+           var url = ORG_SERVERURL + '/customize/@app.ControllerName/@app.ActionName?LoadData=true&';
+            var $form = $('#searchForm');
+            var roles_filters = new XmsFilter();
+            var datagridconfig = {
+                scrollModel: { autoFit: true },
+                baseUrl: url,
+                columnConfigs: columnConfigs,//字段配置信息
+                context: $('#gridview'),//底部操作按钮方法触发
+                filters: roles_filters,//post提交时过滤条件
+                searchForm: $form//GET提交时查询的数据
+            };
+            $('.datagrid-view').xmsDataTable(datagridconfig);
+            $('#WebResourceType').picklist({
+                items: websourcetypes,
+                placeholder:'全部类型'
+            });
+            Xms.Web.Event.localStorageEvent.on('list_webresource_rebind', function () {
+                setTimeout(function () {
+                    location.reload();
+                },100)
+            });
+           
+        });
+        
+         function rebind() {
+            //$('#searchForm').submit();
+             $('.datagrid-view').cDatagrid('refreshDataAndView')
+        }
+    </script>
+}

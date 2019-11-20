@@ -1,0 +1,14 @@
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.WebResource.Abstractions.deps.json
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.WebResource.Abstractions.dll
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.WebResource.Abstractions.pdb
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.csproj.CoreCompileInputs.cache
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.AssemblyInfoInputs.cache
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.AssemblyInfo.cs
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.dll
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.pdb
+G:\projects\Xms_V2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_v2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.Core.dll
+G:\projects\xms_v2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_v2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.Core.pdb
+G:\projects\xms_v2\Libraries\WebResource\Xms.WebResource.Abstractions\bin\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_v2\Libraries\WebResource\Xms.WebResource.Abstractions\obj\Release\netstandard2.0\Xms.WebResource.Abstractions.csproj.CopyComplete

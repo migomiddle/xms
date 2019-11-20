@@ -1,0 +1,12 @@
+G:\projects\Xms_V2\Libraries\Xms.Core\bin\Release\netstandard2.0\Xms.Core.deps.json
+G:\projects\Xms_V2\Libraries\Xms.Core\bin\Release\netstandard2.0\Xms.Core.dll
+G:\projects\Xms_V2\Libraries\Xms.Core\bin\Release\netstandard2.0\Xms.Core.pdb
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.csprojAssemblyReference.cache
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.csproj.CoreCompileInputs.cache
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.AssemblyInfoInputs.cache
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.AssemblyInfo.cs
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.dll
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.pdb
+G:\projects\Xms_V2\Libraries\Xms.Core\bin\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\Xms_V2\Libraries\Xms.Core\bin\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\Xms_V2\Libraries\Xms.Core\obj\Release\netstandard2.0\Xms.Core.csproj.CopyComplete

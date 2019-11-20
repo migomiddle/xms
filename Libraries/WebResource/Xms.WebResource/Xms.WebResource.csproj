@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency\Xms.Dependency.csproj" />
+    <ProjectReference Include="..\..\Localization\Xms.Localization.Abstractions\Xms.Localization.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Localization\Xms.Localization.Domain\Xms.Localization.Domain.csproj" />
+    <ProjectReference Include="..\..\Localization\Xms.Localization\Xms.Localization.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution.Abstractions\Xms.Solution.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Solution\Xms.Solution\Xms.Solution.csproj" />
+    <ProjectReference Include="..\..\Xms.Context\Xms.Context.csproj" />
+    <ProjectReference Include="..\Xms.WebResource.Domain\Xms.WebResource.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

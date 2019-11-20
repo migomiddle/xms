@@ -1,0 +1,446 @@
+﻿@model RenderChartModel
+@{
+    Layout = null;
+}
+
+
+<div class="rendercharbox" style="position:relative;">
+    <div class="row" style="padding: 0; z-index:100; margin: 0;">
+        <div class="silder-right-crumb hide">
+
+        </div>
+    </div>
+    <div id="chart1" class="chartA xms-chart" data-queryid="@Model.QueryId" data-entityname="@Model.EntityName" style="border:1px #efefef solid;min-height:300px;"></div>
+    <span class="changeBig glyphicon glyphicon-resize-full" style="position:absolute;right:9px;top:10px; z-index:10;cursor:pointer; opacity: .5;"></span>
+</div>
+<script src="/content/js/echarts-all.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script type="text/javascript">
+    if(typeof groupsCtrl==='undefined'){
+        var groupsCtrl = [];
+    }
+    if(typeof groups==='undefined'){
+        var groups = [];
+    }
+    ;(function (){
+        var chardid = '@Model.ChartId';
+        var queryid = '@Model.QueryId';
+        var entityname = '@Model.EntityName';
+        var _chartObj = null;
+        function renderChartCrumb() {
+            console.log('renderChartCrumb',_chartObj);
+            if(_chartObj){
+                var $silderRightCrumb = $('.silder-right-crumb',$(_chartObj._dom || _chartObj.dom).parent());
+            }else{
+                var $silderRightCrumb = $('.silder-right-crumb');
+            }
+            var groupsInserModal = $('#groupsInserModal');
+            if(!groupsInserModal.data() || (groupsInserModal.data() && !groupsInserModal.data().groupsCtrl) || (groupsInserModal.data() && groupsInserModal.data().groupsCtrl && !groupsInserModal.data().groupsCtrl[chardid]))return false;
+            var groupsCtrl = groupsInserModal.data().groupsCtrl[chardid];
+
+            if (groupsCtrl.length == 1) { $silderRightCrumb.addClass('hide'); $('.changeBig').css('top', 10); return false; }
+
+            var _html = [];
+            $silderRightCrumb.removeClass('hide');
+            $.each(groupsCtrl, function (key, item) {
+                if (key == 0) {
+                    _html.push('<span data-type="0">向下钻取</span>');
+                } else {
+                    _html.push('<span data-type="' + (key) + '">' + item.param + '</span>');
+                }
+            });
+            if (groupsCtrl.length > 0) {
+                $('.changeBig').css('top', 30);
+            }
+            $silderRightCrumb.html(_html.join(''));
+            $silderRightCrumb.children('span').off().on('click', function (e) {
+               // console.log(11111111111111, this);
+                bindCrumbItem.call(this,e);
+            });
+        }
+        function removeGroupsLast(index) {
+            console.log('removeGroupsLast', index);
+            var groupsInserModal = $('#groupsInserModal');
+            var groupsCtrl = groupsInserModal.data().groupsCtrl[chardid];
+            var groups = groupsInserModal.data().groups[chardid];
+            var len = groupsCtrl.length;
+            if (index!=0) {
+                if(typeof emptyGroupFilters=='function'){
+                    emptyGroupFilters(index);
+                }
+            } else {
+                filters = new Xms.Fetch.FilterExpression();
+                if (typeof gridview_filters !== 'undefined') {
+                    gridview_filters.clearAll();
+                }
+            }
+            groupsCtrl.splice((index*1)+1, len -1 - index);
+            groups.splice((index*1), len -1 - index);
+            console.log('removeGroupsLast', groupsCtrl, groups);
+            if (typeof gridview_filters !== 'undefined') {
+                $('.datagrid-view').cDatagrid('refreshDataAndView');
+            }
+            //if(typeof submitFilter ==='function'){
+            //    submitFilter();
+            //}
+        }
+        function getCrumbFilters(){
+            var groupsInserModal = $('#groupsInserModal');
+            var groupsCtrl = groupsInserModal.data().groupsCtrl[chardid];
+            var filters = new Xms.Fetch.FilterExpression();
+            filters.FilterOperator = Xms.Fetch.LogicalOperator.And;
+            filters.Conditions = [];
+            if(groupsCtrl && groupsCtrl.length>0){
+                $.each(groupsCtrl,function(key,item){
+                    var _filter = item.filter;
+                    if(_filter && _filter.Conditions){
+                        $.each(_filter.Conditions, function (i, n) {
+                           // console.log('3333333333333333333333', n);
+                            filters.Conditions.push(n);
+                        });
+                    }
+                });
+            }
+            //   console.log('2222222222222222', gridview_filters)
+            if (typeof gridview_filters !== 'undefined') {
+                gridview_filters.clearAll();
+                gridview_filters.addFilter(new XmsFilter(filters));
+                $('.datagrid-view').cDatagrid('refreshDataAndView');
+                //$('.datagrid-view').xmsDatagrid('refreshDataAndView');
+            }
+            return filters;
+        }
+        function bindCrumbItem(e) {
+            var $this = $(this);
+            var _type = $this.attr('data-type');
+            var groupsInserModal = $('#groupsInserModal');
+            var groupsCtrl = groupsInserModal.data().groupsCtrl[chardid];
+            // console.log('groups', _type);
+            var type = groupsCtrl[_type];
+            var filters = null;
+            // console.log('groupsCtrl', type);
+            if (type) {
+                removeGroupsLast(_type);
+                filters = getCrumbFilters();
+                console.log('bindCrumbItem',filters);
+                if (type.groups) {
+                    if(typeof renderChart=='function'){
+                        renderChart(type.chartid, type.queryid, null, { filter: filters, groups: type.groups });
+                    }
+                   // console.log(typeof loadComInfo=='function' , typeof panelConfig!=='undefined');
+                    if(typeof getInserComponent=='function' && typeof panelConfig!=='undefined'){
+                        var _index = $this.parents('.componentbox').index();
+                        getInserComponent(_index, panelConfig.cell, null, { filter: filters, groups: type.groups });
+                    }
+                } else {
+                    if(typeof renderChart=='function'){
+                        renderChart(type.chartid, type.queryid, null);
+                    }
+                   // console.log(typeof loadComInfo=='function' , typeof panelConfig!=='undefined');
+                    if(typeof getInserComponent=='function' && typeof panelConfig!=='undefined'){
+                        var _index = $this.parents('.componentbox').index();
+                        getInserComponent(_index, panelConfig.cell);
+                    }
+                }
+                //renderChartCrumb();
+            }
+        }
+        function groupsAttributes(obj) {
+            var groupsInserModal = $('#groupsInserModal');
+            var filter = groupsInserModal.data().filter;
+            var params = groupsInserModal.data().params;
+            var groupsCtrl = groupsInserModal.data().groupsCtrl[chardid];
+            var groups = groupsInserModal.data().groups[chardid];
+            var attrname = $('#groupsAttributes').val();
+            if (filter) {
+               // chartid = $('#ChartList').find('option:selected').val();
+               // queryid = $('#QueryId').val();
+
+                if(groupsCtrl.length==0){
+                    groupsCtrl.push({
+                        chartid: chardid,
+                        queryid: queryid
+                    });
+                }
+                console.log('getattrfilter',filter);
+                groups.push(attrname);
+
+                groupsCtrl.push({
+                    chartid: chardid,
+                    queryid: queryid,
+                    groups: $.extend([],groups),
+                    filter: $.extend({}, filter),
+                    attributeName:attrname,
+                    param: params.name
+                });
+                // $(params._dom).trigger('getInserComponent',{ chartid:chartid, queryid:queryid,  filter: filter, groups: groups });
+                if(typeof renderChart=='function'){
+                    var filters = getCrumbFilters();
+                    renderChart(chardid, queryid, null, { filter: filters, groups: groups });
+                }
+              //  console.log('getInserComponent', getInserComponent);
+              //   console.log('panelConfig',panelConfig);
+                if(typeof getInserComponent=='function' && typeof panelConfig!=='undefined'){
+                    console.log(_chartObj);
+                    if(_chartObj){
+                        var _index = $(_chartObj._dom || _chartObj.dom).parents('.componentbox').index();
+                        var filters = getCrumbFilters();
+                        getInserComponent(_index, panelConfig.cell, null, { filter: filters, groups: groups });
+                    }
+                }
+                //renderChartCrumb();
+                 
+            }
+            groupsInserModal.removeClass('active');
+        }
+        function getRelaQueryAttrs() {
+            var $groupsAttributes = $('#groupsAttributes');
+            var url = ORG_SERVERURL + '/api/schema/queryview/getattributes/' + queryid;
+
+            Xms.Web.GetJson(url,null, function (res) {
+                if (res && res.content) {
+                    var _html = [];
+                    $.each(res.content,function(key,item){
+                        _html.push('<option value="' + item.name + '">' + item.localizedname + '</option>');
+                    });
+                    $groupsAttributes.html(_html.join(''));
+                }
+            });
+        }
+        function showGroupsModal(filter,params,myChart,grpsc,grps){
+            var groupsInserModal = $('#groupsInserModal');
+            groupsInserModal.data().filter = filter;
+            groupsInserModal.data().params = params;
+            groupsInserModal.data().groupsCtrl = grpsc;
+            groupsInserModal.data().groups = grps;
+            groupsInserModal.addClass('active');
+            var winWidth = $(document).width();
+            var offset = {x:params.event.offsetX,y:params.event.offsetY};
+            var chartOffset = $(myChart._dom || myChart.dom).offset();
+            var left = chartOffset.left+offset.x;
+            var top =chartOffset.top+offset.y;
+            var boxWidth = 200;
+            var fixLeft = 50;
+            //console.log(winWidth,left+boxWidth)
+            if(winWidth<left+boxWidth){
+                left = left-(left+boxWidth-winWidth)-fixLeft;
+            }
+            groupsInserModal.css({
+                'left':left,
+                'top':top
+            });
+
+            getRelaQueryAttrs()
+
+
+            $('#groupsAttributesBtn').off().on('click', function () {
+                groupsAttributes(this);
+                var groupsInserModal = $('#groupsInserModal');
+                groupsInserModal.removeClass('active');
+            });
+        }
+        if(typeof groupsCtrl[chardid]==='undefined'){
+            groupsCtrl[chardid] = [];
+        }
+        if(typeof groups[chardid]==='undefined'){
+            groups[chardid] = [];
+        }
+        var DataView = {
+
+            chartLayerType : '0', //图表的布局方式
+            chartLayerName : '',//图表的名字
+            dataConfig : @Html.Raw(Model.ChartEntity.DataConfig.ToLower()),
+            chartConfig : @Html.Raw(Model.Chart.SerializeToJson()),
+            dataSource : @Html.Raw(Model.DataSource.SerializeToJson()),
+            attributes : @Html.Raw(Model.Attributes.SerializeToJson()),
+            changeConfig : null,
+            thischart : null,
+            initChart1: function(){
+                // 基于准备好的dom，初始化echarts实例
+                var self = this;
+                this.thischart = document.getElementById('chart1');
+                var myChart = echarts.init(this.thischart);
+                // 使用刚指定的配置项和数据显示图表。
+                this.changeConfig = xmsGetChartsData(DataView.chartConfig,DataView.dataConfig);
+                console.log('this.changeConfig',this.changeConfig);
+                _chartObj = myChart;
+                if(this.changeConfig && this.changeConfig.series && this.changeConfig.series.length>0 && this.changeConfig.series[0].data && (this.changeConfig.series[0].data.length>0 && this.changeConfig.series[0].data[0].name=="") ||this.changeConfig.series[0].data.length==0){
+                    this.changeConfig.series[0].data[0] = 0;
+                    this.changeConfig.series[0].max =0;
+                }
+                myChart.setOption(this.changeConfig);
+                if(this.changeConfig && this.changeConfig.series && this.changeConfig.series.length>0 && this.changeConfig.series[0].type && this.changeConfig.series[0].type=="gauge"){
+                    $(this.thischart).addClass('chart-type-gauge');
+                }
+                console.log('myChart.changeConfig',this.changeConfig);
+                renderChartCrumb();
+                myChart.on('click',function(params){
+                    console.log('chart.click',params);
+                    console.log('DataView.attributes',DataView.attributes);
+                    console.log('chart.dataSource',DataView.dataSource);
+                    var xAxis = params.name;
+                    var dataAttributeName = $.grep(DataView.dataConfig.fetch, function(obj){
+                        return obj.type == "category";
+                    });
+                    console.log(typeof groupsCtrl[chardid]!=='undefined' , groupsCtrl[chardid].length==0)
+
+                    if(typeof groupsCtrl[chardid]!=='undefined' && groupsCtrl[chardid].length>1){
+
+                        var AttributeName = groupsCtrl[chardid][groupsCtrl[chardid].length-1].attributeName.toLowerCase();
+                        var attributeTypeName = $.grep(DataView.attributes, function(obj){
+                            return obj.name.toLowerCase() == AttributeName.toLowerCase();
+                        });
+                    }else{
+                        var AttributeName = dataAttributeName[0].attribute;
+                        var attributeTypeName = $.grep(DataView.attributes, function(obj){
+                            return obj.name.toLowerCase() == AttributeName.toLowerCase();
+                        });
+                    }
+
+                    console.log('chart.groupsCtrl',groupsCtrl[chardid]);
+                    console.log("dataAttributeName=", dataAttributeName,'DataView.dataConfig.fetch',DataView.dataConfig.fetch);
+
+                    console.log("attributeTypeName=", attributeTypeName);
+                    var filter = new Xms.Fetch.FilterExpression();
+                    filter.FilterOperator = Xms.Fetch.LogicalOperator.And;
+                    if (attributeTypeName.length == 0) return true;
+                    if(attributeTypeName[0].attributetypename == "datetime" && xAxis != '空'){
+                        if(xAxis) {
+                            var startDate = xAxis + '-01';
+                            var endDate = '';
+                            var monthDay = [0,31,28,31,30,31,30,31,31,30,31,30,31];
+                            var isLeapYear = function(year) {
+                                return (((year%4==0) && (year%100!=0)) || (year%400)==0);
+                            };
+                            var year = parseInt(xAxis.substring(0, 4));
+                            var month = parseInt(xAxis.substring(5, 7));
+                            var endDateDay = null;
+                            if(month == 2) {
+                                endDateDay = isLeapYear(year) ? monthDay[month] + 1 : monthDay[month];
+                            } else {
+                                endDateDay = monthDay[month];
+                            }
+                            endDate = xAxis + '-' + endDateDay;
+                            var condition = new Xms.Fetch.ConditionExpression();
+                            condition.AttributeName = AttributeName;
+                            condition.Operator = Xms.Fetch.ConditionOperator.Between;
+                            if(startDate.length>17){
+                                startDate=startDate.substring(0,startDate.length-3);
+                                startDate+='';
+                            }
+                            if(endDate.length>17){
+                                endDate=endDate.substring(0,endDate.length-3);
+                                endDate+='.999';
+                            }
+                            condition.Values.push(startDate);
+                            if(endDate==startDate){
+                                condition.Operator = Xms.Fetch.ConditionOperator.Equal;
+                            }else{
+                                condition.Values.push(endDate);
+                            }
+                           // console.log('xxxxxxxxxxxxxxxx.startDate',startDate);
+
+
+                           // filter.Conditions.push(condition);
+                        }
+                    }else if (xAxis != '空') {
+                        var condition = new Xms.Fetch.ConditionExpression();
+                        condition.AttributeName = AttributeName;
+                        condition.Operator = Xms.Fetch.ConditionOperator.Equal;
+                        var dataIndex = params.dataIndex;
+                        condition.Values.push(DataView.dataSource[dataIndex][condition.AttributeName]);
+                    }
+                    else{
+                        var condition = new Xms.Fetch.ConditionExpression();
+                        condition.AttributeName = AttributeName;
+                        condition.Operator = Xms.Fetch.ConditionOperator.Null;
+                    }
+                    console.log("filter=",filter);
+                    filter.Conditions.push(condition);
+                    if($('#groupsInserModal').length>0 && !$(self.thischart).hasClass('chart-type-gauge')){//是否在列表页面中
+                        showGroupsModal(filter,params,myChart,groupsCtrl,groups);
+                    }
+                    console.log('filterinfo',condition.AttributeName,filter);
+                    if($('.page-renderdashboard').length==0){
+                        if(typeof removeFilter =='function'){
+                            removeFilter(condition.AttributeName,true);//先删除同名的过滤条件
+                            addFilter(condition.AttributeName, filter);
+                        }
+                    }
+                });
+            },
+            initChart2: function(obj,id){
+                // 基于准备好的dom，初始化echarts实例
+                var elem = $('#'+id).children().get(0);
+                var self = this;
+                //setTimeout(function(){
+                var myChart = echarts.init(elem);
+                if(this.changeConfig && this.changeConfig.series && this.changeConfig.series.length>0 && this.changeConfig.series[0].data && (this.changeConfig.series[0].data.length>0 && this.changeConfig.series[0].data[0].name=="") ||this.changeConfig.series[0].data.length==0){
+                    this.changeConfig.series[0].data[0] = 0;
+                    this.changeConfig.series[0].max =0;
+                }
+                myChart.setOption(self.changeConfig);
+                // },100);
+            },
+            initClear: function () {
+
+                var chartConfig = DataView.chartConfig;
+                chartConfig.xaxis.type = chartConfig.xaxis.type.toLowerCase();
+                $(DataView.chartConfig.series).each(function(i, n){
+                    n.type = n.type.toLowerCase();
+                    n.itemStyle = { normal: { color: n.itemcolor } };
+                });
+                DataView.initChart1();
+            },
+            initClick: function (obj) {
+                //$(".xms-table-section").css("right", 35);
+                //$(".menu-md.menu-right").css({ "width": 0 ,"border":"none"});
+                //$(".xms-slider-ctrl ").fadeOut();
+                //$("#listchartWinBtn").attr("active", "2");
+                var winHeight = $('.row').height();
+                $('.shadeBox').css({'display':'block','height':winHeight});
+
+                var index = $(obj).index();
+                var zoomBig = $('<div id="changeHide" class="changeHide" style="background:#fff;width:66%;height:500px;position: fixed;top: 90px; left: 18%; z-index: 9999;cursor:pointer;border:1px solid #bbb;"></div>');
+                var zoomid = 'changehide'+setTimeout(0);
+                zoomBig.attr('id',zoomid);
+                $('body').append(zoomBig);
+                var aaa = $(obj).siblings('.chartA').find('div:eq(0)').clone();
+                console.log('aaa',aaa);
+                zoomBig.append(aaa);
+                aaa.height(500);
+                zoomBig.find('div').css('width','100%');
+                DataView.initChart2(obj,zoomid);
+
+                zoomBig.find('canvas').eq(0).css({'background':'#fff','width':'100%'});
+                var zoomLit = '<span class="changeBoxSmall glyphicon glyphicon-remove" style="position:absolute;right:2px;top:2px;z-index:9999;cursor:pointer;"></span>';
+                $('.changeHide').append(zoomLit);
+                $('.changeHide').addClass('xms-chart');
+                $('.changeHide').attr('data-queryid', queryid);
+                $('.changeHide').attr('data-entityname', entityname);
+                $('.dashrow').on('.changeSmall','click',function () {
+                    $(".xms-slider-ctrl ").fadeIn();
+                    $(".xms-slider-ctrl ").attr('active','2');
+                    $(".menu-md.menu-right").css({ "width": 367 });
+                    $('.shadeBox').css('display','none');
+                    zoomBig.remove();
+                });
+                zoomBig.on('click','.changeBoxSmall',function(){
+                    $('.xms-slider-ctrl ').fadeIn();
+                    $(".xms-slider-ctrl ").attr('active','2');
+                    $(this).parents('.changeHide:first').hide();
+                    $('.shadeBox').hide();
+                })
+                return;
+            },
+            bindEvent:function(){
+                $(this.thischart).siblings(".changeBig").click(function(){
+                    DataView.initClick(this);
+
+                });
+            }
+        };
+        DataView.initClear();
+        DataView.bindEvent();
+        console.log('DataView.dataSource', DataView.dataSource);
+    })();
+</script>

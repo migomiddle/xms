@@ -1,0 +1,517 @@
+﻿@model Xms.Web.Models.EditRoleEntityPermissionsModel
+@{
+    if (Model.Entities.Count(x => x.EntityGroups.IsEmpty()) > 0)
+    {
+        var nullGroup = new Xms.Core.Data.Entity("entitygroup");
+        nullGroup.SetIdValue(Guid.Empty);
+        nullGroup["name"] = "未分组";
+        Model.EntityGroups.Insert(0, nullGroup);
+        foreach (var item in Model.Entities.Where(x => x.EntityGroups.IsEmpty()))
+        {
+            item.EntityGroups = Guid.Empty.ToString();
+        }
+    }
+}
+<div class="container-fluid">
+    <div class="row" style="padding:5px 0px;">
+        <div class="col-sm-11 btn-group" id="owners">
+            <button type="button" class="btn btn-sm btn-default">类型：</button>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong id="rolename" class="text-primary">@Model.Role.Name</strong> - <strong>@app.T[Model.ResourceName].IfEmpty(Model.ResourceName)</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true" action="/@(app.OrganizationUniqueName)/api/role/SaveRolePermissions" method="post">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.RoleId)
+                @Html.HiddenFor(x => x.ResourceName)
+                <ul id="myTab" class="nav nav-tabs">
+                    @foreach (var group in Model.EntityGroups)
+                    {
+                        if (Model.Entities.Count(x => x.EntityGroups.IsNotEmpty() && x.EntityGroups.IndexOf(group.Id.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0) == 0)
+                        {
+                            continue;
+                        }
+                        <li>
+                            <a href="#tab_@group["name"]" data-toggle="tab">
+                                @group["name"]
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    @foreach (var group in Model.EntityGroups)
+                    {
+                        var groupEntities = Model.Entities.Where(x => x.EntityGroups.IsNotEmpty() && x.EntityGroups.IndexOf(group.Id.ToString(), StringComparison.InvariantCultureIgnoreCase) >= 0)?.ToList();
+                        if (groupEntities.IsEmpty())
+                        {
+                            continue;
+                        }
+                        <div id="tab_@group["name"]" class="tab-pane fade" style="padding:5px;">
+                            <div class="form-group col-sm-12">
+                                <div class="table-responsive" style="overflow:initial;">
+                                    <table class="table table-bordered table-condensed table-hover table-striped" id="entities">
+                                        <thead>
+                                            <tr>
+                                                <th class="xms-checker" checkertype="all">@app.T["entity"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_read"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_create"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_update"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_delete"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_share"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_assign"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_append"]</th>
+                                                <th class="xms-checker" checkertype="cum">@app.T["security_appendto"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                var maskArray = new Dictionary<string, string>();
+                                                maskArray["0"] = "/content/images/ico_18_role_x.gif";
+                                                maskArray["1"] = "/content/images/ico_18_role_b.gif";
+                                                maskArray["2"] = "/content/images/ico_18_role_l.gif";
+                                                maskArray["4"] = "/content/images/ico_18_role_d.gif";
+                                                maskArray["16"] = "/content/images/ico_18_role_g.gif";
+                                            }
+                                            @foreach (var item in groupEntities)
+                                            {
+                                                var permissions = Model.EntityPermissions.Where(n => n.EntityId == item.EntityId).ToList();
+                                                var read = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Read);
+                                                var create = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Create);
+                                                var update = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Update);
+                                                var delete = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Delete);
+                                                var share = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Share);
+                                                var assign = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Assign);
+                                                var append = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.Append);
+                                                var appendto = permissions.Find(n => n.AccessRight == Xms.Core.AccessRightValue.AppendTo);
+
+                                                var readPermission = read != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == read.EntityPermissionId) : null;
+                                                var createPermission = create != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == create.EntityPermissionId) : null;
+                                                var updatePermission = update != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == update.EntityPermissionId) : null;
+                                                var deletePermission = delete != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == delete.EntityPermissionId) : null;
+                                                var sharePermission = share != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == share.EntityPermissionId) : null;
+                                                var assignPermission = assign != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == assign.EntityPermissionId) : null;
+                                                var appendPermission = append != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == append.EntityPermissionId) : null;
+                                                var appendtoPermission = appendto != null ? Model.RoleObjectAccess.Find(n => n.ObjectId == appendto.EntityPermissionId) : null;
+
+                                                var readMask = readPermission != null ? readPermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var createMask = createPermission != null ? createPermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var updateMask = updatePermission != null ? updatePermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var deleteMask = deletePermission != null ? deletePermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var shareMask = sharePermission != null ? sharePermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var assignMask = assignPermission != null ? assignPermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var appendMask = appendPermission != null ? appendPermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                var appendtoMask = appendtoPermission != null ? appendtoPermission.AccessRightsMask.ToString().ToLower() : "0";
+                                                <tr>
+                                                    <td class="xms-checker" checkertype="col" data-name="@item.Name" data-mask="@item.EntityMask">
+                                                        <label for="Name">@item.LocalizedName</label>
+                                                    </td>
+                                                    <td>
+                                                        @if (read != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(read.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[readMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(readMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (create != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(create.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[createMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(createMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (update != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(update.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[updateMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(updateMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (delete != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(delete.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[deleteMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(deleteMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (share != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(share.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[shareMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(shareMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (assign != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(assign.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[assignMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(assignMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (append != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(append.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[appendMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(appendMask)" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (appendto != null)
+                                                        {
+                                                            <input type="hidden" name="ObjectId" value="@(appendto.EntityPermissionId)" />
+                                                            <a href="javascript:void(0)" class="xms-checker-target">
+                                                                <img src="@maskArray[appendtoMask]" />
+                                                            </a>
+                                                            <input type="hidden" name="mask" value="@(appendtoMask)" />
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="form-group col-sm-12">
+                    <table class="table">
+                        <caption><strong>@app.T["entitypermission_mask_explain"]</strong></caption>
+                        <tr>
+                            <td><img src="/content/images/ico_18_role_x.gif" />@app.T["entitypermission_mask_none"]</td>
+                            <td><img src="/content/images/ico_18_role_b.gif" />@app.T["entitypermission_mask_self"]</td>
+                            <td><img src="/content/images/ico_18_role_l.gif" />@app.T["entitypermission_mask_businessunit"]</td>
+                            <td><img src="/content/images/ico_18_role_d.gif" />@app.T["entitypermission_mask_businessunitandchild"]</td>
+                            <td><img src="/content/images/ico_18_role_g.gif" />@app.T["entitypermission_mask_organization"]</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="pull-right hide" id="mask_dropdownmenu">
+    <div class="dropdown">
+        <button type="button" class="btn btn-link dropdown-toggle" id="mask_dropdownbtn" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="mask_dropdownbtn">
+            <li role="presentation" class="dropdown-header">选择权限级别</li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="javascript:;" data-mask="0"><img src="/content/images/ico_18_role_x.gif" />@app.T["entitypermission_mask_none"]</a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="javascript:;" data-mask="1"><img src="/content/images/ico_18_role_b.gif" />@app.T["entitypermission_mask_self"]</a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="javascript:;" data-mask="2"><img src="/content/images/ico_18_role_l.gif" />@app.T["entitypermission_mask_businessunit"]</a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="javascript:;" data-mask="4"><img src="/content/images/ico_18_role_d.gif" />@app.T["entitypermission_mask_businessunitandchild"]</a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="javascript:;" data-mask="16"><img src="/content/images/ico_18_role_g.gif" />@app.T["entitypermission_mask_organization"]</a>
+            </li>
+        </ul>
+    </div>
+</div>
+@section Header {
+    <style>
+        .dropdown-menu {
+            min-width: 100px;
+        }
+    </style>
+}
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var FlagArray = new Array();
+        FlagArray[0] = ['none', '/content/images/ico_18_role_x.gif', 0];
+        FlagArray[1] = ['self', '/content/images/ico_18_role_b.gif', 1];
+        FlagArray[2] = ['businessunit', '/content/images/ico_18_role_l.gif', 2];
+        FlagArray[3] = ['businessunitandchild', '/content/images/ico_18_role_d.gif', 4];
+        FlagArray[4] = ['organization', '/content/images/ico_18_role_g.gif', 16];
+
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"));
+            $('#myTab li:first').addClass('active');
+            $('.tab-pane:first').addClass('in active');
+            function setMaskState(obj) {
+                var $obj = $(obj);
+                var flag = $obj.find('img').prop('src');
+                var mask = $obj.next().val();
+                var index = 0;
+                $(FlagArray).each(function (i, n) {
+                    if (n[2] == mask || n[0] == 'none') {
+                        index = i + 1;
+                        return;
+                    }
+                });
+                if (index == FlagArray.length) index = 0;
+                mask = FlagArray[index][2];
+                $obj.find('img').prop('src', FlagArray[index][1]);
+                $obj.next().val(mask);
+            }
+            function setAllChecker(parentTable) {
+                var checkers = parentTable.find(".xms-checker-target");
+                checkers.each(function () {
+                    if ($(this).parents('tr:first').find('td:eq(0)').attr('data-mask') !== 'Organization') {
+                        setMaskState(this);
+                    } else {
+                        scalingCul(this);
+                    }
+
+                });
+            }
+
+            function setCumChecker(parentTable, index) {
+                var checkers = parentTable.children("tbody").find("tr");
+                checkers.each(function () {
+                    var item = $(this).find("td").eq(index);
+                    var ppp = item.find(".xms-checker-target");
+                    if (ppp.parents('tr:first').find('td:eq(0)').attr('data-mask') !== 'Organization') {
+                        setMaskState(item.children('a'));
+                    } else {
+                        scalingCul(item.children('a'));
+                    }
+                });
+            }
+
+            function setColChecker(parentTable, index) {
+                var checkers = parentTable.children("tbody").find("tr").eq(index).find("td");
+                var ppp = parentTable.children("tbody").find("tr");
+                checkers.each(function () {
+                    var item = $(this).find("a.xms-checker-target");
+                    if (item.parents('tr').find('td:eq(0)').attr('data-mask') !== 'Organization') {
+                        setMaskState(item);
+                    } else {
+                        scalingCul(item);
+                    }
+
+                });
+            }
+
+            function scalingCul(obj) {
+                var FlagArrays = new Array();
+                FlagArrays[0] = ['none', '/content/images/ico_18_role_x.gif', 0];
+                FlagArrays[1] = ['organization', '/content/images/ico_18_role_g.gif', 1];
+                var $obj = $(obj);
+                var flag = $obj.find('img').prop('src');
+                var mask = $obj.next().val()
+                if (mask) {
+                    var index = 0;
+                    $(FlagArrays).each(function (i, n) {
+                        if (n[2] == mask || n[0] == 'none') {
+                            index = i + 1;
+                            return;
+                        }
+                    });
+                } else {
+                    mask = $obj.attr('data-mask');
+                    var index = 0;
+                    $(FlagArrays).each(function (i, n) {
+                        if (n[2] == mask || n[0] == 'none') {
+                            index = i;
+                            return;
+                        }
+                    });
+                }
+                if (index == FlagArrays.length) index = 0;
+                mask = FlagArrays[index][2];
+                $obj.find('img').prop('src', FlagArrays[index][1]);
+                $obj.next().val(mask);
+            }
+
+            function dianji(obj) {
+                var chart = 0;
+                obj.click(function () {
+                    chart = chart + 1;
+                })
+                if (chart == 1) {
+                    //$('.xms-checker-target').find('img').prop('src', FlagArray[0][1]);
+                    //$('.xms-checker-target').next().val(FlagArray[0][0]);
+                    alert(sadsad);
+                }
+            }
+
+            $('#entities').on('click', 'a', function (e) {
+                if ($(this).parents('tr:first').find('td:eq(0)').attr('data-mask') !== 'Organization') {
+                    //  setMaskState(this);
+                } else {
+                    scalingCul(this);
+                }
+            });
+
+            $(".xms-checker").on("click", function () {
+                var index = $(this).parent("tr").find(this).index(),
+                    type = $(this).attr("checkertype"),
+                    parentTable = $(this).parents("table");
+
+                if (type === "all") {
+                    setAllChecker(parentTable);
+                    //dianji(this);
+                } else if (type === "cum") {
+                    setCumChecker(parentTable, index);
+                } else if (type === "col") {
+                    // index = $(this).parent("tr").index();
+                    // setColChecker(parentTable, index);
+                }
+            });
+
+            //$(".xms-checker").one("click", function () {
+            //    var index = $(this).parent("tr").find(this).index(),
+            //        type = $(this).attr("checkertype"),
+            //        parentTable = $(this).parents("table");
+            //    if (type === "all") {
+            //        $('.xms-checker-target').find('img').prop('src', FlagArray[0][1]);
+            //        $('.xms-checker-target').next().val(FlagArray[0][0]);
+            //    }
+            //});
+            //$(".xms-checker").one("click", function () {
+            //    var index = $(this).parent("tr").find(this).index(),
+            //        type = $(this).attr("checkertype"),
+            //        parentTable = $(this).parents("table");
+            //    if (type === "cum") {
+            //        var checkers = parentTable.children("tbody").find("tr");
+            //        checkers.each(function () {
+            //            var item = $(this).find("td").eq(index);
+            //            item.find('.xms-checker-target>img').prop('src', FlagArray[0][1]);
+            //            item.find('a').next().val(FlagArray[0][0]);
+            //        })
+            //    }
+            //});
+
+            $('.xms-checker-target').on('click', function (e) {
+                e.stopPropagation();
+                if ($(this).parents('tr').find('td:eq(0)').attr('data-mask') !== 'Organization') {
+                    setMaskState(this)
+                } else {
+                    scalingCul(this);
+                }
+            })
+            //$(".xms-checker").one("click", function () {
+            //    var index = $(this).parent("tr").find(this).index(),
+            //        type = $(this).attr("checkertype"),
+            //        parentTable = $(this).parents("table");
+            //    if (type === "col") {
+            //        index = $(this).parent("tr").index();
+            //        var checkers = parentTable.children("tbody").find("tr").eq(index).find("td");
+            //        checkers.each(function () {
+            //            var item = $(this).find("a.xms-checker-target");
+            //            if (item.length > 0) {
+            //                item.find('img').prop('src', FlagArray[0][1]);
+            //                item.next().val(FlagArray[0][0]);
+            //            }
+            //        })
+            //    }
+            //});
+            appendMaskDropdownMenus();
+            $('.xms-checker-target').addClass('btn btn-link');
+            loadResourceOwners();
+        });
+
+        function loadResourceOwners() {
+            Xms.Web.GetJson(ORG_SERVERURL + "/api/security/ResourceOwners", null, function (data) {
+                if (!data.IsSuccess) return;
+                var items = JSON.parse(data.Content);
+                var resourceName = $('#ResourceName').val().toLowerCase();
+                var $container = $('#owners');
+                $(items).each(function (i, n) {
+                    var url = (n.uiendpoint || '/role/editrolepermissions') + '?roleid=' + $("#RoleId").val() + '&resourcename=' + n.modulename;
+                    $container.append($('<button type="button" class="btn btn-sm ' + (resourceName == n.modulename.toLowerCase() ? 'btn-info' : 'btn-default') + '" data-url="' + url + '">' + n.modulelocalizedname + '</button>'));
+                });
+                $container.find('button').on('click', null, function () {
+                    Xms.Web.Redirect($(this).attr('data-url'));
+                });
+            });
+        }
+
+        function appendMaskDropdownMenus() {
+            var m = $('#mask_dropdownmenu');
+            $('#entities>tbody>tr').each(function (i, tr) {
+                var type = $(tr).find('.xms-checker').attr('data-mask');
+                var tdLen = 0;
+                $(tr).find('td:gt(0)').each(function (k, td) {
+                    tdLen = k;
+                    var el = m.clone(true).removeClass('hide');
+                    el.prop('id', 'mask_dropdownmenu_' + k);
+                    if (type == 'Organization') {
+                        el.find('a').each(function (j, ela) {
+                            var maskValue = $(ela).attr('data-mask').trim().toLowerCase();
+                            if (maskValue != 'none' && maskValue != 'organization') {
+                                $(ela).parent('li').addClass('hide');
+                            }
+                        })
+                    }
+                    el.find('a').on('click', null, function (e) {
+                        el.parents('td:first').find('input[name=mask]').val($(e.target).attr('data-mask'));
+                        el.parents('td:first').find('input[name=mask]').siblings('.xms-checker-target').eq(0).find('img').prop('src', $(e.target).find('img').prop('src'));
+                    });
+                    $(td).find('input[name=mask]').after(el);
+                });
+                var headerEl = m.clone(true).removeClass('hide');
+                headerEl.find('a').on('click', null, function (e) {
+                    var inputs = headerEl.parents('tr:first').find('input[name=mask]');
+                    inputs.val($(e.target).attr('data-mask'));
+                    inputs.each(function () {
+                        $(this).siblings('.xms-checker-target').eq(0).find('img').prop('src', $(e.target).find('img').prop('src'));
+                    })
+                });
+                $(tr).each(function () {
+                    var $td = $(this).find('.xms-checker');
+                    var mask = $td.attr('data-mask');
+                    if (mask && mask != '') {
+                        mask = mask.toLowerCase();
+                        if (mask == 'organization') {
+                            headerEl.find('a').each(function (j, ela) {
+                                var maskValue = $(ela).attr('data-mask').trim().toLowerCase();
+                                if (maskValue != 'none' && maskValue != 'organization') {
+                                    $(ela).parent('li').addClass('hide');
+                                }
+                            })
+                        }
+                    }
+
+                    $(this).find('.xms-checker').append(headerEl);
+                });
+            });
+        }
+    </script>
+}

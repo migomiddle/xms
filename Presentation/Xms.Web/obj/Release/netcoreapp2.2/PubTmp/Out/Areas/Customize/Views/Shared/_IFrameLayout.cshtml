@@ -1,0 +1,103 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="xms">
+    <meta name="author" content="xms">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>@app.PageTitle</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/content/css/dashboard.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/css/font-awesome.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/jquery-toast/jquery.toast.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    @{await Html.RenderPartialAsync("UserContext"); }
+    <!-- Bootstrap core JavaScript ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/content/js/jquery.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/content/js/ie10-viewport-bug-workaround.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootstrap.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/json2.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.utility.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-toast/jquery.toast.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        jQuery(function () {
+            Xms.Web.Loading();
+        });
+    </script>
+    @{await Html.RenderPartialAsync("CommonLabel"); }
+    @if (IsSectionDefined("Header"))
+    {
+        @RenderSection("Header")
+    }
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .table-responsive {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    @*@{await Html.RenderPartialAsync("navbar");}*@
+    <div class="" id="body">
+        <div class="">
+            @*@{Html.RenderAction("sidebar", "home");}*@
+            <div class="col-md-12" id="main">
+                @*@{await Html.RenderPartialAsync("navpath");}*@
+
+                <div class="" style="margin-left: -10px; margin-right: -10px;">
+
+                    <ol class="breadcrumb">
+                        <li>&rsaquo;&rsaquo;</li>
+                        @foreach (var item in app.PrivilegeTree)
+                        {
+                            var url = item.Url.IsNotEmpty() ? "/" + app.OrganizationUniqueName + item.Url : "#";
+                            @:
+                            <li><a href="@url">@item.DisplayName</a></li>
+                        }
+                        <li class="pull-right">
+                            <a href="@app.UrlReferrer"><span class="glyphicon glyphicon-arrow-left"></span>@app.T["goback"]</a>
+                        </li>
+                    </ol>
+                </div>
+                <div class="" style="padding:5px;" id="renderBody">
+                    <!--main-->
+                    @RenderBody()
+                </div>
+                <nav class="navbar navbar-default navbar-fixed-bottom hide" role="navigation" id="body-footer">
+                    <div class="container">
+                        <div class="navbar-form navbar-right" id="body-footer-content">
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

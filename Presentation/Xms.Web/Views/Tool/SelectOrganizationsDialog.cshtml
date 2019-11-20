@@ -1,0 +1,133 @@
+﻿@model Xms.Web.Models.OrganizationModel
+@{
+    Layout = null;
+}
+@{
+    DialogModel dialogModel = ViewData["DialogModel"] as DialogModel;
+}
+
+<!-- （Modal） -->
+<div class="modal fade" id="orgModal" tabindex="-1" role="dialog"
+     aria-labelledby="orgModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="orgModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> 组织
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" id="gridview">
+
+                    <table class="table table-striped table-hover table-condensed" id="datatable" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-singlemode="@dialogModel.SingleMode">
+                        <thead>
+                            <tr>
+                                <th width="2%"><input type="checkbox" name="checkall" /></th>
+                                <th data-name="name">
+                                    名称
+                                </th>
+                                <th width="2%">
+                                    选择
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" value="@item.OrganizationId" name="recordid" /></td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <a class="btn btn-link btn-xs" onclick="Xms.Web.SelectingRow(this);OrganizationsModel.dialog_return();"><span class="glyphicon glyphicon-ok"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-4">@("当前" + @Model.Page + "/" + @Model.TotalPages + "页, 共" + @Model.TotalItems + "行记录")</div>
+                            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+                        </div>
+                    </div>
+                    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+                    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                    <script>
+                        var OrganizationsModel = {
+                            dialog: $('#orgModal'),
+                            pageUrl : '@app.Url',
+                            callback : @dialogModel.CallBack,
+                            inputid : '@dialogModel.InputId',
+                            ajaxgrid_reset : function () {
+                                OrganizationsModel.pag_init();
+                                Xms.Web.DataTable($("#datatable"));
+                            },
+                            pag_init: function () {
+                                $('#page-selection').bootpag({
+                                    total: $('#page-selection').attr('data-total')
+                                    , maxVisible: 5
+                                    , page: $('#page-selection').attr('data-page')
+                                    , leaps: false
+                                    , prev: '&lsaquo;'
+                                    , next: '&rsaquo;'
+                                    , firstLastUse: true
+                                    , first: '&laquo;'
+                                    , last: '&raquo;'
+                                }).on("page", function (event, /* page number here */ num) {
+                                    event.preventDefault();
+                                    var url = $.setUrlParam(OrganizationsModel.pageUrl, 'page', num);
+                                    $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                                        OrganizationsModel.ajaxgrid_reset();
+                                    });
+                                    return false;
+                                });
+                            },
+                            dialog_return : function () {
+                                var result = new Array();
+                                $("#datatable").find("input[name=recordid]:checked").each(function (i, n) {
+                                    var obj = new Object();
+                                    obj.id = $(n).val();
+                                    obj.name = $(n).parent().next().text();
+                                    result.push(obj);
+                                });
+                                var dialog = $(OrganizationsModel.dialogid);
+                                if (dialog.data().OpenDialogCallback) {
+                                    dialog.data().OpenDialogCallback(result, OrganizationsModel.inputid,OrganizationsModel)
+                                } else {
+                                    OrganizationsModel.callback && OrganizationsModel.callback(result,OrganizationsModel.inputid);
+                                }
+                                $('#orgModal').modal('hide');
+                                //Xms.Web.CloseDialog('#orgModal');
+                            }
+                        };
+
+                        $(function () {
+                            OrganizationsModel.ajaxgrid_reset();
+                            $('#searchForm').ajaxSearch('#gridview', OrganizationsModel.ajaxgrid_reset);
+                            $("#datatable").ajaxTable();
+                            OrganizationsModel.dialog.modal({
+                                backdrop:'static'
+                            });
+                            OrganizationsModel.dialog.on('hidden.bs.modal', function () {
+                                Xms.Web.CloseDialog('#orgModal');
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> 关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="OrganizationsModel.dialog_return()">
+                    <span class="glyphicon glyphicon-ok"></span> 确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

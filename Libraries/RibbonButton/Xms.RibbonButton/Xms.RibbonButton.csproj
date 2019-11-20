@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency.Abstractions\Xms.Dependency.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Dependency\Xms.Dependency\Xms.Dependency.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Abstractions\Xms.Module.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Module\Xms.Module.Core\Xms.Module.Core.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema.Domain\Xms.Schema.Domain.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema\Xms.Schema.csproj" />
+    <ProjectReference Include="..\..\Sdk\Xms.Sdk.Extensions\Xms.Sdk.Extensions.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Security.DataAuthorization\Xms.Security.DataAuthorization.csproj" />
+    <ProjectReference Include="..\..\WebResource\Xms.WebResource.Domain\Xms.WebResource.Domain.csproj" />
+    <ProjectReference Include="..\..\Xms.Core\Xms.Core.csproj" />
+    <ProjectReference Include="..\Xms.RibbonButton.Abstractions\Xms.RibbonButton.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.RibbonButton.Domain\Xms.RibbonButton.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

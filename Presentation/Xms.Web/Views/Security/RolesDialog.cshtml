@@ -1,0 +1,142 @@
+﻿@model Xms.Web.Models.RoleDialogModel
+@{
+    Layout = null;
+}
+
+<!-- 安全角色（Modal） -->
+<div class="modal fade" id="rolesModal" tabindex="-1" role="dialog"
+     aria-labelledby="rolesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="rolesModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> @app.T["role"]
+                </h4>
+            </div>
+            <div class="modal-body">
+                @if (Model.UserId != null && Model.UserId.Count > 0)
+                {
+                    <p>@string.Format(app.T["security_assignuserroles_tip"], Model.UserId.Count)<span class="text-danger">（批量操作时将重置用户角色）</span></p>
+                }
+                <div class="table-responsive" id="gridview" style="max-height:350px;">
+                    <table class="table table-striped table-hover table-condensed" id="datatable" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-singlemode="@Model.SingleMode">
+                        <thead>
+                            <tr>
+                                <th width="2%"><input type="checkbox" name="checkall" /></th>
+                                <th data-name="name">
+                                    @app.T["name"]
+                                </th>
+                                @*<th width="2%">
+                                        @app.T["operation_select"]
+                                    </th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                var isChecked = Model.SelectedRoles != null ? Model.SelectedRoles.Exists(n => n == item.RoleId) : false;
+                                <tr>
+                                    <td><input type="checkbox" value="@item.RoleId" name="recordid" @(isChecked ? " checked" : "") /></td>
+                                    <td>@item.Name</td>
+                                    @*<td>
+                                            <a class="btn btn-link btn-xs" onclick="Xms.Web.SelectingRow(this);RolesModel.dialog_return();"><span class="glyphicon glyphicon-ok"></span></a>
+                                        </td>*@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                            </div>
+                            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+                        </div>
+                    </div>
+                    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+                    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                    <script>
+                        var RolesModel = {
+                            dialog: $('#rolesModal'),
+                            dialogid: '#rolesModal',
+                            pageUrl : '@app.Url',
+                            callback : @Model.CallBack,
+                            inputid : '@Model.InputId',
+                            userid : @Html.Raw(Model.UserId != null ? Model.UserId.SerializeToJson() : "[]"),
+                            teamid : @Html.Raw(Model.TeamId != null ? Model.TeamId.SerializeToJson() : "[]"),
+                            ajaxgrid_reset: function () {
+                                RolesModel.pag_init();
+                                Xms.Web.DataTable($(RolesModel.dialogid + " #datatable"));
+                            },
+                            pag_init : function () {
+                                $(RolesModel.dialogid + ' #page-selection').bootpag({
+                                    total: $(RolesModel.dialogid + ' #page-selection').attr('data-total')
+                                    , maxVisible: 5
+                                    , page: $(RolesModel.dialogid + ' #page-selection').attr('data-page')
+                                    , leaps: false
+                                    , prev: '&lsaquo;'
+                                    , next: '&rsaquo;'
+                                    , firstLastUse: true
+                                    , first: '&laquo;'
+                                    , last: '&raquo;'
+                                }).on("page", function (event, /* page number here */ num) {
+                                    event.preventDefault();
+                                    var url = $.setUrlParam(RolesModel.pageUrl, 'page', num);
+                                    $(RolesModel.dialogid + " #gridview").ajaxLoad(url, RolesModel.dialogid + " #gridview", function (response) {
+                                        RolesModel.ajaxgrid_reset();
+                                    });
+                                    return false;
+                                });
+                            },
+                            dialog_return : function () {
+                                var result = new Array();
+                                $(RolesModel.dialogid + " #datatable").find("input[name=recordid]:checked").each(function (i, n) {
+                                    var obj = new Object();
+                                    obj.id = $(n).val();
+                                    obj.name = $(n).parent().next().text();
+                                    result.push(obj);
+                                });
+                                console.log('result',result, RolesModel.callback);
+                                var dialog = $(RolesModel.dialogid);
+                                if (dialog.data().OpenDialogCallback) {
+                                    dialog.data().OpenDialogCallback(result,RolesModel, RolesModel.inputid,RolesModel)
+                                } else {
+                                    RolesModel.callback && RolesModel.callback(result,RolesModel, RolesModel.inputid);
+                                }
+                              //  RolesModel.callback(result, RolesModel);
+                                RolesModel.dialog.modal('hide');
+                                //Xms.Web.CloseDialog('#rolesModal');
+                            }
+                        };
+
+                        $(function () {
+                            RolesModel.ajaxgrid_reset();
+                            $(RolesModel.dialogid + " #datatable").ajaxTable();
+                            RolesModel.dialog.modal({
+                                backdrop:'static'
+                            })
+                            RolesModel.dialog.on('hidden.bs.modal', function () {
+                                Xms.Web.CloseDialog(RolesModel.dialogid);
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="RolesModel.dialog_return()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

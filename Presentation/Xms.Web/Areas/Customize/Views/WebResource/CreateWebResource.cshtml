@@ -1,0 +1,162 @@
+﻿@model Xms.Web.Customize.Models.EditWebResourceModel
+
+<div class="panel panel-default">
+    @*<div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>*@
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" enctype="multipart/form-data" data-autoreset="true">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.WebResourceType, "类型", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.WebResourceType, new { @class = "form-control required", @data_value = Model.WebResourceType })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Description, "描述", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="radio" class="radio-inline" name="type" data-value="editor" value="1" checked /> 文本编辑
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" class="radio-inline" name="type" data-value="upload" value="0" /> 上传文件
+                        </label>
+                    </div>
+                </div>
+                <div id="type-editor" class="form-group col-sm-12 contentEditor-wrap">
+                    @Html.LabelFor(x => x.Content, "内容", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @*<button type="button" class="btn btn-xs btn-info" onclick="fullEdit()" title="放大"><span class="glyphicon glyphicon-fullscreen"></span></button>*@
+                        <div id="contentEditor" class="contentEditor"><span class="contentEditor-close glyphicon glyphicon-remove"></span><span class="contentEditor-fullscreen glyphicon glyphicon-fullscreen"></span>@Html.TextAreaFor(x => x.Content, new { @class = "form-control", @rows = 8 })</div>
+                    </div>
+                </div>
+                <div id="type-upload" class="form-group col-sm-12 hide">
+                    <label for="file" class="col-sm-2 control-label">文件</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="ResourceFile" id="file" class="form-control hidden" onchange="$('#fileText').val($(this).val());">
+                        <div class="input-group">
+                            <input id="fileText" type="text" class="form-control" placeholder="文件名称" disabled>
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" type="button" onclick="$('#file').click();"><i class="glyphicon glyphicon-cloud-upload"></i>上传</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> 保存</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> 重置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Header{
+    <link rel="stylesheet" type="text/css" href="/content/customize/codemirror/codemirror.css?v=@app.PlatformSettings.VersionNumber" />
+    <link rel="stylesheet" type="text/css" href="/content/customize/codemirror/tomorrow-night-bright.css?v=@app.PlatformSettings.VersionNumber" />
+}
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/codemirror/codemirror.js?v=@app.PlatformSettings.VersionNumber" type="text/javascript"></script>
+    <script src="/content/customize/codemirror/addon/selection/active-line.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/codemirror/edit/matchbrackets.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/codemirror/addon/hint/show-hint.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/codemirror/addon/hint/javascript-hint.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/codemirror/mode/javascript.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/customize/codemirror/mode/markdown.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var editor;
+        $(function () {
+            $('#WebResourceType').picklist({
+                items: [{ label: '脚本', value: 'Script' }, { label: '样式', value: 'Css' }, { label: '网页', value: 'Html' }, { label: '图片', value: 'Picture' }]
+                , required: true
+            });
+            //表单验证
+            Xms.Web.Form($("#editform"), function (response) {
+                Xms.Web.Alert(response.IsSuccess, response.Content);
+                if (response.IsSuccess) {
+                    Xms.Web.Event.publish('refresh');
+                    editor.setValue('');
+                }
+            });
+
+            $('#editform').find('input[name=type]').bind('click', function () {
+                var t = $(this).attr('data-value');
+                $('div[id^=type-]').addClass('hide');
+                $('#type-' + t).removeClass('hide');
+            });
+
+            $('#WebResourceType').next().bind('change', function () {
+                var t = $(this).val().toLowerCase();
+                if (t == 'script') {
+                    $('#type-editor').removeClass('hide');
+                    $('#type-upload').addClass('hide');
+                    $('#editform').find('input[name=type]').removeProp('disabled');
+                    $('#editform').find('input[name=type]').first().trigger('click');
+                }
+                else if (t == 'picture') {
+                    $('#type-editor').addClass('hide');
+                    $('#type-upload').removeClass('hide');
+                    $('#editform').find('input[name=type]').last().trigger('click');
+                    $('#editform').find('input[name=type]').prop('disabled', 'disabled');
+                }
+                else if (t == 'html') {
+                    $('#type-editor').removeClass('hide');
+                    $('#type-upload').addClass('hide');
+                    $('#editform').find('input[name=type]').removeProp('disabled');
+                    $('#editform').find('input[name=type]').first().trigger('click');
+                }
+            });
+            $('.contentEditor-fullscreen').on('click', function () {
+                $('.contentEditor-wrap').addClass('active');
+            })
+            $('.contentEditor-close').on('click', function () {
+                $('.contentEditor-wrap').removeClass('active');
+            })
+            var textarea = document.getElementById('Content');
+            editor = CodeMirror.fromTextArea(textarea, {
+                indentWithTabs: true,
+                smartIndent: true,
+                lineNumbers: true,
+                styleActiveLine: true,
+                matchBrackets: true,
+                extraKeys: {
+                    "Esc": function (cm) {
+                        var fullScreen = cm.getOption("fullScreen");
+                        cm.setOption("fullScreen", !fullScreen);
+                    },
+                    "Ctrl-Q": "autocomplete"
+                }
+            });
+            editor.setOption("theme", "tomorrow-night-bright");
+            editor.on("change", function (editor, changes) {
+                $('#Content').val(editor.getValue());
+            });
+        });
+        function fullEdit() {
+            $('#contentEditor').prop('style', '');
+        }
+    </script>
+}

@@ -1,0 +1,202 @@
+﻿@model Xms.Web.Models.EditRolePrivilegesModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse"
+                           href="#collapseOne">
+                            <strong>[<strong id="rolename" class="text-primary">@Model.Role.Name</strong>] - @app.PageTitle</strong>
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <form id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true" action="/@(app.OrganizationUniqueName)/api/v1/role/EditRolePrivileges" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.RoleId)
+                            @Html.HiddenFor(x => x.ResourceName)
+                            <div class="btn-group col-sm-offset-3">
+                                <button class="btn btn-default" type="button" data-toggle="button" id="toggleChecked" data-state="1">
+                                    <span class="glyphicon glyphicon-check"></span> @app.T["check_all"] / <span class="glyphicon glyphicon-unchecked"></span> @app.T["cancel"]
+                                </button>
+                                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                            </div>
+                            <hr />
+                            <div id="tree1" data-url="@("/"+app.OrganizationUniqueName)/Privilege/index" style="min-height:400px;max-height:400px; overflow:auto;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <table class="table table-hover table-bordered  table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>@app.T["name"]</th>
+                        <th width="30%">@app.T["operation"]</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: lines">
+                    <tr>
+                        <td>
+                            <a href="#" data-bind="click: $root.click"><span data-bind="text: name"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-info btn-xs" data-bind="click: $root.click"><span class="glyphicon glyphicon-lock"></span> @app.T["power"]</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Header {
+    <link href="/content/css/jqtree.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+}
+@section Scripts {
+    <script src="/content/js/xms.utility.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js//jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/tree.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/knockout-2.2.0.js?v=@app.PlatformSettings.VersionNumber"></script>
+
+
+    <script>
+        var $tree = $('#tree1'), $editform = $('#editform');
+        $(function () {
+            Xms.Web.Form($editform, function (response) {
+                Xms.Web.Alert(response.IsSuccess, response.Content);
+            });
+            //表单验证
+            //Xms.Web.Form($form);
+            $("#toggleChecked").click(function () {
+                var state = $(this).attr("data-state");
+                if (state == 1) {
+                    $tree.find("input[name=privilegeid]").prop("checked", true);
+                    $(this).attr("data-state", 0).removeClass("active");
+                } else {
+                    $tree.find("input[name=privilegeid]").prop("checked", false);
+                    $(this).attr("data-state", 1).addClass("active");
+                }
+            });
+            $tree.tree({
+                autoOpen: false
+                , onCreateLi: function (node, $li) {
+                    $li.find('.jqtree-title').before('<input type="checkbox" name="privilegeid" onclick="setState(this)" value="' + node.id + '" />&nbsp;&nbsp;');
+                    //if (node.id != '' && node.id > 0) {
+                    //    $tree.tree('openNode', node);
+                    //}
+                }
+                , selectable: false,
+                onCanSelectNode: function (node) {
+                    //$tree.tree('addToSelection', node);
+                    //$tree.tree('selectNode', node);
+                    $tree.tree('openNode', node);
+                    return true;
+                },
+                dataFilter: function (data) {
+                    var roleid = $("#RoleId").val();
+                    if (roleid != '') {
+                        loadRolePrivileges(roleid);
+                    }
+                    return Xms.Web.GetAjaxResult(data).content;
+                }
+            });
+
+            Xms.Web.GetJson(ORG_SERVERURL + "/role/index?getall=true", null, function (data) {
+                if (!data) return;
+                data = Xms.Web.GetAjaxResult(data);
+                var result = data.content;
+                var Items = function () {
+                    var self = this;
+                    result.items = $.grep(result.items, function (n, i) {
+                        return n.name != 'administrator';
+                    });
+                    self.lines = ko.observableArray(result.items);
+
+                    self.click = function (item) {
+                        $tree.tree('reload');
+                        loadRolePrivileges(item.roleid);
+                    }
+                }
+                ko.applyBindings(new Items());
+            });
+
+
+
+        });
+
+        function loadRolePrivileges(roleid) {
+            $("#RoleId").val(roleid);
+            Xms.Web.GetJson(ORG_SERVERURL + "/role/EditRolePrivileges?roleid=" + roleid, null, function (data) {
+                if (!data.IsSuccess) return;
+                var result = data.content;
+                console.info(result);
+                $("#rolename").text(result.role.name);
+                if (result.roleobjectaccess.length > 0) {
+                    $(result.roleobjectaccess).each(function (i, n) {
+                        setLoadedChildrenSelected(n.objectid);
+                    });
+                }
+                else {
+                    var node = $tree.tree('getNodeById', Xms.Utility.Guid.EmptyGuid.ToString());
+                    $tree.tree('openNode', node);
+                }
+            });
+        }
+        function setChildrenSelected(nodeid) {
+            var node = $tree.tree('getNodeById', nodeid);
+            if (!node) return;
+            $(node.element).find("input[type=checkbox][value=" + nodeid + "]").prop("checked", true);
+            $tree.tree('openNode', node);
+            for (var i = 0; i < node.children.length; i++) {
+                var child = node.children[i];
+                if (child.children.length > 0) {
+                    setChildrenSelected(child.id);
+                }
+
+                var childnode = $tree.tree('getNodeById', child.id);
+                $(childnode.element).find("input[type=checkbox][value=" + child.id + "]").prop("checked", true);
+                $tree.tree('openNode', childnode);
+            }
+        }
+        function setLoadedChildrenSelected(nodeid) {
+            var node = $tree.tree('getNodeById', nodeid);
+            if (!node) return;
+            $(node.element).find("input[type=checkbox][value=" + nodeid + "]").prop("checked", true);
+            $tree.tree('openNode', node);
+            if (node.children.length == 0) {
+                var par_ele = $(node.element).parent().siblings(".jqtree-element");
+                if (par_ele.length > 0) {
+                    var paridDom = par_ele.find("input[name='privilegeid']"), parid = paridDom.val();
+                    if (!paridDom.prop("checked")) {
+                        var parid_treeid = $tree.tree('getNodeById', parid)
+                        $tree.tree('openNode', parid_treeid);
+                    }
+                }
+            }
+        }
+
+        function setState(t) {
+
+            var flag = $(t).prop("checked");
+            var nodeid = $(t).val();
+            if (flag) {
+                setChildrenSelected(nodeid);
+            }
+            else {
+                var node = $tree.tree('getNodeById', nodeid);
+                if (node.children.length > 0) {
+                    $(node.element).find("input[type=checkbox]").prop("checked", false);
+                }
+            }
+        }
+    </script>
+}

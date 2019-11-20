@@ -1,0 +1,272 @@
+﻿@using Xms.Flow.Abstractions;
+
+@model WorkFlowStateListModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="xms">
+    <meta name="author" content="xms">
+    <link rel="icon" href="/favicon.ico">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!--link href="/content/css/dashboard.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">-->
+    <link href="/content/css/font-awesome.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/jquery-toast/jquery.toast.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+
+    <!-- Bootstrap core JavaScript ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/content/js/jquery.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/content/js/ie10-viewport-bug-workaround.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootstrap.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/json2.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
+    @{await Html.RenderPartialAsync("UserContext"); }
+    @{await Html.RenderPartialAsync("CommonLabel"); }
+    <script>
+        jQuery(function () {
+            Xms.Web.Loading();
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-sm-4 col-xs-4">
+            <div class="xms-table xms-table-center label-box">
+                <div class="xms-table-row">
+                    <div class="xms-table-cell xms-table-cell-middle label-box-left"><span class="layui-icon layui-icon-survey"></span></div>
+                    <div class="xms-table-cell text-center label-box-right"><p>@Model.HandlingCount</p><p>待我审批</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <div class=" xms-table xms-table-center label-box">
+                <div class="xms-table-row">
+                    <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-violet"><span class="layui-icon layui-icon-form"></span></div>
+                    <div class="xms-table-cell text-center label-box-right label-box-violet"><p>@Model.HandledCount</p><p>我的申请</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <div class=" xms-table xms-table-center label-box">
+                <div class="xms-table-row">
+                    <div class="xms-table-cell xms-table-cell-middle label-box-left label-box-green"><span class="layui-icon layui-icon-template-1"></span></div>
+                    <div class="xms-table-cell text-center label-box-right label-box-green"><p>@Model.ApplyHandlingCount</p><p>我已处理</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <ul id="myTab" class="nav nav-tabs"  role="tablist">
+            <li class="active">
+                <a href="javascript:;">
+                    待我审批
+                </a>
+            </li>
+            <li><a  href="javascript:;">我的申请</a></li>
+            <li><a  href="javascript:;">我已处理</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            
+            <div class="tab-pane active" id="stage1">
+                <div class="datagrid-view mt-1"></div>
+            </div>
+            <div class="tab-pane@(Model.StateCode == 0 ? " in active":"")" id="stage2">
+                <div class="datagrid-view mt-1"></div>
+               
+            </div>
+            <div class="tab-pane@(Model.StateCode == 2 ? " in active":"")" id="stage3">
+                <div class="datagrid-view mt-1"></div>
+              
+            </div>
+        </div>
+    </div>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-toast/jquery.toast.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var entityid = '@Model.EntityId';
+        
+        var statelist = ['等待中', '处理中', '通过', '不通过', '作废'];
+      
+        var columsArr0 = [{ title: '流程', dataIndx: 'workflowname', width: 100 }, { title: '类型', dataIndx: 'entitylocalizedname', width: 100 }, { title: '发起人', dataIndx: 'applicantidname', width: 100 }, { title: '当前环节', dataIndx: 'name', width: 100 }, { title: '说明', dataIndx: 'description', width: 100 }, { title: '开始时间', dataIndx: 'createdon', width: 100 }];
+
+        var columsArr1 = [{ title: '流程', dataIndx: 'workflowname', width: 100 }, { title: '类型', dataIndx: 'entitylocalizedname', width: 100 }, { title: '说明', dataIndx: 'description', width: 100 }, { title: '开始时间', dataIndx: 'createdon', width: 100 }];
+
+        var columsArr2 = [{ title: '流程', dataIndx: 'workflowname', width: 100 }, { title: '类型', dataIndx: 'entitylocalizedname', width: 100 }, { title: '发起人', dataIndx: 'applicantidname', width: 100 }, {
+            title: '结果', dataIndx: 'statecode', width: 100, render: function (ui) {
+                var datas = ui.rowData;
+                var dataIndx = ui.dataIndx;
+                var column = ui.column;
+                var recordid = datas[dataIndx];
+                return statelist[recordid];
+            }
+        }, { title: '说明', dataIndx: 'description', width: 100 }, {
+            title: '附件', dataIndx: 'attachments', width: 100, render: function (ui) {
+                var datas = ui.rowData;
+                var dataIndx = ui.dataIndx;
+                var column = ui.column;
+                var recordid = datas[dataIndx];
+                if (recordid && recordid > 0) {
+                    return '<a href="@("/"+app.OrganizationUniqueName)/entity/WorkFlowAttachments?processid=' + datas.workflowprocessid + '&preview=true" target="_blank">预览</a>' +
+                        ' <a href="@("/"+app.OrganizationUniqueName)/entity/WorkFlowAttachments?processid=' + datas.workflowprocessid + '" target="_blank">下载</a>'
+                } else {
+                    return '-';
+                }
+                
+            }
+            }, { title: '开始时间', dataIndx: 'createdon', width: 100 }];
+         var tabconfig = {
+            'tab0': { url: ORG_SERVERURL+ '/flow/workflowstatelist?statecode=1&entityid=' + entityid,columns:columsArr0 },
+            'tab1': { url: ORG_SERVERURL+'/flow/workflowstatelist?statecode=2&entityid=' + entityid,columns:columsArr1 },
+            'tab2': { url: ORG_SERVERURL+'/flow/workflowstatelist?statecode=0&entityid=' + entityid,columns:columsArr2 }
+        }
+        function createTableColumns(arr,ischeck) {
+            var colums = [];
+                colums.push({
+                    title: "", dataIndx: "recordid", maxWidth: 30,hidden:true, minWidth: 30, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.entityid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                });
+            
+            var defaults = { "dataIndx": "", "title": '', editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string" };
+
+            if (arr.length > 0) {
+                $.each(arr, function (i,n) {
+                    var temp = $.extend({}, defaults, n);
+                    colums.push(temp);
+                });
+            }
+            return colums;
+        }
+        
+
+
+        $(function () {
+            Xms.Web.Loader();
+            $('body').toggleIframe({offsetH:-100});
+            $('#myTab').on('click', 'li', function (e) {
+                var index = $(this).index();
+                $(this).siblings('li').removeClass('active').end().addClass('active');
+                $('#myTabContent').children().eq(index).addClass('active').siblings().removeClass('active');
+                var columnConfigs = createTableColumns(tabconfig['tab' + index].columns);
+                var datagridconfig = {
+                    scrollModel: { autoFit: true },
+                    getDataUrl: function () { return tabconfig['tab' + index].url },
+                    rowDblClick: function (event, ui) {
+                        var id = ui.rowData.objectid;
+                        var entityid = ui.rowData.entityid;
+                        var url = ORG_SERVERURL + '/entity/create?entityid=' + entityid + '&recordid=' + id;
+                        $('body').toggleIframe('changeSrc',url);
+                    },
+                    columnConfigs: columnConfigs,//字段配置信息
+                };
+                $('#myTabContent').children().eq(index).find('.datagrid-view').xmsDataTable(datagridconfig);
+            });
+            var defaultIndex = $.getUrlParam('statecode');
+            if (defaultIndex && defaultIndex * 1 < 3) {
+                $('#myTab').children('li').eq(defaultIndex).trigger('click')
+            } else {
+                $('#myTab').children('li').eq(0).trigger('click')
+            }
+        })
+        //var pageUrl = '';
+        //$(function () {
+        //    pageUrl = $("#datatable").attr('data-pageurl');
+        //    //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+        //    $("#datatable").ajaxTable();
+        //    ajaxgrid_reset();
+        //});
+        //function ajaxgrid_reset() {
+        //    pag_init();
+        //    Xms.Web.DataTable($("#datatable"));
+        //    //$('#myTabContent a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+        //    //    e.target // 激活的标签页
+        //    //    e.relatedTarget // 前一个激活的标签页
+        //    //})
+        //}
+        //function pag_init() {
+        //    $('#page-selection').bootpag({
+        //        total: $('#page-selection').attr('data-total')
+        //        , maxVisible: 10
+        //        , page: $('#page-selection').attr('data-page')
+        //        , leaps: false
+        //        , prev: '&lsaquo;'
+        //        , next: '&rsaquo;'
+        //        , firstLastUse: true
+        //        , first: '&laquo;'
+        //        , last: '&raquo;'
+        //    }).on("page", function (event, /* page number here */ num) {
+        //        event.preventDefault();
+        //        pageUrl = $("#datatable").attr('data-pageurl');
+        //        console.log('pagenum', num)
+        //        var url = $.setUrlParam(pageUrl, 'page', num);
+        //        $("#gridview").attr('data-pagenum', num);
+        //        $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+        //            //$("#gridview").replaceWith($(this)); // some ajax content loading...
+        //            ajaxgrid_reset();
+        //        });
+        //        return false;
+        //    });
+        //}
+        //function rebind() {
+        //    //$('#searchForm').submit();
+        //    pageUrl = $("#datatable").attr('data-pageurl');
+        //    var num = $("#gridview").attr('data-pagenum');
+        //    var url = pageUrl;
+        //    if (num) {
+        //        url = $.setUrlParam(pageUrl, 'page', num);
+        //    }
+        //    $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+        //        //$("#gridview").replaceWith($(this)); // some ajax content loading...
+        //        ajaxgrid_reset();
+        //    });
+        //}
+    </script>
+</body>
+</html>

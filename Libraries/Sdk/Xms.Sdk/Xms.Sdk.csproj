@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataCore\Xms.Data\Xms.Data.csproj" />
+    <ProjectReference Include="..\..\DataMapping\Xms.DataMapping\Xms.DataMapping.csproj" />
+    <ProjectReference Include="..\..\Event\Xms.Event.Abstractions\Xms.Event.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Form\Xms.Form\Xms.Form.csproj" />
+    <ProjectReference Include="..\..\Logging\Xms.Logging.AppLog\Xms.Logging.AppLog.csproj" />
+    <ProjectReference Include="..\..\Logging\Xms.Logging.DataLog\Xms.Logging.DataLog.csproj" />
+    <ProjectReference Include="..\..\Plugin\Xms.Plugin\Xms.Plugin.csproj" />
+    <ProjectReference Include="..\..\QueryView\Xms.QueryView\Xms.QueryView.csproj" />
+    <ProjectReference Include="..\..\Schema\Xms.Schema\Xms.Schema.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Security.DataAuthorization\Xms.Security.DataAuthorization.csproj" />
+    <ProjectReference Include="..\..\Security\Xms.Security.Principal\Xms.Security.Principal.csproj" />
+    <ProjectReference Include="..\..\Xms.Core\Xms.Core.csproj" />
+    <ProjectReference Include="..\Xms.Sdk.Abstractions\Xms.Sdk.Abstractions.csproj" />
+    <ProjectReference Include="..\Xms.Sdk.Event\Xms.Sdk.Event.csproj" />
+    <ProjectReference Include="..\Xms.Sdk.Extensions\Xms.Sdk.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

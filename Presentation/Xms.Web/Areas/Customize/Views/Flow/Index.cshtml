@@ -1,0 +1,205 @@
+﻿@using Xms.Solution.Abstractions;
+@model Xms.Web.Customize.Models.WorkFlowModel
+
+<div class="" id="gridview">
+    
+    <div class="mb-2 toolbar">
+       
+        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+            @Html.HiddenFor(x => x.SolutionId)
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="btn-group btn-group-sm">
+                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/flow/createworkflow?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增审批流程</a>
+                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/flow/createbusinessflow?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增业务流程</a>
+                            <button type="button" class="btn btn-primary" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/deleteworkflow" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                            <button type="button" class="btn btn-primary" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/SetWorkFlowState?isenabled=true&solutionid=@Model.SolutionId" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
+                            <button type="button" class="btn btn-primary" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/SetWorkFlowState?isenabled=false&solutionid=@Model.SolutionId" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group input-group-sm">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+   
+    <div class="" id="gridview">
+        <div class="datagrid-view"></div>
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+           
+        </table>
+       
+    </div>
+</div>
+@section Header {
+    <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+}
+@section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        var solutionid = '@Model.SolutionId';
+        $(function () {
+           
+            var theaders = {
+                'name': '名称',
+                'category': '类型',
+                 'description': ' @app.T["description"]',
+                'statecode': '状态',
+                'createdon': '创建时间',
+                'operation':'@app.T["operation"]'
+            }
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.workflowid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.workflowid + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                { "dataIndx": "name", "title": theaders.name, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "category", "title": theaders.category, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" , render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        return recordid=='1'?"审批流程" : "业务流程"
+
+                    }},
+               { "dataIndx": "description", "title": theaders.description, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "statecode", "title": theaders.statecode, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+
+                        if (recordid == true) {
+                            return '<span class="label label-success">启用</span>'
+                        } else {
+                            return '<span class="label label-default">禁用</span>'
+                        }
+                    } },
+                 { "dataIndx": "createdon", "title": theaders.createdon, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 220,width:220, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        var html = ''
+                        var catype = datas.category == 1 ? "editworkflow" : "editbusinessflow";
+                       
+                        html = ' <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/' + catype + '?id=' + datas.workflowid + '&solutionid=' + solutionid + '" ><span class="glyphicon glyphicon-edit"></span> 编辑</a>';
+                        if (datas.category == 1) {
+                            html += '<a class="btn btn-info btn-xs hide" href="@("/"+app.OrganizationUniqueName)/customize/flow/flowdesign?id=' + datas.workflowid + '"><span class="glyphicon glyphicon-edit"></span> 设计</a>' +
+                                ' <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/WorkFlowInstances?workflowid=' + datas.workflowid + '"><span class="glyphicon glyphicon-play"></span> 实例</a>';
+                        }
+                        html += '<a class="btn btn-default btn-xs" href="javascript:setPermissions(\'' + (datas.authorizationenabled ? true : false) + '\',\'' + datas.workflowid + '\',\'@(Xms.Flow.Core.WorkFlowDefaults.ModuleName)\')"><span class="glyphicon glyphicon-lock"></span> 权限</a>';
+                        html += ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\'' + datas.workflowid + '\',\'/customize/flow/deleteworkflow\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>';
+                                
+
+
+                        return html
+                    }
+                }
+            ];
+           var url = ORG_SERVERURL + '/customize/@app.ControllerName/@app.ActionName?LoadData=true&';
+            var $form = $('#searchForm');
+            var roles_filters = new XmsFilter();
+            var datagridconfig = {
+                scrollModel: { autoFit: true },
+                baseUrl: url,
+                columnConfigs: columnConfigs,//字段配置信息
+                context: $('#gridview'),//底部操作按钮方法触发
+                filters: roles_filters,//post提交时过滤条件
+                searchForm: $form//GET提交时查询的数据
+            };
+            $('.datagrid-view').xmsDataTable(datagridconfig);
+            $('#ShowArea').picklist({
+                items: [{ label: 'Form', value: 'Form' }, { label: 'ListHead', value: 'ListHead' }, { label: 'ListRow', value: 'ListRow' }, { label: 'SubGrid', value: 'SubGrid' }]
+            });
+            Xms.Web.Event.localStorageEvent.on('list_flow_rebind', function () {
+                setTimeout(function () {
+                    location.reload();
+                },100)
+            });
+          
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                pageUrl = $("#datatable").attr('data-pageurl');
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+        function rebind() {
+            //$('#searchForm').submit();
+             $('.datagrid-view').cDatagrid('refreshDataAndView')
+        }
+        function setPermissions(enabledAuth, objectid, typecode) {
+            Xms.Web.OpenDialog('/security/AssigningObjectRoles', null, { callback: 'setPermissions_Callback', EnabledAuthorization: enabledAuth, objectid: objectid, objecttypename: typecode });
+        }
+        function setPermissions_Callback(result, model) {
+            Xms.Web.Post(ORG_SERVERURL + '/customize/flow/SetAuthorizationState', { recordid: [model.objectid], isAuthorization: model.enabledauthorization }, false, function (response) {
+                //Xms.Web.Alert(response.IsSuccess, response.Content);
+                if (response.IsSuccess) {
+                    rebind();
+                }
+            });
+        }
+    </script>
+}

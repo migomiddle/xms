@@ -1,0 +1,160 @@
+﻿@using Xms.Schema.Extensions;
+
+@model Xms.Web.Models.MergeModel
+@{
+    Layout = null;
+}
+<!-- （Modal） -->
+<div class="modal fade" id="mergeModal" tabindex="-1" role="dialog"
+     aria-labelledby="mergeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="mergeModalLabel">
+                    <span class="glyphicon glyphicon-user"></span> 合并
+                </h4>
+            </div>
+            <div class="modal-body" style="max-height:400px;overflow:auto;">
+                <div class="row container-fluid">
+                    <form class="form-horizontal" action="/@(app.OrganizationUniqueName)/api/data/merge" method="post">
+                        @Html.HiddenFor(n => n.EntityId)
+                        @Html.HiddenFor(n => n.RecordId1)
+                        @Html.HiddenFor(n => n.RecordId2)
+                        <div class="form-group col-sm-12">
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <span class="text-muted">@(app.T["security_merge_tip"])</span>
+                        </div>
+                        <table class="table table-condensed table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>主记录</th>
+                                    <th>
+                                        <label><input type="radio" name="mainrecordid" class="merge-firstlist" value="@Model.Record1[Model.Attributes.Find(n=>n.TypeIsPrimaryKey()).Name]" data-type="first" checked /> @Model.Record1["name"]</label>
+                                        <button class="btn btn-link checkallBtn" data-type="first">全选</button>
+                                    </th>
+                                    <th>
+                                        <label><input type="radio" name="mainrecordid" class="merge-secondlist" data-type="second" value="@Model.Record2[Model.Attributes.Find(n=>n.TypeIsPrimaryKey()).Name]" /> @Model.Record2["name"]</label>
+                                        <button class="btn btn-link checkallBtn" data-type="second">全选</button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var attr in Model.Attributes)
+                                {
+                                    if (attr.TypeIsPrimaryKey() || attr.Name.IsCaseInsensitiveEqual("owneridtype") || attr.Name.IsCaseInsensitiveEqual("versionnumber")
+                                        || attr.Name.IsCaseInsensitiveEqual("workflowid") || attr.Name.IsCaseInsensitiveEqual("processstate")
+                                        || attr.Name.IsCaseInsensitiveEqual("stageid") || attr.Name.IsCaseInsensitiveEqual("modifiedby") || attr.Name.IsCaseInsensitiveEqual("modifiedon"))
+                                    {
+                                        continue;
+                                    }
+                                    var displayName = attr.GetNameField();
+                                    var disabled = attr.IsSystemControl() ? "disabled" : "";
+                                    <tr>
+                                        <td>
+                                            @attr.LocalizedName
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" class="merge-firstlist" name="@attr.Name" value="@Model.RecordId1" checked @disabled /> @Model.Record1[displayName]</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" class="merge-secondlist" name="@attr.Name" value="@Model.RecordId2" @disabled /> @Model.Record2[displayName]</label>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="form-group col-sm-12 hide">
+                            <label><input type="radio" name="" value="1" checked /></label>
+                        </div>
+                    </form>
+                </div>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    //@@ sourceUrl = merge.js
+                    var mergeModel = {
+                        dialog: $('#mergeModal'),
+                        dialogid: 'mergeModal',
+                        entityid: '@Model.EntityId',
+                        submit: function () {
+                            mergeModel.dialog.find('form').submit();
+                        },
+                        dialog_return: function () {
+                            mergeModel.dialog.modal('hide');
+                        },
+                        bindselected: function (result, inputid) {
+                            console.log(result);
+                            if (!result || result.length == 0) return;
+                            mergeModel.dialog.find('#ownerid').val(result[0].name);
+                            mergeModel.dialog.find('input[name=ownerid]').val(result[0].id);
+                            var target = [];
+                            $(result).each(function (i, n) {
+                                target.push(n.id);
+                            });
+                            console.log(target);
+                        }
+                    };
+                    $(function () {
+                        mergeModel.dialog.modal({
+                            //backdrop: 'static'
+                        });
+                        mergeModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(mergeModel.dialogid);
+                        });
+                        mergeModel.dialog.find('form').ajaxForm(function (response) {
+                            if (response.IsSuccess) {
+                                Xms.Web.Alert(true, response.Content, function () {
+                                    mergeModel.dialog_return();
+                                    location.reload(true);
+                                }, function () {
+                                    mergeModel.dialog_return();
+                                    location.reload(true);
+                                });
+                                return;
+                            }
+                            Xms.Web.Alert(false, response.Content);
+                        });
+
+                        function checkChange(e) {
+                            e = e || window.event;
+                            if (e.preventDefault) {
+                                e.preventDefault();
+                            } else if (e.returnValue) {
+                                e.returnValue = false;
+                            }
+                            var target = e.target || e.srcElement;
+                            var $this = $(target);
+                            var type = $this.attr('data-type');
+                            if (type == 'first') {
+                                $('input.merge-firstlist:not(:disabled)').prop('checked', true);
+                            } else if (type == 'second') {
+                                $('input.merge-secondlist:not(:disabled)').prop('checked', true);
+                            }
+                        }
+
+                        mergeModel.dialog.find('button.checkallBtn').on('click', function (e) {
+                            checkChange(e);
+                        });
+                        mergeModel.dialog.find('input[name="mainrecordid"]').on('change', function (e) {
+                            checkChange(e);
+                        });
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="mergeModel.submit()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

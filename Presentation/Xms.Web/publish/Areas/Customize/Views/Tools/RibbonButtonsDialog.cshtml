@@ -1,0 +1,169 @@
+﻿@model Xms.Web.Customize.Models.CustomButtonsModel
+@{
+    Layout = null;
+}
+@{
+    Xms.Web.Models.DialogModel dialogModel = ViewData["DialogModel"] as Xms.Web.Models.DialogModel;
+}
+<!-- （Modal） -->
+<div class="modal fade" id="RibbonButtonModal" tabindex="-1" role="dialog"
+     aria-labelledby="RibbonButtonModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="RibbonButtonModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> 按钮
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="form-group col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="radio" name="iscustombutton" value="false" class="required" @(!Model.IsCustomButton ? " checked" : "") /> 所有
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="iscustombutton" value="true" class="required" @(Model.IsCustomButton ? " checked" : "") /> 指定
+                        </label>
+                    </div>
+                </div>
+                <div class="table-responsive@(Model.IsCustomButton?"":" hide")" id="gridview">
+                    <table class="table table-striped table-hover table-condensed datatable" id="datatable" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-singlemode="@dialogModel.SingleMode">
+                        <thead>
+                            <tr>
+                                <th width="2%"><input type="checkbox" name="checkall" /></th>
+                                <th data-name="name">
+                                    名称
+                                </th>
+                                <th width="10%" data-name="showarea">
+                                    显示区域
+                                </th>
+                                <th data-name="description">
+                                    描述
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                var isChecked = Model.IsCustomButton && Model.CustomButtons.NotEmpty() ? Model.CustomButtons.Exists(n => n.Equals(item.RibbonButtonId)) : false;
+                                <tr data-dbclick="RibbonButtonsModel.selectedrow('@item.RibbonButtonId')">
+                                    <td><input type="checkbox" value="@item.RibbonButtonId" name="recordid" @(isChecked ? " checked" : "") /></td>
+                                    <td>@item.Label</td>
+                                    <td>@item.ShowArea</td>
+                                    <td>@item.Description</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                    <script>
+                        var RibbonButtonsModel = {
+                            dialogid: '#RibbonButtonModal',
+                            dialog: $('#RibbonButtonModal'),
+                            callback : @dialogModel.CallBack,
+                            datatable: $("#RibbonButtonModal .datatable"),
+                            gridview: $("#RibbonButtonModal #gridview"),
+                            searchform: $('#RibbonButtonModal #searchForm'),
+                            pageUrl : '@app.Url',
+                            callback : @dialogModel.CallBack,
+                            inputid : '@dialogModel.InputId',
+                            iscustombutton:@(Model.IsCustomButton?"true":"false"),
+                            custombuttons: @Html.Raw(Model.CustomButtons.NotEmpty() ? Model.CustomButtons.SerializeToJson() : "null"),
+                            entityid: '@Model.EntityId',
+                            objectid: '@Model.ObjectId',
+                            ajaxgrid_reset : function () {
+                                Xms.Web.DataTable(RibbonButtonsModel.datatable);
+                            },
+                            dialog_return : function () {
+                                var result = new Array();
+                                $("#RibbonButtonModal .datatable").find("input[name=recordid]:checked").each(function (i, n) {
+                                    var obj = new Object();
+                                    var $that = $(this);
+                                    obj.id = $(n).val();
+                                    $("#RibbonButtonModal .datatable").find('thead>tr>th[data-name]').each(function(i, nn){
+                                        var idx = $(nn).index();
+                                        console.log($that.parents('tr:first').find('td:eq('+idx+')'));
+                                        var value = $that.parents('tr:first').find('td:eq('+idx+')').text();
+                                        // eval('obj.' +  + '="' + value + '"');
+                                        obj[$(nn).attr('data-name')] = value;
+                                    });
+                                    //obj.name = $(n).parents('tr:first').find('td:eq('+idx+')').text();
+                                    result.push(obj);
+                                });
+                                console.log("result",result);
+                                var obj = {objectid: RibbonButtonsModel.objectid, iscustombutton: RibbonButtonsModel.dialog.find('input[name=iscustombutton]:checked').val() == 'true' ? true : false, custombuttons: result};
+                                RibbonButtonsModel.callback(obj,RibbonButtonsModel.inputid);
+                                RibbonButtonsModel.dialog.modal('hide');
+                            }
+                            ,selectedrow: function(id){
+                                var result = new Array();
+                                $("#RibbonButtonModal .datatable").find("input[value="+id+"]").each(function (i, n) {
+                                    var obj = new Object();
+                                    obj.id = $(n).val();
+                                    $("#RibbonButtonModal .datatable").find('thead>tr>th[data-name]').each(function(i, nn){
+                                        var idx = $("#RibbonButtonModal .datatable").find('thead>tr>th').index($(nn));
+                                        var value = $(n).parents('tr:first').find('td:eq('+idx+')').text();
+                                        eval('obj.' + $(nn).attr('data-name') + '="' + value + '"');
+                                    });
+                                    //obj.name = $(n).parents('tr:first').find('td:eq('+idx+')').text();
+                                    result.push(obj);
+                                });
+                                console.log("return",result);
+                                RibbonButtonsModel.callback(result,RibbonButtonsModel.inputid);
+                                RibbonButtonsModel.dialog.modal('hide');
+                            }
+                            ,CreateRecord: function(){
+                                var url = ORG_SERVERURL +'/customize/RibbonButton/createRibbonButton?solutionid=' + (RibbonButtonsModel.solutionid || $.getUrlParam('solutionid')) + '&entityid=' + RibbonButtonsModel.entityid;
+                                Xms.Web.OpenWindow(url);
+                            }
+                        };
+
+                        $(function () {
+                            RibbonButtonsModel.ajaxgrid_reset();
+                            RibbonButtonsModel.searchform.ajaxSearch(RibbonButtonsModel.gridview.prop('id'), RibbonButtonsModel.ajaxgrid_reset);
+                            RibbonButtonsModel.datatable.ajaxTable();
+                            RibbonButtonsModel.dialog.modal({
+                                backdrop:'static'
+                            });
+                            $("#RibbonButtonModal .datatable").on('hidden.bs.modal', function () {
+                                Xms.Web.CloseDialog(RibbonButtonsModel.dialogid);
+                            });
+                            RibbonButtonsModel.dialog.on('click','button[name=createBtn]',function(e){
+                                RibbonButtonsModel.CreateRecord();
+                            });
+                            RibbonButtonsModel.dialog.on('click', 'input[name=iscustombutton]', function (e) {
+                                var flag = $(this).val();
+                                if (flag == 'true') {
+                                    RibbonButtonsModel.gridview.removeClass('hide');
+                                    RibbonButtonsModel.iscustombutton = true;
+                                }
+                                else {
+                                    RibbonButtonsModel.gridview.addClass('hide');
+                                    RibbonButtonsModel.iscustombutton = false;
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <button type="button" class="btn btn-link" name="createBtn">
+                        <span class="glyphicon glyphicon-plus-sign"></span> 新建
+                    </button>
+                </div>
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> 关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="RibbonButtonsModel.dialog_return()">
+                    <span class="glyphicon glyphicon-ok"></span> 确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

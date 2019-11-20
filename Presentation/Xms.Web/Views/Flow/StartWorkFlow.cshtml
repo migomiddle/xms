@@ -1,0 +1,109 @@
+﻿@model Xms.Web.Models.StartWorkFlowModel
+@{
+    Layout = null;
+}
+
+<!-- （Modal） -->
+<div class="modal fade" id="workFlowModal" tabindex="-1" role="dialog"
+     aria-labelledby="workFlowModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="workFlowModalLabel">
+                    提交审批
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/@(app.OrganizationUniqueName)/api/workflow/start" data-jsonajax="true" data-istip="true">
+                        <input type="hidden" name="entityid" value="@Model.EntityId" />
+                        <input type="hidden" name="recordid" value="@Model.RecordId" />
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="description">流程</label>
+                            <div class="col-sm-10">
+                                @foreach (var item in Model.WorkFlows)
+                                {
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="workflowid" value="@item.WorkFlowId" @(Model.WorkflowId.Equals(item.WorkFlowId) ? " checked" : "") />@item.Name
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="description">附件</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="attachments" multiple />
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="description">说明</label>
+                            <div class="col-sm-10">
+                                <textarea rows="3" cols="20" class="form-control" name="description" id="description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    var WorkFlowModel = {
+                        dialog: $('#workFlowModal'),
+                        dialogid: 'workFlowModal',
+                        disabledForm: function () {
+                            WorkFlowModel.dialog.find('button').prop('disabled', true);
+                        },
+                        resetForm: function () {
+                            WorkFlowModel.dialog.find('form').trigger('reset');
+                            WorkFlowModel.dialog.find('button').prop('disabled', false);
+                        },
+                        submit: function () {
+                            WorkFlowModel.disabledForm();
+                            WorkFlowModel.dialog.find('form').submit();
+                        },
+                        dialog_return: function () {
+                            WorkFlowModel.dialog.modal('hide');
+                        }
+                    };
+                    $(function () {
+                        WorkFlowModel.dialog.modal({
+                            backdrop: 'static'
+                        });
+                        WorkFlowModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(WorkFlowModel.dialogid);
+                        });
+                        var $form = WorkFlowModel.dialog.find('form');
+                        Xms.Web.Form($form, function (response) {
+                            console.log(response);
+                            if (response.IsSuccess) {
+                                Xms.Web.Alert(true, response.Content, function () { location.reload(true); }, function () { location.reload(true); });
+                                WorkFlowModel.dialog_return();
+                                Xms.Web.Event.publish('refresh');
+                                WorkFlowModel.resetForm();
+                            } else {
+                                Xms.Web.Alert(false, response.Content);
+                                WorkFlowModel.resetForm();
+                            }
+                        });
+                        WorkFlowModel.dialog.find('input[name=workflowid]').first().prop('checked', true);
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    关闭
+                </button>
+                <button type="button" class="btn btn-primary" onclick="WorkFlowModel.submit()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    确定提交
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
