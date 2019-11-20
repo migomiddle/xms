@@ -8,10 +8,10 @@
 ## 三、目标
 >>零代码开发，释放生产力，专注你的业务，致力于.netcore开源生态发展
 
-![xms](https://img2018.cnblogs.com/common/297639/201911/297639-20191107150744775-614786712.png "xms脑图")  
+![xms](https://github.com/migomiddle/xms/blob/master/xms%E5%B9%B3%E5%8F%B0%E8%84%91%E5%9B%BE.png?raw=true "xms脑图")  
 
 ### 一起玩耍口令：xms
-![xms](https://img2018.cnblogs.com/common/297639/201911/297639-20191107145432285-310031871.png "xms官方交流群")
+![xms](https://github.com/migomiddle/xms/blob/master/xms%E5%BC%80%E6%BA%90%E5%B9%B3%E5%8F%B0%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.png?raw=true "xms官方交流群")
 
 #### 博客：[migomiddle](https://www.cnblogs.com/migomiddle)
 #### 联系我: deng819@163.com
