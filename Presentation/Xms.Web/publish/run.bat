@@ -1,1 +1,0 @@
-dotnet Xms.Web.dll
