@@ -7,7 +7,6 @@ namespace Xms.Notify.Sms
     /// </summary>
     public class SmsMessageHandler : INotify
     {
-
         public SmsMessageHandler()
         {
         }

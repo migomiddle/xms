@@ -6,7 +6,6 @@ namespace Xms.Flow
 {
     public interface IWorkFlowProcessService
     {
-
         bool Create(WorkFlowProcess entity);
 
         bool CreateMany(IEnumerable<WorkFlowProcess> entities);

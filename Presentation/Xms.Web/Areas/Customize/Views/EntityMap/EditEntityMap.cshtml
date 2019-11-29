@@ -1,7 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.EditEntityMapModel
 
 <div class="panel panel-default">
-
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
@@ -31,8 +38,8 @@
                                         <select class="form-control required" name="maptype" id="maptype" data-value="@((int)Model.MapType)">
                                             <option value="1">允许复制一次</option>
                                             <option value="2">允许复制多次</option>
-                                            <option value="3">钩稽</option>
-                                            <option value="4">强制钩稽</option>
+                                            @*<option value="3">钩稽</option>
+                                                <option value="4">强制钩稽</option>*@
                                         </select>
                                     </div>
                                 </div>
@@ -46,7 +53,6 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" disabled><option value="@Model.EntityId">@Model.TargetEntityMetaData.LocalizedName</option></select>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="col-sm-2 control-label" for="HeadRelatedEntities">来源单</label>
@@ -235,24 +241,23 @@
             //loadChildEntities();
 
             //loadRelevantEntities(function () {
-            //    loadChildRelatedEntities(function () { 
+            //    loadChildRelatedEntities(function () {
             //    loadChildEntities(function () {
-                    
-                       
-            //            loadSourceAttributes(function () { 
+
+            //            loadSourceAttributes(function () {
             //        $('#HeadRelatedEntities').trigger('change');
             //                $('#ChildEntities').trigger('change');
             //                 loadChildAttributes();
             //                })
             //            })
             //    })
-                
+
             //});
             $('#HeadRelatedEntities').trigger('change');
            // loadChildEntities(function () {
                  $('#ChildEntities').trigger('change');
           //  });
-           
+
             //$('#ChildRelatedEntities').trigger('change');
             Xms.Web.SelectedValue($('#maptype'), $('#maptype').attr('data-value'));
             $('#maptype').trigger('change');

@@ -32,18 +32,18 @@ namespace Xms.Schema.RelationShip
             _relationShipRepository = relationShipRepository;
             _entityFinder = entityFinder;
             _attributeFinder = attributeFinder;
-            _cacheService = new Caching.CacheManager<Domain.RelationShip>(_appContext.OrganizationUniqueName + ":relationships", RelationShipCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.RelationShip>(_appContext.OrganizationUniqueName + ":relationships", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public Domain.RelationShip FindById(Guid id)
         {
             var dic = new Dictionary<string, string>();
             dic.Add("RelationshipId", id.ToString());
-            
-            Domain.RelationShip entity = _cacheService.Get(dic,() =>
-            {
-                return _relationShipRepository.FindById(id);
-            });
+
+            Domain.RelationShip entity = _cacheService.Get(dic, () =>
+             {
+                 return _relationShipRepository.FindById(id);
+             });
             return entity;
         }
 
@@ -52,10 +52,10 @@ namespace Xms.Schema.RelationShip
             var dic = new Dictionary<string, string>();
             dic.Add("name", name);
 
-            Domain.RelationShip entity = _cacheService.Get(dic,() =>
-            {
-                return _relationShipRepository.Find(x => x.Name == name);
-            });
+            Domain.RelationShip entity = _cacheService.Get(dic, () =>
+             {
+                 return _relationShipRepository.Find(x => x.Name == name);
+             });
             return entity;
         }
 
@@ -89,28 +89,28 @@ namespace Xms.Schema.RelationShip
 
         public List<Domain.RelationShip> QueryByEntityId(Guid? referencingEntityId, Guid? referencedEntityId)
         {
-            List<Domain.RelationShip> result = _cacheService.GetVersionItems(referencingEntityId + "/" + referencedEntityId,() =>
-            {
-                if (referencingEntityId.HasValue && referencedEntityId.HasValue)
-                {
-                    return _relationShipRepository.Query(x => x.ReferencingEntityId == referencingEntityId.Value && x.ReferencedEntityId == referencedEntityId.Value)?.ToList();
-                }
-                else if (referencingEntityId.HasValue)
-                {
-                    return _relationShipRepository.Query(x => x.ReferencingEntityId == referencingEntityId.Value)?.ToList();
-                }
-                return _relationShipRepository.Query(x => x.ReferencedEntityId == referencedEntityId.Value)?.ToList();
-            } );
+            List<Domain.RelationShip> result = _cacheService.GetVersionItems(referencingEntityId + "/" + referencedEntityId, () =>
+             {
+                 if (referencingEntityId.HasValue && referencedEntityId.HasValue)
+                 {
+                     return _relationShipRepository.Query(x => x.ReferencingEntityId == referencingEntityId.Value && x.ReferencedEntityId == referencedEntityId.Value)?.ToList();
+                 }
+                 else if (referencingEntityId.HasValue)
+                 {
+                     return _relationShipRepository.Query(x => x.ReferencingEntityId == referencingEntityId.Value)?.ToList();
+                 }
+                 return _relationShipRepository.Query(x => x.ReferencedEntityId == referencedEntityId.Value)?.ToList();
+             });
             //WrapLocalizedLabel(result);
             return result;
         }
 
         public List<Domain.RelationShip> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);

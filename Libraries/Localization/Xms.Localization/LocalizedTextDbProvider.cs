@@ -20,6 +20,7 @@ namespace Xms.Localization
         private readonly CacheManager<List<LocalizedTextLabel>> _cache;
         private readonly LanguageCode _language = LocalizationDefaults.DefaultLanguage;
         private readonly string _langName = ((int)LocalizationDefaults.DefaultLanguage).ToString();
+
         public LocalizedTextDbProvider(ICurrentUser user
             , ILocalizedTextRepository localizedTextRepository)
         {
@@ -43,6 +44,7 @@ namespace Xms.Localization
             });
             return result;
         }
+
         public string this[string key]
         {
             get
@@ -53,6 +55,7 @@ namespace Xms.Localization
         }
 
         public IList<LocalizedTextLabel> _labels;
+
         public IList<LocalizedTextLabel> Labels
         {
             get
@@ -88,10 +91,10 @@ namespace Xms.Localization
             }
             );
             int batchCount = 50, totalCount = datas.Count(), skip = 0;
-            while(totalCount >= 0)
+            while (totalCount >= 0)
             {
-                var names = datas.Skip(skip).Take(batchCount).Select(x=>x.Name);
-                _localizedTextRepository.DeleteMany(x=>x.Name.In(names));
+                var names = datas.Skip(skip).Take(batchCount).Select(x => x.Name);
+                _localizedTextRepository.DeleteMany(x => x.Name.In(names));
                 totalCount -= batchCount;
                 skip += batchCount;
             }

@@ -14,11 +14,13 @@ namespace Xms.Web.Framework.Filters
     {
         private readonly IWebAppContext _appContext;
         private readonly IOrganizationBaseService _organizationBaseService;
+
         public OrganizationFilterAttribute(IWebAppContext appContext, IOrganizationBaseService organizationBaseService)
         {
             _appContext = appContext;
             _organizationBaseService = organizationBaseService;
         }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (_appContext.Org != null)

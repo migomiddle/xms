@@ -27,7 +27,7 @@ namespace Xms.Plugin.Domain
         /// <summary>
         /// 0实体插件 1视图插件 2表单插件
         public int TypeCode { get; set; }
-                
+
         public Guid BusinessObjectId { get; set; }
         public RecordState StateCode { get; set; }
         public Guid OrganizationId { get; set; }

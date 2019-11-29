@@ -37,7 +37,7 @@ namespace Xms.Web.Api
         [HttpGet("SolutionComponents")]
         public IActionResult SolutionComponents([FromQuery]GetSolutionComponentsModel model)
         {
-            var data = _systemFormFinder.QueryPaged(x => x.Where(f=>f.FormType == (int)FormType.Dashboard).Page(model.Page, model.PageSize), model.SolutionId, model.InSolution, FormType.Dashboard);
+            var data = _systemFormFinder.QueryPaged(x => x.Where(f => f.FormType == (int)FormType.Dashboard).Page(model.Page, model.PageSize), model.SolutionId, model.InSolution, FormType.Dashboard);
             if (data.Items.NotEmpty())
             {
                 var result = data.Items.Select(x => (new SolutionComponentItem { ObjectId = x.SystemFormId, Name = x.Name, LocalizedName = x.Name, ComponentTypeName = DashBoardDefaults.ModuleName, CreatedOn = x.CreatedOn })).ToList();

@@ -50,12 +50,15 @@ namespace Xms.Web.Customize.Models
 
     public class WorkFlowInstanceModel : BasePaged<WorkFlowInstance>
     {
+        public WorkFlow FlowInfo { get; set; }
         public Guid WorkFlowId { get; set; }
     }
+
     public class WorkFlowInstanceDetailModel : BasePaged<WorkFlowInstance>
     {
         public WorkFlow FlowInfo { get; set; }
     }
+
     public class WorkFlowProcessModel : BasePaged<WorkFlowProcess>
     {
         public Guid WorkFlowInstanceId { get; set; }
@@ -78,6 +81,7 @@ namespace Xms.Web.Customize.Models
         public string StepData { get; set; }
         public Guid SolutionId { get; set; }
     }
+
     public class EditBusinessFlowModel
     {
         public Guid WorkFlowId { get; set; }
@@ -93,6 +97,7 @@ namespace Xms.Web.Customize.Models
         public string StepData { get; set; }
         public Guid SolutionId { get; set; }
     }
+
     public class SetFlowAuthorizationStateModel
     {
         public Guid[] RecordId { get; set; }

@@ -1,0 +1,122 @@
+﻿@model Xms.Web.Models.RoleObjectAccessListModel
+@{
+    Layout = null;
+}
+<!-- 对象权限（Modal） -->
+<div class="modal fade" id="assignedObjectRolesModal" tabindex="-1" role="dialog"
+     aria-labelledby="assignedObjectRolesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="assignedObjectRolesModalLabel">
+                    <span class="glyphicon glyphicon-th"></span> 对象权限
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="form-group col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="radio" name="enabledauthorization" value="false" class="required" @(!Model.EnabledAuthorization ? " checked" : "") /> 所有人
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="enabledauthorization" value="true" class="required" @(Model.EnabledAuthorization ? " checked" : "") /> 指定角色
+                        </label>
+                    </div>
+                </div>
+                <div class="table-responsive" id="gridview" style="max-height:350px;">
+                    <table class="table table-striped table-hover table-condensed@(Model.EnabledAuthorization?"":" hide")" id="datatable" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()">
+                        <thead>
+                            <tr>
+                                <th width="2%"><input type="checkbox" name="checkall" /></th>
+                                <th data-name="name">
+                                    @app.T["name"]
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Roles)
+                            {
+                                var isChecked = Model.EnabledAuthorization && Model.Accesses.NotEmpty() ? Model.Accesses.Exists(n => n.RoleId.Equals(item.RoleId)) : false;
+                                <tr>
+                                    <td><input type="checkbox" value="@item.RoleId" name="recordid" @(isChecked ? " checked" : "") /></td>
+                                    <td>@item.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                    <script>
+                        var RolesModel = {
+                            dialog: $('#assignedObjectRolesModal'),
+                            dialogid: '#assignedObjectRolesModal',
+                            pageUrl : '@app.Url',
+                            callback : @Html.Raw(Model.CallBack),
+                            inputid : '@Html.Raw(Model.InputId)',
+                            objectid: '@Html.Raw(Model.ObjectId.ToString())',
+                            objecttypename: '@Html.Raw(Model.ObjectTypeName)',
+                            enabledauthorization: @(Model.EnabledAuthorization?"true":"false"),
+                            ajaxgrid_reset: function () {
+                                Xms.Web.DataTable($(RolesModel.dialogid + " #datatable"));
+                            },
+                            dialog_return : function () {
+                                var result = new Array();
+                                $(RolesModel.dialogid + " #datatable").find("input[name=recordid]:checked").each(function (i, n) {
+                                    //var obj = new Object();
+                                    //obj.id = $(n).val();
+                                    //obj.name = $(n).parent().next().text();
+                                    result.push($(n).val());
+                                });
+                                var data = {enabledauthorization:RolesModel.enabledauthorization, objectid: RolesModel.objectid, objecttypename: RolesModel.objecttypename, AssignRoleId: result};
+                                Xms.Web.Post('/security/AssignedObjectRoles',data, false, function(response){
+                                    if(response.IsSuccess){
+                                        RolesModel.callback(result, RolesModel);
+                                        RolesModel.dialog.modal('hide');
+                                        return;
+                                    }
+                                    Xms.Web.Alert(false, response.Content);
+                                });
+                            }
+                        };
+
+                        $(function () {
+                            RolesModel.ajaxgrid_reset();
+                            $(RolesModel.dialogid + " #datatable").ajaxTable();
+                            RolesModel.dialog.modal({
+                                backdrop:'static'
+                            })
+                            RolesModel.dialog.on('hidden.bs.modal', function () {
+                                Xms.Web.CloseDialog(RolesModel.dialogid);
+                            });
+                            RolesModel.dialog.on('click', 'input[name=enabledauthorization]', function (e) {
+                                var flag = $(this).val();
+                                if (flag == 'true') {
+                                    $(RolesModel.dialogid + " #datatable").removeClass('hide');
+                                    RolesModel.enabledauthorization = true;
+                                }
+                                else {
+                                    $(RolesModel.dialogid + " #datatable").addClass('hide');
+                                    RolesModel.enabledauthorization = false;
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="RolesModel.dialog_return()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

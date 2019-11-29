@@ -196,25 +196,25 @@
                                 var flag = button.ribbonbuttonid ? ($.inArray(button.ribbonbuttonid, ObjectId) != -1) : false;
                                 if (button.showarea == 1) {
                                     FormButton += '<div class="checkbox">';
-                                    FormButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn'+i+'_'+j+'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + '/> ';
+                                    FormButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn'+i+'_'+j+'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
                                     FormButton +=  button.label + '</label>';
                                     FormButton += '</div>';
                                 }
                                 else if (button.showarea == 2) {
                                     ListHeadButton += '<div class="checkbox">';
-                                    ListHeadButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + '/> ';
+                                    ListHeadButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
                                     ListHeadButton += button.label + '</label>';
                                     ListHeadButton += '</div>';
                                 }
                                 else if (button.showarea == 3) {
                                     ListRowButton += '<div class="checkbox">';
-                                    ListRowButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + '/> ';
+                                    ListRowButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
                                     ListRowButton +=  button.label + '</label>';
                                     ListRowButton += '</div>';
                                 }
                                 else if (button.showarea == 4) {
                                     SubGridButton += '<div class="checkbox">';
-                                    SubGridButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + '/> ';
+                                    SubGridButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
                                     SubGridButton += button.label + '</label>';
                                     SubGridButton += '</div>';
                                 }
@@ -247,7 +247,6 @@
                             tbody.append(html + FormButton + ListHeadButton + ListRowButton + SubGridButton);
 
                         }
-
 
                     });
                     if (allbuttons&& allbuttons.length==0) {
@@ -421,10 +420,5 @@
                 }
             });
         });
-
     </script>
 }
-
-
-
-

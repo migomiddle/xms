@@ -17,7 +17,7 @@ namespace Xms.Solution.Abstractions
 
         public static Type Get(string nodeName)
         {
-            if(ImporterTypes.TryGetValue(nodeName, out Type type))
+            if (ImporterTypes.TryGetValue(nodeName, out Type type))
             {
                 return type;
             }

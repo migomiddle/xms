@@ -1,8 +1,7 @@
-
 require.config({
-    urlArgs: "v=" + (typeof XMS_PAGER_VERSION === "string" ? XMS_PAGER_VERSION:'') ,
+    urlArgs: "v=" + (typeof XMS_PAGER_VERSION === "string" ? XMS_PAGER_VERSION : ''),
     baseUrl: '/content/js/',
-    waitSeconds:10000,
+    waitSeconds: 10000,
     paths: {
         //lib
         'jquery': 'jquery.min',
@@ -10,22 +9,22 @@ require.config({
         'jqueryBootstrap': 'jquery.bootstrap.min',
         'mousewheel': 'jquery.mousewheel',
         'jquery-mousewheel': 'jquery.mousewheel',
-            //jquery-ui
-            'jquery.ui': 'jquery-ui-1.10.3/ui/jquery.ui.core',
-            'jquery.ui.widget': 'jquery-ui-1.10.3/ui/jquery.ui.widget',
-            'jquery.ui.mouse': 'jquery-ui-1.10.3/ui/jquery.ui.mouse',
-            'jquery.ui.draggable': 'jquery-ui-1.10.3/ui/jquery.ui.draggable',
+        //jquery-ui
+        'jquery.ui': 'jquery-ui-1.10.3/ui/jquery.ui.core',
+        'jquery.ui.widget': 'jquery-ui-1.10.3/ui/jquery.ui.widget',
+        'jquery.ui.mouse': 'jquery-ui-1.10.3/ui/jquery.ui.mouse',
+        'jquery.ui.draggable': 'jquery-ui-1.10.3/ui/jquery.ui.draggable',
 
         //xms
         'xms': 'xms',
         'xms.jquery': 'xms.jquery',
         'xms.web': 'xms.web',
-            'fetch': 'fetch',
-            'xmsMain.plugs': 'xmsmain.plugs',
-            'xms-history': 'xms-history',
-            'createForm': 'form',
-            'renderForm':'renderform',
-            'calculation':'calculation',
+        'fetch': 'fetch',
+        'xmsMain.plugs': 'xmsmain.plugs',
+        'xms-history': 'xms-history',
+        'createForm': 'form',
+        'renderForm': 'renderform',
+        'calculation': 'calculation',
 
         //jquery-plugs
         'jquery.toast': 'jquery-toast/jquery.toast.min',
@@ -36,18 +35,17 @@ require.config({
         'jquery.tableresize': 'jquery.tableresize',
         'bootstrap-datepicker': 'bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min',
         'bootstrap-datepicker-cn': 'bootstrap-datepicker-1.5.0/locales/bootstrap-datepicker.zh-CN.min',
-        
+
         'jquery-validate': 'jquery-validate/jquery.validate.min',
         'jquery-validate-zh': 'jquery-validate/localization/messages_zh.min',
         'jquery.dirtyforms': 'jquery.dirtyforms',
         'jquery.printTable': 'jquery.printTable',
         'jquery.datetimepicker.full': 'bootstrap-datetimepicker/jquery.datetimepicker.full'
 
-
         //uediter
-        , 'ueditor':'ueditor/ueditor.all.min'
-        , 'ueditor.config':'ueditor/ueditor.config'
-        , 'ueditor.addcustomizebutton':'ueditor/addcustomizebutton'
+        , 'ueditor': 'ueditor/ueditor.all.min'
+        , 'ueditor.config': 'ueditor/ueditor.config'
+        , 'ueditor.addcustomizebutton': 'ueditor/addcustomizebutton'
 
         //common-modules
         , 'notice': 'common/notice'
@@ -60,8 +58,8 @@ require.config({
         , 'formular': 'common/formular'
 
         //pages
-        ,'home.index':'pages/home.index'
-        , 'entity.list':'pages/entity.list'
+        , 'home.index': 'pages/home.index'
+        , 'entity.list': 'pages/entity.list'
         , 'entity.gridview': 'pages/entity.gridview'
         , 'entity.create': 'pages/entity.create'
     },
@@ -82,7 +80,7 @@ require.config({
             deps: ['jquery', 'css!/content/css/bootstrap.min.css']
         },
         'jqueryBootstrap': {
-            deps: ['jquery','bootstrap']
+            deps: ['jquery', 'bootstrap']
         },
         //jquery-ui
         'jquery.ui': {
@@ -92,7 +90,7 @@ require.config({
             deps: ['jquery.ui']
         },
         'jquery.ui.mouse': {
-            deps: [ 'jquery.ui.widget']
+            deps: ['jquery.ui.widget']
         },
         'jquery.ui.draggable': {
             deps: ['jquery.ui.mouse', 'jquery.ui.widget']
@@ -129,7 +127,7 @@ require.config({
             deps: ['bootstrap']
         },
         'bootstrap-datepicker-cn': {
-            deps: ['jquery','bootstrap-datepicker']
+            deps: ['jquery', 'bootstrap-datepicker']
         },
         //'jquery.datetimepicker.full': {
         //    deps: ['jquery','jquery-mousewheel']
@@ -139,7 +137,7 @@ require.config({
         //    deps: ['jquery.datetimepicker.full']
         //},
         //xms
-        
+
         'xms': {
             deps: ['jquery']
         },
@@ -147,7 +145,7 @@ require.config({
             deps: ['xms']
         },
         'xms.web': {
-            deps: ['xms', 'xms.jquery','jquery.ui.draggable']
+            deps: ['xms', 'xms.jquery', 'jquery.ui.draggable']
         },
         'xmsMain.plugs': {
             deps: ['jquery', 'jquery.tmpl']
@@ -176,17 +174,16 @@ require.config({
         },
         //pages
         'entity.list': {
-            deps: ['filters', 'xms.web','entity.gridview']
+            deps: ['filters', 'xms.web', 'entity.gridview']
         },
         'entity.gridview': {
-            deps: ['charts', 'formSearcher', 'xms.jquery','xms.web']
+            deps: ['charts', 'formSearcher', 'xms.jquery', 'xms.web']
         },
         'entity.create': {
             deps: ['formular', 'dirtychecker', 'xms.jquery', 'xms.web', 'createForm', 'renderForm', 'calculation',]
         },
         'home.index': {
-            deps:['jquery']
+            deps: ['jquery']
         }
-
     },
 });

@@ -130,6 +130,7 @@ namespace Xms.Web.Customize.Controllers
             };
             return View(model);
         }
+
         [Description("新建流程")]
         [HttpPost]
         public IActionResult CreateWorkFlow([FromBody]CreateWorkFlowModel model)
@@ -262,6 +263,11 @@ namespace Xms.Web.Customize.Controllers
         [Description("流程实例")]
         public IActionResult WorkFlowInstances(WorkFlowInstanceModel model)
         {
+            if (model.WorkFlowId.Equals(Guid.Empty))
+            {
+                return NotFound();
+            }
+            model.FlowInfo = _workFlowFinder.FindById(model.WorkFlowId);
             FilterContainer<WorkFlowInstance> filter = FilterContainerBuilder.Build<WorkFlowInstance>();
             filter.And(n => n.WorkFlowId == model.WorkFlowId);
 
@@ -289,11 +295,17 @@ namespace Xms.Web.Customize.Controllers
         [Description("流程监控")]
         public IActionResult WorkFlowProcess(WorkFlowProcessModel model)
         {
+            if (model.WorkFlowInstanceId.Equals(Guid.Empty))
+            {
+                return NotFound();
+            }
             if (!model.IsSortBySeted)
             {
                 model.SortBy = "steporder";
                 model.SortDirection = 0;
             }
+            model.InstanceInfo = _workFlowInstanceService.FindById(model.WorkFlowInstanceId);
+            model.FlowInfo = _workFlowFinder.FindById(model.InstanceInfo.WorkFlowId);
             FilterContainer<WorkFlowProcess> filter = FilterContainerBuilder.Build<WorkFlowProcess>();
             filter.And(n => n.WorkFlowInstanceId == model.WorkFlowInstanceId);
             if (model.GetAll)
@@ -346,7 +358,8 @@ namespace Xms.Web.Customize.Controllers
             }
             return JError(T["operation_error"]);
         }
-        #endregion
+
+        #endregion 审批流程
 
         #region 业务流程
 
@@ -467,6 +480,7 @@ namespace Xms.Web.Customize.Controllers
             }
             return UpdateFailure(GetModelErrors());
         }
-        #endregion
+
+        #endregion 业务流程
     }
 }

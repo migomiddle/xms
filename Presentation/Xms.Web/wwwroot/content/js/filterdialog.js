@@ -60,7 +60,7 @@
         }
         return check;
     },
-    validateInput: function (e,type) {
+    validateInput: function (e, type) {
         var check = true;
         //console.log(FilterDialog['valiExp_' + type])
         if (FilterDialog['valiExp_' + type]) {
@@ -68,23 +68,23 @@
         }
         return check;
     },
-    bindInput: function (select, input, datatype, attributeid, referencedentityid, ddlItems, optionsetid,ischange,moreOpts) {
+    bindInput: function (select, input, datatype, attributeid, referencedentityid, ddlItems, optionsetid, ischange, moreOpts) {
         var FilterDialogModel = {
             attributeid: attributeid,
             operators: Xms.Fetch.ConditionOperators[datatype],
             datatype: datatype
         };
-        console.log('bindInput',datatype)
-        
+        console.log('bindInput', datatype)
+
         if (typeof select === "string") {
             var temp = select.split(',');
             var v = temp[0];
-            var dataval = temp[1]?temp[1]:"";
+            var dataval = temp[1] ? temp[1] : "";
         } else {
             var v = Xms.Web.SelectedValue(select);
             var dataval = select.find('option:selected').attr('data-value');
         }
-        
+
         var id = datatype + Math.round(new Date().getTime() / 1000);
         //清除一遍start
         input.removeAttr('data-picklistinit');
@@ -115,26 +115,24 @@
                     input.val('').prop('disabled', 'disabled');
                     input.siblings().prop('disabled', 'disabled');
                 } else {
-                    
-                        if (input.siblings('select').length > 0) {
-                            input.siblings('select').remove();
-                        }
-                        if (input.siblings('.SumoSelect').length > 0) {
-                            input.siblings('.SumoSelect').remove();
-                        }
-                        if (ddlItems.length == 0) {
-                            ddlItems.push({ value: '', text: '请选择' });
-                        }
-                        input.picklist({
-                            displaytype: 'select'
+                    if (input.siblings('select').length > 0) {
+                        input.siblings('select').remove();
+                    }
+                    if (input.siblings('.SumoSelect').length > 0) {
+                        input.siblings('.SumoSelect').remove();
+                    }
+                    if (ddlItems.length == 0) {
+                        ddlItems.push({ value: '', text: '请选择' });
+                    }
+                    input.picklist({
+                        displaytype: 'select'
                         , required: true
                         , items: ddlItems
-                        });
-                        console.log('filterDialog', input);
+                    });
+                    console.log('filterDialog', input);
                     input.val('').prop('disabled', 'disabled');
                     input.siblings().prop('disabled', 'disabled');
                 }
-                
             }
         }
         else if (v != null && v != '') {
@@ -159,7 +157,7 @@
                         }
                     }
                     else if ($.inArray(dataval, FilterDialog.moreSelect) != -1) {
-                        if (value != null && value != '' && value.length>20) {
+                        if (value != null && value != '' && value.length > 20) {
                             var param = {
                                 type: lookupid + value,
                                 data: { entityid: lookupid, value: value }
@@ -188,7 +186,7 @@
                                 dialog: function () {
                                     Xms.Web.OpenDialog('/entity/RecordsDialog?entityid=' + referencedentityid + '&singlemode=true&inputid=' + id, 'FilterDialog.bindMoreSelected')
                                 }
-                                    ,
+                                ,
                                 clear: function () {
                                     $('#' + id).val('');
                                     $('#' + id).siblings(':input').val('');
@@ -229,7 +227,7 @@
                                 dialog: function () {
                                     Xms.Web.OpenDialog('/entity/RecordsDialog?entityid=' + referencedentityid + '&singlemode=true&inputid=' + id, 'FilterDialog.bindSelected')
                                 }
-                                    ,
+                                ,
                                 clear: function () {
                                     $('#' + id).val('');
                                     $('#' + id).siblings(':input').val('');
@@ -283,14 +281,13 @@
                                         input.removeProp('disabled');
                                     })
                                 }
-                                    ,
+                                ,
                                 clear: function () {
                                     $('#' + id).val('');
                                     $('#' + id).siblings(':input').val('');
                                 },
                                 disabled: false
                             });
-                           
                         }
                     }
                     else {
@@ -328,7 +325,7 @@
                                         //input.removeProp('disabled');
                                     })
                                 }
-                                    ,
+                                ,
                                 clear: function () {
                                     $('#' + id).val('');
                                     $('#' + id).siblings(':input').val('');
@@ -365,7 +362,7 @@
                             dialog: function () {
                                 Xms.Web.OpenDialog('/entity/RecordsDialog?entityid=' + referencedentityid + '&singlemode=true&inputid=' + id, 'FilterDialog.bindSelected')
                             }
-                                ,
+                            ,
                             clear: function () {
                                 $('#' + id).val('');
                                 $('#' + id).siblings(':input').val('');
@@ -399,8 +396,8 @@
                             }
                             input.picklist({
                                 displaytype: 'select'
-                            , required: true
-                            , items: ddlItems
+                                , required: true
+                                , items: ddlItems
                                 , multi: {
                                     captionFormat: '选中 {0} 个',
                                     captionFormatAllSelected: '选中 {0} 个!',
@@ -417,8 +414,8 @@
                             }
                             input.picklist({
                                 displaytype: 'select'
-                            , required: true
-                            , items: ddlItems
+                                , required: true
+                                , items: ddlItems
                             });
                             //input.siblings('select').removeProp('multiple');
                             //input.siblings('select').removeProp('size');
@@ -489,7 +486,7 @@
                 case "datetime":
                     input.unbind('keyup');
                     input.removeAttr('data-num');
-                    
+
                     if ($.inArray(dataval, FilterDialog.showDatepicker) != -1) {
                         input.addClass('datepicker');
                         $('.datepicker').datepicker({

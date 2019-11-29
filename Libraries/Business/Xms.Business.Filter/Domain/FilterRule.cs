@@ -21,6 +21,7 @@ namespace Xms.Business.Filter.Domain
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public int ComponentState { get; set; }
+
         [ResultColumn]
         [LinkEntity(typeof(Entity), LinkFromFieldName = "EntityId", LinkToFieldName = "EntityId", TargetFieldName = "Name")]
         public string EntityName { get; set; }

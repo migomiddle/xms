@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=page/entity.list.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -73,7 +72,6 @@
     var pageWrap = {
         init: function () {
             $(function () {
-
                 filters.FilterOperator = Xms.Fetch.LogicalOperator.And;
                 // loadData(pageUrl);
                 Xms.Web.Event.subscribe('refresh', function (e) {
@@ -86,7 +84,6 @@
             Xms.Web.Loader();
             pageWrap.loadPageInfo();
             pageWrap.bindOnceEvent();
-
         },
         loadPageInfo: function () {
             pageWrap.loadQueryViews();
@@ -119,7 +116,6 @@
             var attrs = datas.attributesInfo;
             var $querySettingWrapHide = $('#querySettingWrapHide');
             var $querySettingWrapShow = $('#querySettingWrapShow');
-
         },
         loadQueryViews: function (type, value, callback) {
             $('body').trigger('queryview.prevLoad');
@@ -183,13 +179,11 @@
                                 pageWrap.setPageInfo(index, null, jsonres);
                                 pageWrap.loadQueryViewInfo(null, jsonres);
                             }
-
                         }
                     }
                 }
             });
             return false;
-
         },
         loadSingleQueryview: function (_queryid, $context, callback, _filter) {
             Xms.Web.Get(ORG_SERVERURL + '/api/schema/queryview/GetViewInfo?id=' + _queryid, function (res) {
@@ -253,7 +247,6 @@
             callback && callback();
         },
         loadAggregate: function (callback) {
-
         },
         filterAttributes: function (items, datas) {
             var layoutconfigObj = '';
@@ -289,10 +282,8 @@
                         $.extend(n, tar, n);
                     }
                     n.editable = false;
-
                 });
                 return layoutitems;
-
             } else {
                 return items
             }
@@ -304,11 +295,8 @@
 
             //加载列表按钮
             pageWrap.loadButtons(function () {
-
-
                 //加载weB资源
                 pageWrap.loadWebSource(function () {
-
                     //加载字段数据
                     //     pageWrap.loadAttributes(function () {
                     console.log('datas.attributesInfo', $.extend({}, datas.attributesInfo));
@@ -335,23 +323,17 @@
                         if (window['bodyInited']) window['bodyInited']();
                     }
 
-
                     //加载过滤搜索设置
                     pageWrap.formSearcher();
 
                     pageWrap.loadkanban();
 
-                    //绑定事件 
+                    //绑定事件
                     pageWrap.bindEvent();
                     $('body').trigger('queryview.bindEvented');
                     callback && callback();
-
-
                 });
             });
-
-
-
         },
         loadkanban: function () {
             var $aggregateField = $('#aggregateField');
@@ -378,7 +360,6 @@
                 var itemshtml = [];
                 var isshowQueryDate = false;
                 $.each(datas.attributesInfo, function (i, n) {
-
                     var attrname = n.name;
                     if (!attrname) return true;
                     var isrela = attrname.indexOf('.') != -1;
@@ -392,13 +373,11 @@
                     itemshtml.push('<div class="col-sm-8">');
 
                     // if (isrela) {
-
                     //  } else {
                     if (attrname == 'createdon') {
                         isshowQueryDate = true;//是否显示快捷过滤时间的按钮
                     }
                     if (attrtype == 'datetime') {
-
                         itemshtml.push('<div class="form-group formrangepicker">');
                         itemshtml.push(' <input type="text" style="width:88px;" id="' + ctrilId + '" class="form-control colinput input-sm " data-type="' + attrtype + '" autocomplete="off" name="' + attrname + '" />');
                         //   itemshtml.push('<span style="width:10px;">-</span>');
@@ -419,19 +398,13 @@
                         itemshtml.push('</span>');
                         itemshtml.push('</div>');
                     } else if (attrtype == "int" || attrtype == "float" || attrtype == "decimal" || attrtype == "money") {
-
                         itemshtml.push('<div class="form-group">');
                         itemshtml.push('<input type = "text" style = "width:80px;" id = "' + ctrilId + '" class= "form-control colinput input-sm" data-type="' + attrtype + '" style = "width:90px;" name = "' + attrname + '" value = "" />');
                         itemshtml.push('<span style="width:10px;">-</span>');
                         itemshtml.push('<input type="text" style="width:80px;" class="form-control colinput input-sm" name="' + attrname + '" value="" data-type="' + attrtype + '" />');
                         itemshtml.push('</div >');
-
-
                     } else {
-
                         itemshtml.push('<input type="text" id="' + ctrilId + '" class="form-control colinput input-sm" name="' + attrname + '" data-type="' + attrtype + '" value="" />');
-
-
                     }
                     //  }
                     itemshtml.push('</div>');
@@ -442,7 +415,6 @@
                 }
                 $searchFormSearchItems.html(itemshtml.join(''));
             }
-
         },
 
         setPageInfo: function (key, first, jsonres) {
@@ -477,13 +449,11 @@
                     try {
                         var clientresource = JSON.parse(datas.layoutconfig);
                         if (clientresource.clientresources && clientresource.clientresources.length > 0) {
-
                             datas.jslibs = clientresource.clientresources;
                         }
                     } catch (e) {
                         console.error(e);
                     }
-
                 }
 
                 Xms.Page.PageContext.EntityId = datas.entityId;
@@ -496,7 +466,6 @@
         },
         loadWebSource: function (callback) {
             if (datas.jslibs.length > 0) {
-
                 if (datas.scripthtml && datas.scripthtml != '') {
                     var $script = $('<script class="websource-script-loaded"></script>');
                     console.log('script is loaded')
@@ -504,7 +473,6 @@
                     $('body').append($script)
                     callback && callback();
                 }
-
             } else {
                 callback && callback();
             }
@@ -540,9 +508,6 @@
                     datas.globtnstr = '<div class=" margin-bottom" style="position:relative;">' + gloBtnStr + '</div>';
                     $queryviewButtons.html(datas.globtnstr)
                 }
-
-
-
             }
             callback && callback();
         },
@@ -551,7 +516,6 @@
             loadDataTable($('.datagrid-view'), true, datas);
         },
         bindEvent: function () {
-
             $('#querySettingWrap').xmsMutilSelector({
                 leftContext: $('#querySettingWrapHide'),
                 rightContext: $('#querySettingWrapShow'),
@@ -565,8 +529,6 @@
                 itemClass: 'xmsmutil-selector-item'
             });
 
-
-
             //绑定选择视图下拉框
             $('#viewSelector').off('click').on('click', 'a', function (e) {
                 var v = $(this).attr('data-value');
@@ -578,10 +540,8 @@
                     $('#viewSelector').attr('data-value', v);
                     if (aligntype == 'top') {
                         pageWrap.loadQueryViews('id', v);
-
                     } else {
                         pageWrap.loadQueryViews('id', v);
-
                     }
                 }
             });
@@ -643,11 +603,7 @@
                     }
                     renderChart(chartid, queryid);
                 }
-
             });
-
-
-
 
             $('#qfield-selector').off('click').on('click', 'a', function () {
                 $('#QField').val($(this).attr('data-name'));
@@ -702,12 +658,10 @@
                                 filters: new Xms.Fetch.FilterExpression()
                             })
                             renderChart(chartid, queryid, { 'width': '100%', 'height': '300px' });
-
                         }
                     }
                     $(".menu-md.menu-right").css({ "width": 367, "border": "1px solid #ccc" });
                     $(".xms-fixed-slider").find(".glyphicon").addClass("glyphicon-arrow-right");
-
                 }
                 groupsInserModal.removeClass('active');
             });
@@ -715,20 +669,16 @@
             $("#listchartWinBtn").off('click').on("click", function () {
                 var $this = $(this), active = $this.attr("active");
                 if (active == "1") {
-
                     $(".xms-table-section").css("right", 35);
                     $this.attr("active", "2");
                     $(".menu-md.menu-wrap").css("width", 367);
                     renderChart(chartid, queryid, { 'width': '100%', 'height': '300px' });
-
                 } else {
-
                     $(".xms-table-section").css("right", 35);
                     $this.attr("active", "1");
                     $(".menu-md.menu-wrap").css("width", 600);
                     renderChart(chartid, queryid, { 'width': '600px', 'height': '300px' });
                 }
-
             });
 
             $(".entityCreateSection-close").click(function () {
@@ -742,7 +692,6 @@
                 }
                 page_common_formSearcher.SearchTip(this, _this.attr('data-referencedentityid'));
             });
-
 
             $('#searchForm').off().on('keyup', function (e) {
                 if (e.keyCode == '13') {
@@ -779,7 +728,6 @@
                                     $('#entityRecordsModal').find('input[name="recordid"][value="' + item + '"]').prop('checked', true);
                                 });
                             } catch (e) {
-
                             }
                         } else {
                             $dialogInput.val(_value);
@@ -787,7 +735,6 @@
                         }
                     }
                 });
-
             });
 
             $(".lookup").siblings("span").find(".ctrl-del").off('click').on('click', function () {
@@ -802,9 +749,6 @@
                 $(".xms-dropdownSearch-box").removeClass("open");
                 page_common_formSearcher.SearchTip(input);
             });
-
-
-
         },
         bindOnceEvent: function () {
             $(".xms-formDropDown").xmsFormDrop({
@@ -814,7 +758,6 @@
             });
             if (transitionEnd) {
                 $("#entityCreateSection").bind(transitionEnd, function (e) {
-
                     if ($("body").hasClass("rightIframe-open")) {
                         $("#entityCreateSection").removeClass("end");
                     } else {
@@ -859,7 +802,6 @@
                         } else {
                             $('.datagrid-view').xmsDatagrid('reflushView');
                         }
-
                     }
                 }
                 $('#queryview-settingModal').modal('hide');
@@ -881,7 +823,6 @@
                     $('#kanbanSearch').addClass('in');
                     $('#kanbanview').removeClass('hide');
                     if ($('#xms-table-section').length > 0) { $('#xms-table-section').empty(); }
-
                 } else {
                     $('.kanban-filter').addClass('hide');
                     $('.filter-section').removeClass('hide');
@@ -911,10 +852,8 @@
                     queryCalandar(start, end, label)
                 }
             });
-
         },
         reSetTopStyle: reSetTopStyle,
-
     }
 
     //勾选多选框时是否受到分页和筛选影响
@@ -934,7 +873,6 @@
                 } else {
                     mutilCheckbox.del($(this).val());
                 }
-
             });
             $('body').on('change', 'input[name="checkall"]', function (e) {
                 var checked = $(this).prop('checked');
@@ -943,9 +881,7 @@
         }
     }
 
-
     function loadDataTable($context, isDestroy, _datas) {
-
         //统计信息
         var aggInfo = $('#AggregateFields').val();//[{"attributename":"totalamount","aggregatetype":1}]
         var _AggregateTypeList = { '_1': '合计：', '_2': '平均值：', '_3': '最大值：', '_4': '最小值：' };
@@ -972,14 +908,11 @@
                     n.width = n.Width;
                 }
                 tableW += ((n.width || 100) * 1);
-
             });
 
             if (datatableW < tableW) {
                 isWidthToMax = false;
             }
-
-
         }
         //datagrid配置项
         var datagridconfig = {
@@ -992,7 +925,6 @@
             selectionModel: { type: null },
             getColModels: function (grid, opts) {
                 return _datas.attributesInfo;
-
             },
             rowDblClick: function (event, ui) {
                 var $tr = $(ui.$tr);
@@ -1003,7 +935,6 @@
                 var id = $(ui.$tr).find('input[name="recordid"]').val();
                 var url = ORG_SERVERURL + '/entity/edit?entityid=' + _datas.entityId + '&recordid=' + id;
                 entityIframe('show', url);
-
             },
             loading: false,
             rowClick: function (event, ui) {
@@ -1025,7 +956,6 @@
                         //   ui.rowData.pq_select = true;
                         curInput.trigger('click');
                     }
-
                 }
 
                 function uncheck() {
@@ -1036,7 +966,6 @@
                 }
 
                 if (($(event.toElement).hasClass('datatable-itembtn') || $(event.toElement).hasClass('caret'))) {
-
                     check()
                 } else if (curInput.length == 0 && ($(event.currentTarget).hasClass(highline))) {
                     check()
@@ -1046,14 +975,12 @@
                 else if (curInput.length == 0) {
                     uncheck()
                 } else {
-
                     if (!$(event.currentTarget).hasClass(highline)) {
                         check()
                     } else {
                         uncheck()
                     }
                 }
-
             },
             checkName: 'recordid',
             headerFilter: true,
@@ -1061,22 +988,17 @@
             isWidthToMax: isWidthToMax,
             scrollModel: { autoFit: isWidthToMax },
             filterColModel: function (items) {
-
                 return items;
-
-
             },
             columnFilter: function (items) {
                 //行事件绑定
                 var rowsCommons = layoutconfigObj.rowcommand;
                 console.log(rowsCommons)
                 if (rowsCommons && rowsCommons.length > 0) {
-
                     $.each(items, function (key, item) {
                         item.xmsLineEvent = xmsLineEvent;
                         item.rowsCommons = rowsCommons;
                     });
-
                 }
                 return items;
             }
@@ -1093,7 +1015,6 @@
             }
             var res = ["<tr pq-row-indx='", rowIndx, "' class='", row_cls, "' ", attr, " >"].join('');
             $.each(rowsCommons, function (i, n) {
-
                 var __filter = new XmsFilter;
                 __filter.FilterOperator = n.logicaloperator == "or" ? 1 : 0;
                 __filter.Conditions = n.conditions;
@@ -1105,7 +1026,6 @@
                         res = ["<tr pq-row-indx='", rowIndx, , "' class='", row_cls, "' ", attr, ' style="background-color:' + n.action.color + ';" ', " >"].join('');
                     }
                 }
-
             });
             return res
         }
@@ -1122,8 +1042,6 @@
         datagridconfig.render = function () {
             $summary = $("<div class='pq-grid-summary'  ></div>")
                 .prependTo($(".pq-grid-bottom", this));
-
-
         }
         datagridconfig.initAfter = function ($grid) {
             datatableItemBtns($('.datatable-itembtn'));
@@ -1140,9 +1058,7 @@
             })
             changeTableFilterDragdown($grid.box.next().find('.datatable-filter-wrapBox').find('.dropdown-toggle'))
             if (_datas.aggInfo) {
-
             }
-
         }
         datagridconfig.filterData = function (res, colmodel) {
             if (_datas.aggregateconfig && _datas.aggregateconfig != '') {
@@ -1163,7 +1079,6 @@
                         //  temp[nn.field] = '';
                         if (flag) {
                             if (nn.field != flag.metadata.name.toLowerCase()) {
-
                             } else {
                                 var agginfo = flag.totalamount;
                                 if (nn && nn.precision != '' && !isNaN(nn.precision) && (agginfo && !isNaN(agginfo))) {
@@ -1189,23 +1104,16 @@
                 if (_datas.oldFilterInfo == JSON.stringify(gridview_filters.getFilterInfo())) {
                     loadAggInfo();
                 } else {
-
                     _datas.oldFilterInfo = JSON.stringify(gridview_filters.getFilterInfo());
                     loadAggInfo();
-
                 }
             } else {
-
                 _datas.oldFilterInfo = JSON.stringify(gridview_filters.getFilterInfo());
                 loadAggInfo();
-
-
             }
             datatableItemBtns($('.datatable-itembtn'));
             function loadAggInfo() {
-
                 if (_datas.aggInfo && _datas.aggInfo != "") {
-
                     var $trs = $('<tr></tr>');
                     var $tds = [];
                     $.each(colmodel, function (ii, nn) {
@@ -1239,7 +1147,6 @@
                     $('body').trigger('queryview.aggInfo', { datagridconfig: datagridconfig, htmls: $tds });
                     $trs.html($tds.join(''))
                     $context.find('table.pq-grid-table').append($trs);
-
                 }
             }
             changeTableFilterDragdown($context.find('.datatable-filter-wrapBox').find('.dropdown-toggle'))
@@ -1267,7 +1174,6 @@
                 },
 
                 getData: function (dataJSON, textStatus, jqXHR) {
-
                     var resjson = dataJSON.fetchdata || { currentpage: 1, totalitems: 0 };
 
                     var data = resjson ? resjson.items : [];
@@ -1321,11 +1227,9 @@
         }
         $('body').trigger('queryview.setDataGridConfig', { datagridconfig: datagridconfig });
         $context.cDatagrid(datagridconfig)
-
     }
     var itemBtntempDropdown
     function datatableItemBtns(btns) {
-
         btns.off('click').on('click', itembtnclick);
         btns.on('itembtnclick', itembtnclick)
         function itembtnclick(e) {
@@ -1371,7 +1275,7 @@
                 var target = $(e.target || e.srcElement);
                 if (target.closest(_sibling.parent()).length == 0 && target.closest(itemBtntempDropdown).length == 0) {
                     if (itemBtntempDropdown) {
-                        // setTimeout(function () { 
+                        // setTimeout(function () {
                         _sibling.hide();
                         itemBtntempDropdown.remove();
                         // })
@@ -1386,7 +1290,6 @@
         model.QueryViewId = Xms.Page.PageContext.QueryId
         model.Filter = filters;
     }
-
 
     function changeTableFilterDragdown($context) {
         var $gridview = $('#gridview');
@@ -1438,7 +1341,6 @@
 
         //  pageFilter.submitFilter();
     }
-
 
     function reSetTopStyle() {
         var $kanbanviewBox = $('#kanbanviewBox');
@@ -1511,7 +1413,6 @@
             var arrids = id.split(',');
             var arrvalues = values.split(',');
             var alink = $('<a target="_blank" href="' + ORG_SERVERURL + '/entity/create?entityid=' + $(obj).attr("data-entityid") + '&recordid=' + arrids[0] + '" class="xms-dropdownLink" title="' + $(obj).val() + '"><span class="glyphicon glyphicon-list-alt"></span> <span class="xms-drlinki" data-id="" data-value="">' + $(obj).val() + '</span></a>');
-
         }
         $(obj).parent().append(alink);
         $(obj).css({ "color": "#fff" });
@@ -1525,7 +1426,6 @@
         $(obj).focus();
     }
 
-
     function closeRecordIframe() {
         entityIframe('hide');
         if (typeof entityCreateIframe !== 'undefined') {
@@ -1538,7 +1438,6 @@
             } catch (e) { }
         }
     }
-
 
     function entityIframe(type, url) {
         var top = 65;//$("#entityCreateIframe").offset().top;
@@ -1554,14 +1453,10 @@
             }
             $("body").addClass("rightIframe-open").removeClass("rightIframe-close");
             $("#entityCreateIframe").attr("src", url);
-
         } else {
-
             $("body").addClass("rightIframe-close").removeClass("rightIframe-open");
             // $("#entityCreateSection").hide()
-
         }
-
     }
 
     function AdvFilterList(filter) {
@@ -1650,7 +1545,7 @@
             location.href = url;
         }
     }
-    $('#dataGridView').on('datatable.rowCheck', function (e, opts) {
+    $('#dataGridView').on('datatable.rowCheck.rowUnCheck', function (e, opts) {
         //{ type: true, row: fozeninput.parents('tr:first'), recordid: checkedval }
         loadEntityTabs();
     });
@@ -1658,7 +1553,7 @@
         var $datatable = $('#datatable');
         var $target = $('#entitytabsWrap');
         var recordid = Xms.Web.GetTableSelected($datatable);
-        if (recordid.length > 1) {
+        if (recordid.length > 1 || recordid.length == 0) {
             return;
         }
         if ($target.length > 0) {
@@ -1705,14 +1600,10 @@
                         filter = new XmsFilter(filter);
                     }
                     pageWrap.loadSingleQueryview(queryid, $context, function () {
-
                     }, filter);
                     $li.attr('data-isloaded', 1)
                 }
             });
-
-
-
         }
         return $target;
     }

@@ -38,7 +38,7 @@ namespace Xms.Business.DuplicateValidator
             _duplicateRuleConditionService = duplicateRuleConditionService;
             _dependencyService = dependencyService;
             _entityPluginCreater = entityPluginCreater;
-            _cacheService = new Caching.CacheManager<DuplicateRule>(_appContext.OrganizationUniqueName + ":duplicaterules", DuplicateRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<DuplicateRule>(_appContext.OrganizationUniqueName + ":duplicaterules", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(DuplicateRule entity)

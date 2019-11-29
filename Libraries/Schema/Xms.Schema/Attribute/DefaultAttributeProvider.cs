@@ -148,6 +148,7 @@ namespace Xms.Schema.Attribute
             attrList.Add(modifiedByAttr);
 
             #region 状态字段
+
             var stateCodeAttr = new Domain.Attribute
             {
                 EntityId = entity.EntityId,
@@ -191,6 +192,7 @@ namespace Xms.Schema.Attribute
             #endregion 状态字段
 
             #region 状态描述字段
+
             var statusCodeAttr = new Domain.Attribute
             {
                 EntityId = entity.EntityId,
@@ -243,6 +245,7 @@ namespace Xms.Schema.Attribute
             statusCodeAttr.OptionSet = os;
             statusCodeAttr.OptionSetId = os.OptionSetId;
             attrList.Add(statusCodeAttr);
+
             #endregion 状态描述字段
 
             //实体范围

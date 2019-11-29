@@ -14,6 +14,7 @@ namespace Xms.Flow
     {
         private readonly IWorkFlowProcessRepository _workFlowProcessRepository;
         private readonly IDataUpdater _dataUpdater;
+
         public WorkFlowProcessUpdater(IWorkFlowProcessRepository workFlowProcessRepository
             , IDataUpdater dataUpdater)
         {

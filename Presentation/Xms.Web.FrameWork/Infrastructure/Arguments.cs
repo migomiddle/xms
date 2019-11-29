@@ -7,7 +7,7 @@ namespace Xms.Web.Framework.Infrastructure
     {
         public static bool HasValue(params Guid[] value)
         {
-            if(value == null || value.Length == 0)
+            if (value == null || value.Length == 0)
             {
                 return false;
             }

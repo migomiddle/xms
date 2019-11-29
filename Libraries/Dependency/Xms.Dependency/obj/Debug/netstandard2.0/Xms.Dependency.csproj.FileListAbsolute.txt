@@ -85,3 +85,5 @@ G:\projects\xms_v2\Libraries\Dependency\Xms.Dependency\bin\Debug\netstandard2.0\
 G:\projects\xms_v2\Libraries\Dependency\Xms.Dependency\bin\Debug\netstandard2.0\Xms.Module.Abstractions.pdb
 G:\projects\xms_v2\Libraries\Dependency\Xms.Dependency\bin\Debug\netstandard2.0\Xms.Module.Core.dll
 G:\projects\xms_v2\Libraries\Dependency\Xms.Dependency\bin\Debug\netstandard2.0\Xms.Module.Core.pdb
+G:\projects\xms_v2\Libraries\Dependency\Xms.Dependency\bin\Debug\netstandard2.0\Xms.Configuration.Domain.dll
+G:\projects\xms_v2\Libraries\Dependency\Xms.Dependency\bin\Debug\netstandard2.0\Xms.Configuration.Domain.pdb

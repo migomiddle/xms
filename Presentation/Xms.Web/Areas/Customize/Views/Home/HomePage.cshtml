@@ -2,25 +2,23 @@
 @model Xms.Web.Customize.Models.HomePageModel
 <div class="row" id="shortcutContainer">
     <div class="col-sm-4">
-        <div class="panel">
+        <div class="panel panel-one">
             <div class="panel-heading">快捷方式</div>
             <div class="">
                 <div class="clearfix pl-1 carousel slide panel-body pt-2" id="shortcutList" style="min-height:188px;" data-ride="carousel">
                     <ol class="carousel-indicators pr-1 pt-1">
-                       
                     </ol>
                     <div class="carousel-inner" role="listbox">
-                       
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="panel">
+        <div class="panel panel-one">
             <div class="panel-heading">系统概括</div>
             <div class="panel-body systeminfo-body">
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         @{
                             int index = 0;
@@ -72,22 +70,22 @@
                             </div>
                             count++;
                             len++;
-                            @if ((count != 0 && count % 4 == 0)||len==Model.SolutionComponents.Count)
+                            @if ((count != 0 && count % 4 == 0) || len == Model.SolutionComponents.Count)
                             {
                                 index++;
                                 count = 0;
                             @:</div>
                         @:</div>
-                        }
+                    }
 
                         }
                     </div>
                 </div>
-           </div>
+            </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="panel">
+        <div class="panel panel-one">
             <div class="panel-heading">版本信息</div>
             <div class="panel-body">
                 <table class="layui-table">
@@ -139,7 +137,6 @@
             </div>
             <div class="panel-body">
                 <div class="datagrid-view" id="datagrid-view">
-
                 </div>
             </div>
         </div>
@@ -149,7 +146,6 @@
             <div class="panel-heading">主机概况</div>
             <div class="panel-body">
                 <div class="row">
-
 
                     <div class="col-sm-3 col-xs-3">
                         <div class=" xms-table xms-table-center  label-box m-width xms-table-layoutfixed">
@@ -212,7 +208,6 @@
                         </div>
                     </div>
 
-
                     <div class="col-sm-3 col-xs-3">
                         <div class=" xms-table xms-table-center label-box m-width xms-table-layoutfixed">
                             <div class="xms-table-row">
@@ -228,7 +223,6 @@
                             <div class="xms-table-row">
                                 <div class="xms-table-cell" id="system_diskinfos">
                                     <div>
-
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +241,6 @@
             </div>
             <div class="panel-body">
                 <div class="datagrid-view-logs">
-
                 </div>
             </div>
         </div>
@@ -318,12 +311,10 @@
                         </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 </div>
-
 
 @section Header {
     <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
@@ -354,7 +345,6 @@
     <script src="/content/js/pages/customizehome.js?v=@app.PlatformSettings.VersionNumber"></script>
 }
 <script>
-
 
         var theaders = {
              typename:'@app.T["typename"]',
@@ -471,12 +461,10 @@
                 Xms.Web.Del(id, '/customize/solution/deletesolutioncomponent?solutionid=' + solutionid + '&ComponentType=' + ctype, false, rebind, null, LOC_CONFIRM_REMOVE);
             });
 
-
         });
         function rebind() {
             $('.datagrid-view').cDatagrid('refreshDataAndView');
         }
-
 </script>
 <script>
     $(function () {
@@ -533,7 +521,6 @@
                 }
             });
         });
-
 
     });
 </script>

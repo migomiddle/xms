@@ -1,6 +1,5 @@
 ﻿//闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -11,7 +10,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -48,7 +47,7 @@
     }
     function sendFilter(callback) {
         //submitFilter(callback);
-     //   $('.datagrid-view').cDatagrid('refreshDataAndView')
+        //   $('.datagrid-view').cDatagrid('refreshDataAndView')
     }
     function submitFilter(callback) {
         $('.datagrid-view').cDatagrid('refreshDataAndView')
@@ -61,7 +60,7 @@
         //    callback && callback();
         //    $('#gridview').trigger('gridview.loaded');
         //    //如果设置已勾选可不受分页影响
-            
+
         //});
     }
     function addFilterItem(name, _filter) {
@@ -122,8 +121,8 @@
         }
         var nf = [name, filter];
         columnFilters.push(nf);
-       // console.log('addFilter.function', filters);
-        
+        // console.log('addFilter.function', filters);
+
         filters.Filters.push(filter);
         if (!isNotSubmit) {
             sendFilter();
@@ -142,14 +141,12 @@
         var data = {};
         var $target = $(_target);
         if ((dataType == 'lookup' || dataType == 'customer' || dataType == 'owner') && ~name.indexOf('.')) {//如果为关联字段
-            
             var relationname = name.split('.')[0];
             var referecingentityid = $target.parents('th:first').attr('data-referencedentityid');
             referecingentityid = referecingentityid || $target.attr('data-referencedentityid');
             var referecedentityid = '';
             if (!referecingentityid) return false;
             Xms.Web.GetJson('/api/schema/relationship/GetReferencing/' + referecingentityid + '', null, function (data) {
-
                 var repdatas = data.content;
                 console.log('customizeFilter', repdatas);
                 $.each(repdatas, function (i, n) {
@@ -163,10 +160,9 @@
                     data.field = name;
                     data.datatype = dataType;
                     data.filter = gridview_filters.getFilterInfo();
-                    Xms.Web.OpenDialog('/filter/filterdialog', 'pageFilter.setFilterCallback', data,null,null,true);
+                    Xms.Web.OpenDialog('/filter/filterdialog', 'pageFilter.setFilterCallback', data, null, null, true);
                 }
             });
-
         } else {
             data.entityid = Xms.Page.PageContext.EntityId;
             data.field = name;
@@ -174,7 +170,6 @@
             data.filter = gridview_filters.getFilterInfo();
             Xms.Web.OpenDialog('/filter/filterdialog', 'pageFilter.setFilterCallback', data, null, null, true);
         }
-
     }
     function bindColumnFilterStatus() {
         $('#datatable').find('thead th[data-name]').find('.glyphicon-filter').remove();
@@ -211,7 +206,7 @@
         condition.AttributeName = name;
         condition.Operator = isnull ? Xms.Fetch.ConditionOperator.Null : Xms.Fetch.ConditionOperator.NotNull;
         filter.Conditions.push(condition);
-        addFilter(name, filter,true);
+        addFilter(name, filter, true);
         gridview_filters.removeAllCondition(name);
         gridview_filters.addFilter(new XmsFilter(filter));
         $('.datagrid-view').cDatagrid('refreshDataAndView');
@@ -220,7 +215,7 @@
     function setFilterCallback(name, filter) {
         //console.log(name, filter);
         if (filter && filter.Conditions.length > 0) {
-            addFilter(name, filter,true);
+            addFilter(name, filter, true);
             gridview_filters.removeAllCondition(name);
             gridview_filters.addFilter(new XmsFilter(filter));
             $('.datagrid-view').cDatagrid('refreshDataAndView');
@@ -256,10 +251,9 @@
             }
         }
         $('.datagrid-view').cDatagrid('refreshDataAndView');
-       // $('.datagrid-view').xmsDatagrid('refreshDataAndView');
-
+        // $('.datagrid-view').xmsDatagrid('refreshDataAndView');
     }
-    
+
     window.pageFilter = pageFilter;
     return pageFilter
 });

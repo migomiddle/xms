@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=common/formSearch.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -28,7 +27,6 @@
     //page init
     var page_common_formSearcher = {
         init: function () {
-
         }
         , SearchTip: SearchTip
         , MacthSearch: MacthSearch
@@ -41,8 +39,6 @@
         , searchKanban: searchKanban
         , closeKanban: closeKanban
         , closeSearchForm: closeSearchForm
-      
-
     }
     var imme = xmsImmediate(500);//获取缓冲函数
     function closeSearchForm() {
@@ -128,10 +124,8 @@
                     }, false, false, false);
                 }
             });
-
         });
         // MacthSearch(e);
-
     }
     function MacthSearch(e) {
         var val = $(e).val();
@@ -164,11 +158,9 @@
         }
     }
 
-
     function searchByConditionEnter(e) {
         searchByCondition(true);
         closeSearchC();
-
     }
     function searchByCondition(isfilterForm) {
         var searchFormSearch = $("#searchFormSearch");
@@ -203,7 +195,6 @@
                     condition.Values.push(keywork);
                 });
                 filter.Conditions.push(condition);
-
             } else if (filtetype == 'int' || filtetype == 'decimal' || filtetype == 'float' || filtetype == 'money') {
                 inList = $(this).find('input.colinput');
                 inList.each(function (i, n) {
@@ -229,12 +220,12 @@
                     if (keywork != '') {
                         var condition = new Xms.Fetch.ConditionExpression();
                         condition.AttributeName = filtername;
-                        
+
                         if (i == 0) {
                             condition.Operator = Xms.Fetch.ConditionOperator.GreaterEqual;
                             if (isfilterForm) {
-                              //  keywork = new Date(keywork).format('yyyy-MM-dd');
-                                keywork = keywork+ ' 00:00:00';
+                                //  keywork = new Date(keywork).format('yyyy-MM-dd');
+                                keywork = keywork + ' 00:00:00';
                             }
                         } else {
                             condition.Operator = Xms.Fetch.ConditionOperator.LessEqual;
@@ -244,7 +235,6 @@
                                 keywork = new Date(keywork).format('yyyy-MM-dd');
                                 keywork += ' 23:59:59';
                             }
-
                         }
                         condition.Values.push(keywork);
                         // console.log(condition)
@@ -283,7 +273,6 @@
                             condition.Values.push(keywork);
                             filter.Conditions.push(condition);
                         }
-
                     });
                 } else {
                     var condition = new Xms.Fetch.ConditionExpression();
@@ -296,13 +285,10 @@
                     inList.each(function (i, n) {
                         var keywork = $(n).val();
                         condition.Values.push(keywork);
-
                     });
 
                     filter.Conditions.push(condition);
                 }
-
-
             }
             if (filter.Conditions[0]
                 && typeof filter.Conditions[0].Values === "object" && filter.Conditions[0].Values.length
@@ -312,8 +298,6 @@
                 gridview_filters.addFilter(new XmsFilter(filter));
                 pageFilter.addFilterItem(filtername, filter);
             }
-
-
         });
         $('.datagrid-view').cDatagrid('refreshDataAndView');
         $('.datagrid-view').xmsDatagrid('refreshDataAndView');
@@ -435,13 +419,12 @@
             setItemFirst(kanbanSearch);
         });
         // pageWrap_list.loadData(url, $('#kanbanview'), function () {
-
         // });
     }
     function closeKanban() {
         $(".xms-formDropDown").trigger("xmsFormDrop.close");
     }
-    
+
     window.page_common_formSearcher = page_common_formSearcher;
     return page_common_formSearcher;
 });

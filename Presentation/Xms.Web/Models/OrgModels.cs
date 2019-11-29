@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Xms.Localization.Abstractions;
 using Xms.Localization.Domain;
 using Xms.Organization.Domain;
-using Xms.Schema.Domain;
 using Xms.Web.Framework.Paging;
 
 namespace Xms.Web.Models

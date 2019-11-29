@@ -11,10 +11,12 @@ namespace Xms.WebResource
     public class WebResourceExporter : ISolutionComponentExporter
     {
         private readonly IWebResourceFinder _webResourceFinder;
+
         public WebResourceExporter(IWebResourceFinder webResourceFinder)
         {
             _webResourceFinder = webResourceFinder;
         }
+
         public string GetXml(Guid solutionId)
         {
             StringBuilder result = new StringBuilder();

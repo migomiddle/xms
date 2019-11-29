@@ -122,7 +122,7 @@ namespace Xms.Web.Api
                     args.TargetEntityId = entityMeta.EntityId;
                 }
             }
-            if(!args.SourceEntityId.HasValue || !args.TargetEntityId.HasValue || args.SourceRecordId.Equals(Guid.Empty))
+            if (!args.SourceEntityId.HasValue || !args.TargetEntityId.HasValue || args.SourceRecordId.Equals(Guid.Empty))
             {
                 return NotSpecifiedRecord();
             }

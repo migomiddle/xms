@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Xms.Configuration;
 using Xms.Context;
 using Xms.Core.Context;
 using Xms.Core.Data;
@@ -21,11 +22,11 @@ namespace Xms.WebResource
         private readonly IAppContext _appContext;
         private readonly Caching.CacheManager<Domain.WebResource> _cacheService;
 
-        public WebResourceFinder(IAppContext appContext,IWebResourceRepository webResourceRepository)
+        public WebResourceFinder(IAppContext appContext, ISettingFinder settingFinder, IWebResourceRepository webResourceRepository)
         {
             _appContext = appContext;
             _webResourceRepository = webResourceRepository;
-            _cacheService = new Caching.CacheManager<Domain.WebResource>(_appContext.OrganizationUniqueName + "webresource");
+            _cacheService = new Caching.CacheManager<Domain.WebResource>(_appContext.OrganizationUniqueName + "webresource", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public static string BuildKey(Domain.WebResource entity)
@@ -51,11 +52,11 @@ namespace Xms.WebResource
         public List<Domain.WebResource> FindByIds(params Guid[] ids)
         {
             string sIndex = string.Join("/", ids);
-            var datas = _cacheService.GetVersionItems(sIndex,() =>
-            {
-                return _webResourceRepository.Query(n => n.WebResourceId.In(ids))?.ToList();
-            }
-            );            
+            var datas = _cacheService.GetVersionItems(sIndex, () =>
+             {
+                 return _webResourceRepository.Query(n => n.WebResourceId.In(ids))?.ToList();
+             }
+            );
 
             WrapLocalizedLabel(datas);
             return datas;
@@ -70,6 +71,7 @@ namespace Xms.WebResource
             }
             return data;
         }
+
         public PagedList<Domain.WebResource> QueryPaged(Func<QueryDescriptor<Domain.WebResource>, QueryDescriptor<Domain.WebResource>> container)
         {
             QueryDescriptor<Domain.WebResource> q = container(QueryDescriptorBuilder.Build<Domain.WebResource>());
@@ -87,6 +89,7 @@ namespace Xms.WebResource
             WrapLocalizedLabel(datas.Items);
             return datas;
         }
+
         public List<Domain.WebResource> Query(Func<QueryDescriptor<Domain.WebResource>, QueryDescriptor<Domain.WebResource>> container)
         {
             QueryDescriptor<Domain.WebResource> q = container(QueryDescriptorBuilder.Build<Domain.WebResource>());

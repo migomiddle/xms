@@ -32,6 +32,7 @@ namespace Xms.Web.Api
         }
 
         #region 系统参数
+
         [HttpPost("platform")]
         [Description("编辑系统参数")]
         public IActionResult SavePlatformSettings([FromBody]PlatformSettingModel model)
@@ -55,12 +56,15 @@ namespace Xms.Web.Api
                     VerifyCodeEnabled = model.VerifyCodeEnabled
                     ,
                     MaxFetchRecords = model.MaxFetchRecords
+                    ,
+                    CacheEnabled = model.CacheEnabled
                 };
                 return _settingService.Save(setting).SaveResult(T);
             }
             return SaveFailure(GetModelErrors());
-        } 
-        #endregion
+        }
+
+        #endregion 系统参数
 
         #region 短信
 

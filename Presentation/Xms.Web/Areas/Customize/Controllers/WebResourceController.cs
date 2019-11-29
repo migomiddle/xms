@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Xms.Core.Context;
 using Xms.Core.Data;
@@ -29,6 +28,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IWebResourceFinder _webResourceFinder;
         private readonly IWebResourceDeleter _webResourceDeleter;
         private readonly IWebResourceContentCoder _webResourceContentCoder;
+
         public WebResourceController(IWebAppContext appContext
             , ISolutionService solutionService
             , IWebResourceCreater webResourceCreater
@@ -227,6 +227,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return _webResourceDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         /// <summary>
         /// Web资源对话框
         /// </summary>
@@ -251,7 +252,18 @@ namespace Xms.Web.Customize.Controllers
             {
                 container.And(n => n.WebResourceType == model.WebResourceType.Value);
             }
+            if (model.GetAll)
+            {
+                model.Page = 1;
+                model.PageSize = WebContext.PlatformSettings.MaxFetchRecords;
+            }
+            else if (!model.PageSizeBySeted && CurrentUser.UserSettings.PagingLimit > 0)
+            {
+                model.PageSize = CurrentUser.UserSettings.PagingLimit;
+            }
+            model.PageSize = model.PageSize > WebContext.PlatformSettings.MaxFetchRecords ? WebContext.PlatformSettings.MaxFetchRecords : model.PageSize;
             var result = _webResourceFinder.QueryPaged(x => x
+                .Page(model.Page, model.PageSize)
                 .Select(s => new { s.WebResourceId, s.WebResourceType, s.Name, s.Description, s.CreatedOn })
                 .Where(container)
                 .Sort(n => n.OnFile(model.SortBy).ByDirection(model.SortDirection))

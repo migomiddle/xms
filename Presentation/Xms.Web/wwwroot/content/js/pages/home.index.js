@@ -108,7 +108,6 @@
             pageWrap.createTooltip(this);
         },
         subnavigater: function (ele, opts) {
-
             $(ele).swipeItems(opts);
         },
         setHistory: function () {//添加路由配置信息
@@ -137,7 +136,6 @@
                         }
                     })
                     .otherwise("/mainIndex");
-
             });
         },
         pageNavTree: function () {//加载页面导航和事件绑定
@@ -158,7 +156,6 @@
                     $box.css('bottom', 'auto');
                 } else if ((boxH + offH + _offsetTop > winH) && (boxH > winH)) {
                     $box.css('top', -offH - _offsetTop + 40);
-
                 }
                 if (boxH > winH) {
                     var scrolltip = $('<div class="scrolltips">向下滚动</div>');
@@ -226,8 +223,8 @@
             });
             var toggleTreeTop = 0, step = 5, _n = 3.5;
             $('.toggle-tree').on('mousewheel', function (e) {
-               // console.log(e.deltaY);
-              //  console.log($(this).offset().top)
+                // console.log(e.deltaY);
+                //  console.log($(this).offset().top)
                 var offset = $(this).offset().top;
                 var height = $(this).outerHeight();
                 var _type = 1;
@@ -258,15 +255,12 @@
                     $(".main-user-tag").attr("close", "false");
                 } else
                     return false;
-
             });
             $(".main-user-tag").on('show.bs.dropdown', function () {
                 $("#main-user-tag-data").val($.cookie('user-tag')).focus();
-
             });
             $(".main-user-tag").on('shown.bs.dropdown', function () {
                 $("#main-user-tag-data").focus();
-
             });
             $(".close", ".main-user-tag").click(function () {
                 $(".main-user-tag").attr("close", "true");
@@ -310,7 +304,6 @@
                     $("#nav-search-tips").append("<li class='nav-search-tips-item'><a href='javascript:;'>请输入关键字...</a></li>");
                 }
             });
-
         },
         ctrlClose: function () {
             $(".dropdown-menu li a", "#xms-sb-ctrlClose").each(function () {
@@ -338,7 +331,6 @@
                     }
                     ctrlCloseBtnHandle();
                 });
-
             });
         },
         showAbout: function () {
@@ -368,7 +360,7 @@
                 });
             });
         },
-        currentTheme:'',
+        currentTheme: '',
         changeTheme: function () {
             var layer = window.layer;
             if (layer == null) {
@@ -377,8 +369,8 @@
                 });
             }
             $(".main-theme").click(function () {
-                var theme = $.cookie('theme')||"default";
-                $('#main-theme-content ul li[data-alias="' +theme+'"]').addClass("theme-this").siblings().removeClass("theme-this");
+                var theme = $.cookie('theme') || "default";
+                $('#main-theme-content ul li[data-alias="' + theme + '"]').addClass("theme-this").siblings().removeClass("theme-this");
                 layer.open({
                     type: 1
                     , title: ['主题方案', 'text-align:left;']
@@ -397,16 +389,14 @@
                 $(this).addClass("theme-this").siblings().removeClass("theme-this");
                 $("#themeLink").attr('href', '/content/css/theme/' + $(this).attr("data-alias") + '.css');
                 pageWrap.currentTheme = $(this).attr("data-alias");
-                $.cookie('theme', $(this).attr("data-alias"), {path:'/'});
+                $.cookie('theme', $(this).attr("data-alias"), { path: '/' });
                 $('#page-content').children().each(function () {
                     var iframeid = this.id;
                     if (iframeid) {
-                        Xms.Web.callChildMethod(iframeid, 'changeTheme', pageWrap.currentTheme );
+                        Xms.Web.callChildMethod(iframeid, 'changeTheme', pageWrap.currentTheme);
                     }
                 });
             });
-            
-            
         }
     }
     //导航过高时滚动处理
@@ -473,7 +463,6 @@
                 if ($(target).closest('.dropdown-hover-level').length > 0) {
                     return false;
                 } else {
-
                     if (dir == 'Up') {
                         var menuTop = $menu.position().top;
                         step = Math.sqrt(($menu.width() * $menu.width()) + (ofsetH * ofsetH)) / 6;
@@ -487,7 +476,6 @@
                             scrolltip.hide();
                         }
                         $menu.css('top', runstep);
-
                     } else {
                         var menuTop = $menu.position().top;
                         step = Math.sqrt(($menu.width() * $menu.width()) + (ofsetH * ofsetH)) / 6;
@@ -500,14 +488,10 @@
                             scrolltip.hide();
                         }
                         $menu.css('top', runstep);
-
-
                     }
                 }
             });
         }
-
-
     }
     //左侧菜单伸缩
     function winLH() {
@@ -528,7 +512,7 @@
     }
 
     //添加到下方快捷访问的标签
-    function takeToBottom(e,linkname,linkhref,linkid,linktarget) {
+    function takeToBottom(e, linkname, linkhref, linkid, linktarget) {
         var linkName = linkname || $(e).attr("data-name");
         var linkHref = linkhref || $(e).attr("data-href");
         var linkId = linkid || $(e).attr("data-id");
@@ -627,14 +611,13 @@
     function removeIframe(e) {
         e = e || window.event;
         var iframeId = $(e).parent('a').attr('data-iframe');
-        
+
         var parents = $(e).parent().parent();
         var alen = parents.children('a').length;
         var aindex = $(e).parent('a').index();
         $(e).parent('a').remove();
         $('#page-content').find('#' + iframeId).remove();
         if ($('#page-content').find('iframe:visible').length <= 0) {
-
             // $('#page-content').find('iframe:eq(0)').show();
             if (parents.find('a').length > 0) {
                 setTimeout(function () {
@@ -643,15 +626,13 @@
             } else {
                 setTimeout(function () {
                     $("#xms-subn-home").click();
-
                 })
             }
-        }else{
-            if(aindex ==alen-1){
+        } else {
+            if (aindex == alen - 1) {
                 setTimeout(function () {
-                    parents.children('a').eq(aindex-1).click();
+                    parents.children('a').eq(aindex - 1).click();
                 })
-                
             }
         }
 
@@ -699,7 +680,6 @@
         } else if (elem.requestFullScreen) {
             elem.requestFullscreen();
         } else {
-
             Xms.Web.Toast("浏览器不支持全屏API或已被禁用", false);
         }
     }
@@ -733,7 +713,6 @@
                 $(".dropdown-menu li:eq(2)", "#xms-sb-ctrlClose").hide();
             }
         }
-
     }
     window.mouseBottom = mouseBottom;
     window.toggleBottom = toggleBottom;

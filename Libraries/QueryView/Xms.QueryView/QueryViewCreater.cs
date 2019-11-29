@@ -37,7 +37,7 @@ namespace Xms.QueryView
             _defaultAttributeProvider = defaultAttributeProvider;
             _dependencyService = dependencyService;
             _defaultQueryViewProvider = defaultQueryViewProvider;
-            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", QueryViewCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(Domain.QueryView entity)

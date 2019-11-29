@@ -34,8 +34,9 @@ namespace Xms.Business.SerialNumber
             _loc = _appContext.GetFeature<ILocalizedTextProvider>();
             _localizedLabelService = localizedLabelService;
             _dependencyService = dependencyService;
-            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), SerialNumberRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public bool Update(Domain.SerialNumberRule entity)
         {
             //检查是否已存在相同字段的编码规则
@@ -67,10 +68,10 @@ namespace Xms.Business.SerialNumber
             {
                 //set to cache
                 var items = _serialNumberRuleRepository.Query(x => x.SerialNumberRuleId.In(ids));
-                foreach (var item in items) {
+                foreach (var item in items)
+                {
                     _cacheService.SetEntity(item);
                 }
-                
             }
             return flag;
         }

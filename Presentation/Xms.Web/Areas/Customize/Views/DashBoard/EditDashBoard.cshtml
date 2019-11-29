@@ -21,7 +21,6 @@
                 <span onclick="charRowModal()" class="btn btn-info">
                     <em class="glyphicon glyphicon-th-large"></em> 添加区块
                 </span>
-                <button type="button" class="btn btn-default" onclick="Xms.Web.OpenWindow('')"><span class="glyphicon glyphicon-fullscreen"></span></button>
             </div>
         </div>
         <form action="" class="form-horizontal">
@@ -34,7 +33,6 @@
     </div>
     <div id="wrapbydashboard" class="wrapbydashboard custom-group-box">
         <div class="custom-group-section clearfix">
-
         </div>
     </div>
     <div class="modal" id="charslayout" style="display:none;">
@@ -196,7 +194,6 @@
             <h5>title</h5>
             <div class="custom-item custom-item-33">
                 <div class="custom-insert-box" data-cellspan="4" data-rowspan="1">
-
                 </div>
             </div>
             <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
@@ -204,7 +201,6 @@
             <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
             <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
             <div class="custom-item custom-item-33"><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>
-
         </div>
     </div>
 
@@ -213,7 +209,6 @@
             <h5>title</h5>
             <div class="custom-item custom-item-23">
                 <div class="custom-insert-box" data-cellspan="3" data-rowspan="1">
-
                 </div>
             </div>
             <div class="custom-item custom-item-53"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
@@ -228,7 +223,6 @@
             <h5>title</h5>
             <div class="custom-item custom-item-24">
                 <div class="custom-insert-box" data-cellspan="3" data-rowspan="1">
-
                 </div>
             </div>
             <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
@@ -243,7 +237,6 @@
             <h5>title</h5>
             <div class="custom-item custom-item-49">
                 <div class="custom-insert-box" data-cellspan="6" data-rowspan="1">
-
                 </div>
             </div>
             <div class="custom-item custom-item-49"><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>
@@ -267,7 +260,6 @@
             <h5>title</h5>
             <div class="custom-item custom-item-49">
                 <div class="custom-insert-box custom-insert-dbox" data-cellspan="6" data-rowspan="2">
-
                 </div>
             </div>
             <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
@@ -276,7 +268,6 @@
             <div class="custom-item custom-item-24"><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>
         </div>
     </div>
-
 </form>
 <!--script html tmplate-->
 <script id="customIconList" type="text/x-jquery-tmpl">
@@ -508,7 +499,9 @@
     </select>
 </script>
 <style>
-    #main{ margin-bottom:0!important;}
+    #main {
+        margin-bottom: 0 !important;
+    }
 </style>
 <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
 <link href="/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
@@ -893,7 +886,7 @@
 
                     Xms.Web.Load('/api/webresource?ids=' + resourcePar.webresource, function (cdata) {
                         var dHtml = $('<pre></pre>');
-                        dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': oparent.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+                        dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': oparent.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace( />/g, "&gt;"));
                         oparent.html('');
                         oparent.append(formGroupHtml);
                         oparent.find('.item-top-title').text(resourcePar.label);
@@ -1029,7 +1022,7 @@
                     oparent.append(formGroupHtml);
                     oparent.find('.item-top-title').text(gridPar.label);
                     oparent.append($grid);
-                    
+
                     var offsetH = -40;
                     var table = new tableGrid($grid, { queryid: gridPar.viewid, height: oparent.innerHeight() + offsetH,isNotLoadData:true });
                     table.init();
@@ -1054,7 +1047,6 @@
         root.addIconToLayer = addIconToLayer;
 
     })(jQuery, window);
-
 </script>
 <script>
     //测试数据
@@ -1086,7 +1078,6 @@
         $('#FormConfig').val(JSON.stringify(panel));
         console.log(panel);
     }
-
 
     ; (function ($, root, un) {
         "use strict"
@@ -1196,7 +1187,7 @@
                         else if (FormConfig.cell[j].type == 'webresource') {
                             Xms.Web.Load('/api/webresource?ids=' + FormConfig.cell[j].control.webresource, function (cdata) {
                                 var dHtml = $('<pre></pre>');
-                                dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': target.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+                                dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': target.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace( />/g, "&gt;"));
                                 target.html('');
                                 target.append(formGroupHtml);
                                 target.find('.item-top-title').text(FormConfig.cell[j].control.label);
@@ -1274,7 +1265,6 @@
             saveform();
         });
 
-
         Xms.Web.Form($('#editform'), function (response) {
             Xms.Web.Alert(response.IsSuccess, response.Content);
             Xms.Web.Event.publish('refresh');
@@ -1295,7 +1285,7 @@
 
         initform();
     })(jQuery, window);
-  
+
     //添加布局
     function addDashBoardLayout(type) {
         Xms.Web.Confirm('提示', '确定后会覆盖之前的配置信息，是否确定更改?',

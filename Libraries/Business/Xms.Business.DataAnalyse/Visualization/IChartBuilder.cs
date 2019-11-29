@@ -1,5 +1,5 @@
-﻿using Xms.Sdk.Abstractions.Query;
-using Xms.Business.DataAnalyse.Domain;
+﻿using Xms.Business.DataAnalyse.Domain;
+using Xms.Sdk.Abstractions.Query;
 
 namespace Xms.Business.DataAnalyse.Visualization
 {

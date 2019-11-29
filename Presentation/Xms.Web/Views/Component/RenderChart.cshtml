@@ -3,11 +3,9 @@
     Layout = null;
 }
 
-
 <div class="rendercharbox" style="position:relative;">
     <div class="row" style="padding: 0; z-index:100; margin: 0;">
         <div class="silder-right-crumb hide">
-
         </div>
     </div>
     <div id="chart1" class="chartA xms-chart" data-queryid="@Model.QueryId" data-entityname="@Model.EntityName" style="border:1px #efefef solid;min-height:300px;"></div>
@@ -188,7 +186,7 @@
                     }
                 }
                 //renderChartCrumb();
-                 
+
             }
             groupsInserModal.removeClass('active');
         }
@@ -230,7 +228,6 @@
             });
 
             getRelaQueryAttrs()
-
 
             $('#groupsAttributesBtn').off().on('click', function () {
                 groupsAttributes(this);
@@ -338,7 +335,6 @@
                                 condition.Values.push(endDate);
                             }
                            // console.log('xxxxxxxxxxxxxxxx.startDate',startDate);
-
 
                            // filter.Conditions.push(condition);
                         }

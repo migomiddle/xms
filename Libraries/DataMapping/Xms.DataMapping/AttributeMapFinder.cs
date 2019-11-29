@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Xms.DataMapping.Data;
-using Xms.DataMapping.Domain;
 using Xms.Context;
 using Xms.Core.Context;
 using Xms.Data.Provider;
+using Xms.DataMapping.Data;
+using Xms.DataMapping.Domain;
 
 namespace Xms.DataMapping
 {

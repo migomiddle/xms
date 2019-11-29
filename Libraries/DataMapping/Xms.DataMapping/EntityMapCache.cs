@@ -1,5 +1,5 @@
-﻿using Xms.DataMapping.Domain;
-using Xms.Context;
+﻿using Xms.Context;
+using Xms.DataMapping.Domain;
 
 namespace Xms.DataMapping
 {
@@ -12,6 +12,7 @@ namespace Xms.DataMapping
         {
             return appContext.OrganizationUniqueName + ":entitymaps";
         }
+
         public static string BuildKey(EntityMap entity)
         {
             return entity.SourceEntityId + "/" + entity.TargetEntityId + "/" + entity.EntityMapId;

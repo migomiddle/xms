@@ -23,6 +23,7 @@ namespace Xms.Web.Controllers
         private readonly IEntityFinder _entityFinder;
         private readonly IEntityMapFinder _entityMapFinder;
         private readonly IDataCreater _dataCreater;
+
         public EntityAppendingController(IWebAppContext appContext
             , IEntityFinder entityFinder
             , IEntityMapFinder entityMapFinder
@@ -33,7 +34,6 @@ namespace Xms.Web.Controllers
             _entityMapFinder = entityMapFinder;
             _dataCreater = dataCreater;
         }
-
 
         [Description("下推单据")]
         public IActionResult AppendRecord(Guid entityid, Guid recordid)

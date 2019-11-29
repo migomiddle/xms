@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Xms.Localization.Abstractions;
 using Xms.Infrastructure.Utility;
+using Xms.Localization.Abstractions;
 using Xms.Web.Framework.Models;
 
 namespace Xms.Web.Framework.Mvc
@@ -14,10 +14,12 @@ namespace Xms.Web.Framework.Mvc
         {
             return Error(_t["notspecified_record"], extra);
         }
+
         public static IActionResult NotFound(ILocalizedTextProvider _t, object extra = null)
         {
             return Error(_t["notfound_record"], extra);
         }
+
         public static IActionResult Unauthorized(ILocalizedTextProvider _t, object extra = null)
         {
             return Error(string.Format(_t["security_unauthorized"], "/account/signout"), extra);
@@ -27,18 +29,22 @@ namespace Xms.Web.Framework.Mvc
         {
             return J(false, content, extra);
         }
+
         public static IActionResult Ok(object content, object extra = null)
         {
             return J(true, content, extra);
         }
+
         public static IActionResult Error(string content, object extra = null)
         {
             return J(false, content, extra);
         }
+
         public static IActionResult Ok(string content, object extra = null)
         {
             return J(true, content, extra);
         }
+
         /// <summary>
         /// json结果
         /// </summary>
@@ -71,6 +77,7 @@ namespace Xms.Web.Framework.Mvc
         {
             return new JsonResult(new JsonResultObject() { IsSuccess = true, StatusName = statusName, Content = content, Extra = extra });
         }
+
         public static IActionResult J(object content)
         {
             return new JsonResult(new JsonResultObject() { IsSuccess = true, Content = content is string ? content : content.SerializeToJson() });

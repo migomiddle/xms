@@ -42,7 +42,7 @@ namespace Xms.Form
             _formService = formService;
             _dependencyService = dependencyService;
             _eventPublisher = eventPublisher;
-            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", SystemFormCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Update(Domain.SystemForm entity, bool updatedConfig)
@@ -107,10 +107,10 @@ namespace Xms.Form
                 });
                 //set to cache
                 var items = _systemFormRepository.Query(f => f.EntityId == entityId).ToList();
-                foreach (var item in items) {
+                foreach (var item in items)
+                {
                     _cacheService.SetEntity(item);
                 }
-                
             }
             return result;
         }

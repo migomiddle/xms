@@ -20,6 +20,7 @@ namespace Xms.Sdk.Client
 
             return finder.Retrieve(q, ignorePermissions);
         }
+
         public static List<Entity> RetrieveAll(this IDataFinder finder, string entityName, List<string> columns = null, OrderExpression order = null, bool ignorePermissions = false)
         {
             var q = new QueryExpression(entityName, LanguageCode.CHS);
@@ -31,7 +32,7 @@ namespace Xms.Sdk.Client
             {
                 q.ColumnSet.AllColumns = true;
             }
-            if(order != null)
+            if (order != null)
             {
                 q.AddOrder(order.AttributeName, order.OrderType);
             }

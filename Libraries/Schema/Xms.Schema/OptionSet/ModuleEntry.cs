@@ -30,7 +30,8 @@ namespace Xms.Schema.OptionSet
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 8);
             //Solution.Abstractions.SolutionComponentTypes.Add(this.Name, 1);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/schema/optionset/solutioncomponents";
             });

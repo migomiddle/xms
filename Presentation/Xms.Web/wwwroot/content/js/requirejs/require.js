@@ -113,7 +113,6 @@ var requirejs, require, define;
                     if (deepStringMixin && typeof value === 'object' && value &&
                         !isArray(value) && !isFunction(value) &&
                         !(value instanceof RegExp)) {
-
                         if (!target[prop]) {
                             target[prop] = {};
                         }
@@ -902,7 +901,6 @@ var requirejs, require, define;
                                 err.requireType = this.map.isDefine ? 'define' : 'require';
                                 return onError((this.error = err));
                             }
-
                         } else {
                             //Just a literal value
                             exports = factory;
@@ -938,7 +936,6 @@ var requirejs, require, define;
                         this.emit('defined', this.exports);
                         this.defineEmitComplete = true;
                     }
-
                 }
             },
 
@@ -1762,7 +1759,6 @@ var requirejs, require, define;
      * name for minification/local scope use.
      */
     req = requirejs = function (deps, callback, errback, optional) {
-
         //Find the right context, use default
         var context, config,
             contextName = defContextName;

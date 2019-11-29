@@ -12,8 +12,9 @@ namespace Xms.ServerHostManage.Utility
     /// </summary>
     public static class SystemInfomationHelper
     {
-        static PerformanceCounter cpu;
-        static PerformanceCounter ram;
+        private static PerformanceCounter cpu;
+        private static PerformanceCounter ram;
+
         /// <summary>
         /// 获取系统架构
         /// </summary>
@@ -22,6 +23,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return RuntimeInformation.OSArchitecture;
         }
+
         /// <summary>
         /// 获取系统名称
         /// </summary>
@@ -30,6 +32,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return RuntimeInformation.OSDescription;
         }
+
         /// <summary>
         /// 获取进程架构
         /// </summary>
@@ -38,6 +41,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return RuntimeInformation.ProcessArchitecture;
         }
+
         /// <summary>
         /// 获取架构描述
         /// </summary>
@@ -46,6 +50,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return RuntimeInformation.FrameworkDescription;
         }
+
         /// <summary>
         /// 获取主机名称
         /// </summary>
@@ -54,6 +59,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.MachineName;
         }
+
         /// <summary>
         /// 获取当前工作目录的完全限定路径。
         /// </summary>
@@ -62,6 +68,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.CurrentDirectory;
         }
+
         ///<summary>
         ///获取当前计算机上的处理器数。
         /// </summary>
@@ -70,6 +77,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.ProcessorCount;
         }
+
         /// <summary>
         /// 获取系统目录的完全限定路径。
         /// </summary>
@@ -78,6 +86,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.SystemDirectory;
         }
+
         /// <summary>
         /// 获取操作系统的内存页的字节数。
         /// </summary>
@@ -86,6 +95,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.SystemPageSize;
         }
+
         /// <summary>
         /// 获取系统启动后经过的毫秒数。
         /// </summary>
@@ -94,6 +104,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.TickCount;
         }
+
         /// <summary>
         /// 获取与当前用户关联的网络域名。
         /// </summary>
@@ -102,6 +113,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return System.Environment.UserDomainName;
         }
+
         /// <summary>
         /// 获取映射到进程上下文的物理内存量。
         /// </summary>
@@ -117,10 +129,9 @@ namespace Xms.ServerHostManage.Utility
         /// <returns></returns>
         public static string[] GetLogicalDrives()
         {
-
-
             return System.Environment.GetLogicalDrives();
         }
+
         /// <summary>
         /// 获取磁盘信息
         /// </summary>
@@ -129,6 +140,7 @@ namespace Xms.ServerHostManage.Utility
         {
             return ConvertToDiskInfo(DriveInfo.GetDrives());
         }
+
         /// <summary>
         /// 获取磁盘详情
         /// </summary>
@@ -164,6 +176,7 @@ namespace Xms.ServerHostManage.Utility
             }
             return diskInfos;
         }
+
         /// <summary>
         /// 获取CPU使用情况
         /// </summary>
@@ -177,12 +190,10 @@ namespace Xms.ServerHostManage.Utility
             }
             catch
             {
-
                 return 0;
             }
-
-
         }
+
         /// <summary>
         /// 获取内存使用情况
         /// </summary>
@@ -191,20 +202,17 @@ namespace Xms.ServerHostManage.Utility
         {
             try
             {
-
                 SystemInfomationHelper.InitCounter();
                 return ram.NextValue() / 1024 / 1024;
             }
             catch
             {
-
                 return 0;
             }
-
         }
+
         public static void InitCounter()
         {
-
             bool isInit = false;
             if (cpu == null)
             {
@@ -216,20 +224,20 @@ namespace Xms.ServerHostManage.Utility
                 isInit = true;
                 ram = new PerformanceCounter("Process", "Working Set", "_Total");
             }
-            if (isInit) { 
+            if (isInit)
+            {
                 Thread.Sleep(1000);
             }
         }
 
         /// <summary>
-        /// 获取CPU序列号代码 
+        /// 获取CPU序列号代码
         /// </summary>
         /// <returns></returns>
         public static string GetCPUName()
         {
             try
             {
-
                 string name = "";
                 ManagementClass mc = new ManagementClass("Win32_Processor");
                 ManagementObjectCollection moc = mc.GetInstances();
@@ -248,7 +256,6 @@ namespace Xms.ServerHostManage.Utility
             finally
             {
             }
-
         }
     }
 }

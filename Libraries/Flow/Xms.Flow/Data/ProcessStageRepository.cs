@@ -11,11 +11,6 @@ namespace Xms.Flow.Data
     {
         public ProcessStageRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

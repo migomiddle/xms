@@ -79,12 +79,12 @@ namespace Xms.Flow
 
         public bool DeleteByParentId(Guid parentid)
         {
-            return _workFlowInstanceRepository.DeleteMany(x=>x.WorkFlowId == parentid);
+            return _workFlowInstanceRepository.DeleteMany(x => x.WorkFlowId == parentid);
         }
 
         public bool DeleteByObjectId(Guid entityId, Guid objectId)
         {
-            return _workFlowInstanceRepository.DeleteMany(x=>x.EntityId == entityId && x.ObjectId == objectId);
+            return _workFlowInstanceRepository.DeleteMany(x => x.EntityId == entityId && x.ObjectId == objectId);
         }
 
         public List<WorkFlowInstance> Top(Func<QueryDescriptor<WorkFlowInstance>, QueryDescriptor<WorkFlowInstance>> container)

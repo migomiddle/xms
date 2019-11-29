@@ -29,7 +29,7 @@ namespace Xms.Web.Api
         private readonly IWorkFlowUpdater _workFlowUpdater;
         private readonly IWorkFlowInstanceService _workFlowInstanceService;
         private readonly IWorkFlowProcessFinder _workFlowProcessFinder;
-      
+
         public WorkFlowController(IWebAppContext appContext
             , IWorkFlowFinder workFlowFinder
             , IWorkFlowUpdater workFlowUpdater
@@ -43,7 +43,6 @@ namespace Xms.Web.Api
             _entityFinder = entityService;
             _workFlowInstanceService = workFlowInstanceService;
             _workFlowProcessFinder = workFlowProcessFinder;
-           
         }
 
         [Description("获取流程信息")]
@@ -99,7 +98,7 @@ namespace Xms.Web.Api
                 .Sort(s => s.SortAscending(f => f.StepOrder)).Sort(s => s.SortAscending(f => f.StateCode)));
                 instance.Steps = steps;
             }
-            return JOk(instances); 
+            return JOk(instances);
         }
 
         [Description("解决方案组件")]

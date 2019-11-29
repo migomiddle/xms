@@ -18,28 +18,26 @@ namespace Xms.Business.SerialNumber
     public class SerialNumberRuleFinder : ISerialNumberRuleFinder, IDependentLookup<Domain.SerialNumberRule>
     {
         private readonly ISerialNumberRuleRepository _serialNumberRuleRepository;
-        //private readonly ILocalizedLabelService _localizedLabelService;
         private readonly Caching.CacheManager<Domain.SerialNumberRule> _cacheService;
         private readonly IAppContext _appContext;
 
         public SerialNumberRuleFinder(IAppContext appContext
             , ISerialNumberRuleRepository serialNumberRuleRepository
-            //, ILocalizedLabelService localizedLabelService
             )
         {
             _appContext = appContext;
             _serialNumberRuleRepository = serialNumberRuleRepository;
-            //_localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), SerialNumberRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public Domain.SerialNumberRule FindById(Guid id)
         {
             var dic = new Dictionary<string, string>();
             dic.Add("SerialNumberRuleId", id.ToString());
-            Domain.SerialNumberRule entity = _cacheService.Get(dic,() =>
-            {
-                return _serialNumberRuleRepository.FindById(id);
-            });
+            Domain.SerialNumberRule entity = _cacheService.Get(dic, () =>
+             {
+                 return _serialNumberRuleRepository.FindById(id);
+             });
             return entity;
         }
 
@@ -65,6 +63,7 @@ namespace Xms.Business.SerialNumber
             }
             return data;
         }
+
         public PagedList<Domain.SerialNumberRule> QueryPaged(Func<QueryDescriptor<Domain.SerialNumberRule>, QueryDescriptor<Domain.SerialNumberRule>> container)
         {
             QueryDescriptor<Domain.SerialNumberRule> q = container(QueryDescriptorBuilder.Build<Domain.SerialNumberRule>());
@@ -73,6 +72,7 @@ namespace Xms.Business.SerialNumber
             WrapLocalizedLabel(datas.Items);
             return datas;
         }
+
         public PagedList<Domain.SerialNumberRule> QueryPaged(Func<QueryDescriptor<Domain.SerialNumberRule>, QueryDescriptor<Domain.SerialNumberRule>> container, Guid solutionId, bool existInSolution)
         {
             QueryDescriptor<Domain.SerialNumberRule> q = container(QueryDescriptorBuilder.Build<Domain.SerialNumberRule>());
@@ -93,10 +93,10 @@ namespace Xms.Business.SerialNumber
 
         public List<Domain.SerialNumberRule> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -110,13 +110,16 @@ namespace Xms.Business.SerialNumber
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.Name } : null;
         }
-        public int ComponentType => ModuleCollection.GetIdentity(SerialNumberRuleDefaults.ModuleName); 
-        #endregion
+
+        public int ComponentType => ModuleCollection.GetIdentity(SerialNumberRuleDefaults.ModuleName);
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<Domain.SerialNumberRule> datas)
         {

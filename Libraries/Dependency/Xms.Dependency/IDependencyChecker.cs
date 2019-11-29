@@ -1,5 +1,4 @@
 ﻿using System;
-using Xms.Dependency.Abstractions;
 
 namespace Xms.Dependency
 {

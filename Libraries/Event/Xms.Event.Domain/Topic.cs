@@ -1,5 +1,5 @@
-﻿using System;
-using PetaPoco;
+﻿using PetaPoco;
+using System;
 
 namespace Xms.Event.Domain
 {

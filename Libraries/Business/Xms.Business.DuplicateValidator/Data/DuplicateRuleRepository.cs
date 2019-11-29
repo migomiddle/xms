@@ -14,7 +14,6 @@ namespace Xms.Business.DuplicateValidator.Data
     {
         public DuplicateRuleRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -25,13 +24,14 @@ namespace Xms.Business.DuplicateValidator.Data
             {
                 q.QueryText += " AND ";
             }
-            q.QueryText += MetaData.TableInfo.PrimaryKey +  " " + (existInSolution ? "" : "NOT") + " IN(SELECT ObjectId FROM SolutionComponent WHERE SolutionId=@" + q.Parameters.Count;
+            q.QueryText += MetaData.TableInfo.PrimaryKey + " " + (existInSolution ? "" : "NOT") + " IN(SELECT ObjectId FROM SolutionComponent WHERE SolutionId=@" + q.Parameters.Count;
             q.Parameters.Add(new QueryParameter("@" + q.Parameters.Count, solutionId));
             q.QueryText += " and ComponentType = @" + q.Parameters.Count;
             q.Parameters.Add(new QueryParameter("@" + q.Parameters.Count, solutionComponentType));
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

@@ -283,7 +283,6 @@ namespace Xms.Web.Api
             }
             else if (entityId.HasValue && !entityId.Equals(Guid.Empty))
             {
-
                 views = _queryViewFinder.QueryAuthorized(n => n.Where(f => f.EntityId == entityId && f.StateCode == RecordState.Enabled)
                         .Sort(s => s.SortAscending(f => f.Name)));
                 if (views.NotEmpty())
@@ -293,7 +292,6 @@ namespace Xms.Web.Api
             }
             else if (entityName.IsNotEmpty())
             {
-
                 views = _queryViewFinder.QueryAuthorized(n => n.Where(f => f.EntityName == entityName && f.StateCode == RecordState.Enabled)
                         .Sort(s => s.SortAscending(f => f.Name)));
                 if (views.NotEmpty())

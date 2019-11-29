@@ -67,7 +67,6 @@ function SearchTip(e, attrid) {
                 var QueryObject = { EntityName: refname, Criteria: filter/*new Xms.Fetch.FilterExpression()*/, ColumnSet: { AllColumns: true }, PageInfo: { PageNumber: 1, PageSize: 15 } };
                 // var QueryObject = { EntityName: refname, Criteria: filter, ColumnSet: { AllColumns: true }, PageInfo: { PageNumber: 1, PageSize: 10 } };
                 Xms.Web.Post('/api/data/Retrieve/Multiple', { 'query': QueryObject }, false, function (data2) {
-
                     searcher.show();
                     var datas = [];
                     data2.Content = JSON.parse(data2.Content.replace("\n", ""));
@@ -86,10 +85,8 @@ function SearchTip(e, attrid) {
                 }, false, false, false);
             }
         });
-
     });
     // MacthSearch(e);
-
 }
 function MacthSearch(e) {
     var val = $(e).val();
@@ -160,7 +157,6 @@ function addFilterItem(name, _filter) {
     var nf = [name, _filter];
     columnFilters.push(nf);
     filters.Filters.push(_filter);
-
 }
 function searchByCondition(isfilterForm) {
     var searchFormSearch = $("#searchFormSearch");
@@ -188,7 +184,6 @@ function searchByCondition(isfilterForm) {
                 condition.Values.push(keywork);
             });
             filter.Conditions.push(condition);
-
         } else if (filtetype == 'int' || filtetype == 'decimal' || filtetype == 'float' || filtetype == 'money') {
             inList = $(this).find('input.colinput');
             inList.each(function (i, n) {
@@ -224,7 +219,6 @@ function searchByCondition(isfilterForm) {
                             keywork = new Date(keywork).format('yyyy-MM-dd');
                             keywork += ' 23:59:59';
                         }
-
                     }
                     condition.Values.push(keywork);
                     // console.log(condition)
@@ -256,7 +250,7 @@ function searchByCondition(isfilterForm) {
             && typeof filter.Conditions[0].Values === "object" && filter.Conditions[0].Values.length
             && filter.Conditions[0].Values[0].replace("\s", "") != ""
             || (filter.Conditions[0].Values[1] && filter.Conditions[0].Values[1].replace("\s", "") != "")
-            ) {
+        ) {
             addFilterItem(filtername, filter);
         }
     });

@@ -7,6 +7,7 @@ namespace Xms.Module.Core
     public class ModuleCollection
     {
         public static readonly ConcurrentDictionary<string, ModuleDescriptor> Descriptors = new ConcurrentDictionary<string, ModuleDescriptor>(StringComparer.InvariantCultureIgnoreCase);
+
         public static void Configure(Action<ModuleDescriptor> setupAction)
         {
             if (setupAction != null)

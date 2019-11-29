@@ -27,7 +27,6 @@
         </div>
     </div>
     <div class="dashrow page-renderdashboard">
-
     </div>
 }
 <div class="tools-modal" id="groupsInserModal">
@@ -60,14 +59,14 @@
         .componentbox {
             padding: 5px;
             float: left;
-            margin-bottom:5px;
+            margin-bottom: 5px;
         }
 
         .component-title {
             padding-bottom: 8px;
-            font-weight:bolder;
-            background-color:#eee;
-            padding:2px;
+            font-weight: bolder;
+            background-color: #eee;
+            padding: 2px;
         }
     </style>
 }
@@ -203,9 +202,14 @@
                                 return false;
                             }
                         }
-                        
+
                         var dHtml = $(data);
-                        dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': $component.innerHeight() });
+                        var _height = $component.innerHeight() - 24;
+                        console.log(data);
+                        if (!postData.filter) {
+                            _height = $component.innerHeight();
+                        }
+                        dHtml.find('.chartA:last').css({ 'width': '100%;', 'height':_height });
                         console.log(dHtml.find('.chartA:last'));
                         var labelHtml = [];
                         if (panelCell[j].control.isshowlabel == true) {
@@ -339,4 +343,3 @@
         };
     </script>
 }
-

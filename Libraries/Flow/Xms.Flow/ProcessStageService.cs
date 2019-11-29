@@ -52,7 +52,7 @@ namespace Xms.Flow
                 {
                     var attrNames = st.Select(x => x.AttributeName).ToArray();
                     var attributes = _attributeFinder.FindByName(entity.EntityId, attrNames);
-                    var attrIds = attributes.Select(x=>x.AttributeId).ToArray();
+                    var attrIds = attributes.Select(x => x.AttributeId).ToArray();
                     _dependencyService.Create(WorkFlowDefaults.ModuleName, entity.WorkFlowId, AttributeDefaults.ModuleName, attrIds);
                 }
             }

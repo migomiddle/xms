@@ -632,7 +632,7 @@
 
                             $(item).on('bindinput.complete', function () {
                                 var $target = $(item).next();
-                                bindCheckerEvent([{ key: this.id, value: this.value }]);
+                                dirtyChecker.bindCheckerEvent([{ key: this.id, value: this.value }]);
                                 $target.on('change', function () {
                                     creatFromInput.next().val($(this).val());
                                     creatFromInput.val($(this).val());
@@ -718,7 +718,7 @@
                             if (datatype == 'picklist') {
                                 $(item).on('bindinput.complete', function () {
                                     var $target = $(item).next();
-                                    bindCheckerEvent([{ key: this.id, value: this.value }]);
+                                    dirtyChecker.bindCheckerEvent([{ key: this.id, value: this.value }]);
                                     $target.on('change', function () {
                                         $target.val($(this).val());
                                         $target.attr("data-value", $(this).val());
@@ -728,7 +728,6 @@
 
                             }
                         }
-
 
                     } else {
 
@@ -878,7 +877,6 @@
                     });
                     self.trigger('bindinput.complete');
                 });
-
 
             } else if (datatype == "lookup" || datatype == "owner" || datatype == "customer") {
                 var self = $(input);
@@ -1256,7 +1254,6 @@
                         var curentityid = $flagStage.attr('data-entityid');
                         var prevrecordid = $prevStage.attr('data-recordid');
 
-
                         //获取相关记录
                         BusinessProcessModel.UpdateStage(preventityid, prevrecordid, $prevStage.attr('data-stageid'), function (res) {
                             if (prevEntityid != $flagStage.attr('data-entityid')) {//检查如果为关联实体
@@ -1279,7 +1276,6 @@
                         });
                         return false;
 
-
                     } else {//如果是第一个阶段的时候
 
                     }
@@ -1292,7 +1288,6 @@
                     }
                     --index;
                     if (index < 0) index = 0;
-
 
                 } else if ($this.hasClass('next-stage')) {//如果点击下一步
 
@@ -1440,5 +1435,4 @@
             }
         });
     });
-
 </script>

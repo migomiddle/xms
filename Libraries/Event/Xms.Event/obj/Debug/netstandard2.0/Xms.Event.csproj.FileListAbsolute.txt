@@ -83,3 +83,5 @@ G:\projects\xms_v2\Libraries\Event\Xms.Event\bin\Debug\netstandard2.0\Xms.Event.
 G:\projects\xms_v2\Libraries\Event\Xms.Event\bin\Debug\netstandard2.0\Xms.Event.Data.pdb
 G:\projects\xms_v2\Libraries\Event\Xms.Event\bin\Debug\netstandard2.0\Xms.Event.Domain.pdb
 G:\projects\xms_v2\Libraries\Event\Xms.Event\obj\Debug\netstandard2.0\Xms.Event.csprojAssemblyReference.cache
+G:\projects\xms_v2\Libraries\Event\Xms.Event\bin\Debug\netstandard2.0\Xms.Configuration.Domain.dll
+G:\projects\xms_v2\Libraries\Event\Xms.Event\bin\Debug\netstandard2.0\Xms.Configuration.Domain.pdb

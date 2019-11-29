@@ -42,9 +42,7 @@
                     <div class="btn-group list-align-style" id="listAlignStyle" role="group" aria-label="切换显示方式">
                         <span type="button" id="listAlignTop" data-type="top" class="btn "><em class="glyphicon glyphicon-object-align-top"></em></span>
                         <span type="button" id="listAlignLeft" data-type="left" class="btn active"><em class="glyphicon glyphicon-object-align-left"></em></span>
-
                     </div>
-
                 </div>
 
                 <div class="xms-form-dropdown col-xs-4 col-sm-4 xms-formDropDown kanban-filter hide" style="width:150px;">
@@ -62,7 +60,6 @@
                                     <div class="form-group">
                                         <select class="form-control" id="aggregateField">
                                             <option></option>
-
                                         </select>
                                     </div>
                                 </div>
@@ -73,12 +70,10 @@
                                     <div class="form-group">
                                         <select class="form-control" id="groupField">
                                             <option></option>
-
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                          
                         </div>
                         <div class="row text-center">
                             <div class="col-sm-12">
@@ -87,19 +82,17 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
 
                 <div class="custom-input-ctrl col-xs-8  col-sm-8 custom-input-change date-filter-section pull-right" style="min-width:455px;">
                     <div class="custom-btn-group" style="min-width:356px;">
                         <div class="btn-group btn-group-sm pull-right" id="dayfilters">
 
-                            <button type="button" title="高级查找" class="btn btn-default"  onclick="advancedSearchOpen()"  style="border-radius:0; border-left:none; border-right:none;"> <span class="glyphicon glyphicon-search"></span> </button>
-                            <button type="button" class="btn btn-default hide" id="queryCalendarBtn"> <span class="glyphicon glyphicon-calendar"></span> </button>
+                            <button type="button" title="高级查找" class="btn btn-default" onclick="advancedSearchOpen()" style="border-radius:0; border-left:none; border-right:none;"> <span class="glyphicon glyphicon-search"></span> </button>
+
+                            <button type="button" title="刷新" class="btn btn-default" onclick="rebind()"><span class="glyphicon glyphicon-refresh"></span></button>
+                            <button type="button" class="btn btn-default hide" id="queryCalendarBtn" style="border-right:none;"> <span class="glyphicon glyphicon-calendar"></span> </button>
                             <input type="hidden" id="querycalendar" value="" />
-                           
-                            <button type="button" title="刷新" class="btn btn-default" onclick="rebind()"style=" border-left:none;"><span class="glyphicon glyphicon-refresh"></span></button>
                             <button type="button" title="列设置" class="btn btn-default queryview-setting" onclick="$('#queryview-settingModal').modal('show')"><span class="glyphicon glyphicon-th-list"></span></button>
                             <button type="button" title="图表" class="btn btn-default xms-slider-ctrl"><span class="glyphicon glyphicon-object-align-bottom"></span></button>
                             @if (app.CurrentUser.IsSuperAdmin)
@@ -123,11 +116,9 @@
                                 <div class="col-sm-12">
                                     <div class="btn-group">
                                         <div class="btn btn-default btn-sm xms-formDownInput " style="width:85px;border-radius:4px 0 0 4px;" title="@app.T["filter"]"><span class="glyphicon glyphicon-filter"></span> @app.T["filter"]</div><span class="caret" style="position: absolute;right: 10px;top: 50%;z-index:9;"></span>
-
                                     </div>
                                     <div class="xms-formDropDown-List container-fluid" id="searchFormSearch" style="width:336px; padding:10px;">
                                         <div style="max-height:350px;overflow-x:hidden;overflow-y:auto;" id="searchFormSearchItems">
-
                                         </div>
                                         <div class="row text-center">
                                             <div class="col-sm-12">
@@ -140,21 +131,15 @@
                                     </div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
     </div>
     <div id="kanbanview" class="hide"></div>
     <div id="xms-gridview-section" class="xms-gridview-section  ">
         <div class="xms-table-navtree" id="xms-table-navtree">
-
         </div>
         <div class="pos_re " style="width:100%;">
             <div class="data-grid-box" id="datatable" data-refresh="closeIframeRebind">
@@ -165,7 +150,6 @@
 </div>
 <div class="xms-fixed-slider clearfix">
     <div class="fl">
-
     </div>
     <div class="fl">
         <div class="menu-wrap menu-md menu-right" style="background:#fff;">
@@ -180,10 +164,8 @@
                     <div class="col-sm-12 row" style="padding: 0; margin: 0;">
                         <select id="ChartList" class="form-control"></select>
                     </div>
-
                 </div>
                 <div class="xms-slider-content" style="margin-top:0px;" id="viewCharts">
-
                 </div>
                 <div class="xms-slider-footer">
                 </div>
@@ -294,9 +276,7 @@
         var entityid = '@Model.EntityId';
         var pageDefaultPageSize = '@app.CurrentUser.UserSettings.PagingLimit';
     </script>
-    <script>
-       
-    </script>
+    <script src="/content/customize/js/flowdesign/jquery.jsPlumb-1.4.0-all.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="~/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="~/content/js/common/charts.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="~/content/js/common/formsearcher.js?v=@app.PlatformSettings.VersionNumber"></script>
@@ -305,12 +285,11 @@
     <script src="~/content/js/pages/entity.list.js?v=@app.PlatformSettings.VersionNumber"></script>
 
     <script src="/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
-    <script src="/content/js/advancedsearch/advancedsearch.js"></script>
-
+    <script src="/content/js/advancedsearch/advancedsearch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    @*<script src="~/content/js/pages/flowline.js?v=@app.PlatformSettings.VersionNumber"></script>*@
     <script>
         var gridview_filters = new XmsFilter();
         filters = pageFilter.getFilters();
         pageWrap_list.init();
-
     </script>
 }

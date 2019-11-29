@@ -25,7 +25,7 @@
         }
         //$.each(_conditions, function (key, n) {
         var logical = _conditions.LogicalOperator;
-        $('#connection-logical').find('option[value="' + logical + '"]').prop('selected', true);
+        $('input[name="connection-logical"][value="' + logical + '"]').prop('checked', true);
 
         $.each(_conditions.Conditions, function (ii, nn) {
             var CompareAttributeName = null;

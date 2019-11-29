@@ -30,6 +30,7 @@ namespace Xms.Web.Api
         private readonly IRibbonButtonUpdater _ribbonButtonUpdater;
         private readonly IEntityFinder _entityFinder;
         private readonly IDefaultButtonProvider _defaultButtonProvider;
+
         public RibbonButtonController(IWebAppContext appContext
             , IRibbonButtonFinder ribbonButtonFinder
             , IRibbonButtonUpdater ribbonButtonUpdater

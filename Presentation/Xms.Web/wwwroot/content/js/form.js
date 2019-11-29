@@ -1,5 +1,4 @@
-﻿if (typeof (Xms) == "undefined")
-{ Xms = { __namespace: true }; }
+﻿if (typeof (Xms) == "undefined") { Xms = { __namespace: true }; }
 Xms.Form = function () { };
 Xms.Form.FormControlType = {
     none: -1,
@@ -95,7 +94,7 @@ Xms.Form.ControlDescriptor = function () {
     self.ControlType = Xms.Form.FormControlType.standard;
     self.ReadOnly = false;
     self.Parameters = null;
-	self.Formula = null;
+    self.Formula = null;
     return self;
 };
 Xms.Form.ExtendPropertyParameters = function () {
@@ -275,7 +274,7 @@ Xms.Form.RenderControl = function (columns, _cell, value, onlyLabel) {
     }
     _control.push('<td class="' + colContentWidth + '" ' + colspanAttr + '>');
     if (_cell.Control.ControlType == Xms.Form.FormControlType.subGrid || _cell.Control.ControlType.toLowerCase() == 'subgrid') {
-        _control.push('<div id="' + _cell.Control.Name + '" name="' + _cell.Control.Name + '" class="subgrid" data-controltype="subgrid" data-url="' + ORG_SERVERURL +'/entity/rendergridview?queryid=' + _cell.Control.Parameters.ViewId + '" data-pagesize="' + _cell.Control.Parameters.PageSize + '" data-relationshipname="' + _cell.Control.Parameters.RelationshipName + '" data-editable="' + _cell.Control.Parameters.Editable + '"></div>');
+        _control.push('<div id="' + _cell.Control.Name + '" name="' + _cell.Control.Name + '" class="subgrid" data-controltype="subgrid" data-url="' + ORG_SERVERURL + '/entity/rendergridview?queryid=' + _cell.Control.Parameters.ViewId + '" data-pagesize="' + _cell.Control.Parameters.PageSize + '" data-relationshipname="' + _cell.Control.Parameters.RelationshipName + '" data-editable="' + _cell.Control.Parameters.Editable + '"></div>');
     }
     else if (_cell.Control.ControlType == Xms.Form.FormControlType.iFrame || _cell.Control.ControlType.toLowerCase() == 'iframe') {
         _control.push('<iframe src="' + _cell.Control.Parameters.Url + '" frameborder="' + _cell.Control.Parameters.Border + '" style="width:100%;height:100%;"></iframe>');
@@ -284,8 +283,7 @@ Xms.Form.RenderControl = function (columns, _cell, value, onlyLabel) {
         var url = ORG_SERVERURL + '/api/webresource?ids=' + _cell.Control.Parameters;
         _control.push('<div id="' + _cell.Control.Name + '" name="' + _cell.Control.Name + '" class="webresource" data-controltype="webresource" data-url="' + url + '"></div>');
     }
-    else if (_cell.Control.ControlType.toLowerCase()=="label") {
-
+    else if (_cell.Control.ControlType.toLowerCase() == "label") {
     }
     else if (_cell.Control.ControlType == Xms.Form.FormControlType.none || _cell.Control.ControlType.toLowerCase() == 'none') {
     }
@@ -409,8 +407,8 @@ Xms.Form.CreateForm = function (_form, _record, _container) {
     var _header = new Array();
     var _headerSection = _form.Header;
     if (_headerSection != null) {
-        var isvisible = _headerSection.IsVisible?'':'hide';
-        _header.push('<div class="header ' + isvisible+'" style="border:none;">');
+        var isvisible = _headerSection.IsVisible ? '' : 'hide';
+        _header.push('<div class="header ' + isvisible + '" style="border:none;">');
         _header.push('<table class="table">');
         $(_headerSection.Rows).each(function (i, _row) {
             _header.push('<tr>');
@@ -418,7 +416,7 @@ Xms.Form.CreateForm = function (_form, _record, _container) {
                 var value = null;
                 if (_record && _record != null
                     && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
-                                || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
+                        || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
                     value = eval('_record.' + _cell.Control.Name.toLowerCase());
                 }
                 _header.push(Xms.Form.RenderControl(_headerSection.Columns, _cell, value, true));
@@ -436,12 +434,12 @@ Xms.Form.CreateForm = function (_form, _record, _container) {
     //render tabs
     _body.push('<div class="body">');
     if (_form.Panels != null) {
-        console.log("panel:",_form.Panels)
+        console.log("panel:", _form.Panels)
         $(_form.Panels).each(function (a, _tab) {
             var tabid = 'tab_' + (parseInt(Math.random() * 100000000));
             console.log(_tab.IsShowLabel);
             if (_tab.DisplayStyle == '1' || _tab.DisplayStyle == "true" || _tab.DisplayStyle == "True") {
-                    _body.push('<div class="tab formTab">');
+                _body.push('<div class="tab formTab">');
             } else {
                 _body.push('<div class="tab">');
             }
@@ -497,7 +495,7 @@ Xms.Form.CreateForm = function (_form, _record, _container) {
                     var value = null;
                     if (_record && _record != null
                         && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
-                                || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
+                            || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
                         value = eval('_record.' + _cell.Control.Name.toLowerCase());
                     }
                     _body.push(Xms.Form.RenderControl(_section.Columns, _cell, value));
@@ -530,7 +528,7 @@ Xms.Form.CreateForm = function (_form, _record, _container) {
                 var value = null;
                 if (_record && _record != null
                     && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
-                                || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
+                        || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
                     value = eval('_record.' + _cell.Control.Name.toLowerCase());
                 }
                 _footer.push(Xms.Form.RenderControl(_footerSection.Columns, _cell, value, true));
@@ -560,7 +558,7 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
     var _headerSection = _form.Header;
     if (_headerSection != null) {
         var isvisible = _headerSection.IsVisible ? '' : 'hide';
-        _header.push('<div class="header ' + isvisible+'" style="border:none;">');
+        _header.push('<div class="header ' + isvisible + '" style="border:none;">');
         var celllabelPos = '';
         if (_headerSection && typeof _headerSection.CellLabelSettings == 'undefined') {
             _headerSection.CellLabelSettings = {
@@ -583,7 +581,7 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
                 var value = null;
                 if (_record && _record != null
                     && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
-                                || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
+                        || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
                     value = eval('_record.' + _cell.Control.Name.toLowerCase());
                 }
                 _header.push(Xms.Form.RenderControlDiv(_headerSection.Columns, _cell, value, true, null, null, true));
@@ -604,7 +602,7 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
     if (_form.Panels != null) {
         $(_form.Panels).each(function (a, _tab) {
             var tabid = 'tab_' + _tab.Id;
-          
+
             var _tabShow = ' display:none';
             if (_tab.IsVisible) {
                 _tabShow = '';
@@ -654,8 +652,8 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
                     _body.push('<div class="form-group">');
                     var colspanCount = 0;
                     $(_row.Cells).each(function (d, _cell) {
-						_cell.Control.Formula && formula.transfer(JSON.parse(_cell.Control.Formula));
-						
+                        _cell.Control.Formula && formula.transfer(JSON.parse(_cell.Control.Formula));
+
                         var value = null;
                         if (_record && _record != null
                             && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
@@ -713,7 +711,7 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
                     var value = null;
                     if (_record && _record != null
                         && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
-                                || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
+                            || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
                         value = eval('_record.' + _cell.Control.Name.toLowerCase());
                     }
                     _body.push(Xms.Form.RenderControlDiv(_section.Columns, _cell, value, undefined, _section, _tab));
@@ -738,7 +736,7 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
     var _footerSection = _form.Footer;
     if (_footerSection != null && _footerSection.IsVisible) {
         var isvisible = _footerSection.IsVisible ? '' : 'hide';
-        _footer.push('<nav class="navbar navbar-default navbar-fixed-bottom ' + isvisible+'" role="navigation" id="xmsFormFooter" style="margin:0;">');
+        _footer.push('<nav class="navbar navbar-default navbar-fixed-bottom ' + isvisible + '" role="navigation" id="xmsFormFooter" style="margin:0;">');
         if (_footerSection && typeof _footerSection.CellLabelSettings == 'undefined') {
             _footerSection.CellLabelSettings = {
                 Width: '115',
@@ -760,10 +758,10 @@ Xms.Form.CreateFormDiv = function (_form, _record, _container) {
                 var value = null;
                 if (_record && _record != null
                     && (_cell.Control.ControlType == Xms.Form.FormControlType.standard || _cell.Control.ControlType == Xms.Form.FormControlType.lookup
-                                || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
+                        || _cell.Control.ControlType.toLowerCase() == 'standard' || _cell.Control.ControlType.toLowerCase() == 'lookup')) {
                     value = eval('_record.' + _cell.Control.Name.toLowerCase());
                 }
-                _footer.push(Xms.Form.RenderControlDiv(_footerSection.Columns, _cell, value, true,null,null,true));
+                _footer.push(Xms.Form.RenderControlDiv(_footerSection.Columns, _cell, value, true, null, null, true));
             });
             if (_footerSection.Columns - _row.Cells.length > 0) {
                 _footer.push(Xms.Form.RenderCell(_footerSection.Columns, _footerSection.Columns - _row.Cells.length));
@@ -788,7 +786,7 @@ Xms.Form.RenderCellDiv = function (columns, fill) {
 
 Xms.Form.getTabIsAsync = function (tabs) {
     var index = -1;
-    $.each(tabs,function (key,item) {
+    $.each(tabs, function (key, item) {
         if (item.Async == true) {
             index = key;
             return false;
@@ -796,18 +794,18 @@ Xms.Form.getTabIsAsync = function (tabs) {
     });
     return index;
 }
-Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section,_tab,isheaderfooter) {
+Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section, _tab, isheaderfooter) {
     // if (!pos) return false;
     var labelWidth = '115';
     var labelAlign = 'right';
     var labelPosition = 'left';
-    
+
     if (_section) {
         labelWidth = _section.CellLabelSettings.Width;
         labelAlign = _labelSettings.align[_section.CellLabelSettings.Alignment].toLowerCase();
         labelPosition = _labelSettings.align[_section.CellLabelSettings.Position].toLowerCase();
     }
-    
+
     //console.log(_section && _section.CellLabelSettings)
     value = (value == undefined || value == null) ? '' : value;
     onlyLabel = onlyLabel || '';
@@ -821,7 +819,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
     }
     //console.log(_cell)
     var colArr = [{ h: 1, c: 11, n: 12 }, { h: 1, c: 5, n: 6 }, { h: 1, c: 3, n: 4 }, { h: 1, c: 2, n: 3 }];//所占列宽
-    
+
     var colspans = _cell.ColSpan || 1;
     var colHeaderWidth = '', colContentWidth = '';
     colHeaderWidth = 'col-sm-' + colArr[columns - 1].h;
@@ -837,19 +835,19 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
     if (readonly == 'readonly') {
         isvalidate = '.readonly';
     }
-    
+
     var visible = _cell.IsVisible ? '' : ' hide';
     var issecured = _cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.IsSecured;
     var colspanAttr = (colspans && colspans > 0 ? 'colspan="' + (colspans + 1) + '"' : '');
-    var inner_Width = 'width:'+labelWidth + "px; ";
+    var inner_Width = 'width:' + labelWidth + "px; ";
     var cellCols = parseInt(12 / columns) * colspans;
-    if (cellCols == 0) { cellCols=1 }
+    if (cellCols == 0) { cellCols = 1 }
     if (cellCols > 12) { cellCols = 12 };
     var issubgrid = (_cell.Control.ControlType == Xms.Form.FormControlType.subGrid || _cell.Control.ControlType.toLowerCase() == 'subgrid');
     var _subgirdCl = '';
     if (issubgrid) {
         _subgirdCl = ' subgrid-wrap';
-    } 
+    }
 
     //样式配置信息
     var cell_styles = null;
@@ -866,12 +864,10 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
         }
     }
 
-
     _control.push('<div class="' + ("col-sm-" + cellCols) + ' form-lists ' + _subgirdCl + '" data-columns="' + columns + '" data-colspan="' + colspans + '" >');
     _control.push('<div class="form-items-row" >');
     if (_cell.IsShowLabel == true) {
-       
-        _control.push('<div class="form-cell-label' + visible + ' ' + ("text-" + labelAlign) + '" style="' + inner_Width + (labelstyle?$.changeobjtoStyle(labelstyle):'') +'" >');
+        _control.push('<div class="form-cell-label' + visible + ' ' + ("text-" + labelAlign) + '" style="' + inner_Width + (labelstyle ? $.changeobjtoStyle(labelstyle) : '') + '" >');
         if (issecured) {
             _control.push('<span class="glyphicon glyphicon-loc"></span>');
         }
@@ -892,7 +888,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
             colContentWidth = 'col-sm-' + colArr[columns - 1].n * colspans;
         }
     }
-    
+
     var cellMargin_left = ''//'margin-left:' + (labelWidth*1+8) + "px; ";
     // var cellParams = JSON.stringify(_cell);
     _control.push('<div class="form-cell-ctrl' + visible + '" ' + colspanAttr + ' style="' + cellMargin_left + '">');
@@ -901,7 +897,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
     if (_cell.Control.ControlType == Xms.Form.FormControlType.subGrid || _cell.Control.ControlType.toLowerCase() == 'subgrid') {
         var formalar = _cell.Control.Parameters.FieldEvents;
         var formalarStr = ''
-        if (formalar&&formalar != '') {
+        if (formalar && formalar != '') {
             formalarStr = encodeURIComponent(JSON.stringify(formalar));
         }
         var _subgridIsSync = 'noasncSubgrid';
@@ -910,7 +906,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
         }
         var ispager = (typeof _cell.Control.Parameters.PagingEnabled === 'undefined') ? true : _cell.Control.Parameters.PagingEnabled;
         var rowcount = _cell.Control.Parameters.DefaultEmptyRows === '' ? 5 : _cell.Control.Parameters.DefaultEmptyRows;
-        _control.push('<div id="' + _cell.Control.Name.toLowerCase() + '" name="' + _cell.Control.Name.toLowerCase() + '" class="subgrid subgridview_' + _cell.Control.Parameters.ViewId + ' ' + _subgridIsSync + '" data-controltype="subgrid" data-url="' + ORG_SERVERURL + '/entity/rendergridview" data-viewid="'+_cell.Control.Parameters.ViewId+'" data-pagesize="' + _cell.Control.Parameters.PageSize + '" data-relationshipname="' + _cell.Control.Parameters.RelationshipName + '" data-editable="' + _cell.Control.Parameters.Editable + '" data-pagingenabled="' + ispager + '" data-defaultemptyrows="' + rowcount + '" data-formular="' + formalarStr + '"></div>');
+        _control.push('<div id="' + _cell.Control.Name.toLowerCase() + '" name="' + _cell.Control.Name.toLowerCase() + '" class="subgrid subgridview_' + _cell.Control.Parameters.ViewId + ' ' + _subgridIsSync + '" data-controltype="subgrid" data-url="' + ORG_SERVERURL + '/entity/rendergridview" data-viewid="' + _cell.Control.Parameters.ViewId + '" data-pagesize="' + _cell.Control.Parameters.PageSize + '" data-relationshipname="' + _cell.Control.Parameters.RelationshipName + '" data-editable="' + _cell.Control.Parameters.Editable + '" data-pagingenabled="' + ispager + '" data-defaultemptyrows="' + rowcount + '" data-formular="' + formalarStr + '"></div>');
     }
     else if (_cell.Control.ControlType == Xms.Form.FormControlType.iFrame || _cell.Control.ControlType.toLowerCase() == 'iframe') {
         _control.push('<iframe id="' + _cell.Control.Name.toLowerCase() + '" name="' + _cell.Control.Name.toLowerCase() + '" src="' + _cell.Control.Parameters.Url + '" frameborder="' + _cell.Control.Parameters.Border + '" style="width:100%;height:100%;"></iframe>');
@@ -933,7 +929,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
         _control.push('<div id="' + fixedn + '_text" name="' + fixedn + '" class="attributesLabel attributesLabel-box" data-EntityName="' + EntityName + '" data-SourceAttributeType="' + SourceAttributeType + '" data-AttributeName="' + AttributeName.toLowerCase() + '" data-SourceAttributeName="' + SourceAttributeName.toLowerCase() + '" data-controltype="label"></div>');
         _control.push('<input type="hidden" name="' + fixedn + '" id="' + fixedn + '" >');
     }
-    
+
     else if (_cell.Control.ControlType == Xms.Form.FormControlType.none || _cell.Control.ControlType.toLowerCase() == 'none') {
     }
     else {
@@ -943,15 +939,15 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
             _control.push('</div>');
             return _control.join('');
         }
-        var attrType = (_cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.AttributeTypeName) ? _cell.Control.AttributeMetadata.AttributeTypeName : _cell.Control.ControlType ? _cell.Control.ControlType:  '';
+        var attrType = (_cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.AttributeTypeName) ? _cell.Control.AttributeMetadata.AttributeTypeName : _cell.Control.ControlType ? _cell.Control.ControlType : '';
         var attrId = (_cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.AttributeId) || '';
         var dataFormat = (_cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.DataFormat) || '';
         var maxlength = (_cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.MaxLength) || '';
         var localizedname = (_cell.Control.AttributeMetadata && _cell.Control.AttributeMetadata.LocalizedName) || '';
         var extparam = {
-            EntityName : _cell.Control.Parameters.EntityName || "",
+            EntityName: _cell.Control.Parameters.EntityName || "",
             AttributeName: _cell.Control.Parameters.AttributeName || "",
-            SourceAttributeName : _cell.Control.Parameters.SourceAttributeName || ""
+            SourceAttributeName: _cell.Control.Parameters.SourceAttributeName || ""
         }
         var extParamStr = ' data-extEntityName="' + extparam.EntityName.toLowerCase() + '" data-extAttributeName="' + extparam.AttributeName.toLowerCase() + '" data-extSourceAttributeName="' + extparam.SourceAttributeName.toLowerCase() + '" ';
         if (_cell.Control.Parameters) {
@@ -980,11 +976,8 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                 else {
                     if (dataFormat == "fileupload") {
                         var hasValue = value == '' ? "" : "点击查看";
-                      
 
-                        _control.push('<div class="form-field-box upload-file-box"><span title="" data-imgurl="' + value + '"  data-name="' + _cell.Control.Name.toLowerCase() + '" class="upload-file-input" >' + hasValue + '</span><a class="upload-file"><input type="button" class="uploadify-field" name="file_upload_' + _cell.Control.Name.toLowerCase() + '" id="file_upload_' + _cell.Control.Name + '" /><span class="glyphicon glyphicon-open"></span></a><a class="upload-file-del"><span class="glyphicon glyphicon-remove-sign"></span></a><input name="' + _cell.Control.Name.toLowerCase() + '" type="text" class="uploadinput dirtylisten form-control input-sm nvarchar ' + required + '" style="visible:hidden;" value="' + value + '" id="' + _cell.Control.Name.toLowerCase() + '" ' + readonly + ' ></div>');
-
-                        
+                        _control.push('<div class="form-field-box upload-file-box"><span title="" data-imgurl="' + value + '"  data-name="' + _cell.Control.Name.toLowerCase() + '" class="upload-file-input" >' + hasValue + '</span><a class="upload-file"><input type="file" class="uploadify-field" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name + '" /><span class="glyphicon glyphicon-open"></span></a><a class="upload-file-del"><span class="glyphicon glyphicon-remove-sign"></span></a><input name="___file_upload_' + _cell.Control.Name.toLowerCase() + '" type="text" class="uploadinput dirtylisten form-control input-sm nvarchar ' + required + '" style="visible:hidden;" value="' + value + '" id="___file_upload_' + _cell.Control.Name.toLowerCase() + '" ' + readonly + ' ></div>');
                     } else if (dataFormat == "email") {
                         if (value && value != '') {
                             value = decodeURIComponent(value);
@@ -1009,10 +1002,9 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                         value = _cell.Control.Parameters.Content || '';
                         value = (value);
                     }
-                   
 
                     _control.push('<div  class=" freetext" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-format="email" data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '" value="' + value + '"></div>');
-                   // dirtyChecker.addWatch(_cell.Control.Name.toLowerCase(), value);
+                    // dirtyChecker.addWatch(_cell.Control.Name.toLowerCase(), value);
                 }
                 break;
             case "nvarchar":
@@ -1021,11 +1013,11 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                 }
                 else {
                     if (dataFormat == 'textarea') {
-                        _control.push('<textarea type="text" class="dirtylisten form-control extParamEnti input-sm nvarchar' + required + ' '+ isvalidate+'" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '" rows="2" maxlength="' + maxlength + '"' + readonly + extParamStr + '>' + value + '</textarea>');
+                        _control.push('<textarea type="text" class="dirtylisten form-control extParamEnti input-sm nvarchar' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '" rows="2" maxlength="' + maxlength + '"' + readonly + extParamStr + '>' + value + '</textarea>');
                     }
                     else if (dataFormat == "fileupload") {
-                        var hasValue = value =='' ? "" : "点击查看";
-                        _control.push('<div class="form-field-box upload-file-box"><span title="" data-imgurl="' + value + '" data-name="' + _cell.Control.Name.toLowerCase() + '" class="upload-file-input" >' + hasValue + '</span><a class="upload-file"><input type="file" class="uploadify-field" name="file_upload_' + _cell.Control.Name.toLowerCase() + '" id="file_upload_' + _cell.Control.Name + '" /><span class="glyphicon glyphicon-open"></span></a><a class="upload-file-del"><span class="glyphicon glyphicon-remove-sign"></span></a><input name="' + _cell.Control.Name.toLowerCase() + '" type="text" class="uploadinput dirtylisten form-control input-sm nvarchar ' + required + '" style="visible:hidden;" value="' + value + '" id="' + _cell.Control.Name.toLowerCase() + '" ' + readonly + ' ></div>');
+                        var hasValue = value == '' ? "" : "点击查看";
+                        _control.push('<div class="form-field-box upload-file-box"><span title="" data-imgurl="' + value + '" data-name="' + _cell.Control.Name.toLowerCase() + '" class="upload-file-input" >' + hasValue + '</span><a class="upload-file"><input type="file" class="uploadify-field" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name + '" /><span class="glyphicon glyphicon-open"></span></a><a class="upload-file-del"><span class="glyphicon glyphicon-remove-sign"></span></a><input name="___file_upload_' + _cell.Control.Name.toLowerCase() + '" type="text" class="uploadinput dirtylisten form-control input-sm nvarchar ' + required + '" style="visible:hidden;" value="' + value + '" id="___file_upload_' + _cell.Control.Name.toLowerCase() + '" ' + readonly + ' ></div>');
                     }
                     else if (dataFormat == "password") {
                         _control.push('<input type="password" autocomplete="off" class="dirtylisten form-control extParamEnti input-sm nvarchar' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-onlylabel="' + onlyLabel + '" data-format="' + dataFormat + '" data-type="' + dataFormat + '" data-localizedname="' + localizedname + '" maxlength="' + maxlength + '" value="' + value + '"' + readonly + extParamStr + ' />');
@@ -1052,7 +1044,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                 }
                 else {
                     var range = ' data-range="[' + _cell.Control.AttributeMetadata.MinValue + ',' + _cell.Control.AttributeMetadata.MaxValue + ']"';
-                    value = value != '' ? value  : value;
+                    value = value != '' ? value : value;
                     _control.push('<input type="text" autocomplete="off" class="dirtylisten form-control extParamEnti input-sm float' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-type="number"' + range + ' data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '" value="' + value + '"' + readonly + extParamStr + ' />');
                     dirtyChecker.addWatch(_cell.Control.Name, value);
                 }
@@ -1083,7 +1075,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                 }
                 else {
                     var dataformat = _cell.Control.AttributeMetadata.DataFormat;
-                    
+
                     if (value != "" && dataformat == "yyyy/MM/dd") {
                         if (document.all) {
                             value = value.replace(/\-/, '\/');
@@ -1091,7 +1083,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                         value = new Date(value).format('yyyy-MM-dd');
                     }
                     _control.push('<div class="input-group datepicker-col">');
-                    _control.push('<span class="input-group-addon"><em class="glyphicon glyphicon-calendar"></em></span><input type="text" class="dirtylisten form-control input-sm extParamEnti datepicker' + required + ' '+ isvalidate+'" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-type="date" data-fmdata="' + dataformat + '" data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '" value="' + value + '"' + readonly + extParamStr + ' />');
+                    _control.push('<span class="input-group-addon"><em class="glyphicon glyphicon-calendar"></em></span><input type="text" class="dirtylisten form-control input-sm extParamEnti datepicker' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-type="date" data-fmdata="' + dataformat + '" data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '" value="' + value + '"' + readonly + extParamStr + ' />');
                     _control.push('</div>');
                     dirtyChecker.addWatch(_cell.Control.Name.toLowerCase(), value);
                 }
@@ -1102,7 +1094,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                     _control.push('<span name="' + _cell.Control.Name.toLowerCase() + '" class="lookupLabel" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '">' + value + '</span>');
                 } else {
                     _control.push('<input type="text" autocomplete="off" class="nodirty form-control input-sm extParamEnti lookup' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '_text" id="' + _cell.Control.Name.toLowerCase() + '_text" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-lookup="' + _cell.Control.AttributeMetadata.ReferencedEntityId + '" data-relationshipname="' + ((_cell.Control.Parameters && _cell.Control.Parameters.RelationshipName) || '') + '" data-defaultviewid="' + ((_cell.Control.Parameters && _cell.Control.Parameters.DefaultViewId) || '') + '" data-FilterRelationshipName="' + FilterRelationshipName + '" data-DependentAttributeName="' + DependentAttributeName + '" data-DependentAttributeType="' + DependentAttributeType + '" data-AllowFilterOff="' + AllowFilterOff + '"  data-value="' + value + '" data-onlylabel="' + onlyLabel + '" data-localizedname="' + localizedname + '"' + readonly + extParamStr + ' />');
-                    _control.push('<input type="hidden" class="dirtylisten haslookup' + required + ' '+ isvalidate+'" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-type="guid" value="' + value + '" data-lookup="' + _cell.Control.AttributeMetadata.ReferencedEntityId + '" data-relationshipname="' + ((_cell.Control.Parameters && _cell.Control.Parameters.RelationshipName) || '') + '" data-defaultviewid="' + ((_cell.Control.Parameters && _cell.Control.Parameters.DefaultViewId) || '') + '" data-localizedname="' + localizedname + '" />');
+                    _control.push('<input type="hidden" class="dirtylisten haslookup' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-type="guid" value="' + value + '" data-lookup="' + _cell.Control.AttributeMetadata.ReferencedEntityId + '" data-relationshipname="' + ((_cell.Control.Parameters && _cell.Control.Parameters.RelationshipName) || '') + '" data-defaultviewid="' + ((_cell.Control.Parameters && _cell.Control.Parameters.DefaultViewId) || '') + '" data-localizedname="' + localizedname + '" />');
                     dirtyChecker.addWatch(_cell.Control.Name.toLowerCase(), value);
                 }
                 break;
@@ -1183,7 +1175,7 @@ Xms.Form.RenderControlDiv = function (columns, _cell, value, onlyLabel, _section
                 }
                 else {
                     _control.push('<input type="text" autocomplete="off" class="dirtylisten form-control extParamEnti input-sm bit' + required + ' ' + isvalidate + '" name="' + _cell.Control.Name.toLowerCase() + '" id="' + _cell.Control.Name.toLowerCase() + '" data-attributeid="' + attrId + '" data-controltype="' + attrType + '" data-type="int" data-items="' + encodeURIComponent(JSON.stringify(_cell.Control.AttributeMetadata.PickLists)) + '" data-onlylabel="' + onlyLabel + ' data-localizedname="' + localizedname + '"" value="' + (value ? 1 : 0) + '"' + readonly + extParamStr + ' />');
-                    console.log('html',_control)
+                    console.log('html', _control)
                     dirtyChecker.addWatch(_cell.Control.Name.toLowerCase(), value);
                 }
                 break;

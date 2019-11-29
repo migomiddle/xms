@@ -1,0 +1,291 @@
+﻿@using Xms.Schema.Abstractions;
+@model Xms.Web.Customize.Models.CreateEntityModel
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseTwo">
+                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                </a>
+            </h3>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <form action="/@app.OrganizationUniqueName/customize/entity/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" data-autoreset="true">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#common" data-toggle="tab">
+                                实体信息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#defaults" data-toggle="tab">
+                                默认创建
+                            </a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div id="common" class="tab-pane fade in active" style="padding:5px;">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            @Html.HiddenFor(x => x.SolutionId)
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.Name, app.T["name"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control required", @data_custom = "entitieName", entitieName = true, @data_customMsg = "首字符为字母，只能输入数字，字母或者下划线", @data_customReg = "^[a-zA-Z]+[\\w_]*$", @autofocus = true })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.LocalizedName, app.T["displayname"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(x => x.LocalizedName, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.ParentEntityId, app.T["entity_parent"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(x => x.ParentEntityId, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.EntityMask, app.T["entity_mask"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.EntityMask, EntityMaskEnum.User, new { @class = "required" }) @app.T["entity_mask_user"]
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.EntityMask, EntityMaskEnum.Organization, new { @class = "required" }) @app.T["entity_mask_organization"]
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.LogEnabled, app.T["entity_isloged"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.LogEnabled, true, new { @class = "required" }) @app.T["enabled"]
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.LogEnabled, false, new { @class = "required" }) @app.T["disabled"]
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.AuthorizationEnabled, app.T["power_control"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.AuthorizationEnabled, true, new { @class = "required" }) @app.T["enabled"]
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.AuthorizationEnabled, false, new { @class = "required" }) @app.T["disabled"]
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.DuplicateEnabled, app.T["repeat_duplicate"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.DuplicateEnabled, true, new { @class = "required" }) @app.T["enabled"]
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.DuplicateEnabled, false, new { @class = "required" }) @app.T["disabled"]
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.WorkFlowEnabled, app.T["entity_workflowenabled"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.WorkFlowEnabled, true, new { @class = "required" }) @app.T["enabled"]
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.WorkFlowEnabled, false, new { @class = "required" }) @app.T["disabled"]
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.BusinessFlowEnabled, app.T["entity_businessflowenabled"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.BusinessFlowEnabled, true, new { @class = "required" }) @app.T["enabled"]
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.RadioButtonFor(x => x.BusinessFlowEnabled, false, new { @class = "required" }) @app.T["disabled"]
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">分组</label>
+                                <div class="col-sm-10" id="entitygroups">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.Description, app.T["description"], new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @row = 5 })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12 text-center" id="form-buttons">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                            </div>
+                        </div>
+                        <div id="defaults" class="tab-pane fade" style="padding:5px;">
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">默认表单</label>
+                                <div class="col-sm-10">
+                                    <label><input type="checkbox" name="createDefaultForm" checked="checked" value="true" /> 创建</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">默认视图</label>
+                                <div class="col-sm-10">
+                                    <label><input type="checkbox" name="createDefaultView" checked="checked" value="true" /> 创建</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">默认字段</label>
+                                <div class="col-sm-10" id="defaultAttributes">
+                                    <div class="col-sm-12 btn-group btn-group-xs">
+                                        <button type="button" class="btn btn-default">全选</button>
+                                        <button type="button" class="btn btn-default">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">默认按钮</label>
+                                <div class="col-sm-10" id="defaultButtons">
+                                    <div class="col-sm-12 btn-group btn-group-xs">
+                                        <button type="button" class="btn btn-default">全选</button>
+                                        <button type="button" class="btn btn-default">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"), function (response) {
+                Xms.Web.Alert(response.IsSuccess, response.Content);
+                if (response.IsSuccess) {
+                    Xms.Web.Event.publish('refresh');
+                    Xms.Web.Event.publish('refreshtree');
+                }
+            }, null, null, { onKeyup: true });
+            //检查名称是否已存在
+            $('#Name').bind('change', function () {
+                var $this = $(this);
+                var name = $this.val();
+                if (name != '') {
+                    Xms.Web.Get('/customize/entity/Exists?entityid=' + $('#EntityId').val() + '&name=' + name, function (response) {
+                        $this.next().remove();
+                        $this.parents('.form-group').removeClass('has-error');
+                        if (!response.IsSuccess) {
+                            $this.after($('<div class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span>' + response.Content + '</div>'));
+                            $this.parents('.form-group').addClass('has-error');
+                        }
+                    });
+                }
+            });
+            bindSystemAttributes();
+            bindSystemButtons();
+            loadEntities();
+            bindEntityGroups();
+        });
+        function bindEntityGroups() {
+            Xms.Ajax.GetJson('/api/data/retrieve/all/entitygroup/name/name:asc', null, function (response) {
+                    var data = Xms.Web.GetAjaxResult(response);
+                    var $container = $('#entitygroups');
+                    $(data.content).each(function (i, n) {
+                        $container.append('<label class="col-sm-3 col-xs-3"><input type="checkbox" name="entitygroupid" value="'+n.entitygroupid+'" />'+n.name+'</label>');
+                    });
+                });
+        }
+        function bindSystemAttributes() {
+            Xms.Ajax.GetJson('/api/schema/attribute/SystemAttributes/user', null, function (response) {
+                console.log(response);
+                if (response.IsSuccess) {
+                    var container = $('#defaultAttributes');
+                    var data = JSON.parse(response.Content);
+                    $(data).each(function (i, n) {
+                        if (n.attributetypename == 'primarykey') {
+                            //n.localizedname = LOC_ATTRIBUTETYPE_PRIMARYKEY;
+                            return true;
+                        }
+                        container.append($('<label class="col-sm-3"><input type="checkbox" name="defaultattributes" value="' + n.name + '" checked="checked" /> ' + n.localizedname + '</label>'));
+                    });
+                    container.find('button:eq(0)').click(function () {
+                        container.find('input[type=checkbox]').prop('checked', true);
+                    });
+                    container.find('button:eq(1)').click(function () {
+                        container.find('input[type=checkbox]').removeProp('checked');
+                    });
+                }
+                else {
+                    Xms.Web.Alert(response.Content);
+                }
+            })
+        }
+        function bindSystemButtons() {
+            Xms.Ajax.GetJson('/api/v1/ribbonbutton/SystemButtons/user', null, function (response) {
+                console.log(response);
+                if (response.IsSuccess) {
+                    var container = $('#defaultButtons');
+                    var data = JSON.parse(response.Content);
+                    var group = [];
+                    $(data).each(function (i, n) {
+                        if ($.inArray(n.showarea, group) < 0) {
+                            group.push(n.showarea);
+                        }
+                    });
+                    var groupNames = ['表单', '列表头部', '列表行内', '单据体'];
+                    $(group).each(function (j, g) {
+                        var groupLine = $('<div class="col-sm-12"></div>');
+                        groupLine.append($('<h5>' + groupNames[g - 1] + '</h5>'));
+                        $(data).each(function (i, n) {
+                            if (g == n.showarea) {
+                                groupLine.append($('<label class="col-sm-3"><input type="checkbox" name="defaultbuttons" value="' + n.ribbonbuttonid + '" checked="checked" /> ' + n.label + '</label>'));
+                            }
+                        });
+                        container.append(groupLine);
+                    });
+                    container.find('button:eq(0)').click(function () {
+                        container.find('input[type=checkbox]').prop('checked', true);
+                    });
+                    container.find('button:eq(1)').click(function () {
+                        container.find('input[type=checkbox]').removeProp('checked');
+                    });
+                }
+                else {
+                    Xms.Web.Alert(response.Content);
+                }
+            })
+        }
+        //加载引用实体
+        function loadEntities() {
+            var entitySelect = $('#ParentEntityId');
+            entitySelect.empty();
+            entitySelect.mutilAutoComplete({
+                getType: 'ajax',
+                ajax: {
+                    url: "/api/schema/entity",
+                    data: { getall: true },
+                },
+                replaceList: [{ key: 'itemClass', value: 'itemClass' }, { key: 'itemValue', value: 'entityid' }, { key: 'itemOther', value: 'other' }, { key: 'itemTitle', value: 'localizedname' }],
+                dataFilter: function (data) {
+                    return data.content;
+                }
+
+            });
+        }
+    </script>
+}

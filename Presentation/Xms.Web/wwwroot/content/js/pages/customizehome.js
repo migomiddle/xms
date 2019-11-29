@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=page/customizehome.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -23,9 +22,8 @@
     }
 }(function ($) {
     //deps userpagesetting.js
-   // var getUserAndPageSetting = getUserAndPageSetting;
-    
-    
+    // var getUserAndPageSetting = getUserAndPageSetting;
+
     var pageSettingName = 'customizehome';
     var userSetting = {
         key: 'customizehome_quicklist'//快捷方式
@@ -36,7 +34,7 @@
     var userSettingDefaults = {
         shortcutList: []
     }
-   
+
     var customhome = new function () {
         var self = this;
         this.shortcutDatas = [];
@@ -45,9 +43,8 @@
         this.init = function () {
             $(function () {//用户已经设置过快捷方式
                 var datas = userSettingCtrl.getDatasBykey(pageSettingName);//获取当前页面用户信息
-                
-                    self.loadDefault();
-                
+
+                self.loadDefault();
 
                 self.loadSystemInfo();
             })
@@ -69,12 +66,10 @@
                     this.loadShortCutList();
                 }
             } else {
-                
                 if (listdatas.length > 0) {
                     this.addShortCutData(listdatas[0].value)
                     this.loadShortCutList();
                 }
-                
             }
         }
         this.filterparentData = function (datas) {
@@ -91,7 +86,6 @@
             }
         }
         this.loadpage = function (datas) {
-
         }
         this.addShortDataAndRender = function (datas, datas1) {
             if (datas.nodeType && datas1) {
@@ -99,13 +93,12 @@
             }
             self.addShortCutData(datas);
             self.loadShortCutList();
-            pageSettingCtrl.add({ key: userSetting.key, value: self.shortcutDatas },true);
+            pageSettingCtrl.add({ key: userSetting.key, value: self.shortcutDatas }, true);
             userSettingCtrl.addSetting(pageSettingName, pageSettingCtrl.getDatas(), null, true);
             userSettingCtrl.saveByRemote();
         }
         this.addShortCutData = function (datas) {
             $.each(datas, function (i, n) {
-                
                 if ($.indexBykeyValue(self.shortcutDatas, 'id', n.id) == -1) {
                     self.shortcutDatas.push(n);
                 }
@@ -123,7 +116,7 @@
             $shortcutList.children().eq(0).empty();
             $.each(datas, function (i, n) {
                 var count = i % maxcount;
-                var step = i / maxcount>>0;
+                var step = i / maxcount >> 0;
                 var data = self.addShortCutList(n, step);
                 if (count == 0) {
                     if (step === 0) {
@@ -131,7 +124,7 @@
                     } else {
                         contenthtmls.push('<div class="item"><ul class=" pt-1">');
                     }
-                } 
+                }
                 contenthtmls.push(data.content);
                 if (count == maxcount - 1) {
                     contenthtmls.push('</ul></div>');
@@ -139,10 +132,8 @@
                 if (count == 0) {
                     $shortcutList.children().eq(0).append(data.list);
                 }
-
             });
 
-           
             $shortcutList.children().eq(1).html(contenthtmls.join(''));
             this.bindShortCutList();
         }
@@ -152,17 +143,17 @@
                 icon = '<em class="' + icon + '"></em>';
             }
             return {
-                list: ' <li data-target="#shortcutList" data-slide-to="' + count + '" class=" ' + (count===0?'active':'') + '"></li>',
+                list: ' <li data-target="#shortcutList" data-slide-to="' + count + '" class=" ' + (count === 0 ? 'active' : '') + '"></li>',
                 content: '<li class="col-sm-3">' +
                     '<a href="javascript:;" class="shortcut-item" data-id="' + data.id + '">' +
                     (!data.remove ? '<div class="item-remove" data-id="' + data.id + '">×</div>' : '') +
                     '<i class="item-icon"><span>' + icon + '</span></i>' +
-                    '<p class="item-text"> ' + (data.name ||data.label) + '</p>' +
+                    '<p class="item-text"> ' + (data.name || data.label) + '</p>' +
                     '</a >' +
                     '</li >'
             };
         }
-        this.removeShortCutList = function ($item,datas) {
+        this.removeShortCutList = function ($item, datas) {
             var index = $.indexBykeyValue(self.shortcutDatas, 'id', datas.id);
             $item.remove();
             self.shortcutDatas.splice(index, 1);
@@ -190,7 +181,7 @@
                 if (self.shortcutDatas && self.shortcutDatas.length > 0) {
                     var data = $.queryBykeyValue(self.shortcutDatas, 'id', id);
                     if (data.length > 0) {
-                        self.removeShortCutList($this.parents('li:first'),data[0]);
+                        self.removeShortCutList($this.parents('li:first'), data[0]);
                     }
                 }
             })
@@ -224,7 +215,6 @@
                         }
                     }
                 }
-                
             }, null, false, false, null);
         }
     }
@@ -235,14 +225,14 @@
         var index = mss.indexOf('CPU');
         if (index == -1) {
             index = mss.indexOf('cpu');
-        } 
+        }
         if (index != -1) {
             res = mss.substring(0, index);
         }
         return res;
     }
     function getSystemCpucount(mss) {
-        return parseInt(mss)+ '%';
+        return parseInt(mss) + '%';
         // return (data / 1000).toFixed(0);
     }
     function getSystemTickcount(mss) {
@@ -250,7 +240,7 @@
         var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = parseInt((mss % (1000 * 60)) / 1000);
         return hours + '小时' + minutes + '分' + seconds + '秒';
-       // return (data / 1000).toFixed(0);
+        // return (data / 1000).toFixed(0);
     }
 
     function renderDiskInfo(datas) {
@@ -259,12 +249,11 @@
         $.each(datas.diskinfos, function (i, n) {
             var percent = ((n.totalsize - n.totalfreespace) / n.totalsize).toFixed(2);
             htmls.push(['<div class="progress">',
-                '<div class="' + classnames[i]+'" role = "progressbar" aria - valuenow="40" aria - valuemin="0" aria - valuemax="100" style = "width: ' + (percent*100)+'%" >',
-                '<span class="glyphicon glyphicon-hdd ml-1 pull-left"></span> ' + n.name + ' ' + ((percent * 100)>>0)+'%' ,
+                '<div class="' + classnames[i] + '" role = "progressbar" aria - valuenow="40" aria - valuemin="0" aria - valuemax="100" style = "width: ' + (percent * 100) + '%" >',
+                '<span class="glyphicon glyphicon-hdd ml-1 pull-left"></span> ' + n.name + ' ' + ((percent * 100) >> 0) + '%',
                 '</div >',
-            '</div >'
+                '</div >'
             ].join(''));
-                
         });
         return htmls.join('')
     }
@@ -276,7 +265,6 @@
                 res = 'Windows 10';
             } else if (name.indexOf('Windows 7') != -1) {
                 res = 'Windows 7';
-
             } else if (name.indexOf('Windows 2008') != -1) {
                 res = 'Windows 2008';
             } else if (name.indexOf('Windows 2012') != -1) {
@@ -305,16 +293,12 @@
         },
         loadComponents: function (node) {
             this.load('/customize/solution/components', node);
-
-
         },
         loadEntities: function (node) {
             this.load('/customize/entity/index', node);
-           
         },
         loadForms: function (entityid, node) {
             this.load('/customize/systemform/index?entityid=' + entityid, node);
-            
         },
         loadAttributes: function (entityid, node) {
             this.load('/customize/attribute/index?entityid=' + entityid, node);
@@ -324,147 +308,132 @@
         },
         loadOptionSets: function (node) {
             this.load('/customize/OptionSet/index', node);
-          
         },
         loadRibbonButtons: function (entityid, node) {
             this.load('/customize/ribbonbutton/index?entityid=' + entityid, node);
-          
         },
         loadDuplicateRules: function (entityid, node) {
             this.load('/customize/duplicaterule/index?entityid=' + entityid, node);
-           
         },
         loadEntityMaps: function (entityid, node) {
             this.load('/customize/entitymap/index?entityid=' + entityid, node);
-           
         },
         loadRelations: function (entityid, type, node) {
             this.load('/customize/relationship/index?entityid=' + entityid + '&type=' + type, node);
         },
         loadFilterRules: function (entityid, node) {
             this.load('/customize/filterrule/index?entityid=' + entityid, node);
-            
         },
         loadCharts: function (entityid, node) {
             this.load('/customize/chart/index?entityid=' + entityid, node);
-           
         },
         loadDashboards: function (node) {
             this.load('/customize/dashboard/index', node);
-           
         },
         loadReports: function (node) {
             this.load('/customize/report/index', node);
-           
         },
         loadWebResources: function (node) {
             this.load('/customize/webresource/index', node);
-           
         },
         loadWorkflows: function (node) {
             this.load('/customize/flow/index', node);
-           
         },
         loadAutoNumberRules: function (node) {
             this.load('/customize/serialnumber/index', node);
-           
         },
         loadPlugins: function (node) {
             this.load('/customize/entityplugin/index', node);
-            
         },
         loadFieldPermissions: function (node) {
             this.load('/FieldSecurity/index', node);
-           
         },
         loadLabels: function (node) {
             this.load('/customize/localizedlabel/index', node);
-          
         }
     }
-function triggerLink(node) {
-    var type = node.type;
-    // console.log(type, node);
-    var hashlink = "/" + type + ":" + node.link;
-    if (type == 'solution') {
-        customizeNav.load('/customize/solution/editsolution?id=' + solutionid, node);
+    function triggerLink(node) {
+        var type = node.type;
+        // console.log(type, node);
+        var hashlink = "/" + type + ":" + node.link;
+        if (type == 'solution') {
+            customizeNav.load('/customize/solution/editsolution?id=' + solutionid, node);
+        }
+        else if (type == 'component') {
+            customizeNav.loadComponents(node);
+        }
+        else if (type == 'entity') {
+            customizeNav.load('/customize/entity/editentity?id=' + node.link, node);
+            if (!node) return false;
+            $('#customTabNav').iframeLinks('addLink', { id: node.id, name: node.label, other: '(' + node._parentname + ')', src: ORG_SERVERURL + '/customize/entity/editentity?id=' + node.link });
+        }
+        else if (type == 'form') {
+            customizeNav.loadForms(node.link, node);
+        }
+        else if (type == 'view') {
+            customizeNav.loadViews(node.link, node);
+        }
+        else if (type == 'attribute') {
+            customizeNav.loadAttributes(node.link, node);
+        }
+        else if (type == 'ribbonbutton') {
+            customizeNav.loadRibbonButtons(node.link, node);
+        }
+        else if (type == 'duplicaterules') {
+            customizeNav.loadDuplicateRules(node.link, node);
+        }
+        else if (type == 'entitymap') {
+            customizeNav.loadEntityMaps(node.link, node);
+        }
+        else if (type == 'onetomore') {
+            customizeNav.loadRelations(node.link, 1, node);
+        }
+        else if (type == 'moretoone') {
+            customizeNav.loadRelations(node.link, 2, node);
+        }
+        else if (type == 'moretomore') {
+            customizeNav.loadRelations(node.link, 3, node);
+        }
+        else if (type == 'filterrules') {
+            customizeNav.loadFilterRules(node.link, node);
+        }
+        else if (type == 'chart') {
+            customizeNav.loadCharts(node.link, node);
+        }
+        else if (type == 'optionset') {
+            customizeNav.loadOptionSets(node);
+        }
+        else if (type == 'fieldpermission') {
+            customizeNav.loadFieldPermissions(node);
+        }
+        else if (type == 'dashboard') {
+            customizeNav.loadDashboards(node);
+        }
+        else if (type == 'report') {
+            customizeNav.loadReports(node);
+        }
+        else if (type == 'webresource') {
+            customizeNav.loadWebResources(node);
+        }
+        else if (type == 'workflow') {
+            customizeNav.loadWorkflows(node);
+        }
+        else if (type == 'autonumber') {
+            customizeNav.loadAutoNumberRules(node);
+        }
+        else if (type == 'plugin') {
+            customizeNav.loadPlugins(node);
+        }
+        else if (type == 'labels') {
+            customizeNav.loadLabels(node);
+        }
+        else {
+            customizeNav.loadEntities(node);
+        }
+        var hash = location.hash;
+        //clearHashLink();
+        location.hash = hashlink;
     }
-    else if (type == 'component') {
-        customizeNav.loadComponents(node);
-
-    }
-    else if (type == 'entity') {
-        customizeNav.load('/customize/entity/editentity?id=' + node.link, node);
-        if (!node) return false;
-        $('#customTabNav').iframeLinks('addLink', { id: node.id, name: node.label, other: '(' + node._parentname + ')', src: ORG_SERVERURL + '/customize/entity/editentity?id=' + node.link });
-    }
-    else if (type == 'form') {
-        customizeNav.loadForms(node.link, node);
-    }
-    else if (type == 'view') {
-        customizeNav.loadViews(node.link, node);
-    }
-    else if (type == 'attribute') {
-        customizeNav.loadAttributes(node.link, node);
-    }
-    else if (type == 'ribbonbutton') {
-        customizeNav.loadRibbonButtons(node.link, node);
-    }
-    else if (type == 'duplicaterules') {
-        customizeNav.loadDuplicateRules(node.link, node);
-    }
-    else if (type == 'entitymap') {
-        customizeNav.loadEntityMaps(node.link, node);
-    }
-    else if (type == 'onetomore') {
-        customizeNav.loadRelations(node.link, 1, node);
-    }
-    else if (type == 'moretoone') {
-        customizeNav.loadRelations(node.link, 2, node);
-    }
-    else if (type == 'moretomore') {
-        customizeNav.loadRelations(node.link, 3, node);
-    }
-    else if (type == 'filterrules') {
-        customizeNav.loadFilterRules(node.link, node);
-    }
-    else if (type == 'chart') {
-        customizeNav.loadCharts(node.link, node);
-    }
-    else if (type == 'optionset') {
-        customizeNav.loadOptionSets(node);
-    }
-    else if (type == 'fieldpermission') {
-        customizeNav.loadFieldPermissions(node);
-    }
-    else if (type == 'dashboard') {
-        customizeNav.loadDashboards(node);
-    }
-    else if (type == 'report') {
-        customizeNav.loadReports(node);
-    }
-    else if (type == 'webresource') {
-        customizeNav.loadWebResources(node);
-    }
-    else if (type == 'workflow') {
-        customizeNav.loadWorkflows(node);
-    }
-    else if (type == 'autonumber') {
-        customizeNav.loadAutoNumberRules(node);
-    }
-    else if (type == 'plugin') {
-        customizeNav.loadPlugins(node);
-    }
-    else if (type == 'labels') {
-        customizeNav.loadLabels(node);
-    }
-    else {
-        customizeNav.loadEntities(node);
-    }
-    var hash = location.hash;
-    //clearHashLink();
-    location.hash = hashlink;
-}
     function getTypeIcon(type) {
         var node = { type: type };
         if (node.type == 'solution')

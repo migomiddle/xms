@@ -33,6 +33,7 @@ namespace Xms.Web.Customize.Controllers
             _relationShipUpdater = relationShipUpdater;
             _relationShipFinder = relationShipFinder;
         }
+
         [Description("关系列表")]
         public IActionResult Index(RelationShipsModel model)
         {
@@ -75,6 +76,7 @@ namespace Xms.Web.Customize.Controllers
             model.Entity = _entityFinder.FindById(model.EntityId);
             return DynamicResult(model);
         }
+
         [Description("配置关系")]
         [HttpGet]
         public IActionResult EditRelationShip(Guid id)
@@ -87,6 +89,7 @@ namespace Xms.Web.Customize.Controllers
             model.RelationShipMeta.CopyTo(model);
             return View(model);
         }
+
         [Description("配置关系")]
         [HttpPost]
         [ValidateAntiForgeryToken]

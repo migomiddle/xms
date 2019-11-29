@@ -11,7 +11,7 @@ $.paramquery.pqGrid.regional['it'] = {
     strSelectedmatches: "Selezionato {0} di {1} risultato(i)",
     strPrevResult: "Risultato precedente",
     strNextResult: "Risultato successivo",
-    strNoRows: "Nessun file da visualizzare."        
+    strNoRows: "Nessun file da visualizzare."
 };
 $.paramquery.pqPager.regional['it'] = {
     strPage: "Pagina {0} di {1}",

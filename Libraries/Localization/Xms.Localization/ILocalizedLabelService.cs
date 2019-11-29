@@ -30,7 +30,7 @@ namespace Xms.Localization
         string GetLabelText(Guid objectId, string columnName);
 
         string GetLabelText(IList<LocalizedLabel> labels, Guid objectId, string name, string defaultLabel = "");
-        
+
         List<LocalizedLabel> Query(Func<QueryDescriptor<LocalizedLabel>, QueryDescriptor<LocalizedLabel>> container);
 
         PagedList<LocalizedLabel> QueryPaged(Func<QueryDescriptor<LocalizedLabel>, QueryDescriptor<LocalizedLabel>> container);

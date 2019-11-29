@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration\Xms.Configuration.Domain\Xms.Configuration.Domain.csproj" />
     <ProjectReference Include="..\Localization\Xms.Localization.Abstractions\Xms.Localization.Abstractions.csproj" />
     <ProjectReference Include="..\Xms.Core\Xms.Core.csproj" />
     <ProjectReference Include="..\Xms.Identity\Xms.Identity.csproj" />

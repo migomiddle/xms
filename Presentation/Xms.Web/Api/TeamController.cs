@@ -33,7 +33,7 @@ namespace Xms.Web.Api
             _dataCreater = dataCreater;
             _dataDeleter = dataDeleter;
         }
-        
+
         [Description("添加团队成员")]
         [HttpPost("AddMembers")]
         public IActionResult AddMembers(Guid teamId, Guid[] userid)
@@ -63,7 +63,7 @@ namespace Xms.Web.Api
             }
             return JOk(T["added_success"]);
         }
-        
+
         [Description("移除团队成员")]
         [HttpPost("RemoveMembers")]
         public IActionResult RemoveMembers(Guid teamId, Guid[] userid)

@@ -1,7 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.EditChartModel
 
 <div class="panel panel-default">
-
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/chart/createchart" method="post" id="editform" class="form-horizontal" role="form">
@@ -11,6 +18,12 @@
                 @Html.HiddenFor(x => x.SolutionId)
                 @Html.HiddenFor(x => x.DataConfig)
                 @Html.HiddenFor(x => x.PresentationConfig)
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">实体</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-sm hide" id="entityselecter" />
+                    </div>
+                </div>
                 <div class="form-group cc-form-ctrl">
                     <label class="col-sm-2 control-label">@app.T["chart_type"]</label>
                     <div class="col-sm-9">
@@ -45,7 +58,6 @@
                         </select>
                     </div>
                 </div>
-             
 
                 <div class="form-group row cc-form-ctrl">
                     @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
@@ -80,7 +92,6 @@
                                 <option data-value="Funnel" value="4">@app.T["chart_funnel"]</option>
                                 <option data-value="Gauge" value="5">指标图</option>
                             </select>
-
                         </div>
                         <div class="col-sm-2">
                             <select class="form-control cc-selecter" name="Aggregate">
@@ -110,8 +121,8 @@
                                     <div class="btn-group xms-dropdown" role="group">
                                         <a class="btn"><span class="glyphicon glyphicon-sort-by-order-alt"></span></a>
                                         <ul class="xms-dropdown-menu">
-                                            <li data-dir="asc" data-count="3" onclick="createMethod.yaris.changeDirector(this)">@app.T["top_three_option"]</li>
-                                            <li data-dir="asc" data-count="5" onclick="createMethod.yaris.changeDirector(this)">@app.T["top_five_option"]</li>
+                                            <li data-dir="asc" data-count="3" onclick="createMethod.yaris.changeDirector(this)">底部3项</li>
+                                            <li data-dir="asc" data-count="5" onclick="createMethod.yaris.changeDirector(this)">底部5项</li>
                                             <li class="customizeCount" data-dir="asc" onclick="createMethod.yaris.customizeCount(this)">@app.T["customize"]</li>
                                         </ul>
                                     </div>
@@ -176,7 +187,6 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">@app.T["define_top_Xitems"]</h4>
-
             </div>
             <div class="modal-body form-horizontal">
                 <p class="modal-tags">@app.T["assign_define_top_Xitems"]</p>
@@ -186,7 +196,6 @@
                         <input type="text" class="form-control" id="director-count" data-dir="" value="0" />
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">@app.T["cancel"]</button>
@@ -255,8 +264,41 @@
                 aris.Groupby = groupby;
                 chartData.Fetch.push(aris);
             });
-        }
 
+        }
+         loadEntitys($('#entityselecter'));
+        function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
+                    loadAttributes(function () {
+
+                    })
+                },
+                removehandler: function () {
+                    $('#EntityId').val('00000000-0000-0000-0000-000000000000');
+                    $('select[name=Attribute]').empty();
+                     $('select[name=HAttribute]').empty();
+                },
+                inputPlaceHolder:'选择实体'
+            });
+
+        }
         function saveChartData() {
             chartData = new Xms.Form.ChartsParameters();
             presentationData = new Xms.Form.PresentationParameters();
@@ -269,7 +311,7 @@
         }
         //加载字段
         function loadAttributes() {
-            Xms.Schema.GetAttributes({ getall: true, entityid: entityid }, function (data) {
+            Xms.Schema.GetAttributes({ getall: true, entityid: $('#EntityId').val() }, function (data) {
                 bindAttributes(data);
                 //可添加删除插件
                 $(".electrldom").ElementCtrl({
@@ -282,12 +324,14 @@
         }
         function bindAttributes(items) {
             var _html = [];
-            for (var i = 0; i < items.length; i++) {
-                _html.push('<option data-name=' + items[i].name + ' data-type="' + items[i].attributetypename + '" value=' + items[i].attributeid + ' >' + items[i].localizedname + '</option>');
+            if (items && items.length > 0) {
+                for (var i = 0; i < items.length; i++) {
+                    _html.push('<option data-name=' + items[i].name + ' data-type="' + items[i].attributetypename + '" value=' + items[i].attributeid + ' >' + items[i].localizedname + '</option>');
+                }
+                $('select[name=Attribute]').empty().append(_html.join(''));
+                $('select[name=HAttribute]').empty().append(_html.join(''));
+                $('select[name=Attribute]').trigger('change');
             }
-            $('select[name=Attribute]').append(_html.join(''));
-            $('select[name=HAttribute]').append(_html.join(''));
-            $('select[name=Attribute]').trigger('change');
         }
         var createMethod = {};
         createMethod.yaris = {};
@@ -312,7 +356,6 @@
                     inputDialog.modal("show");
                 }
             }
-
 
             function setModalInfo() {
                 inputDialog.find(".modal-title").text(modalInfo.title);

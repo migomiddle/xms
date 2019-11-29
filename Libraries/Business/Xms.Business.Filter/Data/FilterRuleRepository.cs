@@ -14,7 +14,6 @@ namespace Xms.Business.Filter.Data
     {
         public FilterRuleRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -32,6 +31,7 @@ namespace Xms.Business.Filter.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

@@ -3,6 +3,7 @@
     public static class DuplicateRuleDefaults
     {
         public const string ModuleName = "DuplicateRule";
+
         public static string AssemblyName
         {
             get

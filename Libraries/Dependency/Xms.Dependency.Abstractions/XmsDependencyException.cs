@@ -3,7 +3,6 @@ using Xms.Infrastructure;
 
 namespace Xms.Dependency.Abstractions
 {
-
     public class XmsDependencyException : XmsException
     {
         public List<DependentDescriptor> Dependents { get; set; }

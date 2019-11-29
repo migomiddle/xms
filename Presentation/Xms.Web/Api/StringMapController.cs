@@ -14,13 +14,14 @@ namespace Xms.Web.Api
     public class StringMapController : ApiControllerBase
     {
         private readonly IStringMapFinder _stringMapFinder;
+
         public StringMapController(IWebAppContext appContext
             , IStringMapFinder stringMapService)
             : base(appContext)
         {
             _stringMapFinder = stringMapService;
         }
-        
+
         [Description("查询字段选项")]
         [HttpGet("{attributeid}")]
         public IActionResult Get(Guid attributeId)

@@ -4,12 +4,12 @@
     //EntityName(必需参数)--
     //RelevantEntityId（可选参数）--相关实体id
     //
-    
+
     //保存
     //eachGroup(e, isFirst); --e代表需要保存的筛选列表，可以是主实体的筛选列表，也可以是相关实体的筛选列表，isFirst 是否第一层 。 保存到QueryObject.Criteria
     //eachRelevant(e, entityrelationship)  --保存实体的相关实体，保存到QueryObject.LinkEntities
     //上面两个保存可参考reportviewer.aspx 里面的js saveFilter()
-    
+
     //编辑
     //initFilter(entityFilter, $('#pliot-page1').find('div[data-type="Main"]'));--传入实体数据
     //initFilter(relatedEntityFilter, $('#pliot-page1').find('div[data-type="Relevant"]'));传入相关实体数据
@@ -30,7 +30,6 @@
         <div id="row_1" class="pilot-row row" data-isshow="show" style="margin-bottom:5px;">
             <div class="col-sm-1" style="position:relative;height:30px;">
                 <em class="pilot-choose" onclick="downSelect(this,'row')" style="display: none; background: url(/content/images/selectListR.png) center no-repeat; position: absolute; height: 15px; width: 15px; top: 30%; left: 50%; cursor: pointer;"></em>
-
             </div>
             <div class="col-sm-11">
                 <select class="form-control pilot-fieldM pilot-null input-sm">
@@ -63,7 +62,6 @@
         <div id="row_2" class=" pilot-row row" data-isshow="show" style="margin-bottom:5px;">
             <div class="col-sm-1" style="position:relative;height:30px;">
                 <em class="pilot-choose" onclick="downSelect(this,'row')" style="display: none; background: url(/content/images/selectListR.png) center no-repeat; position: absolute; height: 15px; width: 15px; top: 30%; left: 50%; cursor: pointer;"></em>
-
             </div>
             <div class="col-sm-11">
                 <select class="form-control pilot-fieldR pilot-null input-sm">
@@ -157,7 +155,7 @@
                 $(this).parents('.pilot-row:first').attr('data-optionsetid', optionsetid);
 
                 datatype = datatype == "primarykey" ? 'lookup' : datatype ? datatype : "nvarchar";
-                
+
                 var operators = Xms.Fetch.ConditionOperators[datatype];
                 if (datatype == 'status') {
                     operators = Xms.Fetch.ConditionOperators['picklist'];
@@ -166,7 +164,7 @@
                 if (referencedentityname && referencedentityname != 'undefined') {
                     //console.log(datatype == "lookup" || datatype == "owner" || datatype == "customer")
                     if (datatype == "lookup" || datatype == "owner" || datatype == "customer") {
-                        
+
                        // console.log('ConditionOperator', Xms.Fetch.ConditionOperator)
                         if (referencedentityname.toLowerCase() == "systemuser") {
                             operators = Xms.Fetch.ConditionOperator.SystemUserOperators;
@@ -231,7 +229,7 @@
                 if (datatype == "lookup" || datatype == "owner" || datatype == "customer") {
                     FilterDialog.bindInput($(this), $(this).parents('.pilot-row:eq(0)').find('input'), datatype, $(this).parents('.pilot-row:eq(0)').attr('data-attributeid'), relevantEntityId, ddlitems, $(this).parents('.pilot-row:eq(0)').attr('data-optionsetid'));
                 } else {
-                    
+
                     FilterDialog.bindInput($(this), $(this).parents('.pilot-row:eq(0)').find('input'), datatype, $(this).parents('.pilot-row:eq(0)').attr('data-attributeid'), EntityId, ddlitems, $(this).parents('.pilot-row:eq(0)').attr('data-optionsetid'));
                 }
             } else if ($(this).parents('.form-group').attr('data-type') == 'Relevant') {
@@ -365,7 +363,7 @@
                         $(nn).attr('data-name', opRelation);
                     });
                     var ajaxThat = relThat;
-                    
+
                     ajaxThat.children('.relevant-child').children('.pilot-row').children().children('.' + attrSel).html(selHtml);
                     ajaxThat.children('.relevant-child').children('.pilot-row[data-entity="false"]').each(function (ii, nn) {
                         EditRowSet(nn, attrSel,true);
@@ -399,7 +397,7 @@
             var attrId = $(n).attr('data-attributeid');
             var attrOperator = $(n).attr('data-operator');
             var attrVal = $(n).attr('data-val');
-            
+
             $(n).find('.' + attrSel).find('option[data-attributeid="' + attrId + '"]').prop('selected', true);
             $(n).find('.' + attrSel).change();
             $(n).find('.pilot-condition').find('option[value="' + attrOperator + '"]').prop('selected', true);
@@ -496,7 +494,7 @@
                     _html.push('<div class="col-sm-4">');
                     _html.push('<input class="form-control input-sm" name="value" type="text" value="" />')
                     _html.push('</div>');
-                    _html.push('<br/>');
+                    _html.push('<br />');
                     _html.push('</div>');
                 }
             });
@@ -741,7 +739,6 @@
         $('body').append(ulhtml);
     }
 
-
     function getDdlItems(datatype) {
         var items = [];
         if (datatype == 'picklist') {
@@ -764,7 +761,7 @@
                     if ($(nn).find('.pilot-fieldM,.pilot-fieldR').find('option:selected').val() != '') {
                         var vale = $(nn).find('input[name="value"]').val();
                         var datatye = $(nn).find('.pilot-fieldM,.pilot-fieldR').find('option:selected').attr("data-type");
-                        
+
                         if (datatye == "lookup" || datatye == "owner" || datatye == "customer" || datatye == 'primarykey') {
                             vale = $(nn).find('input[name="value"]').attr("data-value");
                             vale = [vale];
@@ -801,7 +798,7 @@
                     //FiltersConfig = new Xms.Fetch.FilterExpression();
                     var vale = $(n).find('input[name="value"]').val();
                     var datatye = $(n).find('.pilot-fieldM,.pilot-fieldR').find('option:selected').attr("data-type");
-                    
+
                     if (datatye == "lookup" || datatye == "owner" || datatye == "customer" || datatye == 'primarykey') {
                         vale = $(n).find('input[name="value"]').attr("data-value");
                         if (!vale && $(n).find('input[name="value"]').val() != "") {

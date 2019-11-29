@@ -322,13 +322,12 @@ namespace Xms.Caching
 
         public CacheVersion<T> GetVersionItems<T>(string key) where T : class
         {
-
             var cacheVersion = _cache.Get<CacheVersion<T>>(key);
             return cacheVersion;
         }
 
         public void SetVersionItems<T>(string key, CacheVersion<T> cacheVersion) where T : class
-        {           
+        {
             using (_rwLock.GetWriteLock())
             {
                 _cache.Set<CacheVersion<T>>(key, cacheVersion);
@@ -347,7 +346,5 @@ namespace Xms.Caching
                 _cache.Set<T>(key, value);
             }
         }
-
-
     }
 }

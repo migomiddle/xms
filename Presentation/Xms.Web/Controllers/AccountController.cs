@@ -15,7 +15,7 @@ namespace Xms.Web.Controllers
     /// 登录
     /// </summary>
     [AllowAnonymous]
-    public class AccountController: XmsControllerBase
+    public class AccountController : XmsControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IOrganizationBaseService _organizationBaseService;
@@ -36,7 +36,7 @@ namespace Xms.Web.Controllers
         public IActionResult SignOut()
         {
             _authenticationService.SignOut();
-            return Redirect( "/");            
+            return Redirect("/");
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Xms.Web.Controllers
             }
             else
             {
-                List<OrganizationBase> orglist =_organizationBaseService.Query(n=>n.Where(x=>x.State==1));
+                List<OrganizationBase> orglist = _organizationBaseService.Query(n => n.Where(x => x.State == 1));
                 SignInModel model = new SignInModel
                 {
                     ReturnUrl = HttpContext.GetRouteOrQueryString("returnurl"),

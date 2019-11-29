@@ -118,7 +118,7 @@
                                 } else {
                                     SolutionComponentModel.callback && SolutionComponentModel.callback(result,SolutionComponentModel.inputid);
                                 }
-                                
+
                                 SolutionComponentModel.dialog.modal('hide');
                             }
                         };
@@ -149,14 +149,14 @@
                                     return '<a class="btn btn-link btn-xs rowclickok" href="javascript:;" ><span class="glyphicon glyphicon-ok"></span></a>';
                                 }
                             }]
-                          
+
                             var datagridconfig = {
                                 height:300,
                                //获取数据的方法
                                 getDataUrl: function () {
                                     return ORG_SERVERURL+SolutionComponentModel.serviceuri + '?page=1&pagesize=10&insolution=false&solutionid=' + SolutionComponentModel.solutionid
                                 },
-                              
+
                                 filterColModel: function (opts) { opts.colModel = columnConfigs; return opts; },
                                 rowDblClick: function (event, ui) {
                                     console.log($(event.target));
@@ -165,7 +165,7 @@
                                     $tr.find('input[name="recordid"]').prop('checked', true);
                                     SolutionComponentModel.dialog_return();
                                 },
-                               
+
                                 columnFilter: function (items) {
                                     console.log(items)
 
@@ -192,7 +192,6 @@
                             setTimeout(function () {
                                 $('.dialog-datagrid-view').xmsDataTable(datagridconfig);
                             },100)
-                            
 
                             $('.dialog-datagrid-view').off('click').on('click', '.rowclickok', function (e) {
                                 var $tr = $(this).parents('tr:first');

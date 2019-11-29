@@ -1,0 +1,162 @@
+﻿@model Xms.Web.Models.LogModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+        </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <!--in-->
+        <div class="panel-body">
+            @using (Html.BeginForm("log", "platform", FormMethod.Get, new { @id = "searchForm", @class = "form-horizontal", @role = "form" }))
+            {
+                @Html.ValidationSummary()
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="begintime">时间</label>
+                    <div class="col-sm-9 formrangepicker">
+                        @Html.TextBoxFor(x => x.BeginTime, new { @class = "form-control  hide" })
+                        @Html.TextBoxFor(x => x.EndTime, new { @class = "form-control  hide" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="clientip">@app.T["log_clientip"]</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.ClientIp, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="url">@app.T["link"]</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.Url, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="url">@app.T["statecode"]</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.StatusCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-sm btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="table-responsive" id="gridview">
+        <table class="table table-striped table-hover table-condensed" id="datatable" data-pageurl="@app.Url" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-dbclick="rebind()">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th data-name="title">
+                        @app.T["log_title"]
+                    </th>
+                    <th width="10%">@app.T["user"]</th>
+                    <th width="10%" data-name="clientip">
+                        @app.T["log_clientip"]
+                    </th>
+                    <th width="20%" data-name="url">
+                        @app.T["link"]
+                    </th>
+                    <th width="10%" data-name="statuscode">
+                        @app.T["statecode"]
+                    </th>
+                    <th width="15%" data-name="createdon">
+                        @app.T["operation_time"]
+                    </th>
+                    <th width="10%">@app.T["operation"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr data-dbclick="location.href='logdetail?logid=@item.LogId'">
+                        <td><input type="checkbox" value="@item.LogId" name="recordid" /></td>
+                        <td>@item.Title</td>
+                        <td>@item.UserName</td>
+                        <td>@item.ClientIP</td>
+                        <td>@item.Url</td>
+                        <td>@item.StatusCode</td>
+                        <td>@item.CreatedOn</td>
+                        <td>
+                            <a class="btn btn-default btn-xs" href="logdetail?logid=@item.LogId"><span class="glyphicon glyphicon-list"></span> @app.T["log_detail"]</a>
+                            <a class="btn btn-warning btn-xs hide" href="javascript:purecms.del('@item.LogId','@("/"+app.OrganizationUniqueName)/platform/deletelog', false, rebind)"><span class="glyphicon glyphicon-trash"></span> @app.T["delete"]</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="8" class="active">
+                        <button type="button" class="btn btn-xs btn-primary" data-action="@("/"+app.OrganizationUniqueName)/platform/deletelog" data-role="delete"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-4">
+                    @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                </div>
+                <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Header {
+    <link href="/content/js/daterangepicker/daterangepicker.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+}
+@section Scripts {
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/daterangepicker/moment.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/daterangepicker/daterangepicker.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            $('.formrangepicker').each(function () {
+                $(this).xmsMutilDateRangePicker({
+                    isDefaultCallback: true,
+                    starttime: $(this).children('input:first'),
+                    endtime: $(this).children('input:last'),
+
+                })
+            })
+
+            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+            
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    //$("#gridview").replaceWith($(this)); // some ajax content loading...
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+        function rebind() {
+            $('#searchForm').submit();
+        }
+    </script>
+}

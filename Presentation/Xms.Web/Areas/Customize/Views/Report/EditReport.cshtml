@@ -2,19 +2,18 @@
 
 <link href="@app.PlatformSettings.CSSCDN/content/css/sumoselect.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
 <div class="panel panel-default">
-    @*<div class="panel-heading">
+    <div class="panel-heading">
         <h3 class="panel-title">
             <a data-toggle="collapse"
                href="#collapseTwo">
                 <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
             </a>
         </h3>
-    </div>*@
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="form-group col-sm-12">
                 <div class="col-sm-10">
-
                 </div>
             </div>
             <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" enctype="multipart/form-data" data-autoreset="true" id="editform" class="form-horizontal" role="form">
@@ -100,115 +99,115 @@
 </div>
 @section Scripts {
     <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script src="/content/js/jquery.sumoselect.js"></script>
-<script>
-    var isEditReport = true;
-    $(function () {
-        //表单验证
-        Xms.Web.Form($("#editform"), null, null, function () {
-            var selectVal = $('#report-type').find('option:selected').val();
-            if ($('#report-file').find('input[type=file]').val() == '' && selectVal == 'file') {
-                Xms.Web.Alert(false, '请选择文件', null, null);
-                return false;
-            }
-            else if (($('#CustomConfig').val() == '' || $('#QueryConfig').val() == '' || $('#DefaultFilterConfig').val() == '') && selectVal == 'pilot') {
-                Xms.Web.Alert(false, '请完善报表向导内容', null, null);
-                return false;
-
-            } else if ($('#report-url').find('input[type=text]').val() == '' && selectVal == 'url') {
-                Xms.Web.Alert(false, '请输入网址', null, null);
-                return false;
-            }
-            var $isauthorization = $('#IsAuthorization');
-            if ($isauthorization.prop('checked')) {
-                if (!$('#securityUser').val() || $('#securityUser').val() == '') {
-                    Xms.Web.Alert(false, "请先勾选角色");
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.sumoselect.js"></script>
+    <script>
+        var isEditReport = true;
+        $(function () {
+            //表单验证
+            Xms.Web.Form($("#editform"), null, null, function () {
+                var selectVal = $('#report-type').find('option:selected').val();
+                if ($('#report-file').find('input[type=file]').val() == '' && selectVal == 'file') {
+                    Xms.Web.Alert(false, '请选择文件', null, null);
                     return false;
                 }
-            }
-        });
-        $('body').on('change', '#EntityList', function () {
-            var entityid = $(this).find('option:selected').val();
-            $('#EntityId').val(entityid);
-            loadRelevantEntities(entityid);
-            $('#CustomConfig').val('');
-            $('#QueryConfig').val('');
-            $('#DefaultFilterConfig').val('');
-            isEditReport = false;
-            RemovePilot();
-        });
-        $('body').on('change', '#RelevantEntityList', function () {
-            var relateentityid = $(this).find('option:selected').val();
-            $('#RelateEntityId').val(relateentityid);
-            $('#CustomConfig').val('');
-            $('#QueryConfig').val('');
-            $('#DefaultFilterConfig').val('');
-            isEditReport = false;
-            RemovePilot();
-        });
-        $('body').on('change', '#report-type', function () {
-            var type = $(this).find('option:selected').val();
-            if (type == 'pilot') {
-                $('#report-pilot').show();
-                $('#report-file').hide();
-                $('#report-url').hide();
-                $('#TypeCode').val(0);
-            }
-            else if (type == 'file') {
-                $('#report-pilot').hide();
-                $('#report-file').show();
-                $('#report-url').hide();
-                $('#TypeCode').val(1);
-            }
-            else if (type == 'url') {
-                $('#report-pilot').hide();
-                $('#report-file').hide();
-                $('#report-url').show();
-                $('#TypeCode').val(2);
-            }
-        });
-        loadEntities();
-    });
-    
-    //加载实体
-    function loadEntities() {
-        Xms.Schema.GetEntities({ 'GetAll': true }, function (data) {
-            if (!data || data.length == 0) return;
-            $(data).each(function (i, n) {
-                $('#EntityList').append('<option data-relationship="' + n.name + '"  value="' + n.entityid + '">' + n.localizedname + '</option>');
-            });
-            $('#EntityList').find('option[value="' + $('#EntityId').val() + '"]').attr('selected', true);
-            loadRelevantEntities($('#EntityList').find('option:selected').val());
-        });
-    }
+                else if (($('#CustomConfig').val() == '' || $('#QueryConfig').val() == '' || $('#DefaultFilterConfig').val() == '') && selectVal == 'pilot') {
+                    Xms.Web.Alert(false, '请完善报表向导内容', null, null);
+                    return false;
 
-    //加载关联实体
-    function loadRelevantEntities(entityid) {
-        Xms.Schema.GetEntityRelations(null, entityid, function (data) {
-            if (!data || data.length == 0) return;
-            $('#RelevantEntityList').html('');
-            $('#RelevantEntityList').append('<option value="">--请选择--</option>');
-            $(data).each(function (i, n) {
-                $('#RelevantEntityList').append('<option  data-referencingentitylocalizedname="' + n.referencingentitylocalizedname + '"  data-referencingentityname="' + n.referencingentityname + '"  data-referencedattributename="' + n.referencedattributename + '"  data-referencingattributename="' + n.referencingattributename + '"  data-referencedentityname="' + n.referencedentityname + '" data-relationship="' + n.name + '" data-referencingattributelocalizedname="' + n.referencingattributelocalizedname + '" value="' + n.referencingentityid + '">' + n.referencingentitylocalizedname + '(' + n.referencedentitylocalizedname + ')' + '</option>');
+                } else if ($('#report-url').find('input[type=text]').val() == '' && selectVal == 'url') {
+                    Xms.Web.Alert(false, '请输入网址', null, null);
+                    return false;
+                }
+                var $isauthorization = $('#IsAuthorization');
+                if ($isauthorization.prop('checked')) {
+                    if (!$('#securityUser').val() || $('#securityUser').val() == '') {
+                        Xms.Web.Alert(false, "请先勾选角色");
+                        return false;
+                    }
+                }
             });
-            $('#RelevantEntityList').find('option[value="' + $('#RelatedEntityId').val() + '"]').prop('selected', true);
+            $('body').on('change', '#EntityList', function () {
+                var entityid = $(this).find('option:selected').val();
+                $('#EntityId').val(entityid);
+                loadRelevantEntities(entityid);
+                $('#CustomConfig').val('');
+                $('#QueryConfig').val('');
+                $('#DefaultFilterConfig').val('');
+                isEditReport = false;
+                RemovePilot();
+            });
+            $('body').on('change', '#RelevantEntityList', function () {
+                var relateentityid = $(this).find('option:selected').val();
+                $('#RelateEntityId').val(relateentityid);
+                $('#CustomConfig').val('');
+                $('#QueryConfig').val('');
+                $('#DefaultFilterConfig').val('');
+                isEditReport = false;
+                RemovePilot();
+            });
+            $('body').on('change', '#report-type', function () {
+                var type = $(this).find('option:selected').val();
+                if (type == 'pilot') {
+                    $('#report-pilot').show();
+                    $('#report-file').hide();
+                    $('#report-url').hide();
+                    $('#TypeCode').val(0);
+                }
+                else if (type == 'file') {
+                    $('#report-pilot').hide();
+                    $('#report-file').show();
+                    $('#report-url').hide();
+                    $('#TypeCode').val(1);
+                }
+                else if (type == 'url') {
+                    $('#report-pilot').hide();
+                    $('#report-file').hide();
+                    $('#report-url').show();
+                    $('#TypeCode').val(2);
+                }
+            });
+            loadEntities();
         });
-    }
-    function OpenReportPilot() {
-        if ($('#PilotModal').length == 0) {
-            Xms.Web.OpenDialog('/customize/report/reportpilot');
+
+        //加载实体
+        function loadEntities() {
+            Xms.Schema.GetEntities({ 'GetAll': true }, function (data) {
+                if (!data || data.length == 0) return;
+                $(data).each(function (i, n) {
+                    $('#EntityList').append('<option data-relationship="' + n.name + '"  value="' + n.entityid + '">' + n.localizedname + '</option>');
+                });
+                $('#EntityList').find('option[value="' + $('#EntityId').val() + '"]').attr('selected', true);
+                loadRelevantEntities($('#EntityList').find('option:selected').val());
+            });
         }
-        else {
-            $('#PilotModal').modal('show');
+
+        //加载关联实体
+        function loadRelevantEntities(entityid) {
+            Xms.Schema.GetEntityRelations(null, entityid, function (data) {
+                if (!data || data.length == 0) return;
+                $('#RelevantEntityList').html('');
+                $('#RelevantEntityList').append('<option value="">--请选择--</option>');
+                $(data).each(function (i, n) {
+                    $('#RelevantEntityList').append('<option  data-referencingentitylocalizedname="' + n.referencingentitylocalizedname + '"  data-referencingentityname="' + n.referencingentityname + '"  data-referencedattributename="' + n.referencedattributename + '"  data-referencingattributename="' + n.referencingattributename + '"  data-referencedentityname="' + n.referencedentityname + '" data-relationship="' + n.name + '" data-referencingattributelocalizedname="' + n.referencingattributelocalizedname + '" value="' + n.referencingentityid + '">' + n.referencingentitylocalizedname + '(' + n.referencedentitylocalizedname + ')' + '</option>');
+                });
+                $('#RelevantEntityList').find('option[value="' + $('#RelatedEntityId').val() + '"]').prop('selected', true);
+            });
         }
-    }
-    function RemovePilot() {
-        if ($('#PilotModal').length > 0) {
-            $('#PilotModal').remove();
+        function OpenReportPilot() {
+            if ($('#PilotModal').length == 0) {
+                Xms.Web.OpenDialog('/customize/report/reportpilot');
+            }
+            else {
+                $('#PilotModal').modal('show');
+            }
         }
-    }
-</script>
+        function RemovePilot() {
+            if ($('#PilotModal').length > 0) {
+                $('#PilotModal').remove();
+            }
+        }
+    </script>
 }

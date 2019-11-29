@@ -16,11 +16,13 @@ namespace Xms.Web.Framework.Filters
     {
         private readonly IWebAppContext _appContext;
         public readonly ILogService _logService;
+
         public ActionLoggingAttribute(IWebAppContext appContext, ILogService logService)
         {
             _appContext = appContext;
             _logService = logService;
         }
+
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (!_appContext.PlatformSettings.LogEnabled)

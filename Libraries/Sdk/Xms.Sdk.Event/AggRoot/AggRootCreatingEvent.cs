@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Xms.Core.Data;
 using Xms.Event.Abstractions;
 using Xms.Sdk.Event.AggRoot;
@@ -13,6 +12,7 @@ namespace Xms.Sdk.Event
         {
             Object = @object;
         }
+
         public AggregateRootMetaData AggRootMetaData { get; set; }
     }
 }

@@ -1,0 +1,271 @@
+﻿@using Xms.Flow.Abstractions;
+
+@model WorkFlowStateListModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="xms">
+    <meta name="author" content="xms">
+    <link rel="icon" href="/favicon.ico">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!--link href="/content/css/dashboard.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">-->
+    <link href="/content/css/font-awesome.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/jquery-toast/jquery.toast.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/content/js/jquery.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/content/js/ie10-viewport-bug-workaround.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootstrap.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/json2.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
+    @{await Html.RenderPartialAsync("UserContext"); }
+    @{await Html.RenderPartialAsync("CommonLabel"); }
+    <script>
+        jQuery(function () {
+            Xms.Web.Loading();
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="@(Model.StateCode == 1 ? "active":"")">
+            <a href="?statecode=1&entityid=@Model.EntityId">
+                待我审批
+            </a>
+        </li>
+        <li class="@(Model.StateCode == 0 ? "active":"")"><a href="?statecode=0&entityid=@Model.EntityId">我的申请</a></li>
+        <li class="@(Model.StateCode == 2 ? "active":"")"><a href="?statecode=2&entityid=@Model.EntityId">我已处理</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane@(Model.StateCode == 1 ? " in active":"")" id="stage1">
+            @if (Model.StateCode == 1)
+            {
+                <div class="table-responsive" id="gridview">
+                    <table class="table table-hover table-striped table-condensed datatable" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+                        <thead>
+                            <tr>
+                                <th>流程</th>
+                                <th width="15%">类型</th>
+                                <th width="15%">发起人</th>
+                                <th width="15%">当前环节</th>
+                                <th>说明</th>
+                                <th width="15%">开始时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr data-dbclick="Xms.Web.OpenWindow('/@app.OrganizationUniqueName/entity/create?entityid=@item.EntityId&recordid=@item.ObjectId')">
+                                    <td>@item.WorkFlowName</td>
+                                    <td>@item.EntityLocalizedName</td>
+                                    <td>@item.ApplicantIdName</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.ApplyDescription</td>
+                                    <td>@(item.StartTime != null ? item.StartTime.ToString("MM/dd HH:mm") : "")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                            </div>
+                            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <div class="tab-pane@(Model.StateCode == 0 ? " in active":"")" id="stage2">
+            @if (Model.StateCode == 0)
+            {
+                <div class="table-responsive" id="gridview">
+                    <table class="table table-hover table-striped table-condensed datatable" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+                        <thead>
+                            <tr>
+                                <th>流程</th>
+                                <th width="15%">类型</th>
+                                <th>说明</th>
+                                <th width="15%">开始时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr data-dbclick="Xms.Web.OpenWindow('/@app.OrganizationUniqueName/entity/create?entityid=@item.EntityId&recordid=@item.ObjectId')">
+                                    <td>@item.WorkFlowName</td>
+                                    <td>@item.EntityLocalizedName</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.CreatedOn.ToString("MM/dd HH:mm")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                            </div>
+                            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <div class="tab-pane@(Model.StateCode == 2 ? " in active":"")" id="stage3">
+            @if (Model.StateCode == 2)
+            {
+                <div class="table-responsive" id="gridview">
+                    <table class="table table-hover table-striped table-condensed datatable" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+                        <thead>
+                            <tr>
+                                <th>流程</th>
+                                <th width="15%">类型</th>
+                                <th width="15%">发起人</th>
+                                <th width="15%">结果</th>
+                                <th>说明</th>
+                                <th width="15%">附件</th>
+                                <th width="15%">处理时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr data-dbclick="Xms.Web.OpenWindow('/@app.OrganizationUniqueName/entity/create?entityid=@item.EntityId&recordid=@item.ObjectId')">
+                                    <td>@item.WorkFlowName</td>
+                                    <td>@item.EntityLocalizedName</td>
+                                    <td>@item.ApplicantIdName</td>
+                                    <td>
+                                        @if (item.StateCode == (int)WorkFlowProcessState.Processing)
+                                        {
+                                            <span class="label label-info">处理中</span>
+                                        }
+                                        else if (item.StateCode == (int)WorkFlowProcessState.Waiting)
+                                        {
+                                            <span class="label label-default">等待中</span>
+                                        }
+                                        else if (item.StateCode == (int)WorkFlowProcessState.Passed)
+                                        {
+                                            <span class="label label-success"><span class="glyphicon glyphicon-ok"></span> 通过</span>
+                                        }
+                                        else if (item.StateCode == (int)WorkFlowProcessState.UnPassed)
+                                        {
+                                            <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span> 不通过</span>
+                                        }
+                                        else if (item.StateCode == (int)WorkFlowProcessState.Disabled)
+                                        {
+                                            <span class="label label-default">作废</span>
+                                        }
+                                    </td>
+                                    <td>@item.Description</td>
+                                    <td>
+                                        @if (item.Attachments > 0)
+                                        {
+                                            <a href="@("/"+app.OrganizationUniqueName)/entity/WorkFlowAttachments?processid=@item.WorkFlowProcessId&preview=true" target="_blank">预览</a>
+                                            <a href="@("/"+app.OrganizationUniqueName)/entity/WorkFlowAttachments?processid=@item.WorkFlowProcessId" target="_blank">下载</a>
+                                        }
+                                    </td>
+                                    <td>@(item.HandleTime != null ? item.HandleTime.ToString("MM/dd HH:mm") : "")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                            </div>
+                            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+            //$('#myTabContent a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            //    e.target // 激活的标签页
+            //    e.relatedTarget // 前一个激活的标签页
+            //})
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                pageUrl = $("#datatable").attr('data-pageurl');
+                console.log('pagenum', num)
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                $("#gridview").attr('data-pagenum', num);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    //$("#gridview").replaceWith($(this)); // some ajax content loading...
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+        function rebind() {
+            //$('#searchForm').submit();
+            pageUrl = $("#datatable").attr('data-pageurl');
+            var num = $("#gridview").attr('data-pagenum');
+            var url = pageUrl;
+            if (num) {
+                url = $.setUrlParam(pageUrl, 'page', num);
+            }
+            $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                //$("#gridview").replaceWith($(this)); // some ajax content loading...
+                ajaxgrid_reset();
+            });
+        }
+    </script>
+</body>
+</html>

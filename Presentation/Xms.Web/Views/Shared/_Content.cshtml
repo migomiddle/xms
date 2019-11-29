@@ -70,25 +70,25 @@
             <div class="shadeBox" style="background-color:#000000; opacity:0.5;width:100%;position:absolute;z-index:10;display:none;"></div>
             <div class="col-md-12" id="main" style="margin-bottom:80px;">
                 @*<div style="margin-left: -15px; margin-right: -15px;">
-                    <ol class="breadcrumb">
-                        <li>&rsaquo;&rsaquo;</li>
-                        @foreach (var item in app.PrivilegeTree)
-                        {
-                            var url = item.Url.IsNotEmpty() ? "/" + app.OrganizationUniqueName + item.Url : "#";
-                            @:
-                            <li><a href="@url">@item.DisplayName</a></li>
-                        }
-                        <li class="pull-right hide">
-                            <a href="@app.UrlReferrer">
-                                <span class="glyphicon glyphicon-arrow-left"></span>
-                                @app.T["goback"]
-                            </a>
-                        </li>
-                    </ol>
-                </div>*@
+                        <ol class="breadcrumb">
+                            <li>&rsaquo;&rsaquo;</li>
+                            @foreach (var item in app.PrivilegeTree)
+                            {
+                                var url = item.Url.IsNotEmpty() ? "/" + app.OrganizationUniqueName + item.Url : "#";
+                                @:
+                                <li><a href="@url">@item.DisplayName</a></li>
+                            }
+                            <li class="pull-right hide">
+                                <a href="@app.UrlReferrer">
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                                    @app.T["goback"]
+                                </a>
+                            </li>
+                        </ol>
+                    </div>*@
                 <div><br class="breadcrumb" /></div>
                 <div id="content"></div>
-                <div class="page-render-wrap" >
+                <div class="page-render-wrap">
                     <!--main-->
                     @RenderBody()
                 </div>

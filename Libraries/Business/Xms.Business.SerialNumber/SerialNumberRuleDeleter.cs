@@ -41,7 +41,7 @@ namespace Xms.Business.SerialNumber
             _solutionComponentService = solutionComponentService;
             _dependencyService = dependencyService;
             _entityPluginDeleter = entityPluginDeleter;
-            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), SerialNumberRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Xms.Business.SerialNumber
                 _localizedLabelService.DeleteByObject(ids);
                 //solution component
                 _solutionComponentService.DeleteObject(deleteds.First().SolutionId, SerialNumberRuleDefaults.ModuleName, ids);
-                var entityIds = deleteds.Select(x=>x.EntityId).Distinct().ToArray();
+                var entityIds = deleteds.Select(x => x.EntityId).Distinct().ToArray();
                 //plugin
                 foreach (var eid in entityIds)
                 {
@@ -96,7 +96,7 @@ namespace Xms.Business.SerialNumber
                 }
                 foreach (var deleted in deleteds)
                 {
-                    //remove from cache                    
+                    //remove from cache
                     _cacheService.RemoveEntity(deleted);
                 }
             }

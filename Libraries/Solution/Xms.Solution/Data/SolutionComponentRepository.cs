@@ -11,11 +11,6 @@ namespace Xms.Solution.Data
     {
         public SolutionComponentRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

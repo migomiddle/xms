@@ -29,7 +29,8 @@ namespace Xms.Business.DataAnalyse.Visualization
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 11);
             //Solution.Abstractions.SolutionComponentTypes.Add(this.Name, 10);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/chart/solutioncomponents";
             });

@@ -1,6 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.EditDuplicateRuleModel
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
@@ -8,6 +16,12 @@
                 @Html.ValidationSummary()
                 @Html.HiddenFor(x => x.EntityId)
                 @Html.HiddenFor(x => x.SolutionId)
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">实体</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-sm hide" id="entityselecter" />
+                    </div>
+                </div>
                 <div class="form-group col-sm-12">
                     @Html.LabelFor(x => x.Name, app.T["name"], new { @class = "col-sm-2 control-label" })
                     <div class="col-sm-10">
@@ -117,7 +131,12 @@
                 }
             });
 
-           Xms.Schema.GetAttributes({ getall: true, entityid: $('#EntityId').val() },  function (response) {
+           loadAttribute();
+            loadEntitys($('#entityselecter'));
+        });
+        function loadAttribute() {
+            Xms.Schema.GetAttributes({ getall: true, entityid: $('#EntityId').val() }, function (response) {
+                AttributeMetaDatas = [];
                 $(response).each(function (i, n) {
                     var attr = {};
                     attr.id = n.attributeid;
@@ -129,10 +148,49 @@
                 });
                 setAttributeOptions();
             });
-        });
+        }
+         function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
+                    clearOption('optionset-picklist', true);
+                    loadAttribute();
+                },
+                removehandler: function () {
+                    $('#EntityId').val('00000000-0000-0000-0000-000000000000');
+                    AttributeMetaDatas = [];
+                    clearOption('optionset-picklist');
+                   // loadAttribute();
+                },
+                inputPlaceHolder:'选择实体'
+            });
+
+        }
         function setAttributeOptions() {
             $('#optionset-picklist').find('input[name=attributeid]:not(.hide)').each(function () {
+                $(this).removeAttr('data-picklistinit').removeAttr('data-instance');
+                if ($(this).next('select').length > 0) {
+                    $(this).next('select').remove()
+                }
+                var value = $(this).val();
+                console.log(value)
                 $(this).picklist({
+                    isDefault: true,
                     items: AttributeMetaDatas
                 });
             });
@@ -148,6 +206,7 @@
             $target.find('select:last').find('option:not(.hide)').eq(1).prop('selected', true).trigger('change');
             OptionState();
             setAttributeOptions();
+            return newRow;
         }
         //删除选项
         function removeOption(id, row) {
@@ -164,14 +223,16 @@
             }
         }
         //清空选项
-        function clearOption(id) {
+        function clearOption(id,isSetOptions) {
             var $target = $("#" + id);
             $target.find('tbody').find('tr:gt(0)').remove();
-            var newRow = $target.find('tbody').find('tr:first');
-            newRow.find('input[type=text]').val('');
-            newRow.find('input[type=hidden]').val('');
-            newRow.find('input[type=checkbox]').prop('checked', false);
-            setAttributeOptions();
+            var newRow = addOption(id, newRow).clone(true);
+            newRow.find('input[name="attributeid"]').removeClass('hide');
+            $target.find('tbody').empty();
+            $target.find('tbody').append(newRow);
+            if (!isSetOptions) {
+                setAttributeOptions();
+            }
         }
         function OptionState() {
             $('#optionset-picklist option').removeClass('show');

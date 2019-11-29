@@ -56,6 +56,7 @@ namespace Xms.Web.Customize.Controllers
             _queryViewUpdater = queryViewUpdater;
             _webResourceFinder = webResourceFinder;
         }
+
         [Description("视图列表")]
         public IActionResult Index(QueryViewModel model)
         {
@@ -226,6 +227,7 @@ namespace Xms.Web.Customize.Controllers
             }
             return UpdateFailure(GetModelErrors());
         }
+
         [Description("视图复制")]
         public IActionResult CopyQueryView(Guid queryViewId, string name)
         {
@@ -244,24 +246,28 @@ namespace Xms.Web.Customize.Controllers
             }
             return SaveFailure();
         }
+
         [Description("删除视图")]
         [HttpPost]
         public IActionResult DeleteQueryView([FromBody]DeleteManyModel model)
         {
             return _queryViewDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置视图默认状态")]
         [HttpPost]
         public IActionResult SetQueryViewDefault([FromBody]SetQueryViewDefaultModel model)
         {
             return _queryViewUpdater.UpdateDefault(model.EntityId, model.RecordId.First()).UpdateResult(T);
         }
+
         [Description("设置视图可用状态")]
         [HttpPost]
         public IActionResult SetQueryViewState([FromBody]SetRecordStateModel model)
         {
             return _queryViewUpdater.UpdateState(model.RecordId, model.IsEnabled).UpdateResult(T);
         }
+
         [Description("设置视图权限启用状态")]
         [HttpPost]
         public IActionResult SetViewAuthorizationState([FromBody]SetViewAuthorizationStateModel model)

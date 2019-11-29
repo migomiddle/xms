@@ -14,7 +14,7 @@ namespace Xms.Security.DataAuthorization
         public void Add(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<Authorization.Abstractions.IPrincipalObjectAccessService, Security.DataAuthorization.PrincipalObjectAccessService>();
-            services.AddScoped<Security.DataAuthorization.IEntityPermissionService, Security.DataAuthorization.EntityPermissionService>();            
+            services.AddScoped<Security.DataAuthorization.IEntityPermissionService, Security.DataAuthorization.EntityPermissionService>();
             services.AddScoped<Authorization.Abstractions.IRoleObjectAccessService, Security.DataAuthorization.RoleObjectAccessService>();
             services.AddScoped<Authorization.Abstractions.IRoleObjectAccessEntityPermissionService, Security.DataAuthorization.RoleObjectAccessEntityPermissionService>();
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xms.Security.Domain;
 using Xms.SiteMap.Domain;
 
 namespace Xms.Security.Principal.Data

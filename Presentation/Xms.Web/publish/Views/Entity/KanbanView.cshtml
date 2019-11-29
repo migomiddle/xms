@@ -1,0 +1,49 @@
+﻿@using Xms.Schema.Extensions;
+@model Xms.Web.Models.KanbanGridModel
+@{
+    Layout = null;
+}
+
+<div class="xms-table display-table-full step-wrap container" id="kanbanviewBox" style="display:none;">
+    @{
+        var dataItems = Model.Items.Select(n => (n as IDictionary<string, object>)).ToList();
+        var aggAttr = Model.AttributeList.Find(n => n.Name.IsCaseInsensitiveEqual(Model.AggregateField));
+        var groupItems = Model.AttributeList.Find(n => n.Name.IsCaseInsensitiveEqual(Model.GroupField)).OptionSet.Items;
+        var count = groupItems.Count;
+        <div class="xms-table-row step-header-group step-bgcolor-dark step-item-center" data-count="@count">
+            @foreach (var item in groupItems)
+            {
+                <div class="xms-table-cell step-header-item">@item.Name</div>
+            }
+        </div>
+    }
+    <div class="xms-table-row step-body-group">
+        @foreach (var item in groupItems)
+        {
+            var data = dataItems.Find(n => null != n[Model.GroupField.ToLower()] && n[Model.GroupField.ToLower()].ToString() == item.Value.ToString());
+            <div class="xms-table-cell step-body-item">
+                <div class="step-item-header">
+                    @(data != null ? data[Model.AggregateField.ToLower() + Model.AggType.ToString().ToLower()] : 0)
+                </div>
+                @if (data != null)
+                {
+                    foreach (var gd in Model.GroupingDatas)
+                    {
+                        var d = gd as IDictionary<string, object>;
+                        if (d[Model.GroupField.ToLower()] != null && int.Parse(d[Model.GroupField.ToLower()].ToString()) == item.Value)
+                        {
+                            <div class="step-item-content">
+                                <p><a href="@("/"+app.OrganizationUniqueName)/entity/create?entityid=@Model.EntityId&recordid=@d[Model.EntityName.ToLower() + "id"]" target="_blank">@gd.name</a></p>
+                                <p>@d[aggAttr.GetNameField().ToLower()]</p>
+                                <p>@gd.owneridname @gd.createdon</p>
+                            </div>
+                        }
+                    }
+                }
+                <div class="step-item-footer">
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

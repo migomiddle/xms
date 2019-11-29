@@ -13,6 +13,7 @@ namespace Xms.Module
     public class ModuleRegistrar : IModuleRegistrar
     {
         private readonly IModuleService _moduleService;
+
         public ModuleRegistrar(IModuleService moduleService)
         {
             _moduleService = moduleService;

@@ -49,7 +49,7 @@ namespace Xms.Localization
             var result = _cache.Get(() =>
             {
                 var labels = new List<LocalizedTextLabel>();
-                XDocument doc = XDocument.Load(FilePath); 
+                XDocument doc = XDocument.Load(FilePath);
                 IEnumerable<XElement> elements = from e in doc.Element("Labels").Elements("Label")
                                                  select e;
                 elements.ToList().ForEach(item =>
@@ -99,9 +99,10 @@ namespace Xms.Localization
             XmlDocument doc = new XmlDocument();
             doc.Load(FilePath);
             XmlNode root = doc.SelectSingleNode("/Labels");
-            labels.ToList().ForEach(item => {
+            labels.ToList().ForEach(item =>
+            {
                 var original = this.Labels.FirstOrDefault(x => x.Name.IsCaseInsensitiveEqual(item.Name));
-                if(original != null)
+                if (original != null)
                 {
                     original.Text = item.Text;
                     var node = root.SelectSingleNode($"Label[@name=\"{item.Name.ToLower()}\"]");

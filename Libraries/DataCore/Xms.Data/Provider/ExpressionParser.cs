@@ -228,7 +228,7 @@ namespace Xms.Data.Provider
         {
             List<string> inParas = new List<string>();
             int i = 0;
-            if(expression.Arguments[1] is LambdaExpression)
+            if (expression.Arguments[1] is LambdaExpression)
             {
                 Resolve(expression.Arguments[1] as LambdaExpression);
             }

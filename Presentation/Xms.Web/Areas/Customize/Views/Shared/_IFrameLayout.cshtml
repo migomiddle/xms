@@ -40,12 +40,13 @@
     <script src="/content/js/jquery-toast/jquery.toast.min.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/xms.jquery.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/xms.web.js?v=@app.PlatformSettings.VersionNumber"></script>
-    <script src="/content/js/md5.js?v=@app.PlatformSettings.VersionNumber"  type="text/javascript"></script>
+    <script src="/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/md5.js?v=@app.PlatformSettings.VersionNumber" type="text/javascript"></script>
     <script>
         jQuery(function () {
             Xms.Web.Loading();
             function aLinkClick(e) {
-                 e.preventDefault();
+                e.preventDefault();
                 if (currentKeycode != 17) {
                     var tabNav = $('#customTabNav', parent.document).children('.iframe-link-linkitem.active');
                     var textEl = tabNav.clone();
@@ -59,23 +60,16 @@
                     Xms.Web.callParentMethod('addToTab', { id: id, label: label, link: link });
                     return false;
                 } else {
-                  //  currentKeycode = -99999;
-                  //  var link = $(this).attr("href");
-                  //  Xms.Web.OpenWindow(link);
+                    //  currentKeycode = -99999;
+                    //  var link = $(this).attr("href");
+                    //  Xms.Web.OpenWindow(link);
                 }
-                
+
             }
             var currentKeycode = -99999;
             $("body").on("click.customizeLinkclick", 'a[href]a:not([href^="javascript:"])a:not([href^="#"])', function (e) {
                 aLinkClick.call(this, e);
             });
-
-            //$("body").on("keydown.listpage_keydown", function (e) {
-            //    currentKeycode = e.keyCode;
-            //});
-            //$("body").on("keyup.listpage_keydown", function (e) {
-            //    currentKeycode = e.keyCode;
-            //});
         });
     </script>
     @{await Html.RenderPartialAsync("CommonLabel"); }
@@ -93,33 +87,16 @@
             max-height: 400px;
             overflow-y: auto;
         }
+
+        .panel-default .panel-heading {
+            background-color: white;
+        }
     </style>
 </head>
-
 <body>
-    @*@{await Html.RenderPartialAsync("navbar");}*@
     <div class="" id="body">
         <div class="clearfix">
-            @*@{Html.RenderAction("sidebar", "home");}*@
             <div class="col-md-12" id="main">
-                @*@{await Html.RenderPartialAsync("navpath");}*@
-
-                @*<div class="" style="margin-left: -10px; margin-right: -10px;">
-
-                        <ol class="breadcrumb">
-                            <li>&rsaquo;&rsaquo;</li>
-                            @foreach (var item in app.PrivilegeTree)
-                            {
-                                var url = item.Url.IsNotEmpty() ? "/" + app.OrganizationUniqueName + item.Url : "javascript:;";
-                                @:
-                                <li><a href="@url">@item.DisplayName</a></li>
-                            }
-                            <li class="pull-right">
-                                <a href="@app.UrlReferrer"><span class="glyphicon glyphicon-arrow-left"></span>@app.T["goback"]</a>
-                            </li>
-                        </ol>
-                    </div>*@
-
                 <div class="" style="padding:5px;" id="renderBody">
                     <!--main-->
                     @RenderBody()

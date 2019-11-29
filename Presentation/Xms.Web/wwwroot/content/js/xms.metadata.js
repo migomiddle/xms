@@ -40,13 +40,13 @@ Xms.Schema = {
             callback.call(this, data.content);
         });
     }
-    , GetEntityGroups: function ( callback) {
+    , GetEntityGroups: function (callback) {
         var url = '/api/data/retrieve/all/entitygroup/name/name:asc';
         Xms.Web.GetJson(url, null, function (data) {
             callback(data.content);
         });
     }
-    , GetFlowWorks: function (filter, callback ) {
+    , GetFlowWorks: function (filter, callback) {
         var url = '/xms/customize/flow/index?loaddata=true&getall=true&LoadData=true&__r=' + new Date().getTime();
         if (filter) {
             for (x in filter) {
@@ -106,7 +106,7 @@ Xms.Schema = {
         });
     }
     , GetQueryAttributes: function (queryid, filter, callback) {
-        var url = '/api/schema/queryview/getattributes/' + queryid+'?__r=' + new Date().getTime();
+        var url = '/api/schema/queryview/getattributes/' + queryid + '?__r=' + new Date().getTime();
         if (filter) {
             for (x in filter) {
                 url += '&' + x + '=' + filter[x];

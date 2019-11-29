@@ -1,14 +1,13 @@
-﻿if (typeof (Xms) == "undefined")
-{ Xms = { __namespace: true }; }
+﻿if (typeof (Xms) == "undefined") { Xms = { __namespace: true }; }
 Xms.SDK = {
     _serverUrl: function () {
         return ORG_SERVERURL + '/api/data';
     },
     _errorHandler: function (req) {
         return new Error("Error : " +
-              req.status + ": " +
-              req.statusText + ": " +
-              JSON.parse(req.responseText).error.message.value);
+            req.status + ": " +
+            req.statusText + ": " +
+            JSON.parse(req.responseText).error.message.value);
     },
     _parameterCheck: function (parameter, message) {
         if ((typeof parameter === "undefined") || parameter === null) {

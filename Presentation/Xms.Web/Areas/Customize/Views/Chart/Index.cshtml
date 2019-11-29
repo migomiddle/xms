@@ -1,112 +1,54 @@
 ﻿@model Xms.Web.Customize.Models.ChartModel
 
-<div class="" id="gridview">
-    <div class="mb-2 toolbar">
-        @*<a class="btn btn-info btn-xs" data-toggle="collapse"
-           href="#collapseOne">
-            <span class="caret"></span> @app.T["search"]
-        </a>
-        <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/chart/createchart?solutionid=@Model.SolutionId&entityid=@Model.EntityId"><span class="glyphicon glyphicon-file"></span> @app.T["add"]</a>
-        <button type="button" class="btn btn-xs btn-primary" data-action="/customize/chart/deletechart" data-role="delete" data-tooltip="@app.T["confirm_delete"]"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
-        <button type="button" class="btn btn-xs btn-primary" data-action="/customize/chart/SetChartState?entityid=@Model.EntityId" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> @app.T["chart_enabled"]</button>
-        <button type="button" class="btn btn-xs btn-primary" data-action="/customize/chart/SetChartState?entityid=@Model.EntityId" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> @app.T["chart_disabled"]</button>*@
-        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
-            @Html.HiddenFor(x => x.EntityId)
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="btn-group btn-group-sm">
-                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/chart/createchart?solutionid=@Model.SolutionId&entityid=@Model.EntityId"><span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]</a>
-                            <button type="button" class="btn btn-info" data-action="/customize/chart/deletechart" data-role="delete" data-tooltip="@app.T["confirm_delete"]"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
-                            <button type="button" class="btn btn-info" data-action="/customize/chart/SetChartState?entityid=@Model.EntityId&isenabled=true" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> @app.T["chart_enabled"]</button>
-                            <button type="button" class="btn btn-info" data-action="/customize/chart/SetChartState?entityid=@Model.EntityId&isenabled=false" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> @app.T["chart_disabled"]</button>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="input-group input-group-sm">
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
-                        </span>
-                    </div>
-
-                </div>
-            </div>
-        </form>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
     </div>
-    @*<div id="collapseOne" class="panel-collapse collapse">
-        <!--in-->
+    <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
-            <form action="/@app.OrganizationUniqueName/customize/chart/index" method="get" id="searchForm" class="form-horizontal" role="form">
-                @Html.HiddenFor(x => x.EntityId)
-                <div class="form-group col-sm-6">
-                    <label class="col-sm-3 control-label" for="Name">@app.T["chart_name"]</label>
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
-                </div>
-            </form>
-        </div>
-    </div>*@
-    <div class="table-datagrid-view">
-        <div class="datagrid-view"></div>
-        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-            @*<thead>
-                <tr>
-                    <th width="2%"><input type="checkbox" name="checkall" /></th>
-                    <th width="15%" data-name="name">
-                        @app.T["chart_name"]
-                    </th>
-                    <th data-name="description">
-                        @app.T["chart_description"]
-                    </th>
-                    <th width="5%" data-name="statecode">
-                        @app.T["chart_statecode"]
-                    </th>
-                    <th width="15%" data-name="createdon">
-                        @app.T["chart_createdon"]
-                    </th>
-                    <th width="20%">@app.T["operation"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Items)
-                {
-                    <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/chart/editchart?solutionid=@Model.SolutionId&id=@item.ChartId'">
-                        <td><input type="checkbox" value="@item.ChartId" name="recordid" /></td>
-                        <td>@item.Name</td>
-                        <td>@item.Description</td>
-                        <td>@Html.Raw(item.StateCode == Xms.Core.RecordState.Disabled ? "<span class=\"label label-default\">" + app.T["chart_disabled"] + "</span>" : "<span class=\"label label-info\">" + app.T["chart_enabled"] + "</span>")</td>
-                        <td>@item.CreatedOn</td>
-                        <td>
-                            <a class="btn btn-info btn-xs hide" href="@("/"+app.OrganizationUniqueName)/component/renderchart?entityname=@item.EntityName&chartid=@item.ChartId" target="_blank"><span class="glyphicon glyphicon-play-circle"></span> @app.T["preview"]</a>
-                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/chart/editchart?id=@item.ChartId"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</a>
-                            <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del('@item.ChartId','/customize/chart/deletechart',false,rebind,null,'@app.T["confirm_delete"]',true)"><span class="glyphicon glyphicon-trash"></span> @app.T["delete"]</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>*@
-            @*<tfoot>
-                <tr>
-                    <td colspan="6" class="active">
-                        <div class="form-group form-inline" role="form">
-                            
+            <div class="" id="gridview">
+                <div class="mb-2 toolbar">
+                    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
+                        @Html.HiddenFor(x => x.SolutionId)
+                        @Html.HiddenFor(x => x.EntityId)
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/chart/createchart?solutionid=@Model.SolutionId&entityid=@Model.EntityId"><span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]</a>
+                                    <button type="button" class="btn btn-info" data-action="/customize/chart/SetChartState?entityid=@Model.EntityId&isenabled=true" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> @app.T["chart_enabled"]</button>
+                                    <button type="button" class="btn btn-info" data-action="/customize/chart/SetChartState?entityid=@Model.EntityId&isenabled=false" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> @app.T["chart_disabled"]</button>
+                                    <button type="button" class="btn btn-warning" data-action="/customize/chart/deletechart" data-role="delete" data-tooltip="@app.T["confirm_delete"]"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-addon">
+                                        <em class="glyphicon glyphicon-filter"></em>
+                                    </span>
+                                    <span class="input-group-btn entity-selecter-wrap">
+                                        <input type="text" class="form-control input-sm hide" id="entityselecter" />
+                                    </span>
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            </tfoot>*@
-        </table>
-    </div>
-    @*<div class="panel-footer">
-        <div class="row">
-            <div class="col-sm-4">
-                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                    </form>
+                </div>
+
+                <div class="table-datagrid-view">
+                    <div class="datagrid-view"></div>
+                </div>
             </div>
-            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
         </div>
-    </div>*@
+    </div>
 </div>
 
 @section Header {
@@ -133,10 +75,6 @@
         var pageUrl = '';
         var solutionid = '@Model.SolutionId';
         $(function () {
-            //pageUrl = $("#datatable").attr('data-pageurl');
-            //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            //$("#datatable").ajaxTable();
-            //ajaxgrid_reset();
             var theaders = {
                 'chart_name': '@app.T["chart_name"]',
                 'chart_description': '@app.T["chart_description"]',
@@ -157,7 +95,7 @@
                     cb: { all: true, header: true }
                 },
                 {
-                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                    title: "", dataIndx: "hidden", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
                      cls: 'ui-state-default', sortable: false, editable: false,
                     hidden:true,
                     render: function (ui) {
@@ -168,8 +106,7 @@
                 },
                 { "dataIndx": "name", "title": theaders.chart_name, editable: false, "dataType": "string", "width": 250, "isprimaryfield": false, "attributetypename": "string" },
                 { "dataIndx": "description", "title": theaders.chart_description, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
-                
-               
+
                 { "dataIndx": "statecode", "title": theaders.chart_statecode, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
                         var datas = ui.rowData;
                         var dataIndx = ui.dataIndx;
@@ -191,7 +128,7 @@
                         var recordid = datas[dataIndx];
                         var html = ''
                         html = '<a class="btn btn-info btn-xs hide" href="@("/"+app.OrganizationUniqueName)/component/renderchart?entityname=' + datas.entityname + '&chartid=' + datas.chartid + '" target="_blank"><span class="glyphicon glyphicon-play-circle"></span> @app.T["preview"]</a> <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/chart/editchart?id=' + datas.chartid + '&solutionid=' + solutionid + '"><span class="glyphicon glyphicon-edit"></span> 编辑</a> <a class="btn btn-warning btn-xs" href=\'javascript:Xms.Web.Del("' + datas.chartid + '","/customize/chart/deletechart",false,rebind,null,"@app.T["attribute_delete_confirm"]",true)\'><span class="glyphicon glyphicon-trash"></span> 删除</a>';
-                       
+
                         return html
                     }
                 }
@@ -213,39 +150,40 @@
                     location.reload();
                 },100)
             });
-            //pageUrl = $("#datatable").attr('data-pageurl');
-            //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            //$("#datatable").ajaxTable();
-            //ajaxgrid_reset();
+             loadEntitys($('#entityselecter'));
         });
-        function ajaxgrid_reset() {
-            pag_init();
-            Xms.Web.DataTable($("#datatable"));
-        }
-        function pag_init() {
-            $('#page-selection').bootpag({
-                total: $('#page-selection').attr('data-total')
-                , maxVisible: 10
-                , page: $('#page-selection').attr('data-page')
-                , leaps: false
-                , prev: '&lsaquo;'
-                , next: '&rsaquo;'
-                , firstLastUse: true
-                , first: '&laquo;'
-                , last: '&raquo;'
-            }).on("page", function (event, /* page number here */ num) {
-                event.preventDefault();
-                pageUrl = $("#datatable").attr('data-pageurl');
-                var url = $.setUrlParam(pageUrl, 'page', num);
-                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
-                    ajaxgrid_reset();
-                });
-                return false;
+
+        function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
+                    rebind();
+                },
+                removehandler: function () {
+                    $('#EntityId').val(self.value);
+                    rebind();
+                },
+                inputPlaceHolder:'选择实体'
             });
+
         }
         function rebind() {
            $('.datagrid-view').cDatagrid('refreshDataAndView')
-            //$('#searchForm').submit();
         }
     </script>
 }

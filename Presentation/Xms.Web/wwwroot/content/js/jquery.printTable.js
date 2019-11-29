@@ -1,4 +1,3 @@
-
 $.fn.printArea = function (opt) {
     var document = window.document;
     opt = $.extend({
@@ -22,7 +21,6 @@ $.fn.printArea = function (opt) {
             if (opt.usePageStyle || links[i].href.indexOf('.css') !== -1) {
                 html += links[i].outerHTML;
             }
-
         }
     }
 
@@ -44,7 +42,7 @@ $.fn.printArea = function (opt) {
     var timer = setInterval(function () {
         if (iframe.contentWindow.canAccess) {
             clearInterval(timer);
-            //iframe.contentWindow.document.body.innerHTML = '这是新设置的页面内容';  
+            //iframe.contentWindow.document.body.innerHTML = '这是新设置的页面内容';
             // 重新构造jqgrid渲染的table为单个table
             //win.document.write(html);
             win.onafterprint = function () {
@@ -92,7 +90,6 @@ $.fn.printArea = function (opt) {
                 //$data.children().eq(0).remove();
                 //$tb.append($data).append($summary);
                 //$(win.document.body).append($html).append($tb);
-
             }
 
             // 开始打印

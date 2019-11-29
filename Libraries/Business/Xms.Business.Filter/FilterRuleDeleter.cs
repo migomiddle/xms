@@ -31,7 +31,7 @@ namespace Xms.Business.Filter
             _filterRuleRepository = filterRuleRepository;
             _dependencyService = dependencyService;
             _entityPluginDeleter = entityPluginDeleter;
-            _cacheService = new Caching.CacheManager<FilterRule>(FilterRuleCache.CacheKey(_appContext), FilterRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<FilterRule>(FilterRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         /// <summary>

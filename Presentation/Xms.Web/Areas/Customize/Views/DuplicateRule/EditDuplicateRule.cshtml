@@ -1,6 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.EditDuplicateRuleModel
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName - @Model.EntityMeta.LocalizedName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
@@ -8,6 +16,12 @@
                 @Html.ValidationSummary()
                 @Html.HiddenFor(x => x.EntityId)
                 @Html.HiddenFor(x => x.DuplicateRuleId)
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">实体</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-sm" value="@Model.EntityMeta.LocalizedName" disabled />
+                    </div>
+                </div>
                 <div class="form-group col-sm-12">
                     @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
                     <div class="col-sm-10">
@@ -67,7 +81,7 @@
                                 <tbody>
                                     @foreach (var item in Model.Conditions)
                                     {
-                                        <tr>
+                                        <tr class="row_clone">
                                             <td>
                                                 <input type="text" name="attributeid" value="@item.AttributeId" />
                                                 <input type="hidden" name="detailid" value="@item.DuplicateRuleConditionId" />
@@ -117,8 +131,12 @@
                 });
 
             });
-            
+
+            loadAttribute();
+        });
+        function loadAttribute() {
             Xms.Schema.GetAttributes({ getall: true, entityid: $('#EntityId').val() }, function (response) {
+                AttributeMetaDatas = [];
                 $(response).each(function (i, n) {
                     var attr = {};
                     attr.id = n.attributeid;
@@ -130,9 +148,13 @@
                 });
                 setAttributeOptions();
             });
-        });
+        }
         function setAttributeOptions() {
             $('#optionset-picklist').find('input[name=attributeid]:not(.hide)').each(function () {
+                $(this).removeAttr('data-picklistinit').removeAttr('data-instance');
+                if ($(this).next('select').length > 0) {
+                    $(this).next('select').remove()
+                }
                 var value = $(this).val();
                 console.log(value)
                 $(this).picklist({
@@ -160,6 +182,7 @@
             $target.find('select:last').find('option:not(.hide)').eq(1).prop('selected', true).trigger('change');
             OptionState();
             setAttributeOptions();
+            return newRow;
         }
         //删除选项
         function removeOption(id, row) {
@@ -175,13 +198,16 @@
             }
         }
         //清空选项
-        function clearOption(id) {
+        function clearOption(id,isSetOptions) {
             var $target = $("#" + id);
             $target.find('tbody').find('tr:gt(0)').remove();
-            var newRow = $target.find('tbody').find('tr:first');
+            var newRow = addOption(id, newRow).clone(true);
+            newRow.find('input[name="attributeid"]').removeClass('hide');
             $target.find('tbody').empty();
-            addOption(id, newRow);
-            setAttributeOptions();
+            $target.find('tbody').append(newRow);
+            if (!isSetOptions) {
+                setAttributeOptions();
+            }
         }
          function OptionState() {
             $('#optionset-picklist option').removeClass('show');

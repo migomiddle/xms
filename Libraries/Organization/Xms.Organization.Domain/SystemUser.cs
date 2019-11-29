@@ -26,9 +26,11 @@ namespace Xms.Organization.Domain
         public DateTime? LastLoginTime { get; set; }
         public DateTime? LastVisitTime { get; set; }
         public Guid OrganizationId { get; set; }
+
         [ResultColumn]
         [LinkEntity(typeof(Organization), LinkFromFieldName = "OrganizationId", LinkToFieldName = "OrganizationId", TargetFieldName = "UniqueName")]
         public string UniqueName { get; set; }
+
         public string DeviceId { get; set; }
     }
 }

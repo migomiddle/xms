@@ -284,7 +284,7 @@ var SalesOrder = {
         target.find('#dialog_quoteid_text').lookup({
             disabled: true,
             dialog: function () {
-                var data = {entityname : 'opportunity'};
+                var data = { entityname: 'opportunity' };
                 Xms.Web.OpenDialog('/entity/RecordsDialog?singlemode=true&inputid=dialog_quoteid', 'SalesOrder.GetQuoteProductsCallback', data);
             }
             , clear: function () {

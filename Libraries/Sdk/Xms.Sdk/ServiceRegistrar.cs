@@ -37,7 +37,6 @@ namespace Xms.Sdk
             services.AddScoped<Sdk.Client.AggRoot.IAggUpdater, Sdk.Client.AggRoot.AggUpdater>();
             services.AddScoped<Sdk.Client.AggRoot.IAggFinder, Sdk.Client.AggRoot.AggFinder>();
 
-
             //services.AddTransient<Sdk.Query.IQueryResolver, Sdk.Data.QueryExpressionResolver>();
             services.AddTransient<Sdk.Data.QueryExpressionResolver>();
             services.AddTransient<Sdk.Data.QueryByAttributeResolver>();

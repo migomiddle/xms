@@ -12,6 +12,7 @@ namespace Xms.EventConsumers.Entity
         private readonly IWorkFlowInstanceService _WorkFlowInstanceService;
         private readonly IBusinessProcessFlowInstanceService _businessProcessFlowInstanceService;
         private readonly IBusinessProcessFlowInstanceUpdater _businessProcessFlowInstanceUpdater;
+
         public RemoveFlowInstances(IWorkFlowInstanceService WorkFlowInstanceService
             , IBusinessProcessFlowInstanceService businessProcessFlowInstanceService
             , IBusinessProcessFlowInstanceUpdater businessProcessFlowInstanceUpdater)
@@ -20,6 +21,7 @@ namespace Xms.EventConsumers.Entity
             _businessProcessFlowInstanceService = businessProcessFlowInstanceService;
             _businessProcessFlowInstanceUpdater = businessProcessFlowInstanceUpdater;
         }
+
         public void HandleEvent(EntityDeletedEvent eventMessage)
         {
             if (eventMessage.EntityMetadata.WorkFlowEnabled)

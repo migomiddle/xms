@@ -3,17 +3,17 @@
 <div class="" id="gridview">
     <div class="mb-2 toolbar">
         @*<div class="panel-heading">
-            <div class="panel-title">
-                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
-                <div class="pull-right">
-                    <a class="btn btn-info btn-xs" data-toggle="collapse"
-                       href="#collapseOne">
-                        <span class="caret"></span> @app.T["search"]
-                    </a>
+                <div class="panel-title">
+                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                    <div class="pull-right">
+                        <a class="btn btn-info btn-xs" data-toggle="collapse"
+                           href="#collapseOne">
+                            <span class="caret"></span> @app.T["search"]
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>*@
-        <div  class="">
+            </div>*@
+        <div class="">
             <!--in-->
             <div class="panel-body">
                 @using (Html.BeginForm("entitylogs", "entity", FormMethod.Get, new { @id = "searchForm", @class = "form-horizontal", @role = "form" }))
@@ -21,14 +21,15 @@
                     @Html.HiddenFor(x => x.EntityId)
                     <input type="hidden" name="loaddata" value="true" />
                     <div class="row">
-                        <div class="col-sm-10 pl-0">
+                        <div class="col-sm-10 pl-0 pull-right">
                             <div class="input-group input-group-sm">
-                                <span class="input-group-btn ">
-                                    <select class="form-control input-sm" id="viewSelector" style="width:150px;"></select>
+
+                                <span class="input-group-btn input-group-sm" style="width:190px;">
+                                    <input type="text" class="form-control input-sm hide" id="viewSelector" style="width:150px;" />
                                 </span>
 
                                 <select class="form-control input-sm" name="OperationType">
-                                    <option></option>
+                                    <option>事件</option>
                                     <option value="create">@app.T["security_create"]</option>
                                     <option value="update">@app.T["security_update"]</option>
                                     <option value="delete">@app.T["security_delete"]</option>
@@ -42,16 +43,14 @@
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-warning btn-sm btn-block" data-role="clearForm"><span class="glyphicon glyphicon-remove"></span> @app.T["clear"]</button>
                                 </span>
-                               
                             </div>
                         </div>
                     </div>
-                 
+
                 }
-                @using (Html.BeginForm("clearentitylogs", "entity", FormMethod.Get, new {@id="clearForm", @class = "form-horizontal", @role = "form" }))
+                @using (Html.BeginForm("clearentitylogs", "entity", FormMethod.Get, new { @id = "clearForm", @class = "form-horizontal", @role = "form" }))
                 {
-                    
-                    
+
                 }
             </div>
         </div>
@@ -59,12 +58,10 @@
     <div class="table-responsive">
         <div class="datagrid-view"></div>
         <table class="table table-striped table-hover table-condensed" id="datatable" data-pageurl="@app.Url" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-dbclick="rebind()">
-           
+
             <tbody>
-                
             </tbody>
         </table>
-       
     </div>
 </div>
 
@@ -94,7 +91,7 @@
     <script>
         var pageUrl = '';
         $(function () {
-           
+
             $('#main').css('margin-bottom', 0);
             var theaders = {
                 'name': ' @app.T["entitylog_optype"]',
@@ -200,7 +197,7 @@
                                         htmls.push(' <tr><td>' + (attrname) + '</td><td>'+n.value+'</td></tr>');
                                     }
                                 });
-                            
+
                         }
                     htmls.push('</table>');
                     return htmls.join('')
@@ -260,23 +257,50 @@
             $('body').on('click', '[data-role="clearForm"]', function (e) {
                clearEntityLogs()
             })
-
+            loadEntitys($('#viewSelector'));
             //$("#datatable").ajaxTable();
             //ajaxgrid_reset();
         });
+        function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
 
+                },
+                removehandler: function () {
+                    $('#EntityId').val(self.value);
+
+                },
+                inputPlaceHolder:'选择实体'
+            });
+
+        }
         function clearEntityLogs() {
-            
+
             var _entityid = $('#EntityId').val();
             var _url = ORG_SERVERURL + '/entity/ClearEntityLogs?entityid=' + _entityid;
-            Xms.Web.Confirm('确认', '是否清空当前实体的日志', function () { 
+            Xms.Web.Confirm('确认', '是否清空当前实体的日志', function () {
                 Xms.Ajax.Get(_url, {}, function (res) {
                     Xms.Web.Toast(res.Content, res.IsSuccess);
                 }, null);
             })
         }
 
-      
         function rebind() {
              $('.datagrid-view').cDatagrid('refreshDataAndView')
            // $('#searchForm').submit();
@@ -304,8 +328,8 @@
                     for (var j = 0; j < data.length; j++) {
                         var key = data[j].key;
                         var val = data[j].value;
-                        KeyTarget.append('<span>' + key + '</span><br/>');
-                        ValTarget.append('<span>' + val + '</span><br/>');
+                        KeyTarget.append('<span>' + key + '</span><br />');
+                        ValTarget.append('<span>' + val + '</span><br />');
 
                     }
                     var userid = $(n).find('.UserName').attr('data-id');

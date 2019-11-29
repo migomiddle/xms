@@ -34,7 +34,6 @@ namespace Xms.Schema.Attribute
         private readonly IAppContext _appContext;
         private readonly IOptionSetFinder _optionSetFinder;
 
-
         public AttributeUpdater(IAppContext appContext
             , IAttributeRepository attributeRepository
             , IOptionSetDetailCreater optionSetDetailCreater
@@ -58,8 +57,8 @@ namespace Xms.Schema.Attribute
             _stringMapCreater = stringMapCreater;
             _stringMapUpdater = stringMapUpdater;
             _eventPublisher = eventPublisher;
-            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", AttributeCache.BuildKey);
-            _cacheServiceOption = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets");
+            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", _appContext.PlatformSettings.CacheEnabled);
+            _cacheServiceOption = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Update(Domain.Attribute entity)
@@ -90,6 +89,8 @@ namespace Xms.Schema.Attribute
                     {
                         result = _optionSetDetailDeleter.DeleteById(lostid.ToArray());
                     }
+                    var optionSetEntity = _optionSetFinder.FindById(entity.OptionSet.OptionSetId);
+                    _cacheServiceOption.RemoveEntity(optionSetEntity);
                 }
                 if (entity.PickLists.NotEmpty())//bit
                 {
@@ -109,9 +110,7 @@ namespace Xms.Schema.Attribute
                 _localizedLabelService.Update(entity.LocalizedName.IfEmpty(""), "LocalizedName", entity.AttributeId, this._appContext.BaseLanguage);
                 _localizedLabelService.Update(entity.Description.IfEmpty(""), "Description", entity.AttributeId, this._appContext.BaseLanguage);
                 //set to cache
-                var optionSetEntity = _optionSetFinder.FindById(entity.OptionSet.OptionSetId);
                 _cacheService.SetEntity(entity);
-                _cacheServiceOption.RemoveEntity(optionSetEntity);
             }
             return result;
         }
@@ -135,9 +134,10 @@ namespace Xms.Schema.Attribute
                 });
                 //set to cache
                 var items = _attributeRepository.Query(f => f.AttributeId.In(id)).ToList();
-                foreach (var item in items) {
+                foreach (var item in items)
+                {
                     _cacheService.SetEntity(item);
-                }                
+                }
             }
             return result;
         }

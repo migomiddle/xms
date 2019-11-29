@@ -21,6 +21,7 @@ namespace Xms.Flow.Domain
         public Guid OrganizationId { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
+
         [Ignore]
         public List<WorkFlowStep> Steps { get; set; }
 

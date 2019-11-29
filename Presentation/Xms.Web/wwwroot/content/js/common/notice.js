@@ -1,5 +1,4 @@
 ﻿!function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -10,7 +9,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -25,9 +24,7 @@
     var isSetPost = false;
     var notice_methods = {
         init: function () {
-
             getNoticeData(function (_html, count, res) { noticeLoaded(_html, count, res) });
-
         },
         bindEvent: function () {
             var orignalSetItem = localStorage.setItem;
@@ -72,7 +69,6 @@
                     }
                     setDomPosition($('#noticeCenterBtn'), $('#popoverNoticeBox'), { x: noticeoffsetleft });
                 }
-
             });
             $('#mainChangeReaded').off('click').on('click', function (e) {
                 e = e || window.event;
@@ -99,7 +95,6 @@
                 }
             }
             $(document).off('click', hideNotice).on('click', hideNotice);
-
         } else {
             $('#noticeCount').hide();
             $('#noticeCenterBtn').siblings('div').find('.popover-content').html('');
@@ -127,7 +122,6 @@
                     }
                 }
             });
-
         }
     }
 

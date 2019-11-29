@@ -50,7 +50,7 @@ namespace Xms.Form
             _dependencyChecker = dependencyChecker;
             _eventPublisher = eventPublisher;
             _cascadeDeletes = cascadeDeletes;
-            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", SystemFormCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool DeleteById(params Guid[] id)

@@ -1,5 +1,4 @@
 ﻿using System;
-using Xms.Schema.Data;
 using Xms.Solution.Abstractions;
 
 namespace Xms.Schema.RelationShip
@@ -9,7 +8,6 @@ namespace Xms.Schema.RelationShip
     /// </summary>
     public class RelationShipExporter : ISolutionComponentExporter
     {
-
         public RelationShipExporter()
         {
         }

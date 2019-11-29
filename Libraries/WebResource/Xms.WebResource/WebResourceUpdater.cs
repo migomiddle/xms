@@ -25,8 +25,9 @@ namespace Xms.WebResource
             _appContext = appContext;
             _webResourceRepository = webResourceRepository;
             _localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.WebResource>(_appContext.OrganizationUniqueName + "webresource");
+            _cacheService = new Caching.CacheManager<Domain.WebResource>(_appContext.OrganizationUniqueName + "webresource", _appContext.PlatformSettings.CacheEnabled);
         }
+
         public bool Update(Domain.WebResource entity)
         {
             var flag = _webResourceRepository.Update(entity);

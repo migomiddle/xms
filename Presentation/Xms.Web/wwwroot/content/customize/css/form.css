@@ -1,66 +1,66 @@
 ﻿.btn-toolbar-group {
-            padding: 2px;
-            border-right: 1px #ccc solid;
-        }
+    padding: 2px;
+    border-right: 1px #ccc solid;
+}
 
-        .collapse-title {
-            color: black;
-        }
+.collapse-title {
+    color: black;
+}
 
-        .navGroup {
-            clear: both;
-            background: #f6f8fa;
-            cursor: pointer;
-        }
+.navGroup {
+    clear: both;
+    background: #f6f8fa;
+    cursor: pointer;
+}
 
-        .nav-child {
-            text-indent: 1em;
-        }
+.nav-child {
+    text-indent: 1em;
+}
 
-            .nav-child li {
-                margin-bottom: 2px;
-            }
+    .nav-child li {
+        margin-bottom: 2px;
+    }
 
-        .header, .footer {
-            margin: 5px 0;
-            border: 1px #ccc solid;
-            background: #f6f8fa;
-            padding: 5px;
-        }
+.header, .footer {
+    margin: 5px 0;
+    border: 1px #ccc solid;
+    background: #f6f8fa;
+    padding: 5px;
+}
 
-        .section, .tab {
-            margin: 5px 0;
-        }
+.section, .tab {
+    margin: 5px 0;
+}
 
-        .section-title {
-            color: #999;
-            height: 22px;
-            border-bottom: 1px #ccc solid;
-            clear: both;
-        }
+.section-title {
+    color: #999;
+    height: 22px;
+    border-bottom: 1px #ccc solid;
+    clear: both;
+}
 
-        .section table {
-            margin: 5px 0;
-            clear: both;
-        }
+.section table {
+    margin: 5px 0;
+    clear: both;
+}
 
-            .section table th {
-                background: #f1f3f5;
-                padding: 2px;
-                cursor: default;
-            }
+    .section table th {
+        background: #f1f3f5;
+        padding: 2px;
+        cursor: default;
+    }
 
-            .section table td {
-                background: #fff;
-                vertical-align: top;
-                color: #999;
-                cursor: default;
-            }
+    .section table td {
+        background: #fff;
+        vertical-align: top;
+        color: #999;
+        cursor: default;
+    }
 
-        td.field {
-            padding: 1px !important;
-        }
+td.field {
+    padding: 1px !important;
+}
 
-        table.cell {
-            margin: 0;
-        }
+table.cell {
+    margin: 0;
+}

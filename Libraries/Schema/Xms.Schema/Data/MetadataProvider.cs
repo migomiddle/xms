@@ -23,6 +23,7 @@ namespace Xms.Schema.Data
         }
 
         #region 列
+
         public void AddColumn(params Domain.Attribute[] attributes)
         {
             Guard.NotEmpty(attributes, nameof(attributes));
@@ -83,9 +84,11 @@ namespace Xms.Schema.Data
                 _database.Execute(dropSql);
             }
         }
-        #endregion
+
+        #endregion 列
 
         #region 表
+
         public void AlterView(Domain.Entity entity, List<Domain.Attribute> attributes, List<Domain.RelationShip> relationShips)
         {
             Sql dropSql = Sql.Builder.Append(string.Format("IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[{0}View]') AND OBJECTPROPERTY(id, N'IsView') = 1) ", entity.Name))
@@ -241,7 +244,8 @@ namespace Xms.Schema.Data
             Sql dropSql = Sql.Builder.Append(string.Format("IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[{0}View]') AND OBJECTPROPERTY(id, N'IsView') = 1) ", entity.Name))
                 .Append(string.Format("DROP VIEW [dbo].[{0}View]", entity.Name));
             _database.Execute(dropSql);
-        } 
-        #endregion
+        }
+
+        #endregion 表
     }
 }

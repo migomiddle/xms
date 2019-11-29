@@ -11,11 +11,6 @@ namespace Xms.DataMapping.Data
     {
         public AttributeMapRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

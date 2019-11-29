@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using Xms.Infrastructure.Utility;
 using Xms.QueryView;
-using Xms.Sdk.Abstractions;
+using Xms.Schema.Attribute;
+using Xms.Sdk.Abstractions.Query;
 using Xms.Sdk.Client;
 using Xms.Web.Api.Models;
 using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Controller;
-using Xms.Web.Framework.Infrastructure;
-using Xms.Infrastructure.Utility;
-using System.Collections.Generic;
-using Xms.Sdk.Abstractions.Query;
-using System.Linq;
-using Xms.Schema.Attribute;
 
 namespace Xms.Web.Api
 {
@@ -25,6 +22,7 @@ namespace Xms.Web.Api
         private readonly IAggregateService _aggregateService;
         private readonly IQueryViewFinder _queryViewFinder;
         private readonly IAttributeFinder _attributeFinder;
+
         public DataAggregateController(IWebAppContext appContext
             , IAggregateService aggregateService
             , IQueryViewFinder queryViewFinder
@@ -56,7 +54,7 @@ namespace Xms.Web.Api
                 if (aggFields.NotEmpty())
                 {
                     var queryExp = new QueryExpression().DeserializeFromJson(queryView.FetchConfig);
-                    if(model.Filter != null 
+                    if (model.Filter != null
                         && (model.Filter.Conditions.NotEmpty() || (model.Filter.Filters.NotEmpty() && model.Filter.Filters.First().Conditions.NotEmpty())))
                     {
                         queryExp.Criteria.AddFilter(model.Filter);

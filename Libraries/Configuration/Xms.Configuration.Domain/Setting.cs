@@ -27,7 +27,7 @@ namespace Xms.Configuration.Domain
         public Guid SettingsId { get; set; } = Guid.NewGuid();
 
         public string Name { get; set; }
-        
+
         public string Value { get; set; }
 
         public DateTime CreatedOn { get; set; } = DateTime.Now;

@@ -323,7 +323,7 @@
                     $('#' + sourceId).data().point.param.Conditions.push({ PrevStepId: getTargetByName(sourceId).old, NextStepId: getTargetByName(targetId).old, Conditions: [] });
                 }
             }
-          
+
             self.add($('#' + sourceId).data().point);
             return false;
         }
@@ -342,7 +342,6 @@
         that.off('dblclick').on('dblclick', function () {
             that.trigger('mappoint.dblclick', { ele: that, _super: self });
         });
-      
     }
     elePoint.prototype.setTitle = function (title) {
         this.title.text(title);
@@ -387,12 +386,10 @@
     root.eleConnectionController = eleConnectionController;
 })(jQuery, window);
 
-
 var startPointAdded = false;
 var endPointAdded = false;
 var pointStepOrder = 0;
 var shutPoints = new mapPoint('shutPoints');//保存分流节点
-
 
 //添加流程
 function addPoint(eleparam, nodetype) {
@@ -411,11 +408,11 @@ function addPoint(eleparam, nodetype) {
         AttachmentExts: '',
         FormId: null
     }, {
-            x: 0,
-            y: 0,
-            title: '测试',
-            nodetype: TYPE_NARMAL
-        }, eleparam);
+        x: 0,
+        y: 0,
+        title: '测试',
+        nodetype: TYPE_NARMAL
+    }, eleparam);
 
     var ele = new elePoint(null, eleparam).init().render('#workflowWrap');
     if (ele.param.nodetype == TYPE_SHUNT) {
@@ -432,8 +429,6 @@ function addPoint(eleparam, nodetype) {
     namesp.push({ old: ele.param.WorkFlowStepId, newn: ele.name, point: ele });
     return ele;
 }
-
-
 
 function changeToArray(arr) {
     var res = [];
@@ -516,12 +511,8 @@ function connectPoint(sourceId, targetId, box) {
             var compareattrname = item.AttributeName;
             var filtertype = item.CompareAttributeName ? 'attribute' : 'value';
             var _values = item.Values[0]
-
-            
         });
     }
-
-   
 }
 
 function styleToString(obj) {
@@ -660,8 +651,6 @@ function resSetWorkFlow() {
         loadInitFlow(true);
     }
 }
-
-
 
 function loadEntities(callback) {
     Xms.Web.GetJson('/api/schema/entity/' + Xms.Page.PageContext.EntityId, null, function (data) {
@@ -808,9 +797,7 @@ function loadInitFlow(type) {
             ////console.log($('#' + item2id).data().point);
             item.point.add($('#' + sourceId).data().point);
         });
-
     }
-
 }
 
 function loadWorkFlowInstances(callback) {
@@ -818,4 +805,3 @@ function loadWorkFlowInstances(callback) {
         callback && callback(res);
     });
 }
-

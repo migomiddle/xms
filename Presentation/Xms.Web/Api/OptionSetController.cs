@@ -21,6 +21,7 @@ namespace Xms.Web.Api
     {
         private readonly IOptionSetFinder _optionSetFinder;
         private readonly IOptionSetDetailFinder _optionSetDetailFinder;
+
         public OptionSetController(IWebAppContext appContext
             , IOptionSetFinder optionSetFinder
             , IOptionSetDetailFinder optionSetDetailFinder) : base(appContext)

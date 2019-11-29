@@ -50,7 +50,7 @@ namespace Xms.Localization
             {
                 return false;
             }
-            
+
             return _localizedLabelRepository.Create(new LocalizedLabel()
             {
                 ComponentState = 0

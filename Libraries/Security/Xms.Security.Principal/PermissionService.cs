@@ -36,7 +36,7 @@ namespace Xms.Security.Principal
             return ValidPermission(p, ignoreNull);
         }
 
-        public bool HasPermission(string url,bool ignoreNull = true)
+        public bool HasPermission(string url, bool ignoreNull = true)
         {
             //获取权限项
             var p = _privilegeService.Find(url);

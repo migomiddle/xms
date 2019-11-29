@@ -1,10 +1,10 @@
 /**
  * ParamQuery Pro v2.4.1
- * 
+ *
  * Copyright (c) 2012-2018 Paramvir Dhindsa (http://paramquery.com)
  * Released under GPL v3 license
  * http://paramquery.com/license
- * 
+ *
  */
 .pq-grid {
     overflow: hidden;
@@ -295,7 +295,7 @@ div.pq-grid tr {
     vertical-align: middle;
     border-width: 0;
     word-wrap: break-word;
-    outline:none;
+    outline: none;
 }
 
 div.pq-grid td.pq-cell-dirty {
@@ -337,16 +337,17 @@ table.pq-no-wrap > tbody > tr > .pq-grid-col {
     text-overflow: ellipsis;
     color: #555;
 }
+
     table.pq-no-wrap > tbody > tr > .pq-grid-cell > input[type="checkbox"],
     table.pq-no-wrap > tbody > tr > .pq-grid-col > input[type="checkbox"] {
-    margin-top:0;
-    top:-1px;
+        margin-top: 0;
+        top: -1px;
     }
 
-    .pq-grid-header-search-row .pq-grid-hd-search-field {
-        width: 100%;
-        box-sizing: border-box;
-    }
+.pq-grid-header-search-row .pq-grid-hd-search-field {
+    width: 100%;
+    box-sizing: border-box;
+}
 
 tr.pq-grid-header-search-row div.pq-td-div {
     padding: 0 2px;
@@ -426,9 +427,11 @@ div.pq-editor-inner {
         border-radius: 0;
         border-color: #5FB878;
     }
-    div.pq-editor-inner button:hover {
-        border-color: #5FB878;
-    }
+
+        div.pq-editor-inner button:hover {
+            border-color: #5FB878;
+        }
+
     div.pq-editor-inner .xms-dropdownLink {
         top: 12px;
     }
@@ -479,9 +482,11 @@ tr td.pq-grid-number-cell {
 .pq-grid-table > tbody > .pq-last-frozen-row > .pq-grid-cell {
     border-bottom: 1px solid #333;
 }
-.pq-grid-table > tbody>tr:last-child {
-height:34px;
+
+.pq-grid-table > tbody > tr:last-child {
+    height: 34px;
 }
+
 .pq-grid tr.pq-detail-master > td {
     border-bottom-width: 0;
 }
@@ -890,7 +895,6 @@ div.pq-pager span, div.pq-pager select {
     z-index: 200;
 }
 
-
 .pq-grid .ui-widget-header {
     background: #f2f2f2;
 }
@@ -1014,6 +1018,9 @@ table.pq-no-wrap > tbody > tr > td.datatable-header-td:hover .caret {
     background: #fafafa;
 }
 
+.pq-grid-cont-outer .ui-state-highlight {
+    height: auto;
+}
 /*input[type="checkbox"] {
     position: relative
 }
@@ -1023,7 +1030,7 @@ table.pq-no-wrap > tbody > tr > td.datatable-header-td:hover .caret {
         content: ' ';
         height: 18px;
         width: 18px;
-        
+
         border-radius: 2px;
         left: -3px;
         background-color: #fff;

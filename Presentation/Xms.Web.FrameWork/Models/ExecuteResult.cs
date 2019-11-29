@@ -9,8 +9,8 @@ namespace Xms.Web.Framework.Models
     {
         public ExecuteResult()
         {
-
         }
+
         public ExecuteResult(bool isSuccess, object data = null, int statusCode = 200, string errorMessage = null)
         {
             this.IsSuccess = isSuccess;
@@ -18,18 +18,22 @@ namespace Xms.Web.Framework.Models
             this.StatusCode = statusCode;
             this.ErrorMessage = errorMessage;
         }
+
         /// <summary>
         /// 是否成功
         /// </summary>
         public bool IsSuccess { get; set; }
+
         /// <summary>
         /// 数据
         /// </summary>
         public object Data { get; set; } = null;
+
         /// <summary>
         /// 错误信息
         /// </summary>
         public string ErrorMessage { get; set; } = null;
+
         /// <summary>
         /// 状态码
         /// </summary>
@@ -39,6 +43,7 @@ namespace Xms.Web.Framework.Models
         {
             return new ExecuteResult(false, null, statusCode, message);
         }
+
         public static ExecuteResult Success(object data = null, int statusCode = 200)
         {
             return new ExecuteResult(true, data, statusCode);

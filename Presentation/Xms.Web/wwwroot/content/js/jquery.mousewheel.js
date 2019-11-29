@@ -18,10 +18,9 @@
         factory(jQuery);
     }
 }(function ($) {
-
     var toFix = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
         toBind = ('onwheel' in document || document.documentMode >= 9) ?
-                    ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
+            ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
         slice = Array.prototype.slice,
         nullLowestDeltaTimeout, lowestDelta;
 
@@ -88,7 +87,6 @@
             return this.unbind('mousewheel', fn);
         }
     });
-
 
     function handler(event) {
         var orgEvent = event || window.event,
@@ -217,5 +215,4 @@
         // Turn this off by setting $.event.special.mousewheel.settings.adjustOldDeltas to false.
         return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
     }
-
 }));

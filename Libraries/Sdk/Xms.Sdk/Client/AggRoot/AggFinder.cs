@@ -17,7 +17,7 @@ using Xms.Sdk.Data;
 
 namespace Xms.Sdk.Client.AggRoot
 {
-    public class AggFinder: DataProviderBase,IAggFinder
+    public class AggFinder : DataProviderBase, IAggFinder
     {
         private readonly ISystemFormFinder _systemFormFinder;
         private readonly IOrganizationDataRetriever _organizationDataRetriever;
@@ -25,7 +25,6 @@ namespace Xms.Sdk.Client.AggRoot
         private readonly IRelationShipFinder _relationShipFinder;
         private readonly IQueryViewFinder _queryViewFinder;
         private readonly IFetchDataService _fetchService;
-
 
         private AggregateRoot _aggregateRoot;
 
@@ -53,12 +52,11 @@ namespace Xms.Sdk.Client.AggRoot
             _relationShipFinder = relationShipFinder;
             _queryViewFinder = queryViewFinder;
             _fetchService = fetchDataService;
-            
+
             _dataFinder = dataFinder;
             User = _appContext.GetFeature<ICurrentUser>();
 
             _aggregateRoot = new AggregateRoot();
-
         }
 
         public AggregateRoot Retrieve(QueryBase request, bool ignorePermissions = false)
@@ -79,24 +77,29 @@ namespace Xms.Sdk.Client.AggRoot
             SystemForm formEntity = null;
             formEntity = _systemFormFinder.FindById(formId.Value);
             FormBuilder formBuilder = new FormBuilder(formEntity.FormConfig);
-            
+
             List<PanelDescriptor> panelDescriptors = formBuilder.Form.Panels;
 
-            foreach (var panel in panelDescriptors) {
-                foreach (var section in panel.Sections) {
-                    foreach (var row in section.Rows) {
-                        foreach (var cell in row.Cells) {
-                            if (cell.Control.ControlType == FormControlType.SubGrid) {
+            foreach (var panel in panelDescriptors)
+            {
+                foreach (var section in panel.Sections)
+                {
+                    foreach (var row in section.Rows)
+                    {
+                        foreach (var cell in row.Cells)
+                        {
+                            if (cell.Control.ControlType == FormControlType.SubGrid)
+                            {
                                 var param = (SubGridParameters)cell.Control.Parameters;
 
                                 //param.ViewId;
-                                //param.RelationshipName      
-                                
+                                //param.RelationshipName
+
                                 var queryView = _queryViewFinder.FindById(Guid.Parse(param.ViewId));
-                                if (queryView != null) {
+                                if (queryView != null)
+                                {
                                     //if (!queryView.IsDefault && queryView.IsAuthorization)
                                     {
-
                                     }
 
                                     FetchDescriptor fetch = new FetchDescriptor

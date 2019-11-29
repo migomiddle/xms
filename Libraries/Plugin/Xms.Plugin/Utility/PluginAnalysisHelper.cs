@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using Xms.Infrastructure;
 using Xms.Plugin.Abstractions;
 using Xms.Plugin.Domain;
@@ -19,6 +18,7 @@ namespace Xms.Plugin
             list.Add(typeof(IEntityPlugin));
             return list;
         }
+
         public static PluginAnalyses Load(string filePath)
         {
             if (System.IO.File.Exists(filePath))
@@ -35,12 +35,11 @@ namespace Xms.Plugin
                 }
                 else
                     throw new XmsException("文件类型不正确");
-
             }
             else
                 throw new XmsException("未找到相关{" + filePath + "}文件");
-
         }
+
         public static MemoryStream ReadFile(string path)
         {
             MemoryStream memStream;
@@ -58,6 +57,7 @@ namespace Xms.Plugin
             }
             return memStream;
         }
+
         public static List<PluginAnalysis> GetPluginAnalysis(PluginAnalyses pluginAnalyses)
         {
             List<PluginAnalysis> plugins = new List<PluginAnalysis>();
@@ -82,15 +82,16 @@ namespace Xms.Plugin
 
                         plugins.Add(plugin);
                     }
-
                 }
             }
             return plugins;
         }
+
         public static List<PluginAnalysis> GetPluginAnalysis(string filePath)
         {
             return GetPluginAnalysis(Load(filePath));
         }
+
         public static PluginInfo ConvertToPluginInfo(Type type)
         {
             PluginInfo pluginInfo = new PluginInfo();
@@ -100,8 +101,8 @@ namespace Xms.Plugin
             pluginInfo.MethodInfos = ConvertToMethodInfo(type.GetMethods());
             pluginInfo.Instances = ConvertToInstanceInfo(type.GetInterfaces());
             return pluginInfo;
-
         }
+
         public static AssemblyInfo ConvertToAssemblyInfo(Assembly assembly)
         {
             AssemblyInfo assemblyInfo = new AssemblyInfo()
@@ -121,6 +122,7 @@ namespace Xms.Plugin
             };
             return assemblyInfo;
         }
+
         public static List<Domain.MethodInfo> ConvertToMethodInfo(System.Reflection.MethodInfo[] methodInfos)
         {
             List<Domain.MethodInfo> list = new List<Domain.MethodInfo>();
@@ -134,15 +136,16 @@ namespace Xms.Plugin
 
             return list;
         }
+
         public static Domain.InstanceInfo ConvertToInstanceInfo(Type instance)
         {
-
             return new Domain.InstanceInfo
             {
                 Name = string.IsNullOrWhiteSpace(instance.FullName) ? instance.Name : instance.FullName,
                 GUID = instance.GUID
             };
         }
+
         public static List<Domain.InstanceInfo> ConvertToInstanceInfo(Type[] instances)
         {
             List<Domain.InstanceInfo> list = new List<Domain.InstanceInfo>();

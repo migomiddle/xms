@@ -23,6 +23,7 @@ namespace Xms.Web.Controllers
         private readonly IEntityFinder _entityFinder;
         private readonly IAttributeFinder _attributeFinder;
         private readonly IEntityLogService _entityLogService;
+
         public EntityLogsController(IWebAppContext appContext
             , IEntityFinder entityFinder
             , IAttributeFinder attributeFinder
@@ -79,6 +80,7 @@ namespace Xms.Web.Controllers
             _entityLogService.Clear(entityId);
             return JsonResult(T["operation_success"]);
         }
+
         #endregion 日志
     }
 }

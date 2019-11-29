@@ -11,11 +11,6 @@ namespace Xms.Business.DuplicateValidator.Data
     {
         public DuplicateRuleConditionRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-        
-        #endregion implements
     }
 }

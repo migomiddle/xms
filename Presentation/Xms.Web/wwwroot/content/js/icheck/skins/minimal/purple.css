@@ -17,16 +17,20 @@
 .icheckbox_minimal-purple {
     background-position: 0 0;
 }
+
     .icheckbox_minimal-purple.hover {
         background-position: -20px 0;
     }
+
     .icheckbox_minimal-purple.checked {
         background-position: -40px 0;
     }
+
     .icheckbox_minimal-purple.disabled {
         background-position: -60px 0;
         cursor: default;
     }
+
     .icheckbox_minimal-purple.checked.disabled {
         background-position: -80px 0;
     }
@@ -34,16 +38,20 @@
 .iradio_minimal-purple {
     background-position: -100px 0;
 }
+
     .iradio_minimal-purple.hover {
         background-position: -120px 0;
     }
+
     .iradio_minimal-purple.checked {
         background-position: -140px 0;
     }
+
     .iradio_minimal-purple.disabled {
         background-position: -160px 0;
         cursor: default;
     }
+
     .iradio_minimal-purple.checked.disabled {
         background-position: -180px 0;
     }

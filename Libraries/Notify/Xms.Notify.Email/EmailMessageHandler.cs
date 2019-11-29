@@ -9,7 +9,6 @@ namespace Xms.Notify.Email
     /// </summary>
     public class EmailMessageHandler : INotify
     {
-
         public EmailMessageHandler()
         {
         }

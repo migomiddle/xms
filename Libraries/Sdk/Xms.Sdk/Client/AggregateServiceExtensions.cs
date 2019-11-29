@@ -19,6 +19,7 @@ namespace Xms.Sdk.Client
             }
             return 0;
         }
+
         public static double Sum(this IAggregateService aggregateService, string entityName, FilterExpression filter)
         {
             var value = GetValue(aggregateService, entityName, filter, AggregateType.Sum);
@@ -28,6 +29,7 @@ namespace Xms.Sdk.Client
             }
             return 0;
         }
+
         public static double Avg(this IAggregateService aggregateService, string entityName, FilterExpression filter)
         {
             var value = GetValue(aggregateService, entityName, filter, AggregateType.Avg);
@@ -37,6 +39,7 @@ namespace Xms.Sdk.Client
             }
             return 0;
         }
+
         public static double Max(this IAggregateService aggregateService, string entityName, FilterExpression filter)
         {
             var value = GetValue(aggregateService, entityName, filter, AggregateType.Max);
@@ -46,6 +49,7 @@ namespace Xms.Sdk.Client
             }
             return 0;
         }
+
         public static double Min(this IAggregateService aggregateService, string entityName, FilterExpression filter)
         {
             var value = GetValue(aggregateService, entityName, filter, AggregateType.Min);

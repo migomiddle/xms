@@ -27,29 +27,31 @@ namespace Xms.Business.Filter
         {
             _appContext = appContext;
             _filterRuleRepository = filterRuleRepository;
-            _cacheService = new Caching.CacheManager<FilterRule>(FilterRuleCache.CacheKey(_appContext), FilterRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<FilterRule>(FilterRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public FilterRule FindById(Guid id)
         {
             var dic = new Dictionary<string, string>();
             dic.Add("FilterRuleId", id.ToString());
-            FilterRule entity = _cacheService.Get(dic,() =>
-            {
-                return _filterRuleRepository.FindById(id);
-            }
+            FilterRule entity = _cacheService.Get(dic, () =>
+             {
+                 return _filterRuleRepository.FindById(id);
+             }
             );
             return entity;
         }
+
         public List<FilterRule> QueryByEntityId(Guid entityid, string eventName, RecordState? recordState)
         {
-            List<FilterRule> entities = _cacheService.GetVersionItems(entityid + "/*/" + eventName + "/",() =>
-            {
-                if (recordState.HasValue)
-                {
-                    return this.Query(n => n.Where(f => f.EntityId == entityid && f.EventName == eventName && f.StateCode == recordState.Value));
-                }
-                return this.Query(n => n.Where(f => f.EntityId == entityid && f.EventName == eventName));
-            });
+            List<FilterRule> entities = _cacheService.GetVersionItems(entityid + "/*/" + eventName + "/", () =>
+             {
+                 if (recordState.HasValue)
+                 {
+                     return this.Query(n => n.Where(f => f.EntityId == entityid && f.EventName == eventName && f.StateCode == recordState.Value));
+                 }
+                 return this.Query(n => n.Where(f => f.EntityId == entityid && f.EventName == eventName));
+             });
             if (recordState.HasValue && entities.NotEmpty())
             {
                 entities.RemoveAll(x => x.StateCode != recordState);
@@ -81,10 +83,10 @@ namespace Xms.Business.Filter
 
         public List<FilterRule> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             return entities;
         }
 
@@ -94,12 +96,15 @@ namespace Xms.Business.Filter
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.Name } : null;
         }
+
         public int ComponentType => ModuleCollection.GetIdentity(FilterRuleDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
     }
 }

@@ -27,11 +27,12 @@ namespace Xms.Web.Framework.Infrastructure
             services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddScoped<IOrgDataServer, OrgDataServer>();
             services.AddScoped<IWebHelper, WebHelper>();
-            
+
             //exception handler
             services.AddScoped<IExceptionHandlerFactory, ExceptionHandlerFactory>();
             services.RegisterScope(typeof(IExceptionHandler<>));
         }
+
         public int Order => 0;
     }
 }

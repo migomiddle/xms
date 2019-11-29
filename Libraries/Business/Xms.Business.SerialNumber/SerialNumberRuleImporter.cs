@@ -18,6 +18,7 @@ namespace Xms.Business.SerialNumber
         private readonly ISerialNumberRuleUpdater _serialNumberRuleUpdater;
         private readonly ISerialNumberRuleFinder _serialNumberRuleFinder;
         private readonly IAppContext _appContext;
+
         public SerialNumberRuleImporter(IAppContext appContext
             , ISerialNumberRuleCreater serialNumberRuleCreater
             , ISerialNumberRuleUpdater serialNumberRuleUpdater

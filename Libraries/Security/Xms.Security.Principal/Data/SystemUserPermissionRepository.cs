@@ -47,7 +47,7 @@ namespace Xms.Security.Principal.Data
             Sql s = Sql.Builder.Append(@"select distinct c.* from RoleObjectAccess a
             inner join SystemUserRoles b on a.RoleId = b.RoleId
             inner join Privileges c on a.ObjectId = c.PrivilegeId
-            where a.ObjectTypeCode=@4 and b.SystemUserId=@0 
+            where a.ObjectTypeCode=@4 and b.SystemUserId=@0
             and c.SystemName = @1 and c.ClassName = @2 and c.MethodName = @3", userId, areaName, className, methodName, objectTypeCode);
 
             return new DataRepositoryBase<Privilege>(_dbContext).ExecuteFind(s);
@@ -58,7 +58,7 @@ namespace Xms.Security.Principal.Data
             Sql s = Sql.Builder.Append(@"select distinct c.* from RoleObjectAccess a
             inner join SystemUserRoles b on a.RoleId = b.RoleId
             inner join Privileges c on a.ObjectId = c.PrivilegeId
-            where a.ObjectTypeCode=@2 and b.SystemUserId=@0 
+            where a.ObjectTypeCode=@2 and b.SystemUserId=@0
             and c.Url = @1", userId, url, objectTypeCode);
 
             return new DataRepositoryBase<Privilege>(_dbContext).ExecuteFind(s);

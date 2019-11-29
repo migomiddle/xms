@@ -1,6 +1,5 @@
 ﻿//闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -11,7 +10,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -38,7 +37,7 @@
             callback && callback();
         });
     }
-    function insertChart(chartid, queryid, opts, postData,callback) {
+    function insertChart(chartid, queryid, opts, postData, callback) {
         if (!opts) {
             opts = { 'width': '100%', 'height': '300px' };
         }
@@ -68,14 +67,12 @@
                 dHtml.find('.chartA:last').children().css(opts);
                 dHtml.find('.chartA').trigger('getInserComponent', function (obj) {
                     renderChart && renderChart(obj.chartid, obj.queryid, null, { filter: obj.filter, groups: obj.groups });
-
                 });
-                callback && callback(dHtml,data,opts,postData);
-                
+                callback && callback(dHtml, data, opts, postData);
             }
         });
     }
-    
+
     window.common_charts = modules_common_charts;
     return modules_common_charts
 });

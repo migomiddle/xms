@@ -6,215 +6,209 @@
     if (typeof (Xms.Global) == "undefined") {
         Xms.Global = function () { };
     }
-    
+
     if (typeof (Xms.Page) == "undefined") {
         Xms.Page = function () { };
         Xms.Page = {
             formHelper: $('#editForm')
-        , getAttribute: function (name, context) {
-            var input = $('input[name="' + name + '"]', context || '#editForm');
-            var attr = new Xms.Page.Attribute();
-            attr.Target = input;
-            attr.Name = name;
+            , getAttribute: function (name, context) {
+                var input = $('input[name="' + name + '"]', context || '#editForm');
+                var attr = new Xms.Page.Attribute();
+                attr.Target = input;
+                attr.Name = name;
 
-            return attr;
-        }
-        , getControl: function (name) {
-            var $this = this.formHelper.find('[name="' + name + '"]');
-            var type = $this.attr('data-controltype');
-            if (type == 'subgrid') {
-                $this.refresh = function () {
-                    var func = getFunction($this.attr('data-refresh'));
-                    func.call(this, $this);
-                    return $this;
-                };
-                $this.setfilter = function (filter) {
-                    $this.attr('data-filter', encodeURIComponent(JSON.stringify(filter)));
-                    return $this;
-                };
-                $this.getfilter = function () {
-                    var a = $this.attr('data-filter');
-                    if (a) {
-                        return JSON.parse(decodeURIComponent(a));
+                return attr;
+            }
+            , getControl: function (name) {
+                var $this = this.formHelper.find('[name="' + name + '"]');
+                var type = $this.attr('data-controltype');
+                if (type == 'subgrid') {
+                    $this.refresh = function () {
+                        var func = getFunction($this.attr('data-refresh'));
+                        func.call(this, $this);
+                        return $this;
+                    };
+                    $this.setfilter = function (filter) {
+                        $this.attr('data-filter', encodeURIComponent(JSON.stringify(filter)));
+                        return $this;
+                    };
+                    $this.getfilter = function () {
+                        var a = $this.attr('data-filter');
+                        if (a) {
+                            return JSON.parse(decodeURIComponent(a));
+                        }
+                        return null;
+                    };
+                    $this.seteditable = function (flag) {
+                        $this.attr('data-editable', flag + '');
+                        //this.refresh();
+                        if (flag) {
+                            $this.find('input,select,button,textarea').removeProp('disabled');
+                            $this.find('.toolbar').find('.btn').removeProp('disabled');
+                        }
+                        else {
+                            $this.find('input,select,button,textarea').prop('disabled', 'disabled');
+                            $this.find('.toolbar').find('.btn').attr('disabled', 'disabled');
+                        }
+                        return $this;
+                    };
+                    $this.iseditable = function () {
+                        return $this.attr('data-editable');
+                    };
+                    $this.getRows = function (index) {
+                        var res = (typeof index === undefined) ? $this.find('tr.editrow:eq(' + index + ')') : $this.find('tr.editrow');
+                        return res;
+                    };
+                    $this.getCells = function (index) {
+                        return $this.find('tr.editrow').find('td:eq(' + index + ')');
+                    };
+                    $this.getInput = function (name) {
+                        return $this.find('input[name="' + name + '"]');
                     }
-                    return null;
-                };
-                $this.seteditable = function (flag) {
-                    $this.attr('data-editable', flag + '');
-                    //this.refresh();
-                    if (flag) {
-                        $this.find('input,select,button,textarea').removeProp('disabled');
-                        $this.find('.toolbar').find('.btn').removeProp('disabled');
+                    $this.getInputByIndex = function (index) {
+                        return $this.getCells(index).find("input[type='text']");
+                    }
+                    $this.bindChange = function (index, func, bool) {
+                        if (bool) {
+                            $this.getInputByIndex(index).unbind("change").bind("change", function (e) {
+                                func.call(this, e);
+                            });
+                        } else {
+                            $this.getInputByIndex(index).bind("change", function (e) {
+                                func.call(this, e);
+                            });
+                        }
+                        return $this;
+                    };
+                }
+                else if (type == 'lookup' || type == 'owner' || type == 'customer') {
+                    $this.setfilter = function (filter) {
+                        $this.attr('data-filter', encodeURIComponent(JSON.stringify(filter)));
+                        return $this;
+                    };
+                    $this.getfilter = function () {
+                        var a = $this.attr('data-filter');
+                        if (a) {
+                            return JSON.parse(decodeURIComponent(a));
+                        }
+                        return null;
+                    };
+                }
+                return $this;
+            }
+            , getValue: function (name) {
+                var $this = this.formHelper.find('[name="' + name + '"]');
+                var result = $this.val();
+                if (result == '') return null;
+                var type = $this.attr('data-controltype');
+                if (type == 'lookup' || type == 'owner' || type == 'customer') {
+                    result = {};
+                    result.id = $this.val();
+                    result.name = this.formHelper.find('[name="' + name + '_text"]').val();
+                }
+                return result;
+            }
+            , setValue: function (name, value) {
+                var $this = this.formHelper.find('[name="' + name + '"]');
+                var type = $this.attr('data-controltype');
+                var dataformat = $this.attr('data-format') || '';
+                //console.log(type, dataformat, type == 'ntext' && dataformat == 'email');
+                if (type == 'lookup' || type == 'owner' || type == 'customer') {
+                    if (value != null) {
+                        $this.val(value.id).trigger('change');
+                        var textInput = this.formHelper.find('[name="' + name + '_text"]');
+                        if (textInput.siblings('.xms-drlinki').length > 0) {
+                            textInput.siblings('.xms-drlinki').remove();
+                        }
+                        textInput.val(value.name).trigger('change');
+                        $.fn.xmsSelecteDown.setLookUpState(textInput);
                     }
                     else {
-                        $this.find('input,select,button,textarea').prop('disabled', 'disabled');
-                        $this.find('.toolbar').find('.btn').attr('disabled', 'disabled');
+                        $this.val('').trigger('change');
+                        this.formHelper.find('[name="' + name + '_text"]').val('').trigger('change');
+                        $this.parent().find('.xms-drlinki').parent('a').remove();
                     }
-                    return $this;
-                };
-                $this.iseditable = function () {
-                    return $this.attr('data-editable');
-                };
-                $this.getRows = function (index) {
-                    var res = (typeof index === undefined) ? $this.find('tr.editrow:eq(' + index + ')') : $this.find('tr.editrow');
-                    return res;
-                };
-                $this.getCells = function (index) {
-                    return $this.find('tr.editrow').find('td:eq(' + index + ')');
-                };
-                $this.getInput = function (name) {
-                    return $this.find('input[name="' + name + '"]');
+                } else if (type == 'picklist') {
+                    $this.next().val(value).trigger('change');
+                } else if (type == 'status' || type == 'bit') {
+                    var _input = this.formHelper.find('[name="' + name + '"]'),
+                        _radios = _input.parent().find('input[type="radio"]');
+                    //console.log('radios', _radios);
+                    _radios.prop('checked', false);
+                    _input.parent().find('input[type="radio"][value="' + value + '"]').prop('checked', true);
+                    $this.val(value).trigger('change');
                 }
-                $this.getInputByIndex = function (index) {
-                    return $this.getCells(index).find("input[type='text']");
-                }
-                $this.bindChange = function (index, func, bool) {
-                    if (bool) {
-                        $this.getInputByIndex(index).unbind("change").bind("change", function (e) {
-                            func.call(this, e);
-                        });
-                    } else {
-                        $this.getInputByIndex(index).bind("change", function (e) {
-                            func.call(this, e);
-                        });
+                else if (type == 'ntext' && dataformat == 'email') {
+                    console.log(11111111111111);
+                    var $_id = $('#' + name);
+                    if ($_id.length > 0) {
+                        $_id.data().ue.ready(function () { $_id.data().ue.setContent(value) });
                     }
-                    return $this;
-                };
-
-            }
-            else if (type == 'lookup' || type == 'owner' || type == 'customer') {
-                $this.setfilter = function (filter) {
-                    $this.attr('data-filter', encodeURIComponent(JSON.stringify(filter)));
-                    return $this;
-                };
-                $this.getfilter = function () {
-                    var a = $this.attr('data-filter');
-                    if (a) {
-                        return JSON.parse(decodeURIComponent(a));
-                    }
-                    return null;
-                };
-            }
-            return $this;
-        }
-        , getValue: function (name) {
-            var $this = this.formHelper.find('[name="' + name + '"]');
-            var result = $this.val();
-            if (result == '') return null;
-            var type = $this.attr('data-controltype');
-            if (type == 'lookup' || type == 'owner' || type == 'customer') {
-                result = {};
-                result.id = $this.val();
-                result.name = this.formHelper.find('[name="' + name + '_text"]').val();
-            }
-            return result;
-        }
-        , setValue: function (name, value) {
-            var $this = this.formHelper.find('[name="' + name + '"]');
-            var type = $this.attr('data-controltype');
-            var dataformat = $this.attr('data-format') || '';
-            //console.log(type, dataformat, type == 'ntext' && dataformat == 'email');
-            if (type == 'lookup' || type == 'owner' || type == 'customer') {
-                if (value != null) {
-                    $this.val(value.id).trigger('change');
-                    var textInput = this.formHelper.find('[name="' + name + '_text"]');
-                    if (textInput.siblings('.xms-drlinki').length > 0) {
-                        textInput.siblings('.xms-drlinki').remove();
-                    }
-                    textInput.val(value.name).trigger('change');
-                    $.fn.xmsSelecteDown.setLookUpState(textInput);
                 }
                 else {
-                    $this.val('').trigger('change');
-                    this.formHelper.find('[name="' + name + '_text"]').val('').trigger('change');
-                    $this.parent().find('.xms-drlinki').parent('a').remove();
-                }
-            } else if (type == 'picklist') {
-                $this.next().val(value).trigger('change');
-            
-            } else if (type == 'status' || type == 'bit') {
-                var _input = this.formHelper.find('[name="' + name + '"]'),
-                    _radios = _input.parent().find('input[type="radio"]');
-                //console.log('radios', _radios);
-                _radios.prop('checked', false);
-                _input.parent().find('input[type="radio"][value="' + value + '"]').prop('checked', true);
-                $this.val(value).trigger('change');
-            }
-            else if (type == 'ntext' && dataformat == 'email') {
-                console.log(11111111111111);
-                var $_id = $('#' + name);
-                if ($_id.length > 0) {
-                    
-                    $_id.data().ue.ready(function () { $_id.data().ue.setContent(value) });
+                    $this.val(value).trigger('change');
                 }
             }
-            else {
-                $this.val(value).trigger('change');
+            , setRequiredLevel: function (name, level) {
+                this.formHelper.find('[name=' + name + ']').addClass(level);
             }
-        }
-        , setRequiredLevel: function (name, level) {
-            this.formHelper.find('[name=' + name + ']').addClass(level);
-        }
-        , setRequired: function (name) {
-            this.setRules(name, { required: true });
-            var _label = this.formHelper.find('[name=' + name + ']').parents('.form-lists:first').find('label');
-            this.formHelper.find('[name=' + name + ']').addClass('required');
-            if (_label.find('span').length == 0) {
-                _label.append('<span style="color:red;font-weight:bolder;">*</span>');
+            , setRequired: function (name) {
+                this.setRules(name, { required: true });
+                var _label = this.formHelper.find('[name=' + name + ']').parents('.form-lists:first').find('label');
+                this.formHelper.find('[name=' + name + ']').addClass('required');
+                if (_label.find('span').length == 0) {
+                    _label.append('<span style="color:red;font-weight:bolder;">*</span>');
+                }
             }
-        }
-        , removeRequired: function (name) {
-            this.removeRules(name, 'required');
-            var _label = this.formHelper.find('[name=' + name + ']').parents('.form-lists:first').find('label');
-            this.formHelper.find('[name=' + name + ']').trigger('blur').removeClass('required');
-            if (_label.find('span').length > 0) {
-                _label.find('span').remove();
+            , removeRequired: function (name) {
+                this.removeRules(name, 'required');
+                var _label = this.formHelper.find('[name=' + name + ']').parents('.form-lists:first').find('label');
+                this.formHelper.find('[name=' + name + ']').trigger('blur').removeClass('required');
+                if (_label.find('span').length > 0) {
+                    _label.find('span').remove();
+                }
             }
-        }
-        , setRules: function (name, rules) {
-            this.formHelper.find('[name=' + name + ']').rules('add', rules);
-        }
-        , setRange: function (name, min,max) {
-            this.setRules(name, [min,max]);
-        }
-        , removeRules: function (name, rules) {
-            if (rules) {
-                this.formHelper.find('[name=' + name + ']').rules('remove',rules);
-            } else {
-                this.formHelper.find('[name=' + name + ']').rules('remove');
+            , setRules: function (name, rules) {
+                this.formHelper.find('[name=' + name + ']').rules('add', rules);
             }
-           
-        }
-        , setDisabled: function (name, flag) {
-            var $this = this.formHelper.find('[name=' + name + ']');
-            var type = $this.attr('data-controltype');
-            var _format = $this.attr('data-format');
-            if (type == 'lookup' || type == 'owner' || type == 'customer') {
-                if (flag) {
-                    $this.each(function () {
-                        $(this).parent().find('input,button,select,textarea,radio,checkbox').prop('disabled', true);
-                    });
+            , setRange: function (name, min, max) {
+                this.setRules(name, [min, max]);
+            }
+            , removeRules: function (name, rules) {
+                if (rules) {
+                    this.formHelper.find('[name=' + name + ']').rules('remove', rules);
                 } else {
-                    $this.prev().find('input,button,select,textarea,radio,checkbox').prop('disabled', 'disabled');
-                }
-
-            } else if (type == 'ntext' && _format && _format=='email') {
-                if ($this.data().ue) {
-                    $this.data().ue.ready(function () {
-                        //不可编辑
-                        $this.data().ue.setDisabled();
-                    });
-                    
+                    this.formHelper.find('[name=' + name + ']').rules('remove');
                 }
             }
-            else {
-                $this.prop('disabled', 'disabled');
+            , setDisabled: function (name, flag) {
+                var $this = this.formHelper.find('[name=' + name + ']');
+                var type = $this.attr('data-controltype');
+                var _format = $this.attr('data-format');
+                if (type == 'lookup' || type == 'owner' || type == 'customer') {
+                    if (flag) {
+                        $this.each(function () {
+                            $(this).parent().find('input,button,select,textarea,radio,checkbox').prop('disabled', true);
+                        });
+                    } else {
+                        $this.prev().find('input,button,select,textarea,radio,checkbox').prop('disabled', 'disabled');
+                    }
+                } else if (type == 'ntext' && _format && _format == 'email') {
+                    if ($this.data().ue) {
+                        $this.data().ue.ready(function () {
+                            //不可编辑
+                            $this.data().ue.setDisabled();
+                        });
+                    }
+                }
+                else {
+                    $this.prop('disabled', 'disabled');
+                }
+                return $this;
             }
-            return $this;
-        }
         };
     }
-    (function () { 
+    (function () {
         function GridViewMethod() {
             var self = this;
             //获取行数据
@@ -222,7 +216,6 @@
 
             this.$grid = null
             this._init = function () {
-
             }
             this.getRowData = function (gridname, arg) {
                 this._init(arguments);
@@ -252,7 +245,7 @@
             }
             //设置行数据
             //gridname:单据体名 rowindex 从0开始
-            this.setRowData = function (gridname, rowIndex, datas,isnotrefresh) {
+            this.setRowData = function (gridname, rowIndex, datas, isnotrefresh) {
                 this._init(arguments);
                 if (this.__type == 'queryview') {
                     datas = rowIndex;
@@ -300,7 +293,7 @@
             //gridname:单据体名 前进
             this.redo = function (gridname) {
                 var $datagrid = this.getGrid(gridname);
-                $datagrid.cDatagrid('history', { method:'redo'});
+                $datagrid.cDatagrid('history', { method: 'redo' });
             }
             //设置行数据
             //gridname:单据体名 rowindex 从0开始
@@ -332,7 +325,7 @@
             }
             //设置某一列字段编辑状态
             //gridname:单据体名  attrbutename 字段名
-            this.setAttributeState = function (gridname, attrbutename,type, isnotrefresh) {
+            this.setAttributeState = function (gridname, attrbutename, type, isnotrefresh) {
                 var cmodels = [];
                 var $datagrid = this.getGrid(gridname);
                 var CM = $datagrid.cDatagrid('getColModel');
@@ -365,9 +358,13 @@
             }
             //获取cdatagrid插件实例
             this.getGrid = function (gridname) {
+                if (gridname && gridname != '') {
+                    gridname = gridname.toLowerCase();
+                }
                 var $datagrid = $('#' + gridname).children('.entity-datagrid-wrap');
                 return $datagrid;
             }
+
             //获取pggrid插件实例
             this.getPlugGrid = function (gridname) {
                 this._init(arguments);
@@ -420,7 +417,7 @@
                 return this;
             }
             //设置整个单据体的过滤条件
-            this.setFilter = function (gridname, filter,isRefresh) {
+            this.setFilter = function (gridname, filter, isRefresh) {
                 this._init(arguments);
                 var $datagrid = this.getGrid(gridname)
                 var _filter = encodeURIComponent(JSON.stringify(filter));
@@ -439,7 +436,6 @@
                 var $trs = $datagrid.find('.pq-grid-cont-inner').each(function () {
                     $(this).find('tr.pq-grid-row').attr(key, value);
                 });
-
             }
             //添加监听事件
             this.onCellEvent = function (gridname, event, func) {
@@ -459,15 +455,13 @@
         //表单中单据体的操作方法
         if (typeof (Xms.FormGridView) == "undefined") {
             Xms.FormGridView = new GridViewMethod();
-          
         }
 
         //视图中的操作方法
         if (typeof (Xms.QueryView) == "undefined") {
             var QueryViewMethod = function () {
                 var self = this;
-            
-            
+
                 GridViewMethod.call(this, arguments);
                 this.$datagrid = $('.datagrid-view');
                 this.__type = 'queryview';
@@ -478,7 +472,6 @@
                     //}
                     for (var i = _args.length - 1; i >= 0; i--) {
                         if (_args[i]) {
-
                             _args[i + 1] = _args[i];
                         }
                     }
@@ -503,7 +496,7 @@
                         }
                     } else if (!isNaN(arg)) {//如果是一个数字直接返回目标行的数据
                         return self.$datagrid.cDatagrid('getRowData', arg);
-                    } else if(typeof arg==='string'){//如果是一个字符串，会返回与字符串相等的行记录的数据
+                    } else if (typeof arg === 'string') {//如果是一个字符串，会返回与字符串相等的行记录的数据
                         var $record = self.$datagrid.find('.pq-grid-cont-inner:first').find('input[value="' + arg + '"]');
                         if ($record.length > 0) {
                             var $tr = $(arg).parents('tr:first');
@@ -512,18 +505,17 @@
                         }
                     }
                 }
-                this.setTrsAttr = function (key,value) {
+                this.setTrsAttr = function (key, value) {
                     var $trs = self.$datagrid.find('.pq-grid-cont-inner').each(function () {
                         $(this).find('tr.pq-grid-row').attr(key, value);
                     });
-
                 }
                 this.getSelectedData = function () {
                     var res = [];
                     var $trs = self.$datagrid.find('.pq-grid-cont-inner:first').find('tr.pq-grid-row');
                     $trs.each(function () {
                         var $this = $(this);
-                        var index = $this.index()-1;
+                        var index = $this.index() - 1;
                         var $first = $this.find('input[type="checkbox"]:checked:first');
                         if ($first.length > 0) {
                             res.push(self.$datagrid.cDatagrid('getRowData', index));
@@ -545,7 +537,7 @@
                     return this;
                 }
                 //设置整个单据体的过滤条件
-                this.setFilter = function ( filter) {
+                this.setFilter = function (filter) {
                     var $datagrid = this.getGrid()
                     var _filter = encodeURIComponent(JSON.stringify(filter));
                     $datagrid.attr('data-filter', _filter).parent().attr('data-filter', _filter);
@@ -555,12 +547,26 @@
                 }
             }
             Xms.QueryView = new QueryViewMethod();
-            
         }
 
+        //其他地方的操作datagrid方法
+        if (typeof (Xms.DataGridCtrl) == "undefined") {
+            var DataGridCtrl = function () {
+                var self = this;
+                GridViewMethod.call(this, arguments);
+                //获取cdatagrid插件实例
+                this.getGrid = function (gridname) {
+                    if (gridname && gridname != '') {
+                        gridname = gridname.toLowerCase();
+                    }
+                    var $datagrid = $('#' + gridname);
+                    return $datagrid;
+                }
+            }
+            Xms.DataGridCtrl = new DataGridCtrl();
+        }
     })();
 
-   
     Xms.Page.data = {
         getId: function () {
             return Xms.Page.PageContext.EntityId;
@@ -725,8 +731,8 @@
     /*
     *       表单提交前执行事件
     *       @param Xms.FormPrevSubmit.add(func)：添加一个需要检查的方法  func返回false，表单会不提交
-    *       @param Xms.FormPrevSubmit.check(): 
-    *       
+    *       @param Xms.FormPrevSubmit.check():
+    *
     */
     (function () {
         function FormPrevSubmit() {
@@ -754,11 +760,11 @@
     })();
 
     /*
-        
+
     */
     Xms.Page.showFormHideButton = function () {
         var $toolbar = $("#toolbar");
-        if ($toolbar.length>0){
+        if ($toolbar.length > 0) {
             $toolbar.showBySize();
         }
     }
@@ -773,7 +779,7 @@
     *       设置单据体是否可编辑
     *       @param name：单据体名字
     *       @param data: type  true,false
-    *       
+    *
     */
     Xms.Page.setFormIsEdit = function (name, type, callback) {
         if (typeof renderGridView !== 'undefined') {
@@ -784,9 +790,6 @@
             }
         }
     }
-
-
-
 
     /*
     *       设置列表页面
@@ -799,30 +802,71 @@
     *       @param callback:  加载完树后的回调事件，可设置展开树时节点打开方式
     *       @param treesort:  左边要排序的字段
     *       @param ordertype:  排序方式，正序/倒序"Ascending/Descending"
-    *       如果只传一个参数是会当做一个对象 ： 
+    *       如果只传一个参数是会当做一个对象 ：
             { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
     */
-    Xms.Page.loadGridViewTree = function (entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback,treesort,ordertype) {
+    Xms.Page.loadGridViewTree = function (entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback, treesort, ordertype) {
         if (typeof renderLeftTree === 'function') {
             console.log('Xms.Page.loadGridViewTree', callback);
             var _args;
             if (arguments.length == 1) {
                 _args = arguments[0];
                 callback = _args.callback;
-            }else{
+            } else {
                 _args = { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
-                
             }
             renderLeftTree(_args, callback);
         } else {
             throw new Error("只能在列表页面中使用该方法");
         }
     }
-
+    /*
+    *       设置列表页面
+    *       @param entityname：实体名字
+    *       @param parentname: parentid的字段名
+    *       @param attrname:需要添加过滤方法的字段
+    *       @param itemClick:  单击节点触发的事件（非必填）
+    *       @param sortby:  右边列表需要排序的字段
+    *       @param isDefaultClick:  是否使用默认的过滤方法,不填或true时使用默认的点击方法
+    *       @param callback:  加载完树后的回调事件，可设置展开树时节点打开方式
+    *       @param treesort:  左边要排序的字段
+    *       @param ordertype:  排序方式，正序/倒序"Ascending/Descending"
+    *       如果只传一个参数是会当做一个对象 ：
+            { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
+    */
+    Xms.Page.loadFlowLine = function (entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback, treesort, ordertype) {
+        if (typeof renderLeftTree === 'function') {
+            console.log('Xms.Page.loadGridViewTree', callback);
+            var _args;
+            if (arguments.length == 1) {
+                _args = arguments[0];
+                callback = _args.callback;
+            } else {
+                _args = { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
+            }
+            renderLeftTree(_args, callback);
+        } else {
+            throw new Error("只能在列表页面中使用该方法");
+        }
+    }
+    Xms.Page.loadFlowLineTotarget = function ($context, entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback, treesort, ordertype) {
+        if (typeof renderLeftTree === 'function') {
+            console.log('Xms.Page.loadGridViewTree', callback);
+            var _args;
+            if (arguments.length == 1) {
+                _args = arguments[0];
+                callback = _args.callback;
+            } else {
+                _args = { $context: $context, entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
+            }
+            renderLeftTree(_args, callback);
+        } else {
+            throw new Error("只能在列表页面中使用该方法");
+        }
+    }
 })(window);
 
 ; (function (root) {
-
     Xms.Reg = new function () {
         this.regs = [];
     };
@@ -858,8 +902,8 @@
     Xms.Reg.addRegExp('isDecimal', function (s) {
         return Xms.Web.ValidData('isdecimal')(s);
     });
-    Xms.Reg.addRegExp('minLength', function (s,len) {
-        return Xms.Web.ValidData('minlength')(s,len);
+    Xms.Reg.addRegExp('minLength', function (s, len) {
+        return Xms.Web.ValidData('minlength')(s, len);
     });
     Xms.Reg.addRegExp('maxLength', function (s, len) {
         return Xms.Web.ValidData('maxlength')(s, len);

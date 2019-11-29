@@ -31,8 +31,9 @@ namespace Xms.Business.Filter
             _filterRuleRepository = filterRuleRepository;
             _attributeFinder = attributeFinder;
             _dependencyService = dependencyService;
-            _cacheService = new Caching.CacheManager<FilterRule>(FilterRuleCache.CacheKey(_appContext), FilterRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<FilterRule>(FilterRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public bool Update(FilterRule entity)
         {
             var result = false;
@@ -56,8 +57,9 @@ namespace Xms.Business.Filter
             using (UnitOfWork.Build(_filterRuleRepository.DbContext))
             {
                 result = _filterRuleRepository.Update(context);
-                var items = _filterRuleRepository.Query(x => x.FilterRuleId.In(ids));                
-                foreach (var item in items) {
+                var items = _filterRuleRepository.Query(x => x.FilterRuleId.In(ids));
+                foreach (var item in items)
+                {
                     _cacheService.SetListItem(item);
                 }
             }

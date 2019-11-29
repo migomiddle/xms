@@ -8,9 +8,8 @@ Writen by mlcactus, 2014-11-24
         var defaults = {
             //当table的宽度到达默认最大值时，是否继续增大以至于出现横向滚动条
             resizeTable: true
-        }; 
+        };
         var opts = $.extend(defaults, options);
-
 
         var _document = $("body");
         //设定user-select样式，防止内容被选中

@@ -19,6 +19,7 @@ namespace Xms.File
         private readonly IDataCreater _dataCreater;
         private readonly IWebHelper _webHelper;
         private readonly ISettingFinder _settingFinder;
+
         public AttachmentCreater(IAppContext appContext
             , IDataCreater dataCreater
             , IWebHelper webHelper
@@ -59,6 +60,7 @@ namespace Xms.File
             }
             return null;
         }
+
         /// <summary>
         /// 创建多条记录
         /// </summary>

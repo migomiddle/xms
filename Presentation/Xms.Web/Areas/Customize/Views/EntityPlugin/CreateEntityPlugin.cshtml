@@ -1,6 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.EditEntityPluginModel
-<link href="/content/js/plugineditcontrol/plugineditcontrol.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="btn-upload-div"><a class="btn btn-default btn-upload" onclick="$('#beforehandloadpluginfile').click();"><i class="glyphicon glyphicon-open"></i><span>上传文件</span></a></div>
@@ -25,13 +33,13 @@
                 </div>
             </form>
             <div id="pluginEditControlContainer">
-
             </div>
-
-
         </div>
     </div>
 </div>
+@section Header {
+    <link href="/content/js/plugineditcontrol/plugineditcontrol.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
+}
 @section Scripts {
     <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
@@ -58,7 +66,6 @@
                 }
             });
 
-
         });
         var peControl = null;
         function save() {
@@ -66,7 +73,6 @@
                 var _data = peControl.serializeData();
                 console.log(_data);
                 Xms.Web.Post("/@app.OrganizationUniqueName/customize/@app.ControllerName/editplugin", JSON.stringify( { EntityPlugins: _data }), false, function (result) {
-
 
                 }, false, false, false);
             }
@@ -83,7 +89,6 @@
                     Xms.Web.Toast(result.Content, false);
                 }
             });
-
 
         });
         var peControl = null;

@@ -19,7 +19,6 @@
     <link href="~/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
     <link id="themeLink" href="~/content/css/theme/@(app.Theme).css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
     @{await Html.RenderPartialAsync("CommonLabel"); }
-
 </head>
 <body class="xms-custom sideBar-open themes-dark xms-index-ui" style="overflow:hidden;">
 
@@ -49,7 +48,6 @@
                         </div>
                     </li>
                 </ul>
-
             </div>
             <!-- /.navbar-header -->
             <div class="nav navbar-nav navbar-right hidden-xs" style="margin-right:5px;">
@@ -102,7 +100,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </li>
                     <li style="position:relative;">
                         <a href="javascript:;" class="main-full-screen" title="全屏"><i class="layui-icon layui-icon-screen-full"></i> 全屏</a>
@@ -134,7 +131,6 @@
                             <p>xms是一个具有现代风格的跨平台基础框架，集各大常用基础套件，能轻松支撑起复杂业务的运行，同时具备安全性、可扩展性、可配置性等优点。</p>
                         </div>
                     </li>
-
                 </ul>
             </div>
             <div class="navbar-default sidebar view_left" role="navigation">
@@ -153,7 +149,6 @@
                 <!-- /.sidebar-collapse -->
             </div>
         </nav>
-
     </div>
     <div class="xms-sub-nav clearfix">
         <div class="dropdown  pull-right" id="xms-sb-ctrlClose">
@@ -172,7 +167,6 @@
         <button type="button" class="btn btn-default pull-left xms-sb-ctrlLeft"><span class="glyphicon glyphicon-chevron-left"></span></button>
         <a id="xms-subn-home" target="pageViewName" data-iframe="pageView" data-iframeid="pageView" data-name="首页" onclick="showIframe(this)" class="btn btn-default pull-left xms-subn-items-bgcol" href="javascript:void(0)"><span class="glyphicon glyphicon glyphicon-home"></span></a>
         <div class="btn-group pull-left xms-subn-items">
-
         </div>
     </div>
     <div class="page-wrap">
@@ -181,14 +175,12 @@
         </div>
     </div>
 
-
     <div class="xms-tooltip" id="tooltipShow" style="display: none;">
 
         <div class="xms-tooltip-arrow"><span class="glyphicon glyphicon-play"></span></div>
         <div class="xms-tooltip-content">
             <div class="xms-tooltip-close">x</div>
             <div class="xms-tooltip-info">
-
             </div>
         </div>
     </div>
@@ -228,7 +220,6 @@
 
         });
 
-       
         function iframeReady(obj) {
             var timer = setInterval(function () {
                 if (typeof SetWinHeight === "undefined") {
@@ -238,7 +229,6 @@
                 clearInterval(timer);
             }, 50);
         }
-
     </script>
 </body>
 </html>

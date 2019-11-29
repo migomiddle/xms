@@ -11,9 +11,9 @@ namespace Xms.Authorization.Abstractions
         List<RoleObjectAccessEntityPermission> Query(Func<QueryDescriptor<RoleObjectAccessEntityPermission>, QueryDescriptor<RoleObjectAccessEntityPermission>> container);
 
         PagedList<RoleObjectAccessEntityPermission> QueryPaged(Func<QueryDescriptor<RoleObjectAccessEntityPermission>, QueryDescriptor<RoleObjectAccessEntityPermission>> container);
-        
+
         RoleObjectAccessEntityPermission FindUserPermission(string entityName, string userAccountName, AccessRightValue access);
 
-        List<RoleObjectAccessEntityPermission> GetPermissions(IEnumerable<Guid> entityIds, IEnumerable<Guid> roleIds, AccessRightValue access);        
+        List<RoleObjectAccessEntityPermission> GetPermissions(IEnumerable<Guid> entityIds, IEnumerable<Guid> roleIds, AccessRightValue access);
     }
 }

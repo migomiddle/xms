@@ -14,7 +14,7 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <form id="editform" class="form-horizontal text-center" data-jsonajax="true"  data-istip="true" action="/@(app.OrganizationUniqueName)@Model.ResourceOwnerDescriptor.PrivilegeStateEndpoint" method="post">
+                        <form id="editform" class="form-horizontal text-center" data-jsonajax="true" data-istip="true" action="/@(app.OrganizationUniqueName)@Model.ResourceOwnerDescriptor.PrivilegeStateEndpoint" method="post">
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(x => x.ResourceName)
                             <div class="btn-group">
@@ -27,7 +27,7 @@
                             <div class="">
                                 <div class="input-group"><input class="form-control" id="tree_searcher" /><span class="input-group-addon"><em class="glyphicon glyphicon-search"></em></span></div>
                             </div>
-                            <div id="tree1"class="text-left" data-url="@("/"+app.OrganizationUniqueName)@Model.ResourceOwnerDescriptor.ResourceEndpoint" style="min-height:400px;max-height:400px; overflow:auto; padding:0 5px;">
+                            <div id="tree1" class="text-left" data-url="@("/"+app.OrganizationUniqueName)@Model.ResourceOwnerDescriptor.ResourceEndpoint" style="min-height:400px;max-height:400px; overflow:auto; padding:0 5px;">
                             </div>
                         </form>
                     </div>
@@ -91,7 +91,7 @@
                  var $tree_searcher = $('#tree_searcher'),
                     val = $tree_searcher.val();
                 var $tree1 = $('#tree1');
-                $tree1.find('>ul>li.jqtree_common').hide();  
+                $tree1.find('>ul>li.jqtree_common').hide();
                 $tree1.find('>ul>li.jqtree_common').find('.jqtree-toggler-left').text('►');
                 if (val != '') {
                     $tree1.find('.jqtree-title').each(function () {
@@ -113,7 +113,7 @@
                     });
 
                 } else {
-                    $tree1.find('li.jqtree_common').show();  
+                    $tree1.find('li.jqtree_common').show();
                 }
 
             }
@@ -121,13 +121,13 @@
             $('#tree_searcher').on('change', function (e) {
                 var self = this;
                 //if (e.keyCode == '13') {
-                debound(function () { 
+                debound(function () {
                     searchTreeData.call(self, e)
                     })
                // }
             }).next().on('click', function (e) {
                var self = this;
-                debound(function () { 
+                debound(function () {
                     searchTreeData.call(self, e)
                     })
             })
@@ -160,7 +160,7 @@
                     } else if (treeDatas.length == 1 && node.children && node.children.length==0) {
                          $li.find('.jqtree-title').before('<span style="margin-left:10px;" /><input type="checkbox" '+isdisabled+' name="objectid" onclick="setState(this)" value="' + node.id + '" '+(node.authorizationenabled ? 'checked':'')+' />&nbsp;&nbsp;');
                     }
-                    
+
                 }
                 , selectable: false,
                 onCanSelectNode: function (node) {
@@ -179,7 +179,7 @@
             });
             var count = 0;
             function handlerDatas(datas) {
-                
+
                 $.each(datas, function (i, n) {
                     if (!n.id) {
                         n.id = 'parentid_' + Xms.Utility.Guid.NewGuid().ToString()
@@ -225,7 +225,7 @@
 
         function loadPrivilegeResources(resourcename) {
             resourcename = resourcename || $("#ResourceName").val();
-           
+
             Xms.Web.GetJson(resourceEndpoint+'?authorizationEnabled=true', null, function (data) {
                 if (!data.IsSuccess) return;
                 var result = data.content;

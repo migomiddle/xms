@@ -12,6 +12,7 @@ namespace Xms.Business.SerialNumber
         {
             return appContext.OrganizationUniqueName + ":serialnumberrules";
         }
+
         public static string BuildKey(SerialNumberRule entity)
         {
             return entity.EntityId + "/" + entity.SerialNumberRuleId + "/";

@@ -9,6 +9,7 @@ namespace Xms.Authorization.Abstractions
     public interface IRoleObjectAccessService
     {
         List<Guid> Authorized(string objectTypeName, params Guid[] objectId);
+
         bool Create(RoleObjectAccess entity);
 
         bool CreateMany(IEnumerable<RoleObjectAccess> entities);

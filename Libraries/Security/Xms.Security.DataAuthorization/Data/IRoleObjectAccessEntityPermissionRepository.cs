@@ -11,6 +11,5 @@ namespace Xms.Security.DataAuthorization.Data
         RoleObjectAccessEntityPermission FindUserPermission(string entityName, string userAccountName, AccessRightValue access);
 
         List<RoleObjectAccessEntityPermission> GetPermissions(IEnumerable<Guid> entityIds, IEnumerable<Guid> roleIds, AccessRightValue access);
-
     }
 }

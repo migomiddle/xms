@@ -110,6 +110,7 @@ namespace Xms.Flow
         {
             return result;
         }
+
         public virtual WorkFlowCancellationResult OnCancelled(WorkFlowCancellationContext context, WorkFlowCancellationResult result)
         {
             return result;

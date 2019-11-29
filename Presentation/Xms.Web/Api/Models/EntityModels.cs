@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xms.Business.SerialNumber.Domain;
 using Xms.Form.Abstractions;
 using Xms.Form.Abstractions.Component;
@@ -25,6 +23,7 @@ namespace Xms.Web.Api.Models
         public string RelationShipName { get; set; }
         public Guid? ReferencedRecordId { get; set; }
     }
+
     public class EditRecordModel
     {
         public Guid? RecordId { get; set; }

@@ -27,7 +27,6 @@ namespace Xms.Configuration
 
         public void OnStarting()
         {
-
         }
     }
 }

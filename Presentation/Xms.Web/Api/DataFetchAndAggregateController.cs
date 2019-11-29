@@ -28,6 +28,7 @@ namespace Xms.Web.Api
         private readonly IRoleObjectAccessService _roleObjectAccessService;
         private readonly IAggregateService _aggregateService;
         private readonly IAttributeFinder _attributeFinder;
+
         public DataFetchAndAggregateController(IWebAppContext appContext
             , IQueryViewFinder queryViewService
             , IRelationShipFinder relationShipFinder
@@ -129,7 +130,7 @@ namespace Xms.Web.Api
             {
                 fetch.User = CurrentUser;
                 var fetchDatas = _fetchService.Execute(fetch);
-                object aggregateDatas= null;
+                object aggregateDatas = null;
                 if (queryView.AggregateConfig.IsNotEmpty())
                 {
                     var aggFields = new List<AggregateExpressionField>().DeserializeFromJson(queryView.AggregateConfig);
@@ -158,10 +159,10 @@ namespace Xms.Web.Api
                             item.metadata = new { attribute.Name, attribute.LocalizedName, attribute.AttributeTypeName, attribute.EntityId, attribute.EntityName, attribute.EntityLocalizedName };
                             item.aggregatetype = aggFields.Find(x => x.AttributeName.IsCaseInsensitiveEqual(attribute.Name)).AggregateType;
                         }
-                        aggregateDatas=new { View = new { queryView.QueryViewId, queryView.Name }, Data = aggDatas };
+                        aggregateDatas = new { View = new { queryView.QueryViewId, queryView.Name }, Data = aggDatas };
                     }
                 }
-                return Content(new { FetchData=fetchDatas,AggregateData=aggregateDatas }.SerializeToJson());
+                return Content(new { FetchData = fetchDatas, AggregateData = aggregateDatas }.SerializeToJson());
             }
             if (!model.IsSortBySeted)
             {

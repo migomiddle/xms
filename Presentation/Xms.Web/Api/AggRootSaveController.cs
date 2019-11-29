@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Xms.Core;
 using Xms.Core.Data;
+using Xms.File;
 using Xms.Flow;
 using Xms.Infrastructure.Utility;
 using Xms.Schema.Attribute;
@@ -36,8 +38,9 @@ namespace Xms.Web.Api
 
         private readonly IAggCreater _aggCreater;
         private readonly IAggUpdater _aggUpdater;
-        private readonly IAggFinder  _aggFinder;
+        private readonly IAggFinder _aggFinder;
 
+        private readonly IAttachmentCreater _attachmentCreater;
 
         private readonly IBusinessProcessFlowInstanceUpdater _businessProcessFlowInstanceUpdater;
 
@@ -49,10 +52,11 @@ namespace Xms.Web.Api
             , IDataCreater dataCreater
             , IDataUpdater dataUpdater
 
-            ,IAggCreater aggCreater
+            , IAggCreater aggCreater
             , IAggUpdater aggUpdater
-
             , IAggFinder aggFinder
+
+            , IAttachmentCreater attachmentCreater
 
             , IBusinessProcessFlowInstanceUpdater businessProcessFlowInstanceUpdater)
             : base(appContext)
@@ -66,15 +70,16 @@ namespace Xms.Web.Api
 
             _aggCreater = aggCreater;
             _aggUpdater = aggUpdater;
-
             _aggFinder = aggFinder;
+
+            _attachmentCreater = attachmentCreater;
 
             _businessProcessFlowInstanceUpdater = businessProcessFlowInstanceUpdater;
         }
-        
+
         [Description("保存记录")]
         [HttpPost]
-        public IActionResult Post(SaveDataModel model)
+        public async Task<IActionResult> Post([FromForm]SaveDataModel model)
         {
             if (model.EntityId.Equals(Guid.Empty))
             {
@@ -104,6 +109,7 @@ namespace Xms.Web.Api
                 }
                 if (isNew)
                 {
+                    thisId = Guid.NewGuid();
                     if (model.RelationShipName.IsNotEmpty() && model.ReferencedRecordId.HasValue)//如果存在关联关系
                     {
                         var relationShipMetas = _relationShipFinder.FindByName(model.RelationShipName);
@@ -127,7 +133,6 @@ namespace Xms.Web.Api
                 {
                     thisId = model.RecordId.Value;
                     entity.SetIdValue(model.RecordId.Value);
-                    //_dataUpdater.Update(entity);                    
                 }
                 aggregateRoot.MainEntity = entity;
                 aggregateRoot.ChildEntities = new List<RefEntity>();
@@ -156,43 +161,62 @@ namespace Xms.Web.Api
                                 var relationShipMetas = _relationShipFinder.FindByName(relationshipname);
                                 if (null != relationShipMetas && relationShipMetas.ReferencedEntityId == model.EntityId)
                                 {
-                                    
                                     refname = relationShipMetas.ReferencingAttributeName;
                                 }
                             }
                             Core.Data.Entity detail = new Core.Data.Entity(name);
-                            RefEntity refEntity = new RefEntity() {
+                            RefEntity refEntity = new RefEntity()
+                            {
                                 Name = name,
                                 Relationshipname = relationshipname,
                                 Entityid = model.EntityId,
-                                Entitystatus= entitystatus
+                                Entitystatus = entitystatus
                             };
 
                             foreach (JProperty p in data)
                             {
                                 var attr = childAttributes.Find(n => n.Name.IsCaseInsensitiveEqual(p.Name));
                                 if (attr != null && p.Value != null)
-                                {                                    
+                                {
                                     detail.SetAttributeValue(p.Name.ToString().ToLower(), detail.WrapAttributeValue(_entityFinder, attr, p.Value.ToString()));
                                 }
                                 refEntity.Entity = detail;
-                                
                             }
                             //关联主记录ID
                             if (refname.IsNotEmpty())
                             {
                                 detail.SetAttributeValue(refname, new EntityReference(entityMetaData.Name, thisId));
-                            }                            
+                            }
                             aggregateRoot.ChildEntities.Add(refEntity);
                         }
                     }
                 }
-                model.FormId = null;
+
+                //附件保存
+                var files = Request.Form.Files;
+                if (files.Count > 0)
+                {
+                    var result = await _attachmentCreater.CreateManyAsync(model.EntityId, thisId, files.ToList()).ConfigureAwait(false);
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        var attr = attributeMetaDatas.Find(n => n.Name.IsCaseInsensitiveEqual(files[i].Name));
+                        if (attr != null)
+                        {
+                            var etAttachement = result.Where(x => x["Name"].ToString().IsCaseInsensitiveEqual(files[i].FileName)).First();
+                            if (etAttachement != null)
+                            {
+                                entity.SetAttributeValue(files[i].Name, entity.WrapAttributeValue(_entityFinder, attr, etAttachement["CDNPath"].ToString()));
+                            }
+                        }
+                    }
+                }
+
                 if (isNew)
                 {
-                    thisId=_aggCreater.Create(aggregateRoot, model.FormId);
+                    thisId = _aggCreater.Create(aggregateRoot, thisId, model.FormId);
                 }
-                else {
+                else
+                {
                     _aggUpdater.Update(aggregateRoot, model.FormId);
                 }
             }
@@ -206,15 +230,5 @@ namespace Xms.Web.Api
             }
             return UpdateSuccess(new { id = thisId });
         }
-
-
-        //public IActionResult Get()
-        //{
-        //    var agg = _aggFinder.DynamicQuery();
-        //    return new JsonResult(agg);
-        //    //return JOk(agg);
-
-        //}
-
     }
 }

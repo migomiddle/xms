@@ -43,7 +43,7 @@ namespace Xms.Business.Filter
 
         public void Execute(PluginExecutionContext context)
         {
-            if(context.Stage == OperationStage.PreOperation)
+            if (context.Stage == OperationStage.PreOperation)
             {
                 Execute(context.MessageName, context.Target, context.EntityMetadata);
             }

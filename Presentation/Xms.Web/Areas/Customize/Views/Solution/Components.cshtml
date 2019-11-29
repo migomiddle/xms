@@ -1,101 +1,73 @@
 ﻿@using Xms.Solution.Abstractions;
 @model Xms.Web.Customize.Models.SolutionComponentModel
 
-    <div id="gridview">
-        <div class="mb-2 toolbar">
-            <form action="/@app.OrganizationUniqueName/customize/solution/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
-                @Html.ValidationSummary()
-                @Html.HiddenFor(x => x.SolutionId)
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="btn-toolbar btn-group btn-group-sm">
-                            <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-share-alt"></span> @app.T["add_existing"] <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" id="addExistsMenu">
-                                    @foreach (var item in SolutionComponentCollection.Descriptors)
-                                    {
-                                        <li><a href="javascript:;" data-componenttype="@item.Key" data-serviceuri="@item.Value.ComponentsEndpoint">@app.T[item.Key].IfEmpty(item.Key)</a></li>
-                                    }
-                                </ul>
-                            </div>
-                            <button type="button" class="btn btn-info" id="removeBtn">
-                                <span class="glyphicon glyphicon-trash"></span> @app.T["remove"]
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon" ><i class="glyphicon glyphicon-list" ></i></span>
-                            <select class="form-control" id="ComponentType" name="ComponentType" data-value="@Model.ComponentType">
-                                <option value="">-@app.T["typename"]-</option>
-                                @foreach (var item in SolutionComponentCollection.SortedDescriptors)
-                                {
-                                    <option value="@item.ComponentsEndpoint" data-componenttype="@item.Module.Name">@app.T[item.Module.Name].IfEmpty(item.Module.Name)</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            </div>
-            @*<div id="collapseOne" class="panel-collapse collapse in">
-                <!--in-->
-
-                <div class="container-fluid">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div id="gridview">
+                <div class="mb-2 toolbar">
                     <form action="/@app.OrganizationUniqueName/customize/solution/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
                         @Html.ValidationSummary()
                         @Html.HiddenFor(x => x.SolutionId)
-                        <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="btn-toolbar btn-group btn-group-sm">
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                            <span class="glyphicon glyphicon-share-alt"></span> @app.T["add_existing"] <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" id="addExistsMenu">
+                                            @foreach (var item in SolutionComponentCollection.Descriptors)
+                                            {
+                                                <li><a href="javascript:;" data-componenttype="@item.Key" data-serviceuri="@item.Value.ComponentsEndpoint">@app.T[item.Key].IfEmpty(item.Key)</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-warning" id="removeBtn">
+                                        <span class="glyphicon glyphicon-trash"></span> @app.T["remove"]
+                                    </button>
+                                </div>
+                            </div>
                             <div class="col-sm-4">
-                                <select class="form-control" id="ComponentType" name="ComponentType" data-value="@Model.ComponentType">
-                                    <option value="">-@app.T["typename"]-</option>
-                                    @foreach (var item in SolutionComponentCollection.SortedDescriptors)
-                                    {
-                                        <option value="@item.ComponentsEndpoint" data-componenttype="@item.Module.Name">@app.T[item.Module.Name].IfEmpty(item.Module.Name)</option>
-                                    }
-                                </select>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                    <select class="form-control" id="ComponentType" name="ComponentType" data-value="@Model.ComponentType">
+                                        @*<option value="">-@app.T["typename"]-</option>*@
+                                        @foreach (var item in SolutionComponentCollection.SortedDescriptors)
+                                        {
+                                            <option value="@item.ComponentsEndpoint" data-componenttype="@item.Module.Name">@app.T[item.Module.Name].IfEmpty(item.Module.Name)</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
-            </div>*@
-            @*<div class="btn-toolbar btn-group btn-group-sm">
-                <div class="btn-group btn-group-sm">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-share-alt"></span> @app.T["add_existing"] <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" id="addExistsMenu">
-                        @foreach (var item in SolutionComponentCollection.Descriptors)
-                        {
-                            <li><a href="#" data-componenttype="@item.Key" data-serviceuri="@item.Value.ComponentsEndpoint">@app.T[item.Key].IfEmpty(item.Key)</a></li>
-                        }
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-info" id="removeBtn">
-                    <span class="glyphicon glyphicon-trash"></span> @app.T["remove"]
-                </button>
-            </div>*@
-            <div >
-                <div class="datagrid-view">
-
+                <div>
+                    <div class="datagrid-view">
+                    </div>
                 </div>
             </div>
-
         </div>
+    </div>
+</div>
 
-
-        @section Header {
-            <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
-            <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
-            <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
-            <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
-        }
-        @section Scripts {
-
-            <script>
-
+@section Header {
+    <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+}
+@section Scripts {
+    <script>
         var theaders = {
              typename:'@app.T["typename"]',
              name:'@app.T["name"]',
@@ -104,19 +76,19 @@
              create_time:'@app.T["create_time"]',
              operation:'@app.T["operation"]',
         }
-            </script>
-            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
-            <script>
+    </script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
         var pageUrl = '', solutionid = '@Model.SolutionId';
         $(function () {
             pageUrl = $("#datatable").attr('data-pageurl');
@@ -200,12 +172,11 @@
             }
             //  console.log(itemtmpl);
             $('.datagrid-view').cDatagrid(datagridconfig);
-
+            //默认显示第一种类型
             $('#ComponentType').bind('change', function () {
                 rebind();
-            }).trigger('change');
+            });
             $('#removeBtn').on('click', function (e) {
-
                 var target = $('.datagrid-view');
                 var id = Xms.Web.GetTableSelected(target);
                 var ctype = $('#ComponentType').find('option:selected').attr('data-componenttype')
@@ -253,5 +224,5 @@
                 console.log(response);
             });
         }
-            </script>
-        }
+    </script>
+}

@@ -33,7 +33,7 @@ namespace Xms.Schema.OptionSet
             _localizedLabelService = localizedLabelService;
             _solutionComponentService = solutionComponentService;
             _optionSetDetailCreater = optionSetDetailCreater;
-            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", OptionSetCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(Domain.OptionSet entity)

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Xms.Context;
 using Xms.Core.Context;
 using Xms.Data.Provider;
 using Xms.Dependency.Abstractions;
-using Xms.Infrastructure.Utility;
 using Xms.Module.Core;
 using Xms.RibbonButton.Abstractions;
 using Xms.RibbonButton.Data;
@@ -83,7 +81,7 @@ namespace Xms.RibbonButton
         {
             //var entities = _cacheService.GetItems(() =>
             //{
-                return PreCacheAll();
+            return PreCacheAll();
             //});
             //if (entities != null)
             //{
@@ -99,19 +97,6 @@ namespace Xms.RibbonButton
                 return _ribbonButtonRepository.Query(x => x.EntityId == entityId && x.StateCode == Core.RecordState.Enabled && x.ShowArea == area.Value);
             }
             return _ribbonButtonRepository.Query(x => x.EntityId == entityId && x.StateCode == Core.RecordState.Enabled);
-            //List<Domain.RibbonButton> views = _cacheService.GetItemsByPattern(() =>
-            //{
-            //    return _ribbonButtonRepository.Query(x => x.EntityId == entityId && x.StateCode == Core.RecordState.Enabled);
-            //}, entityId + "/*");
-            //if (area.HasValue && views.NotEmpty())
-            //{
-            //    views.RemoveAll(x => x.ShowArea != area);
-            //}
-            //if (views.NotEmpty())
-            //{
-            //    WrapLocalizedLabel(views);
-            //}
-            //return views;
         }
 
         private List<Domain.RibbonButton> PreCacheAll()
@@ -120,6 +105,7 @@ namespace Xms.RibbonButton
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
@@ -127,7 +113,8 @@ namespace Xms.RibbonButton
         }
 
         public int ComponentType => ModuleCollection.GetIdentity(RibbonButtonDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<Domain.RibbonButton> datas)
         {

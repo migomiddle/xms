@@ -32,7 +32,7 @@ namespace Xms.DataMapping
             _entityMapRepository = entityMapRepository;
             _dependencyService = dependencyService;
             _cascadeDeletes = cascadeDeletes;
-            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), EntityMapCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Xms.DataMapping
                     _cacheService.RemoveEntity(deleted);
                 }
                 //删除子项
-                var childs = _entityMapRepository.Query(x=>x.ParentEntityMapId.In(ids));
+                var childs = _entityMapRepository.Query(x => x.ParentEntityMapId.In(ids));
                 if (childs.NotEmpty())
                 {
                     DeleteCore(childs.ToArray());

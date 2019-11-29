@@ -13,10 +13,9 @@ namespace Xms.Identity
         List<SystemUserRoles> Roles { get; set; }
         string SessionId { get; set; }
         UserSettings UserSettings { get; set; }
-       
+
         bool Equals(ICurrentUser u);
 
         bool HasValue();
-        
     }
 }

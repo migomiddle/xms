@@ -6,6 +6,7 @@
         public Mapping Mapping { get; set; }
         public bool IsUpdatePrimaryField { get; set; }
     }
+
     public class Mapping
     {
         public string Attribute { get; set; }

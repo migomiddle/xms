@@ -11,6 +11,7 @@ namespace Xms.Web.Framework.Models
     {
         public Guid[] RecordId { get; set; }
     }
+
     public class SetRecordStateModel
     {
         public Guid[] RecordId { get; set; }

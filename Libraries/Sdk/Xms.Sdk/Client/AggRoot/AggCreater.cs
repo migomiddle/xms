@@ -32,15 +32,14 @@ namespace Xms.Sdk.Client.AggRoot
         private readonly IAttributeFinder _attributeFinder;
         private readonly IRelationShipFinder _relationShipFinder;
 
-
         public AggCreater(
             IAppContext appContext
-            , IEntityFinder entityFinder            
+            , IEntityFinder entityFinder
             , IRoleObjectAccessEntityPermissionService roleObjectAccessEntityPermissionService
             , IPrincipalObjectAccessService principalObjectAccessService
             , IEventPublisher eventPublisher
             , IBusinessUnitService businessUnitService
-                        
+
             , IAttributeFinder attributeFinder
             , IRelationShipFinder relationShipFinder
             , IDataCreater dataCreater
@@ -48,7 +47,7 @@ namespace Xms.Sdk.Client.AggRoot
             , IPluginExecutor<AggregateRoot, AggregateRootMetaData> pluginExecutor
             )
             : base(appContext, entityFinder, roleObjectAccessEntityPermissionService, principalObjectAccessService, eventPublisher, businessUnitService)
-        {            
+        {
             _attributeFinder = attributeFinder;
             _relationShipFinder = relationShipFinder;
             _organizationDataProvider = organizationDataProvider;
@@ -56,19 +55,19 @@ namespace Xms.Sdk.Client.AggRoot
             _dataCreater = dataCreater;
         }
 
-        private AggregateRootMetaData GetAggregateRootMetaData(AggregateRoot aggregateRoot,Guid? systemFormId) {
-                                 
+        private AggregateRootMetaData GetAggregateRootMetaData(AggregateRoot aggregateRoot, Guid? systemFormId)
+        {
             var aggRootMetaData = new AggregateRootMetaData();
             var entityMetadata = GetEntityMetaData(aggregateRoot.MainEntity.Name);
             var attributeMetadatas = _attributeFinder.FindByEntityId(entityMetadata.EntityId);
-            var eam = new EntityAttributeMetadata { EntityMetadata = entityMetadata , AttributeMetadatas=attributeMetadatas };
+            var eam = new EntityAttributeMetadata { EntityMetadata = entityMetadata, AttributeMetadatas = attributeMetadatas };
             aggRootMetaData.MainMetadata = eam;
             aggRootMetaData.SystemFormId = systemFormId;
 
-
             aggRootMetaData.ListMetadatas = new Dictionary<string, EntityAttributeMetadata>();
-            foreach (var refEntity in aggregateRoot.ChildEntities) {
-                entityMetadata= GetEntityMetaData(refEntity.Name);
+            foreach (var refEntity in aggregateRoot.ChildEntities)
+            {
+                entityMetadata = GetEntityMetaData(refEntity.Name);
                 attributeMetadatas = _attributeFinder.FindByEntityId(entityMetadata.EntityId);
                 eam = new EntityAttributeMetadata { EntityMetadata = entityMetadata, AttributeMetadatas = attributeMetadatas };
                 if (aggRootMetaData.ListMetadatas.ContainsKey(refEntity.Name))
@@ -79,18 +78,18 @@ namespace Xms.Sdk.Client.AggRoot
             return aggRootMetaData;
         }
 
-        public Guid Create(AggregateRoot aggregateRoot, Guid? systemFormId = null, bool ignorePermissions = false)
+        public Guid Create(AggregateRoot aggregateRoot, Guid objectId, Guid? systemFormId = null, bool ignorePermissions = false)
         {
-            AggregateRootMetaData aggRootMetaData = GetAggregateRootMetaData(aggregateRoot,systemFormId);
+            AggregateRootMetaData aggRootMetaData = GetAggregateRootMetaData(aggregateRoot, systemFormId);
             var thisId = Guid.Empty;
             try
             {
                 _organizationDataProvider.BeginTransaction();
+
                 InternalOnCreate(aggregateRoot, OperationStage.PreOperation, aggRootMetaData);
 
-                //关联Id                
-                thisId = Guid.NewGuid();
-
+                //关联Id
+                thisId = objectId;
                 foreach (var c in aggregateRoot.ChildEntities)
                 {
                     string name = c.Name, relationshipname = c.Relationshipname, refname = string.Empty;
@@ -117,7 +116,7 @@ namespace Xms.Sdk.Client.AggRoot
                     if (creatingRecords.NotEmpty())
                     {
                         _dataCreater.CreateMany(creatingRecords);
-                    }                    
+                    }
                 }
                 aggregateRoot.MainEntity.SetIdValue(thisId);
                 _dataCreater.Create(aggregateRoot.MainEntity);
@@ -134,7 +133,9 @@ namespace Xms.Sdk.Client.AggRoot
             return thisId;
         }
 
-        public virtual void OnCreate(AggregateRoot data, OperationStage stage, AggregateRootMetaData aggRootMetaData) { }
+        public virtual void OnCreate(AggregateRoot data, OperationStage stage, AggregateRootMetaData aggRootMetaData)
+        {
+        }
 
         /// <summary>
         /// 创建记录时触发的事件
@@ -144,7 +145,7 @@ namespace Xms.Sdk.Client.AggRoot
         /// <param name="entityMetadata"></param>
         private void InternalOnCreate(AggregateRoot data, OperationStage stage, AggregateRootMetaData aggRootMetaDatas)
         {
-            //plugin            
+            //plugin
             var entityId = aggRootMetaDatas.MainMetadata.EntityMetadata.EntityId;
             Guid? businessObjectId = aggRootMetaDatas.SystemFormId;
             PlugInType pluginType = PlugInType.Form;

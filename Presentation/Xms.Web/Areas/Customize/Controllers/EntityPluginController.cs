@@ -33,6 +33,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IWebHelper _webHelper;
         private readonly ISystemFormFinder _systemFormFinder;
         private readonly IQueryViewFinder _queryViewFinder;
+
         public EntityPluginController(IWebAppContext appContext
             , IEntityPluginCreater entityPluginCreater
             , IEntityPluginUpdater entityPluginUpdater
@@ -52,6 +53,7 @@ namespace Xms.Web.Customize.Controllers
             _systemFormFinder = systemFormFinder;
             _queryViewFinder = queryViewFinder;
         }
+
         [Description("插件列表")]
         public IActionResult Index(EntityPluginModel model)
         {
@@ -98,6 +100,7 @@ namespace Xms.Web.Customize.Controllers
             };
             return View(model);
         }
+
         [Description("预加载DLL")]
         [HttpPost]
         public async Task<IActionResult> BeforehandLoadPlugin(BeforehandLoadPluginModel model)
@@ -116,6 +119,7 @@ namespace Xms.Web.Customize.Controllers
             }
             return CreateFailure(GetModelErrors());
         }
+
         [Description("修改插件")]
         [HttpPost]
         public IActionResult EditPlugin([FromBody]EditEntityPluginListModel model)
@@ -139,14 +143,14 @@ namespace Xms.Web.Customize.Controllers
                         }
                     });
                 }
-                if (model.DeleteEntityPluginIds != null) {
+                if (model.DeleteEntityPluginIds != null)
+                {
                     _entityPluginDeleter.DeleteById(model.DeleteEntityPluginIds.ToArray());
                 }
                 return CreateSuccess();
             }
             return CreateFailure(GetModelErrors());
         }
-
 
         [Description("新建插件")]
         [HttpPost]
@@ -240,12 +244,14 @@ namespace Xms.Web.Customize.Controllers
             }
             return CreateFailure(GetModelErrors());
         }
+
         [Description("删除插件")]
         [HttpPost]
         public IActionResult DeleteEntityPlugin([FromBody]DeleteManyModel model)
         {
             return _entityPluginDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置插件可用状态")]
         [HttpPost]
         public IActionResult SetEntityPluginState([FromBody]SetRecordStateModel model)

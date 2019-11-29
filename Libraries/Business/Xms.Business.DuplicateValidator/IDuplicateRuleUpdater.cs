@@ -7,6 +7,7 @@ namespace Xms.Business.DuplicateValidator
     public interface IDuplicateRuleUpdater
     {
         bool Update(DuplicateRule entity);
+
         bool UpdateState(IEnumerable<Guid> ids, bool isEnabled);
     }
 }

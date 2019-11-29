@@ -12,6 +12,7 @@ namespace Xms.Business.Filter
         {
             return appContext.OrganizationUniqueName + ":duplicaterules";
         }
+
         public static string BuildKey(FilterRule entity)
         {
             return entity.EntityId + "/" + entity.FilterRuleId.ToString() + "/";

@@ -150,7 +150,7 @@ namespace Xms.Sdk.Client
                     continue;
                 }
                 var attr = headTargetAttributes.Find(n => n.AttributeId == attrMap.TargetAttributeId);
-                if(attr == null)
+                if (attr == null)
                 {
                     continue;
                 }

@@ -12,6 +12,8 @@ namespace Xms.Identity
 
         public static PathString LogoutPath => new PathString("/account/signout");
         public static PathString AccessDeniedPath => new PathString("/error");
+
+        public static PathString InitializationPath => new PathString("/initialization/initialization");
     }
 
     public static class XmsCookieDefaults

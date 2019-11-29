@@ -26,31 +26,37 @@ namespace Xms.Web.Customize.Models
     {
         public Guid SystemFormId { get; set; }
         public Guid EntityId { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         public string FormConfig { get; set; }
         public string CustomButtons { get; set; }
         public bool IsCustomButton { get; set; }
         public Guid SolutionId { get; set; }
         public bool IsAuthorization { get; set; }
     }
+
     public class SetCopyFromModel
     {
         public Guid SystemFormId { get; set; }
         public string name { get; set; }
     }
+
     public class SetFormDefaultModel
     {
         public List<Guid> RecordId { get; set; }
         public Guid EntityId { get; set; }
         public bool IsDefault { get; set; }
     }
+
     public class SetFormAuthorizationStateModel
     {
         public Guid[] RecordId { get; set; }
         public bool IsAuthorization { get; set; }
         public string ComponentType { get; set; }
     }
+
     public class SetFormButtonsModel
     {
         public Guid RecordId { get; set; }

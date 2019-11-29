@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xms.Localization.Abstractions;
 
 namespace Xms.Organization.Domain
@@ -13,6 +12,5 @@ namespace Xms.Organization.Domain
         public int PagingLimit { get; set; }
         public Guid CurrencyId { get; set; }
         public int LayoutType { get; set; }
-       
     }
 }

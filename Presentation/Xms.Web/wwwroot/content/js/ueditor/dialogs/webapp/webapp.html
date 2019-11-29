@@ -1,13 +1,24 @@
-<!DOCTYPE>
+﻿<!DOCTYPE>
 <html>
 <head>
     <title></title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <script type="text/javascript" src="../internal.js"></script>
     <style type="text/css">
-        .wrapper{width: 540px; margin: 10px auto;}
-        #appShow {border: 1px solid #ddd;}
-        .errorMsg{font-size: 13px;margin: 10px;color: #dd0000}
+        .wrapper {
+            width: 540px;
+            margin: 10px auto;
+        }
+
+        #appShow {
+            border: 1px solid #ddd;
+        }
+
+        .errorMsg {
+            font-size: 13px;
+            margin: 10px;
+            color: #dd0000
+        }
     </style>
 </head>
 <body>
@@ -47,7 +58,6 @@
         } else {
             $G( "appShow" ).innerHTML = "<p class='errorMsg'>"+lang.tip1+"<a title='"+lang.anthorApi+"' href='http://app.baidu.com/static/cms/getapikey.html' target='_blank'>"+lang.applyFor+"</a></p><p class='errorMsg'>"+lang.tip2+"</p>" ;
         }
-
     </script>
 </body>
 </html>

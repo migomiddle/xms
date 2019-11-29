@@ -1,13 +1,11 @@
 ﻿using System;
-using Xms.Plugin.Domain;
 using Xms.Context;
 using Xms.Core;
-using Xms.Core.Data;
 using Xms.Identity;
+using Xms.Infrastructure.Inject;
 using Xms.Infrastructure.Utility;
 using Xms.Plugin.Abstractions;
-using Xms.Infrastructure.Inject;
-using System.Collections.Generic;
+using Xms.Plugin.Domain;
 
 namespace Xms.Plugin
 {
@@ -21,6 +19,7 @@ namespace Xms.Plugin
         private readonly IAppContext _appContext;
         private readonly IServiceResolver _serviceResolver;
         private readonly ICurrentUser _currentUser;
+
         public PluginExecutor(IAppContext appContext
             , IEntityPluginFinder entityPluginFinder
             , IEntityPluginFileProvider entityPluginFileProvider
@@ -33,10 +32,10 @@ namespace Xms.Plugin
             _serviceResolver = serviceResolver;
         }
 
-        public void Execute(Guid entityId, Guid? businessObjectId, PlugInType typeCode,OperationTypeEnum op, OperationStage stage, TData tData, KMetadata kMetadata)
+        public void Execute(Guid entityId, Guid? businessObjectId, PlugInType typeCode, OperationTypeEnum op, OperationStage stage, TData tData, KMetadata kMetadata)
         {
             var plugins = _entityPluginFinder.QueryByEntityId(entityId, Enum.GetName(typeof(OperationTypeEnum), op), businessObjectId, typeCode);
-                       
+
             if (plugins.NotEmpty())
             {
                 foreach (var pg in plugins)
@@ -52,7 +51,7 @@ namespace Xms.Plugin
                         {
                             MessageName = op
                             ,
-                            Stage = stage                            
+                            Stage = stage
                             ,
                             User = _currentUser
                             ,

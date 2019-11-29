@@ -45,7 +45,7 @@ namespace Xms.Schema
         public void AlterView(Domain.Entity entity)
         {
             //不从缓存获取，这里要读取未提交的记录
-            var attributes = _attributeFinder.Query(x=>x.Where(f=>f.EntityId == entity.EntityId));
+            var attributes = _attributeFinder.Query(x => x.Where(f => f.EntityId == entity.EntityId));
             var relationShips = _relationShipFinder.Query(x => x.Where(f => f.ReferencingEntityId == entity.EntityId));
             _metadataProvider.AlterView(entity, attributes, relationShips);
         }

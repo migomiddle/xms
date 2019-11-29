@@ -25,6 +25,7 @@ namespace Xms.Plugin
         private readonly IDependencyService _dependencyService;
         private readonly Caching.CacheManager<EntityPlugin> _cacheService;
         private readonly IAppContext _appContext;
+
         public EntityPluginCreater(IAppContext appContext
             , IEntityPluginRepository entityPluginRepository
             , ISolutionComponentService solutionComponentService
@@ -36,7 +37,7 @@ namespace Xms.Plugin
             _solutionComponentService = solutionComponentService;
             _entityPluginFileProvider = entityPluginFileProvider;
             _dependencyService = dependencyService;
-            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), EntityPluginCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         public async Task<bool> Create(EntityPlugin entity, IFormFile file)
@@ -47,6 +48,7 @@ namespace Xms.Plugin
             }
             return Create(entity);
         }
+
         public bool Create(EntityPlugin entity, string fileName)
         {
             string savePath = _entityPluginFileProvider.Save(fileName);
@@ -56,6 +58,7 @@ namespace Xms.Plugin
             }
             return false;
         }
+
         public async Task<List<PluginAnalysis>> BeforehandLoad(IFormFile file)
         {
             if (file != null)
@@ -64,14 +67,16 @@ namespace Xms.Plugin
             }
             return null;
         }
-        public  List<PluginAnalysis> BeforehandLoad(string fileName)
+
+        public List<PluginAnalysis> BeforehandLoad(string fileName)
         {
             if (!string.IsNullOrWhiteSpace(fileName))
             {
-                return  _entityPluginFileProvider.BeforehandLoad(fileName);
+                return _entityPluginFileProvider.BeforehandLoad(fileName);
             }
             return null;
         }
+
         public bool Create(EntityPlugin entity)
         {
             entity.SolutionId = SolutionDefaults.DefaultSolutionId;//组件属于默认解决方案

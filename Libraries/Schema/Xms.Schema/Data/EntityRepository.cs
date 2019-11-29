@@ -139,6 +139,7 @@ namespace Xms.Schema.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

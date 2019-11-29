@@ -54,6 +54,7 @@ namespace Xms.Web.Api
         private readonly IRibbonButtonStatusSetter _ribbonButtonStatusSetter;
         private readonly IRoleObjectAccessEntityPermissionService _roleObjectAccessEntityPermissionService;
         private readonly ISerialNumberRuleFinder _serialNumberRuleFinder;
+
         public FormController(IWebAppContext appContext
             , ISystemFormFinder systemFormFinder
             , ISystemFormUpdater systemFormUpdater
@@ -227,7 +228,7 @@ namespace Xms.Web.Api
             if (data.NotEmpty())
             {
                 var result = new List<PrivilegeResourceItem>();
-                var entities = _entityFinder.FindAll()?.OrderBy(x=>x.LocalizedName).ToList();
+                var entities = _entityFinder.FindAll()?.OrderBy(x => x.LocalizedName).ToList();
                 foreach (var item in entities)
                 {
                     var forms = data.Where(x => x.EntityId == item.EntityId);

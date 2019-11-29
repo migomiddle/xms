@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=pages/customize.queryview.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -22,7 +21,6 @@
         factory(window['jQuery']);
     }
 }(function ($) {
-    
 });
 
 //获取表单列表
@@ -47,7 +45,6 @@ function getFormsList(entityid, $context, isRequire, callback) {
         }
     }, true);
 }
-
 
 var AggregateType = { 'datetime': ['Max', 'Min'], 'int': ['Sum', 'Avg', 'Max', 'Min'], 'float': ['Sum', 'Avg', 'Max', 'Min'], 'money': ['Sum', 'Avg', 'Max', 'Min'] };
 //打开窗口时获取是否需要统计
@@ -133,7 +130,6 @@ function setAggregateConfig(name, value) {
                 tempArr.splice(temp, 1);
             }
         }
-
     } else {
         if (value != '') {
             var _obj = {};
@@ -149,8 +145,6 @@ function setAggregateConfig(name, value) {
     }
     $AggregateConfig.val(res);
 }
-
-
 
 function renderModityByData(data, type) {
     var _html = [];
@@ -697,7 +691,6 @@ function cancelGroup(e, groupid) {
 }
 //保存过滤条件
 function saveFilter() {
-
     var mainGroup = $('.form-group[data-type="Main"]').children('.andorGroup,.pilot-row').not('[data-relevant=true]');
     QueryObject.Criteria = eachGroup(mainGroup, true);
     var relaveList = $('.form-group[data-type="Main"]').children('.relevant-box');
@@ -958,7 +951,6 @@ var moreSelect = [];
 //包含和不包含
 var includeNull = ['NotNull', 'Null'];
 
-
 //function initRowCommandSettings(){
 //    var $rowcommand = $('#rowcommand');
 //    var rowFirst = $rowcommand.find('.well:first');
@@ -974,11 +966,9 @@ function loadFilterOperators(input, type, opts) {
         op.push('<option data-value="' + n[0] + '" value="' + n[1] + '">' + n[2] + '</option>');
     });
     $(input).html(op.join(''));
-
 }
 
 function addView() {
-
     var view = $('.well:first', '#rowcommand').clone();
     addAttributeToInput(view);
     $('.well:last', '#rowcommand').after(view);
@@ -996,8 +986,6 @@ function removeView(obj) {
     saveRowCommandValue();
 }
 function checkAdd(obj, isParent) {
-
-
     var ddd = $('.judgeView:first', '#rowcommand>.well:first').clone();
     console.log('dddddd', ddd);
     if (!isParent) {
@@ -1042,7 +1030,6 @@ function loadRowCommondAttributes(callback) {
         saveRowCommandValue();
         callback && callback();
     }
-
 }
 
 function addAttributeToInput(_context) {

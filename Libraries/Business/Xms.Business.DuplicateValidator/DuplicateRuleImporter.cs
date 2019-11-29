@@ -19,6 +19,7 @@ namespace Xms.Business.DuplicateValidator
         private readonly IDuplicateRuleFinder _duplicateRuleFinder;
         private readonly IDuplicateRuleConditionService _duplicateRuleConditionService;
         private readonly IAppContext _appContext;
+
         public DuplicateRuleImporter(IAppContext appContext
             , IDuplicateRuleCreater duplicateRuleCreater
             , IDuplicateRuleUpdater duplicateRuleUpdater
@@ -31,6 +32,7 @@ namespace Xms.Business.DuplicateValidator
             _duplicateRuleFinder = duplicateRuleFinder;
             _duplicateRuleConditionService = duplicateRuleConditionService;
         }
+
         public bool Import(Guid solutionId, IList<DuplicateRule> duplicateRules)
         {
             if (duplicateRules.NotEmpty())

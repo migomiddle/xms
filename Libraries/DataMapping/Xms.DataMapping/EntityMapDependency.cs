@@ -22,6 +22,7 @@ namespace Xms.DataMapping
             //依赖于实体
             return _dependencyService.Create(DataMappingDefaults.ModuleName, entity.EntityMapId, EntityDefaults.ModuleName, entity.TargetEntityId);
         }
+
         public bool Update(Domain.EntityMap entity)
         {
             //依赖于实体

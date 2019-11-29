@@ -4,5 +4,4 @@
     var LANGUAGEID = @((int)app.CurrentUser.UserSettings.LanguageId);
     var PAGEDEFAULT_PAGESIZE = '@app.CurrentUser.UserSettings.PagingLimit';
     var CURRENT_USER = {"systemuserid":"@app.CurrentUser.SystemUserId", "username":"@Html.Raw(app.CurrentUser.UserName)", "loginname":"@Html.Raw(app.CurrentUser.LoginName)", "businessunitid":"@app.CurrentUser.BusinessUnitId", "organizationid":"@app.CurrentUser.OrganizationId","userpersonalizations":"@app.UserPersonalizations"};
-   
 </script>

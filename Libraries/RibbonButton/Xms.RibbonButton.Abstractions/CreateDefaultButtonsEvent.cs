@@ -12,6 +12,7 @@ namespace Xms.RibbonButton.Abstractions
         {
             Object = entity;
         }
+
         public CreateDefaultButtonsEvent(Schema.Domain.Entity entity, Guid[] defaultButtons) : base(entity)
         {
             Object = entity;

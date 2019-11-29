@@ -10,6 +10,7 @@ namespace Xms.Web.Framework.Route
     public class OrgRouteMatcher
     {
         private const string ORG_ROUTETEMPLATE = "{org}/{controller}/{action}";///{area:exists}
+
         public static RouteValueDictionary Match(HttpContext context)
         {
             var template = TemplateParser.Parse(ORG_ROUTETEMPLATE);

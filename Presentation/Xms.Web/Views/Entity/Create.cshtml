@@ -75,49 +75,48 @@
             <button class="btn btn-link btn-sm" type="button" onclick="WorkFlowProcessDetail(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-th"></span> 审批详情</button>
         </div>
     }
-<form id="editForm" method="post" action="/@app.OrganizationUniqueName/api/data/aggrootsave" data-jsonajax="true" data-hiddendata="data" class="form-horizontal xms-form-wrap" data-autoreset="false">
-    @Html.AntiForgeryToken()
-    <input type="hidden" id="entityid" data-hiddendata="true" name="entityid" value="@Model.EntityId" />
-    <input type="hidden" id="formid" data-hiddendata="true" name="formid" value="@Model.FormId" />
-    <input type="hidden" id="recordid" data-hiddendata="true" name="recordid" value="@Model.RecordId" />
-    <input type="hidden" id="relationshipname" data-hiddendata="true" name="relationshipname" value="@Model.RelationShipName" />
-    <input type="hidden" id="recordid" data-hiddendata="true" name="referencedrecordid" value="@Model.ReferencedRecordId" />
-    <input type="hidden" id="child" data-hiddendata="true" name="child" value="" />
-    <input type="hidden" id="attributechanged" data-hiddendata="true" name="attributechanged" value="" />
-    @if (!Model.StageId.Equals(Guid.Empty))
-    {
-        <input type="hidden" id="stageid" data-hiddendata="true" name="stageid" value="@Model.StageId" />
-        <input type="hidden" id="businessflowid" data-hiddendata="true" name="businessflowid" value="@Model.BusinessFlowId" />
-        <input type="hidden" id="businessflowinstanceid" data-hiddendata="true" name="businessflowinstanceid" value="@Model.BusinessFlowInstanceId" />
-    }
-    @if (!Model.ReadOnly)
-    {
-        <div class="container-fluid margin-bottom clearfix" style="border:1px #eee dashed; padding:3px;" id="toolbar">
-
-            @if (Model.RibbonButtons.NotEmpty())
-            {
-                foreach (var btn in Model.RibbonButtons)
-                {
-                    <a class="@btn.CssClass@(btn.IsVisibled ? "" : " hide") btn-sm hideBySizeItem" title="@(btn.ShowLabel ? btn.Label : "")" href="javascript:void(0)" onclick="@(btn.IsEnabled && btn.IsVisibled ? btn.JsAction : "")" @(btn.IsEnabled ? "" : " disabled")><span class="@btn.Icon"></span> @(btn.ShowLabel ? btn.Label : "")</a>
-                }
-            }
-            @if (Model.RecordId.HasValue && !Model.RecordId.Equals(Guid.Empty) && Model.EntityMetaData.WorkFlowEnabled && (Model.WorkFlowProcessState != (int)WorkFlowProcessState.Processing || Model.WorkFlowProcessState != (int)WorkFlowProcessState.Passed))
-            {
-                <a class="btn btn-link btn-sm hideBySizeItem" href="javascript:void(0)" onclick="StartWorkFlow(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-check"></span> 启动审批</a>
-            }
-
-        </div>
-    }
-
-    <div class="pull-right btn-group pt-1 toolbar-right">
-        <a class="btn btn-info btn-xs createForm-refresh" href="javascript:location.reload()" title="刷新"><span class="glyphicon glyphicon-refresh"></span></a>
-        <a class="btn btn-info btn-xs createForm-openWin" target="_blank" data-href="@app.Url" title="@app.T["window_opennew"]"><span class="glyphicon glyphicon-fullscreen"></span></a>
-        @if (app.CurrentUser.IsSuperAdmin)
+    <form id="editForm" method="post" action="/@app.OrganizationUniqueName/api/data/aggrootsave" data-jsonajax="true" data-hiddendata="data" class="form-horizontal xms-form-wrap" data-formdata="true" data-autoreset="false">
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="entityid" data-hiddendata="true" name="entityid" value="@Model.EntityId" />
+        <input type="hidden" id="formid" data-hiddendata="true" name="formid" value="@Model.FormId" />
+        <input type="hidden" id="recordid" data-hiddendata="true" name="recordid" value="@Model.RecordId" />
+        <input type="hidden" id="relationshipname" data-hiddendata="true" name="relationshipname" value="@Model.RelationShipName" />
+        <input type="hidden" id="recordid" data-hiddendata="true" name="referencedrecordid" value="@Model.ReferencedRecordId" />
+        <input type="hidden" id="child" data-hiddendata="true" name="child" value="" />
+        <input type="hidden" id="attributechanged" data-hiddendata="true" name="attributechanged" value="" />
+        @if (!Model.StageId.Equals(Guid.Empty))
         {
-            <a class="btn btn-info btn-xs" href="/@(app.OrganizationUniqueName)/customize/systemform/editform?id=@Model.FormId" target="_blank" title="配置表单"><span class="glyphicon glyphicon-cog"></span></a>
+            <input type="hidden" id="stageid" data-hiddendata="true" name="stageid" value="@Model.StageId" />
+            <input type="hidden" id="businessflowid" data-hiddendata="true" name="businessflowid" value="@Model.BusinessFlowId" />
+            <input type="hidden" id="businessflowinstanceid" data-hiddendata="true" name="businessflowinstanceid" value="@Model.BusinessFlowInstanceId" />
         }
-    </div>
-</form>
+        @if (!Model.ReadOnly)
+        {
+            <div class="container-fluid margin-bottom clearfix" style="border:1px #eee dashed; padding:3px;" id="toolbar">
+
+                @if (Model.RibbonButtons.NotEmpty())
+                {
+                    foreach (var btn in Model.RibbonButtons)
+                    {
+                        <a class="@btn.CssClass@(btn.IsVisibled ? "" : " hide") btn-sm hideBySizeItem" title="@(btn.ShowLabel ? btn.Label : "")" href="javascript:void(0)" onclick="@(btn.IsEnabled && btn.IsVisibled ? btn.JsAction : "")" @(btn.IsEnabled ? "" : " disabled")><span class="@btn.Icon"></span> @(btn.ShowLabel ? btn.Label : "")</a>
+                    }
+                }
+                @if (Model.RecordId.HasValue && !Model.RecordId.Equals(Guid.Empty) && Model.EntityMetaData.WorkFlowEnabled && (Model.WorkFlowProcessState != (int)WorkFlowProcessState.Processing || Model.WorkFlowProcessState != (int)WorkFlowProcessState.Passed))
+                {
+                    <a class="btn btn-link btn-sm hideBySizeItem" href="javascript:void(0)" onclick="StartWorkFlow(Xms.Page.PageContext.EntityId, Xms.Page.PageContext.RecordId)"><span class="glyphicon glyphicon-check"></span> 启动审批</a>
+                }
+            </div>
+        }
+
+        <div class="pull-right btn-group pt-1 toolbar-right">
+            <a class="btn btn-info btn-xs createForm-refresh" href="javascript:location.reload()" title="刷新"><span class="glyphicon glyphicon-refresh"></span></a>
+            <a class="btn btn-info btn-xs createForm-openWin" target="_blank" data-href="@app.Url" title="@app.T["window_opennew"]"><span class="glyphicon glyphicon-fullscreen"></span></a>
+            @if (app.CurrentUser.IsSuperAdmin)
+            {
+                <a class="btn btn-info btn-xs" href="/@(app.OrganizationUniqueName)/customize/systemform/editform?id=@Model.FormId" target="_blank" title="配置表单"><span class="glyphicon glyphicon-cog"></span></a>
+            }
+        </div>
+    </form>
     <div class="attach-section" id="attachSection" style="display:none;">
         <ul>
             <li><a href="javascript:;" class="subtools" data-type="attach"><em class="glyphicon glyphicon-hdd"></em> 附件</a></li>
@@ -139,7 +138,6 @@
                 </h4>
             </div>
             <div class="modal-body">
-
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -276,12 +274,9 @@
         page_Common_Info.title =  page_Common_Info.formName + " - " + page_Common_Info.localizeName;
         page_Common_Info.breadcrumb_url = '@app.UrlReferrer';
 
-
         //添加整个表单的自定义样式
-
     </script>
     <script src="/content/js/pages/entity.create.js?v=@app.PlatformSettings.VersionNumber"></script>
-
 
     @foreach (var item in jsLibs)
     {
@@ -290,11 +285,10 @@
     @if (resources.Count > 0)
     {
         <script>
-           
+
             var services = {
                 getEvents: ORG_SERVERURL + "/api/webresource?ids=@(string.Join(",", resources))"
             }
-
 
             var getEvents = function (url,callback) {
                 $.getScript(url,function(){
@@ -382,12 +376,8 @@
         </script>
     }
 
-
     <script>
         pageWrap_Create.init();
-
-
-
 
         function getRecordInfo(id, callback) {
             //if(!_record) return false;
@@ -444,6 +434,5 @@
             //console.log(a);
             Xms.Web.Event.publish(a);
         }
-
     </script>
 }

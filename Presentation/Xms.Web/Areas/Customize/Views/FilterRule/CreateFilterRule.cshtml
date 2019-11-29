@@ -1,14 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.CreateFilterRuleModel
 
 <div class="panel panel-default">
-    @*<div class="panel-heading">
+    <div class="panel-heading">
         <h3 class="panel-title">
             <a data-toggle="collapse"
                href="#collapseTwo">
                 <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
             </a>
         </h3>
-    </div>*@
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" data-autoreset="true">
@@ -16,6 +16,12 @@
                 @Html.ValidationSummary()
                 @Html.HiddenFor(x => x.EntityId)
                 @Html.HiddenFor(x => x.Conditions)
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label">实体</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-sm hide" id="entityselecter" />
+                    </div>
+                </div>
                 <div class="form-group col-sm-12">
                     @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
                     <div class="col-sm-10">
@@ -86,11 +92,10 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <div class="col-sm-2"><label for="connection-logical">逻辑符：</label></div>
-                                <div class="col-sm-2">
-                                    <select name="connection-logical" class="form-control" id="connection-logical">
-                                        <option value="0">并且</option>
-                                        <option value="1">或者</option>
-                                    </select>
+                                <div class="col-sm-3">
+
+                                    <label><input type="radio" value="0" name="connection-logical" checked /> 并且</label>
+                                    <label class="pl-3"><input type="radio" value="1" name="connection-logical" /> 或者</label>
                                 </div>
                             </div>
                         </div>
@@ -135,16 +140,51 @@
             }, null, function (err) {
                 var _Conditions = $('#Conditions').val();
                 if (_Conditions == "") {
-                    Xms.Web.Alert('请先设置条件');
+                    Xms.Web.Alert(false,'请先设置条件');
                     return false;
                 }
             });
             $('#editFitlerBtn').on('click', function () {
+                var _entityid = $('#EntityId').val();
+                if (_entityid === '00000000-0000-0000-0000-000000000000') {
+                    Xms.Web.Toast('请先选择实体', false);
+                    return false;
+                }
                 businessModel.editFilter();
             });
             $('#saveFilterRule').on('click', function () {
                 businessModel.saveFilter();
             });
+            loadEntitys($('#entityselecter'));
         });
+         function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
+                   $('#Conditions').val('');
+                },
+                removehandler: function () {
+                    $('#EntityId').val(self.value);
+                    $('#Conditions').val('');
+                },
+                inputPlaceHolder:'选择实体'
+            });
+
+        }
     </script>
 }

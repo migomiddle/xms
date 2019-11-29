@@ -34,6 +34,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IAttributeDeleter _attributeDeleter;
         private readonly IAttributeFinder _attributeFinder;
         private readonly IAttributeUpdater _attributeUpdater;
+
         public AttributeController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -55,6 +56,7 @@ namespace Xms.Web.Customize.Controllers
             _attributeFinder = attributeFinder;
             _attributeUpdater = attributeUpdater;
         }
+
         [Description("字段列表")]
         public IActionResult Index(AttributeModel model)
         {
@@ -184,6 +186,7 @@ namespace Xms.Web.Customize.Controllers
                             attrInfo.FormulaExpression = model.FormulaExpression;
                         }
                         break;
+
                     case AttributeTypeIds.NTEXT:
                         attrInfo.DataFormat = model.NTextFormat;
                         break;
@@ -409,6 +412,7 @@ namespace Xms.Web.Customize.Controllers
                             attrInfo.FormulaExpression = model.FormulaExpression;
                         }
                         break;
+
                     case AttributeTypeIds.NTEXT:
                         attrInfo.DataFormat = model.NTextFormat;
                         break;

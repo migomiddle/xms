@@ -16,7 +16,6 @@ namespace Xms.Business.SerialNumber.Data
     {
         public SerialNumberRuleRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -52,6 +51,7 @@ namespace Xms.Business.SerialNumber.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

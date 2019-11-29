@@ -46,16 +46,15 @@ namespace Xms.Identity
         [Newtonsoft.Json.JsonIgnore]
         public List<RoleObjectAccessEntityPermission> RoleObjectAccessEntityPermission
         {
-            get {
-
-                if (_roleObjectAccessEntityPermissions == null) {
-
+            get
+            {
+                if (_roleObjectAccessEntityPermissions == null)
+                {
                 }
                 return _roleObjectAccessEntityPermissions;
             }
             set { _roleObjectAccessEntityPermissions = value; }
         }
-
 
         //[Newtonsoft.Json.JsonIgnore]
         public UserSettings UserSettings

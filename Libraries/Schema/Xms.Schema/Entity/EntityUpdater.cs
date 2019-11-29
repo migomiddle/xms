@@ -28,7 +28,7 @@ namespace Xms.Schema.Entity
             _appContext = appContext;
             _entityRepository = entityRepository;
             _localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.Entity>(_appContext.OrganizationUniqueName + ":entities", EntityCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.Entity>(_appContext.OrganizationUniqueName + ":entities", _appContext.PlatformSettings.CacheEnabled);
             _attributeCreater = attributeCreater;
         }
 

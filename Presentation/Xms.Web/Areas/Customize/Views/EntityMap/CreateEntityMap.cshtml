@@ -1,20 +1,28 @@
 ﻿@model Xms.Web.Customize.Models.EditEntityMapModel
 
 <div class="panel panel-default">
-    @*<div class="panel-heading">
+    <div class="panel-heading">
         <h3 class="panel-title">
             <a data-toggle="collapse"
                href="#collapseTwo">
                 <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
             </a>
         </h3>
-    </div>*@
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
-            <form id="editform" class="form-horizontal"  data-istip="true" action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post">
+            <form id="editform" class="form-horizontal" data-istip="true" action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
-                @Html.HiddenFor(x => x.EntityId)
+                @if (Model.EntityId != null)
+                {
+                    @Html.HiddenFor(x => x.EntityId)
+                }
+                else
+                {
+                    <input type="hidden" id="EntityId" name="entityid" class="entityid" value="00000000-0000-0000-0000-000000000000" />
+                }
+
                 @Html.HiddenFor(x => x.SolutionId)
                 @Html.HiddenFor(x => x.RelationShipName)
                 @Html.HiddenFor(x => x.ChildRelationShipName)
@@ -40,20 +48,34 @@
                                         <select class="form-control required" name="maptype" id="maptype">
                                             <option value="1">允许复制一次</option>
                                             <option value="2">允许复制多次</option>
-                                            <option value="3">钩稽</option>
-                                            <option value="4">强制钩稽</option>
+                                            @*<option value="3">钩稽</option>
+                                                <option value="4">强制钩稽</option>*@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6 hide" id="setlinkfield">
                                     <button type="button" class="btn btn-info btn-sm" id="btnControlMap"><span class="glyphicon glyphicon-link"></span> 设置钩稽字段</button>
                                 </div>
                             </div>
                             <div class="form-group col-sm-12">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 hide">
                                     <label class="col-sm-2 control-label">目标单</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control" disabled><option value="@Model.EntityId">@Model.TargetEntityMetaData.LocalizedName</option></select>
+                                        @if (Model.TargetEntityMetaData != null && Model.EntityId != null)
+                                        {
+                                            <select class="form-control" id="targetEntitys" disabled><option value="@Model.EntityId">@Model.TargetEntityMetaData.LocalizedName</option></select>
+                                        }
+                                        else
+                                        {
+                                            <select class="form-control" id="targetEntitys" disabled><option value="00000000-0000-0000-0000-000000000000">选择实体</option></select>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="col-sm-2 control-label">实体</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control input-sm hide" id="entityselecter" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -78,22 +100,25 @@
                                     </thead>
                                     <tbody>
                                         @{
-                                            int i = 0;
-                                            foreach (var item in Model.Attributes)
+                                            if (Model.Attributes != null)
                                             {
-                                                <tr>
-                                                    <td data-name="@item.Name" data-type="@item.AttributeTypeName" data-referencedentityid="@item.ReferencedEntityId">
-                                                        <label for="sourcefield_@item.Name">@item.LocalizedName</label>
-                                                        <input type="hidden" name="HeadAttributeMap[@i].targetattributeid" value="@item.AttributeId" />
-                                                    </td>
-                                                    <td>
-                                                        <select name="HeadAttributeMap[@i].sourceattributeid" id="sourcefield_@item.Name" class="form-control">
-                                                            <option value="@Guid.Empty">@app.T["please_select"]</option>
-                                                        </select>
-                                                    </td>
-                                                    @*<td><input type="checkbox" name="HeadAttributeMap[@i].canchange" value="true" /></td>*@
-                                                </tr>
-                                                i++;
+                                                int i = 0;
+                                                foreach (var item in Model.Attributes)
+                                                {
+                                                    <tr>
+                                                        <td data-name="@item.Name" data-type="@item.AttributeTypeName" data-referencedentityid="@item.ReferencedEntityId">
+                                                            <label for="sourcefield_@item.Name">@item.LocalizedName</label>
+                                                            <input type="hidden" name="HeadAttributeMap[@i].targetattributeid" value="@item.AttributeId" />
+                                                        </td>
+                                                        <td>
+                                                            <select name="HeadAttributeMap[@i].sourceattributeid" id="sourcefield_@item.Name" class="form-control">
+                                                                <option value="@Guid.Empty">@app.T["please_select"]</option>
+                                                            </select>
+                                                        </td>
+                                                        @*<td><input type="checkbox" name="HeadAttributeMap[@i].canchange" value="true" /></td>*@
+                                                    </tr>
+                                                    i++;
+                                                }
                                             }
                                         }
                                     </tbody>
@@ -224,10 +249,59 @@
                 $('#ruleModal').modal('show');
                 loadControlMap();//$.when(loadControlMap).done(loadChildControlMap);
             });
-            loadRelatedEntities();
-            loadChildEntities();
+            loadEntitys($('#entityselecter'));
+            if ($('#EntityId').val() != '') {
+                loadRelatedEntities();
+                loadChildEntities();
+            }
+
         });
-        function loadRelatedEntities() {
+         function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
+                    $('#targetEntitys').find('option:first').val(self.value).text(self.vInput.val());
+                    changeEntity()
+                },
+                removehandler: function () {
+                    $('#EntityId').val(self.value);
+                    $('#Conditions').val('');
+                },
+                inputPlaceHolder:'选择实体'
+            });
+
+        }
+        function changeEntity() {
+            setTimeout(function () {
+                loadRelatedEntities(function () {
+                    loadTargetAttributes();
+                        loadChildEntities(function () {
+                            loadChildAttributes()
+                            loadChildControlMap()
+                        });
+                        loadSourceAttributes()
+                        loadChildRelatedAttributes()
+
+                });
+            }, 50);
+
+        }
+        function loadRelatedEntities(callback) {
             var entityid = $('#EntityId').val();
             Xms.Web.GetJson('/api/schema/relationship/GetReferencing/' + entityid, null, function (data) {
                 if (!data || data.content.length == 0) return;
@@ -238,9 +312,10 @@
                         $('#HeadRelatedEntities').append('<option data-name="' + n.name + '" data-referencedentityname="' + n.referencedentityname + '" data-referencedattributeid="' + n.referencedattributeid + '" value="' + n.referencedentityid + '">' + n.referencedentitylocalizedname + '(' + n.referencingattributelocalizedname + ')' + '</option>');
                     }
                 });
+                callback && callback()
             });
         }
-        function loadChildEntities() {
+        function loadChildEntities(callback) {
             var entityid = $('#EntityId').val();
             Xms.Web.GetJson('/api/schema/relationship/GetReferenced/' + entityid, null, function (data) {
                 if (!data || data.content.length == 0) return;
@@ -251,9 +326,10 @@
                         $('#ChildEntities').append('<option data-name="' + n.name + '" data-referencedentityname="' + n.referencedentityname + '" value="' + n.referencingentityid + '">' + n.referencingentitylocalizedname + '(' + n.referencingattributelocalizedname + ')' + '</option>');
                     }
                 });
+                callback && callback()
             });
         }
-        function loadChildRelatedEntities() {
+        function loadChildRelatedEntities(callback) {
             var entityid = Xms.Web.SelectedValue($('#HeadRelatedEntities'));
             Xms.Web.GetJson('/api/schema/relationship/GetReferenced/' + entityid, null, function (data) {
                 if (!data || data.content.length == 0) return;
@@ -264,9 +340,10 @@
                         $('#ChildRelatedEntities').append('<option data-name="' + n.name + '" data-referencedentityname="' + n.referencedentityname + '" data-referencedattributeid="' + n.referencedattributeid + '" value="' + n.referencingentityid + '">' + n.referencingentitylocalizedname + '(' + n.referencingattributelocalizedname + ')' + '</option>');
                     }
                 });
+                callback && callback()
             });
         }
-        function loadSourceAttributes() {
+        function loadSourceAttributes(callback) {
             var options = [];
             var filter = { 'GetAll': true, 'FilterSysAttribute': true };
             filter.entityid = Xms.Web.SelectedValue($('#HeadRelatedEntities'));
@@ -294,7 +371,7 @@
                                     $obj.attr('selected', 'selected');
                                     sel.append($obj);
                                 }
-                            } 
+                            }
                             else {
                                 sel.append($obj);
                             }
@@ -303,9 +380,43 @@
                         }
                     });
                 });
+                callback && callback()
             });
         }
-        function loadChildAttributes() {
+
+        function loadTargetAttributes(callback) {
+            var targetid = Xms.Web.SelectedValue($('#targetEntitys'));
+            if (targetid == '') {
+                $('#mapping').find('tbody>tr').remove();
+                return;
+            }
+            var options = [];
+            var filter = { 'GetAll': true, 'FilterSysAttribute': true };
+            filter.entityid = Xms.Web.SelectedValue($('#targetEntitys'));
+            Xms.Schema.GetAttributes(filter, function (data) {
+                if (!data || data.length == 0) return;
+                var rows = [];
+                $(data).each(function (i, n) {
+                    rows.push('<tr>');
+                    rows.push('<td data-name="' + n.name + '" data-type="' + n.attributetypename + '" data-referencedentityid="' + (n.referencedentityid || '') + '">');
+                    rows.push('<label for="childsource_' + n.name + '">' + n.localizedname + '</label>');
+                    rows.push('<input type="hidden" name="headattributemap[' + i + '].targetattributeid" value="' + n.attributeid + '" />');
+                    rows.push('</td>');
+                    rows.push('<td>');
+                    rows.push('<select name="HeadAttributeMap[' + i + '].sourceattributeid" id="childsource_' + n.name + '" class="form-control"><option value="00000000-0000-0000-0000-000000000000">--请选择--</option></select>');
+                    rows.push('</td>');
+                    //rows.push('<td>');
+                    //rows.push('<input type="checkbox" name="ChildAttributeMap[' + i + '].canchange" value="true" />');
+                    //rows.push('</td>');
+                    rows.push('</tr>');
+                });
+                $('#mapping').find('tbody>tr').remove();
+                $('#mapping').find('tbody').append(rows.join(''));
+                callback && callback()
+            });
+        }
+
+        function loadChildAttributes(callback) {
             var targetid = Xms.Web.SelectedValue($('#ChildEntities'));
             if (targetid == '') {
                 $('#childmapping').find('tbody>tr').remove();
@@ -333,9 +444,10 @@
                 });
                 $('#childmapping').find('tbody>tr').remove();
                 $('#childmapping').find('tbody').append(rows.join(''));
+                callback && callback()
             });
         }
-        function loadChildRelatedAttributes() {
+        function loadChildRelatedAttributes(callback) {
             var targetid = Xms.Web.SelectedValue($('#ChildEntities'));
             var sourceid = Xms.Web.SelectedValue($('#ChildRelatedEntities'));
             if (targetid == '' || sourceid == '') {
@@ -374,9 +486,10 @@
                         }
                     });
                 });
+                callback && callback()
             });
         }
-        function loadControlMap() {
+        function loadControlMap(callback) {
             var target = $('#controlmap').find('tbody');
             target.empty();
             var options = [], closeoptions = [];

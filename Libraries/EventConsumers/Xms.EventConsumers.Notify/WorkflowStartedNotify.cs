@@ -25,6 +25,7 @@ namespace Xms.EventConsumers.Notify
             _loc = _appContext.GetFeature<ILocalizedTextProvider>();
             _notifies = notifies;
         }
+
         public void HandleEvent(WorkFlowStartedEvent eventMessage)
         {
             //当前节点处理人

@@ -1,82 +1,83 @@
 ﻿@model Xms.Web.Customize.Models.EditOptionSetModel
 
-    <div class="panel panel-default">
-        @*<div class="panel-heading">
-            <h3 class="panel-title">
-                <a data-toggle="collapse"
-                   href="#collapseTwo">
-                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
-                </a>
-            </h3>
-        </div>*@
-        <div id="collapseTwo" class="panel-collapse collapse in">
-            <div class="panel-body">
-                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" data-autoreset="true">
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary()
-                    @Html.HiddenFor(x => x.SolutionId)
-                    <div class="form-group col-sm-12">
-                        @Html.LabelFor(x => x.Name, app.T["name"], new { @class = "col-sm-2 control-label" })
-                        <div class="col-sm-10">
-                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form" data-autoreset="true">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.Name, app.T["name"], new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label" for="optionset-picklist">@app.T["option"]</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group btn-group-xs">
+                            <button type="button" class="btn btn-primary" onclick="addOption('optionset-picklist')">
+                                <span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]
+                            </button>
+                            <button type="button" class="btn btn-warning " onclick="clearOption('optionset-picklist')">
+                                <span class="glyphicon glyphicon-trash"></span> @app.T["clear"]
+                            </button>
+                        </div>
+                        <div id="optionset-area">
+
+                            <table id="optionset-picklist" class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="20"></th>
+                                        <th>@app.T["displayname"]</th>
+                                        <th>@app.T["value"]</th>
+                                        <th>@app.T["selected_default"]</th>
+                                        <th>@app.T["operation"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="draggable-ui optionsetItems">
+                                        <td valign="middle"><span class="glyphicon glyphicon-hand-up draggable-icon" title="可拖动排序"></span></td>
+                                        <td><input onblur="CheckRepeat('optionsetname')" type="text" name="optionsetname" class="form-control input-sm required optionrequired optionsetname" maxlength="50" /></td>
+                                        <td><input onblur="CheckRepeat('optionsetvalue')" type="text" class="form-control input-sm required optionrequired optionsetvalue" name="optionsetvalue" data-type="int" /></td>
+                                        <td>
+                                            <input type="checkbox" onclick="$(this).next().val($(this).prop('checked'))" />
+                                            <input name="isselectedoption" type="hidden" value="false" />
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-xs" onclick="removeOption('optionset-picklist', this)">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, true)">
+                                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, false)">
+                                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12">
-                        <label class="col-sm-2 control-label" for="optionset-picklist">@app.T["option"]</label>
-                        <div class="col-sm-10">
-                            <div id="optionset-area">
-                                <div class="btn-group btn-group-xs">
-                                    <button type="button" class="btn btn-primary" onclick="addOption('optionset-picklist')">
-                                        <span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]
-                                    </button>
-                                    <button type="button" class="btn btn-warning " onclick="clearOption('optionset-picklist')">
-                                        <span class="glyphicon glyphicon-trash"></span> @app.T["clear"]
-                                    </button>
-                                </div>
-                                <table id="optionset-picklist" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th width="20"></th>
-                                            <th>@app.T["displayname"]</th>
-                                            <th>@app.T["value"]</th>
-                                            <th>@app.T["selected_default"]</th>
-                                            <th>@app.T["operation"]</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="draggable-ui optionsetItems">
-                                            <td valign="middle"><span class="glyphicon glyphicon-hand-up draggable-icon" title="可拖动排序"></span></td>
-                                            <td><input onblur="CheckRepeat('optionsetname')" type="text" name="optionsetname" class="form-control input-sm required optionrequired optionsetname" maxlength="50" /></td>
-                                            <td><input onblur="CheckRepeat('optionsetvalue')" type="text" class="form-control input-sm required optionrequired optionsetvalue" name="optionsetvalue" data-type="int" /></td>
-                                            <td>
-                                                <input type="checkbox" onclick="$(this).next().val($(this).prop('checked'))" />
-                                                <input name="isselectedoption" type="hidden" value="false" />
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning btn-xs" onclick="removeOption('optionset-picklist', this)">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, true)">
-                                                    <span class="glyphicon glyphicon-arrow-up"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-info btn-xs" onclick="moveOption('optionset-picklist', this, false)">
-                                                    <span class="glyphicon glyphicon-arrow-down"></span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12 text-center" id="form-buttons">
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
-                        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 @section Scripts {
     <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.core.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.widget.js?v=@app.PlatformSettings.VersionNumber"></script>
@@ -87,6 +88,9 @@
     <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script>
         $(function () {
+
+            Xms.Web.fullByContext($(window), $('#renderBody'), -80)
+             Xms.Web.fullByContext($('#renderBody'),$('#optionset-area'),-180,0,'max-height')
             //表单验证
             Xms.Web.Form($("#editform"), function (response) {
                 Xms.Web.Alert(response.IsSuccess, response.Content);
@@ -135,6 +139,8 @@
                     //return false;
                 }
             }).disableSelection();
+
+             $('#renderBody').css({ 'margin-bottom': 40 });
         });
         $('body').on('blur', '.optionrequired', function () {
             CheckRequired(this);

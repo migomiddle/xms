@@ -7,7 +7,6 @@ using Xms.Context;
 using Xms.Core.Data;
 using Xms.Data.Abstractions;
 using Xms.Identity;
-using Xms.Infrastructure.Inject;
 using Xms.Infrastructure.Utility;
 
 namespace Xms.Configuration
@@ -68,11 +67,11 @@ namespace Xms.Configuration
 
                 var key = nameSpace + "." + prop.Name;
                 var value = prop.GetValue(setting);
-                if(value == null)
+                if (value == null)
                 {
                     continue;
                 }
-                if(!prop.PropertyType.IsValueType())
+                if (!prop.PropertyType.IsValueType())
                 {
                     value = value.SerializeToJson();
                 }
@@ -86,7 +85,7 @@ namespace Xms.Configuration
             return SaveMany(entities);
         }
 
-        public virtual bool Save(IDictionary<string,object> keyValues)
+        public virtual bool Save(IDictionary<string, object> keyValues)
         {
             if (keyValues.IsEmpty())
             {
@@ -95,7 +94,7 @@ namespace Xms.Configuration
             List<Setting> entities = new List<Setting>();
             foreach (var item in keyValues)
             {
-                if(item.Value == null)
+                if (item.Value == null)
                 {
                     continue;
                 }

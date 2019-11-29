@@ -28,7 +28,8 @@ namespace Xms.Business.SerialNumber
         public void OnStarting()
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 6);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/serialnumberrule/solutioncomponents";
             });

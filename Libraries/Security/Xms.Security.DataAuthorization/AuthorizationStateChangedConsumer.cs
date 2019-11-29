@@ -1,5 +1,5 @@
-﻿using Xms.Event.Abstractions;
-using Xms.Authorization.Abstractions;
+﻿using Xms.Authorization.Abstractions;
+using Xms.Event.Abstractions;
 
 namespace Xms.Security.DataAuthorization
 {
@@ -9,10 +9,12 @@ namespace Xms.Security.DataAuthorization
     public class AuthorizationStateChangedConsumer : IConsumer<AuthorizationStateChangedEvent>
     {
         private readonly IRoleObjectAccessService _roleObjectAccessService;
+
         public AuthorizationStateChangedConsumer(IRoleObjectAccessService roleObjectAccessService)
         {
             _roleObjectAccessService = roleObjectAccessService;
         }
+
         public void HandleEvent(AuthorizationStateChangedEvent eventMessage)
         {
             if (!eventMessage.State)

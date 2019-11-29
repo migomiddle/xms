@@ -1,4 +1,4 @@
-;(function () {
+; (function () {
     UE.registerUI('addpicimg', function (editor, uiName) {
         //注册按钮执行时的command命令，使用命令默认就会带有回退操作
         editor.registerCommand(uiName, {
@@ -41,8 +41,8 @@
                 $('body').append(_form);
                 _form.append($entityid).append($objectid).append($file);
                 $file.trigger('click');
-                $file.on('change', function (e,opts) {
-                    console.log('uploadform',e,opts);
+                $file.on('change', function (e, opts) {
+                    console.log('uploadform', e, opts);
                     setTimeout(function () {
                         _form.ajaxForm(function (response) {
                             if (response.IsSuccess) {
@@ -50,7 +50,7 @@
                                 var _host = location.host;
                                 //console.log(_host);
                                 var src = response.Extra.filepath;
-                                var allPath = _protocol+'//'+_host + src;
+                                var allPath = _protocol + '//' + _host + src;
                                 editor.execCommand('insertimage', {
                                     src: allPath
                                 });
@@ -75,7 +75,6 @@
                 //        });
                 //    }
                 //});
-
             }
         }, ['0', ['mypicman']]);
 

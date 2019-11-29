@@ -24,6 +24,7 @@
     <link href="/content/css/iconfon.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
     <link href="/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
     <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
+    <link href="/content/customize/layui/css/layui.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
     @{await Html.RenderPartialAsync("UserContext"); }
     <!-- Bootstrap core JavaScript ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -77,7 +78,7 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="javascript:;" id="xms-sideBarbtn" title="侧边伸缩">
-                                <i class="layui-icon layui-icon-shrink-right left-menus-ctrl pull-left">&#xe668;</i>
+                                <i class="layui-icon layui-icon-shrink-right left-menus-ctrl pull-left"></i>
                             </a>
                         </li>
 
@@ -90,10 +91,10 @@
                             </div>
                         </li>
                     </ul>
-                   
+
                     <ul class="nav navbar-nav navbar-pill  pull-right top-navber-tool">
-                        <li><a href="@("/"+app.OrganizationUniqueName)/home/index" title="@app.T["homepage"]" target="_blank"><i class="layui-icon layui-icon-website">&#xe7ae</i></a></li>
-                        
+                        <li><a href="@("/"+app.OrganizationUniqueName)/home/index" title="@app.T["homepage"]" target="_blank"><i class="layui-icon layui-icon-website"></i></a></li>
+
                         <li><a href="@("/"+app.OrganizationUniqueName)/account/signout" title="@app.T["signout"]"><i class="glyphicon glyphicon-log-out"></i></a></li>
                     </ul>
                 </div>
@@ -110,14 +111,14 @@
                         <ul class="dropdown-menu" aria-labelledby="solutionsSel" id="solutionsSelList" data-id="@ViewBag.SolutionId"></ul>
                     </li>
                 </ul>
-                <div class="cramb-wrap" style="position:relative;">
-                    <div id="customize_nav_cramb" class="customize_nav_cramb"></div>
-                    <span class="glyphicon glyphicon-triangle-bottom toggleNavList active" id="toggleNavList" style="position:absolute; right:5px; top:8px;"></span>
-                </div>
-                <div id="customize_nav" class="customize_nav active"></div>
-                <div id="customize_other_cramb" class="customize_nav_cramb"></div>
-                <div id="customize_other"></div>
-                <div style="padding:0 5px;padding-bottom:20px;">
+                @*<div class="cramb-wrap" style="position:relative;">
+                        <div id="customize_nav_cramb" class="customize_nav_cramb"></div>
+                        <span class="glyphicon glyphicon-triangle-bottom toggleNavList active" id="toggleNavList" style="position:absolute; right:5px; top:8px; display:none;"></span>
+                    </div>*@
+                @*<div id="customize_nav" class="customize_nav active"></div>
+                    <div id="customize_other_cramb" class="customize_nav_cramb"></div>
+                    <div id="customize_other"></div>*@
+                <div class="pt-1 pl-1 pr-1 pb-4">
                     <div id="navTree" data-url="@("/"+app.OrganizationUniqueName)/api/schema/entitytree?solutionid=@ViewBag.SolutionId"></div>
                 </div>
             </div>
@@ -166,266 +167,12 @@
     <script src="/content/js/xms-history.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script>
 
-
         var entitytree_url = '@("/"+app.OrganizationUniqueName)/api/schema/entitytree?solutionid=@ViewBag.SolutionId';
         var page_solutionid = '@ViewBag.SolutionId';
         function getPageSolutionId() {
             return page_solutionid;
         }
-        var xms_nav = new function () {
 
-            var allDatas = [],datas = [], self = this, $context = $('#customize_nav'), $cramb = $('#customize_nav_cramb'),otherdatas = [],$customize_other_cramb =$('#customize_other_cramb'),$customize_other =$('#customize_other');
-            var cramb = new Cramb();
-            cramb.add({ id: 'component', label: '组件', layer: 0, type: 'component', isshowCrambIcon: true });
-            var crambOther = new Cramb();
-            crambOther.add({ id: 'others', label: '其他', layer: 0, type: 'others', isshowCrambIcon: true });
-            this.init = function () {
-                this.getDatas();
-            }
-            this.getDatas = function () {
-                Xms.Ajax.Get(entitytree_url, {}, function (res) {
-                    var _datas = self.dataFilter(res);
-                    allDatas = _datas;
-                    datas = _datas[1].datas;
-                    var _htmls = self.createElement(datas);
-                    $context.html(_htmls);
-                    self.createCramb(cramb,$cramb);
-                   // self.bindEvent();
-
-                    otherdatas = _datas[2].datas;
-
-                    var _otherhtmls = self.createElement(otherdatas);
-                    $customize_other.html(_otherhtmls);
-                    self.createCramb(crambOther,$customize_other_cramb);
-                    self.bindEvent();
-                    resetNavHeight()
-
-                })
-
-            }
-            this.getAllDatas = function () {
-                return allDatas;
-            }
-            this.getLocalData = function () {
-                return datas;
-            }
-            this.getDatasByName = function (_datas,name,res) {
-                res = res  || [];
-                $.each(_datas, function (i, n) {
-                    if (n.label && n.label != '' && n.label.toLowerCase().indexOf(name) != -1) {
-                        res.push(n);
-                    }
-                    if (n.children && n.children.length > 0) {
-                        self.getDatasByName(n.children,name,res);
-                    }
-                });
-                return res;
-            }
-            this.openLeaf = function (id) {
-                var _data = self.getDatasById(id, datas);
-                if (_data && _data[0]&& _data[0].children && _data[0].children.length > 0) {
-                    var htmls = self.createElement(_data[0].children);
-                    var layer = _data[0].layer;
-                    var _crambs = [];
-                    var parent = _data[0];
-
-                    if (parent._parentid) {
-
-                        var parentData = self.getDatasById(parent._parentid, datas);
-                        if (parentData && parentData[0].children && _data[0].children.length > 0) {
-                            cramb.add(parentData[0]);
-                        }
-                         cramb.add(_data[0]);
-                    } else {
-                        cramb.add(_data[0]);
-                    }
-                    cramb.removeByIndex(_data[0].layer+1);
-                    self.createCramb(cramb,$cramb);
-                    $context.html(htmls);
-                }
-                if (_data && _data.length > 0) {
-                    triggerLink(_data[0]);
-
-
-                }
-            }
-            this.createCramb = function (cramb,$cramb) {
-                var _htmls = [], len = cramb.list.length;
-                $.each(cramb.list, function (i, n) {
-                    var icon = '';
-                    if (n.isshowCrambIcon == true) {
-                        if (n.type == 'component')
-                            icon = '<i class="layui-icon">&#xe857;</i> ';
-                        else if (n.type == 'others')
-                            icon = '<i class="layui-icon"> &#xe653;</i> ';
-                    }
-                    if (i == -1) {
-                        _htmls.push('<span class="cramb-item" data-id="' + n.id + '">'+icon + n.label + '</span>');
-                    } else if (i == len - 1) {
-                        _htmls.push('<span class="cramb-item" data-id="' + n.id + '">'+icon + n.label + '</span>');
-                    } else {
-                        _htmls.push('<span class="cramb-item" data-id="' + n.id + '">'+icon + n.label + '</span> &gt;');
-                    }
-                });
-                $cramb.html(_htmls.join(''));
-                $cramb.off('click.itemcrambclick').on('click.itemcrambclick', '.cramb-item', function (e) {
-                    var id = $(this).attr('data-id'),index= $(this).index();
-                    var len = cramb.list.length;
-                    if (id == 'component') {
-                        var _data = cramb.list[0];
-                        var htmls = self.createElement(datas);
-                        $context.html(htmls);
-                        cramb.removeByIndex(1);
-                        self.createCramb(cramb,$cramb);
-                        triggerLink(_data);
-                    } else {
-                        var _data = self.getDatasById(id, datas);
-
-                        if (_data && _data[0].children && _data[0].children.length > 0) {
-                            var htmls = self.createElement(_data[0].children);
-                            cramb.removeByIndex(_data[0].layer+1);
-                            self.createCramb(cramb,$cramb);
-                            $context.html(htmls);
-                        }
-                        if (_data && _data.length > 0) triggerLink(_data[0]);
-                    }
-                });
-            }
-            this.bindEvent = function () {
-                $context.off('click.itemleafclick').on('click.itemleafclick', '.leaf_item', function (e) {
-                    var id = $(this).attr('data-id');
-                    if (id) {
-                        var _data = self.getDatasById(id,datas);
-
-                        if(_data && _data.length>0)triggerLink(_data[0]);
-
-                    }
-                });
-                $context.off('dblclick.itemleafclick').on('dblclick.itemleafclick', '.leaf_item', function (e) {
-                    var id = $(this).attr('data-id');
-                    if (id) {
-                        var _data = self.getDatasById(id,datas);
-                        if (_data && _data.length>0 && _data[0].children && _data[0].children.length > 0) {
-                            cramb.add(_data[0]);
-                            var htmls = self.createElement(_data[0].children);
-                            $context.html(htmls);
-                            self.createCramb(cramb,$cramb);
-                            self.bindEvent();
-                        }
-                        if(_data && _data.length>0)triggerLink(_data[0]);
-
-                    }
-                });
-                $customize_other.off('click.itemleafclick').on('click.itemleafclick', '.leaf_item', function (e) {
-                    var id = $(this).attr('data-id');
-                    if (id) {
-                        var _data = self.getDatasById(id,otherdatas);
-
-                        if(_data && _data.length>0)triggerLink(_data[0]);
-
-                    }
-                });
-                $customize_other.off('dblclick.itemleafclick').on('dblclick.itemleafclick', '.leaf_item', function (e) {
-                    var id = $(this).attr('data-id');
-                    if (id) {
-                        var _data = self.getDatasById(id,otherdatas);
-                        if (_data && _data.length>0 && _data[0].children && _data[0].children.length > 0) {
-                            cramb.add(_data[0]);
-                            var htmls = self.createElement(_data[0].children);
-                            $context.html(htmls);
-                            self.createCramb(cramb,$cramb);
-                            self.bindEvent();
-                        }
-                        if(_data && _data.length>0)triggerLink(_data[0]);
-
-                    }
-                });
-            }
-            this.createElement = function (_data) {
-                if (_data.length > 0) {
-                    var _htmls = [];
-                    $.each(_data, function () {
-                        _htmls.push(self._createLeaf(this));
-                    });
-                    return _htmls.join('')
-                }
-            }
-            this._createLeaf = function (data) {
-                var htmls = [];
-                var icon = getTypeIconEl(data.type);
-                var isChildren = '';
-                if (data.children && data.children.length > 0) {
-                    isChildren = 'leaf_item_children'
-                }
-                htmls.push('<div class="leaf_item ' + isChildren + '" data-parentid="' + data._parentid + '" data-id="' + data.id + '" title="' + data.label + (isChildren != "" ? '（双击进入）' : '') + '">', '<span class="leaf-item-icon">'+icon+'</span>', '<p class="leaf-item-text">' + data.label + '</p>', '</div>');
-                return htmls.join('');
-            }
-            this.getDatasById = function (id, _datas) {
-                var res = [];
-                _datas = _datas || datas;
-                $.each(_datas, function (i, n) {
-                    var _res = $.queryBykeyValue(_datas, 'id', id);
-                    if (_res.length > 0) {
-                        res = _res;
-                        return false;
-                    } else if (n.children && n.children.length > 0) {
-                        res = self.getDatasById(id, n.children);
-                        if (res && res.length>0) {
-                            return false;
-                        }
-                    }
-                });
-                return res;
-            }
-            this.dataFilter = function (data) {
-                var results = Xms.Web.GetAjaxResult(data).content;
-                console.log('dataFilter', results);
-
-                    //results[0].label = "实体";
-                for (var i = 0; i < results.length; i++) {
-                        results[i].type = 'group';
-                    results[i].label = ' ' + results[i].label;
-                        for (var j = 0; j < results[i].children.length; j++) {
-                            var _this = results[i].children[j];
-                            var id = _this.id;
-                            results[i].children[j].type = 'entity';
-                            results[i].children[j].label = ' ' + results[i].children[j].label;
-                            results[i].children[j].children = [
-                                { id: id, label: ' ' + LOC_FORM, type: 'form' }
-                                , { id: id, label: ' ' + LOC_QUERYVIEW, type: 'view' }
-                                , { id: id, label: ' ' + LOC_ATTRIBUTE, type: 'attribute' }
-                                , { id: id, label: ' ' + LOC_RIBBONBUTTON, type: 'ribbonbutton' }
-                                , { id: id, label: ' ' + LOC_CHART, type: 'chart' }
-                                , { id: id, label: ' ' + LOC_DUPLICATERULE, type: 'duplicaterules' }
-                                , { id: id, label: ' ' + LOC_ENTITYMAP, type: 'entitymap' }
-                                , { id: id, label: ' 1:N ' + LOC_RELATIONSHIP, type: 'onetomore' }
-                                , { id: id, label: ' N:1 ' + LOC_RELATIONSHIP, type: 'moretoone' }
-                                , { id: id, label: ' ' + LOC_FILTERRULE, type: 'filterrules' }
-                            ];
-                        }
-                }
-                var others = [];
-                    others.push({ id: 'optionset', label: ' ' + LOC_OPTIONSET, type: 'optionset' });
-                    others.push({ id: 'dashboard', label: ' ' + LOC_DASHBOARD, type: 'dashboard' });
-                    others.push({ id: 'report', label: ' ' + LOC_REPORT, type: 'report' });
-                    others.push({ id: 'webresource', label: ' ' + LOC_WEBRESOURCE, type: 'webresource' });
-                    others.push({ id: 'workflow', label: ' ' + LOC_WORKFLOW, type: 'workflow' });
-                    others.push({ id: 'autonumber', label: ' ' + LOC_SERIALNUMBERRULE, type: 'autonumber' });
-                    others.push({ id: 'labels', label: ' ' + LOC_LOCALIZATIONLABEL, type: 'labels' });
-                    others.push({ id: 'plugin', label: ' ' + LOC_PLUGIN, type: 'plugin' });
-
-                    var a = [];
-                a[0] = { id: 'solution', label: ' ' + LOC_INFORMATION, type: 'solution' };
-                a[1] = { id: 'component', label: ' ' + LOC_COMPONENT, type: 'component', datas : results };
-                a[2] = { id: 'other', label: ' ' + LOC_COMPONENT, type: 'other', datas : others };
-                    resetResultLast(results);
-                a[1].children = results;
-
-               // Xms.Web.Event.localStorageEvent.trigger('getCustomHomeDefaults', { datas: others });
-                return a
-            }
-        }
-        var xms_navGetAllDatas = xms_nav.getAllDatas;
         function resetResultLast(data,layer) {
             if (!data || !data.length) return [];
             layer = layer || 0;
@@ -467,16 +214,21 @@
         }
 
         var solutionid = '@ViewBag.SolutionId';
+        var treeDatas = [];
         $(function () {
             if (top.location != location) {
                 top.location.href = location.href;
             }
-            xms_nav.init();
+          //  xms_nav.init();
+
+               customizeNav.initTree();
+           customizeNav.openNode('component');
             Xms.Web.Event.subscribe('refreshtree', function (e) {
                 console.log('refreshtree...');
-                xms_nav.init();
+                customizeNav.$tree.tree('reload');
+                customizeNav.openNode('entities');
+               // xms_nav.init();
             });
-
             $('#nav-search-input').on('keyup', function () {
                 var val = $(this).val();
                 if (val == '') {
@@ -484,8 +236,8 @@
                     return false;
                 }
                 var parentid = $(this).attr('data-parentid');
-                var res = xms_nav.getDatasByName(xms_nav.getLocalData(), val);
-                console.log(xms_nav.getLocalData())
+                var res = getDatasByName(treeDatas, val);
+                console.log(treeDatas)
                 if (res && res.length > 0) {
                     $('#nav-search-tips').empty();
                     $.each(res,function (i,n) {
@@ -509,9 +261,9 @@
                 var id = $(this).attr('data-id');
                 $('#toggleNavList').addClass('active');
                 $('#customize_nav').addClass('active');
-              
-                    xms_nav.openLeaf(id);
-               
+                customizeNav.openNode(id);
+                  //  xms_nav.openLeaf(id);
+
             });
 
              $.moHistory.run();//运行路由
@@ -520,23 +272,15 @@
             $('#xms-sideBarbtn').on('click', function () {
                 var $sidebar = $('#sidebar');
                 if ($sidebar.hasClass('active')) {
-                    $('#sidebar').removeClass('active');
-                    $('#main').removeClass('active');
-                    $('.custom-header-title').removeClass('active');
-                    $('#navbar').addClass('active');
-                    $('#xms-sideBarbtn').children().removeClass('layui-icon-shrink-right').addClass('layui-icon-shrink-left').text('&#xe668;');
+                   changeLeftWrapState('open')
                 } else {
-                    $('#sidebar').addClass('active');
-                    $('#main').addClass('active');
-                    $('.custom-header-title').addClass('active');
-                    $('#navbar').removeClass('active');
-                     $('#xms-sideBarbtn').children().removeClass('layui-icon-shrink-left').addClass('layui-icon-shrink-right').text('&#xe66b;');
+                   changeLeftWrapState('close')
                 }
             })
 
             $('#customTabNav').iframeLinks({
                 iframeContext: $('#customTabNavIframes'),
-                offsetH: -72,
+                offsetH: -77,
                 leftCtrl: $('.tab-nav-leftctrl'),
                 rightCtrl: $('.tab-nav-rightctrl'),
                 $refresh: $('.tab-nav-refreshctrl'),
@@ -545,7 +289,8 @@
                     addToChildQuickLink(link);
                 },
                 linkItemHandler: function (link, id) {
-                    xms_nav.openLeaf(id);
+                  //  xms_nav.openLeaf(id);
+                    customizeNav.openNode(id);
                 }, checkHandler: function () {
                     if (typeof XmsUserSetting != 'undefined') {
                         var tabnavinfos = {
@@ -559,12 +304,40 @@
                     }
                 }
             });
-            
-            
+
             loadUserSetting();
-            $('#customTabNav').iframeLinks('addLink', { id: 'homepage', name: '', icon: 'glyphicon glyphicon-home', notremove: true, src: ORG_SERVERURL + '/customize/home/homepage' });
+            $('#customTabNav').iframeLinks('addLink', { id: 'homepage', name: '', icon: 'glyphicon glyphicon-home', notremove: true, src: '/customize/home/homepage' });
         });
-        
+
+        function changeLeftWrapState(state) {
+            state = state || 'close';
+            if (state == 'close') {
+                $('#sidebar').addClass('active');
+                $('#main').addClass('active');
+                $('.custom-header-title').addClass('active');
+                $('#navbar').removeClass('active');
+                $('#xms-sideBarbtn').children().removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left').text('');
+            } else {
+                 $('#sidebar').removeClass('active');
+                $('#main').removeClass('active');
+                $('.custom-header-title').removeClass('active');
+                $('#navbar').addClass('active');
+                $('#xms-sideBarbtn').children().removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right').text('');
+            }
+        }
+
+        function getDatasByName(_datas, name, res) {
+            res = res || [];
+            $.each(_datas, function (i, n) {
+                if (n.label && n.label != '' && n.label.toLowerCase().indexOf(name) != -1) {
+                    res.push(n);
+                }
+                if (n.children && n.children.length > 0) {
+                    self.getDatasByName(n.children, name, res);
+                }
+            });
+            return res;
+        }
         function loadUserSetting() {
             var res = false;
             if (typeof XmsUserSetting != 'undefined') {
@@ -577,7 +350,7 @@
                             $.each(pageinfo.value.list, function (i, n) {
                                 n.notLoad = true;
                                 $('#customTabNav').iframeLinks('addLink', n);
-                               
+
                             });
                             //pageinfo.value.index ||
                             $('#customTabNav').iframeLinks('setIframeSrc', pageinfo.value.list[ 0]);
@@ -613,9 +386,9 @@
             else if (node.type == 'entity')
                 return "glyphicon glyphicon-book";
             else if (node.type == 'view')
-                return '<i class="layui-icon layui-icon-layer">&#xe638;</i>';
+                return 'glyphicon glyphicon-list-alt';
             else if (node.type == 'form')
-                return '<i class="layui-icon layui-icon-table">&#xe63c;</i>';
+                return 'layui-icon layui-icon-form';
             else if (node.type == 'attribute')
                 return "glyphicon glyphicon-file";
             else if (node.type == 'ribbonbutton')
@@ -635,13 +408,13 @@
             else if (node.type == 'chart')
                 return "glyphicon glyphicon-stats";
             else if (node.type == 'optionset')
-                return '<i class="layui-icon">&#xe62a;</i>';
+                return 'layui-icon layui-icon-tabs';
             else if (node.type == 'fieldpermission')
                 return "glyphicon glyphicon-lock";
             else if (node.type == 'dashboard')
                 return "glyphicon glyphicon-dashboard";
             else if (node.type == 'report')
-                return  '<i class="layui-icon">&#xe62c;</i>';
+                return  'layui-icon layui-icon-chart';
             else if (node.type == 'webresource')
                 return "glyphicon glyphicon-globe";
             else if (node.type == 'workflow')
@@ -652,11 +425,17 @@
                 return "glyphicon glyphicon-inbox";
             else if (node.type == 'labels')
                 return "glyphicon glyphicon-tags";
+            else if (node.type == 'glo_charts')
+                return "glyphicon glyphicon-stats";
+            else if (node.type == 'glo_duplicaterule')
+                return "glyphicon glyphicon-repeat";
+            else if (node.type == 'glo_entitymap')
+                return "glyphicon glyphicon-transfer";
+            else if (node.type == 'glo_filterrule')
+                return "glyphicon glyphicon-alert";
             else
                 return "glyphicon glyphicon-folder-close";
         }
-
-
 
         function addToTab(node,_node) {
             if (node.nodeType) {
@@ -671,95 +450,107 @@
              var type = node.type;
                     // console.log(type, node);
                     var hashlink = "/" + type+":"+node.link;
-                    if (type == 'solution') {
-                        customizeNav.load('/customize/solution/editsolution?id=' + solutionid,node);
-                    }
-                    else if (type == 'component') {
-                        customizeNav.loadComponents(node);
-
-                    }
-                    else if (type == 'entity') {
-                        customizeNav.load('/customize/entity/editentity?id=' + node.link, node);
-                        if (!node) return false;
-                        $('#customTabNav').iframeLinks('addLink', { id: node.id, name: node.label, other:node._parentname+'-',icon:getTypeIcon( node.type), src: ORG_SERVERURL + '/customize/entity/editentity?id=' + node.link });
-                    }
-                    else if (type == 'form') {
-                        customizeNav.loadForms(node.link,node);
-                    }
-                    else if (type == 'view') {
-                        customizeNav.loadViews(node.link,node);
-                    }
-                    else if (type == 'attribute') {
-                        customizeNav.loadAttributes(node.link,node);
-                    }
-                    else if (type == 'ribbonbutton') {
-                        customizeNav.loadRibbonButtons(node.link,node);
-                    }
-                    else if (type == 'duplicaterules') {
-                        customizeNav.loadDuplicateRules(node.link,node);
-                    }
-                    else if (type == 'entitymap') {
-                        customizeNav.loadEntityMaps(node.link,node);
-                    }
-                    else if (type == 'onetomore') {
-                        customizeNav.loadRelations(node.link,1,node);
-                    }
-                    else if (type == 'moretoone') {
-                        customizeNav.loadRelations(node.link,2,node);
-                    }
-                    else if (type == 'moretomore') {
-                        customizeNav.loadRelations(node.link,3,node);
-                    }
-                    else if (type == 'filterrules') {
-                        customizeNav.loadFilterRules(node.link,node);
-                    }
-                    else if (type == 'chart') {
-                        customizeNav.loadCharts(node.link,node);
-                    }
-                    else if (type == 'optionset') {
-                        customizeNav.loadOptionSets(node);
-                    }
-                    else if (type == 'fieldpermission') {
-                        customizeNav.loadFieldPermissions(node);
-                    }
-                    else if (type == 'dashboard') {
-                        customizeNav.loadDashboards(node);
-                    }
-                    else if (type == 'report') {
-                        customizeNav.loadReports(node);
-                    }
-                    else if (type == 'webresource') {
-                        customizeNav.loadWebResources(node);
-                    }
-                    else if (type == 'workflow') {
-                        customizeNav.loadWorkflows(node);
-                    }
-                    else if (type == 'autonumber') {
-                        customizeNav.loadAutoNumberRules(node);
-                    }
-                    else if (type == 'plugin') {
-                        customizeNav.loadPlugins(node);
-                    }
-                    else if (type == 'labels') {
-                        customizeNav.loadLabels(node);
-                    }
-                    else {
-                        customizeNav.loadEntities(node);
+            if (type == 'solution') {
+                customizeNav.load('/customize/solution/editsolution?id=' + solutionid, node);
             }
-            var hash = location.hash;
-                    //clearHashLink();
-                    location.hash = hashlink;
+            else if (type == 'component') {
+                customizeNav.loadComponents(node);
+
+            }
+            else if (type == 'entity') {
+                customizeNav.load('/customize/entity/editentity?id=' + node.link, node);
+                if (!node) return false;
+                $('#customTabNav').iframeLinks('addLink', { id: node.id, name: node.label, other: node._parentname + '-', icon: getTypeIcon(node.type), src: '/customize/entity/editentity?id=' + node.link });
+            }
+            else if (type == 'form') {
+                customizeNav.loadForms(node.link, node);
+            }
+            else if (type == 'view') {
+                customizeNav.loadViews(node.link, node);
+            }
+            else if (type == 'attribute') {
+                customizeNav.loadAttributes(node.link, node);
+            }
+            else if (type == 'ribbonbutton') {
+                customizeNav.loadRibbonButtons(node.link, node);
+            }
+            else if (type == 'duplicaterules') {
+                customizeNav.loadDuplicateRules(node.link, node);
+            }
+            else if (type == 'entitymap') {
+                customizeNav.loadEntityMaps(node.link, node);
+            }
+            else if (type == 'onetomore') {
+                customizeNav.loadRelations(node.link, 1, node);
+            }
+            else if (type == 'moretoone') {
+                customizeNav.loadRelations(node.link, 2, node);
+            }
+            else if (type == 'moretomore') {
+                customizeNav.loadRelations(node.link, 3, node);
+            }
+            else if (type == 'filterrules') {
+                customizeNav.loadFilterRules(node.link, node);
+            }
+            else if (type == 'chart') {
+                customizeNav.loadCharts(node.link, node);
+            }
+            else if (type == 'optionset') {
+                customizeNav.loadOptionSets(node);
+            }
+            else if (type == 'fieldpermission') {
+                customizeNav.loadFieldPermissions(node);
+            }
+            else if (type == 'dashboard') {
+                customizeNav.loadDashboards(node);
+            }
+            else if (type == 'report') {
+                customizeNav.loadReports(node);
+            }
+            else if (type == 'webresource') {
+                customizeNav.loadWebResources(node);
+            }
+            else if (type == 'workflow') {
+                customizeNav.loadWorkflows(node);
+            }
+            else if (type == 'autonumber') {
+                customizeNav.loadAutoNumberRules(node);
+            }
+            else if (type == 'plugin') {
+                customizeNav.loadPlugins(node);
+            }
+            else if (type == 'labels') {
+                customizeNav.loadLabels(node);
+            }
+            else if (type == 'glo_charts') {
+                customizeNav.loadGloCharts(node);
+            }
+            else if (type == 'glo_duplicaterule') {
+                customizeNav.loadGloDuplicaterRule(node);
+            }
+            else if (type == 'glo_entitymap') {
+                customizeNav.loadGloEntityMap(node);
+            }
+            else if (type == 'glo_filterrule') {
+                customizeNav.loadGloFilterRule(node);
+            }
+            else {
+                customizeNav.loadEntities(node);
+            }
+                var hash = location.hash;
+                //clearHashLink();
+                location.hash = hashlink;
         }
 
         var customizeNav = {
             $tree: $('#navTree'),
             initTree: function () {
                 customizeNav.$tree.tree({
+                   // autoOpen:true,
                     onCreateLi: function (node, $li) {
                         if (node.id != '') {
                             var icon = getTypeIcon(node.type);
-                            $li.find('.jqtree-title').addClass(icon);
-
+                            $li.find('.jqtree-title i').addClass(icon);
                         }
                     }
                     , dataFilter: function (data) {
@@ -775,34 +566,39 @@
                                 results[i].children[j].type = 'entity';
                                 results[i].children[j].label = ' ' + results[i].children[j].label;
                                 results[i].children[j].children = [
-                                    { id: id, label: ' ' + LOC_FORM, type: 'form' }
+                                      { id: id, label: ' ' + LOC_ATTRIBUTE, type: 'attribute' }
+                                    , { id: id, label: ' ' + LOC_FORM, type: 'form' }
                                     , { id: id, label: ' ' + LOC_QUERYVIEW, type: 'view' }
-                                    , { id: id, label: ' ' + LOC_ATTRIBUTE, type: 'attribute' }
                                     , { id: id, label: ' ' + LOC_RIBBONBUTTON, type: 'ribbonbutton' }
+                                    , { id: id, label: ' 1:N ' + LOC_RELATIONSHIP, type: 'onetomore' }
+                                    , { id: id, label: ' N:1 ' + LOC_RELATIONSHIP, type: 'moretoone' }
                                     , { id: id, label: ' ' + LOC_CHART, type: 'chart' }
                                     , { id: id, label: ' ' + LOC_DUPLICATERULE, type: 'duplicaterules' }
                                     , { id: id, label: ' ' + LOC_ENTITYMAP, type: 'entitymap' }
-                                    , { id: id, label: ' 1:N ' + LOC_RELATIONSHIP, type: 'onetomore' }
-                                    , { id: id, label: ' N:1 ' + LOC_RELATIONSHIP, type: 'moretoone' }
                                     , { id: id, label: ' ' + LOC_FILTERRULE, type: 'filterrules' }
                                 ];
                             }
                         }
                         results.push({ id: 'optionset', label: ' ' + LOC_OPTIONSET, type: 'optionset' });
-                        results.push({ id: 'dashboard', label: ' ' + LOC_DASHBOARD, type: 'dashboard' });
-                        results.push({ id: 'report', label: ' ' + LOC_REPORT, type: 'report' });
+                       // results.push({ id: 'report', label: ' ' + LOC_REPORT, type: 'report' });
                         results.push({ id: 'webresource', label: ' ' + LOC_WEBRESOURCE, type: 'webresource' });
                         results.push({ id: 'workflow', label: ' ' + LOC_WORKFLOW, type: 'workflow' });
-                        results.push({ id: 'autonumber', label: ' ' + LOC_SERIALNUMBERRULE, type: 'autonumber' });
-                        results.push({ id: 'labels', label: ' ' + LOC_LOCALIZATIONLABEL, type: 'labels' });
                         results.push({ id: 'plugin', label: ' ' + LOC_PLUGIN, type: 'plugin' });
+                        results.push({ id: 'dashboard', label: ' ' + LOC_DASHBOARD, type: 'dashboard' });
+                        results.push({ id: 'glo_charts', label: ' ' + LOC_CHART, type: 'glo_charts' });
+                        results.push({ id: 'glo_entitymap', label: ' ' + LOC_ENTITYMAP, type: 'glo_entitymap' });
+                        results.push({ id: 'glo_filterrule', label: ' ' + LOC_FILTERRULE, type: 'glo_filterrule' });
+                        results.push({ id: 'autonumber', label: ' ' + LOC_SERIALNUMBERRULE, type: 'autonumber' });
+                       // results.push({ id: 'labels', label: ' ' + LOC_LOCALIZATIONLABEL, type: 'labels' });
 
+                        results.push({ id: 'glo_duplicaterule', label: ' ' + LOC_DUPLICATERULE, type: 'glo_duplicaterule' });
                         var a = [];
-                        a[0] = { id: 'solution', label: ' ' + LOC_INFORMATION, type: 'solution' };
-                        a[1] = { id: 'component', label: ' ' + LOC_COMPONENT, type: 'component' };
+                        //a[0] = { id: 'solution', label: ' ' + LOC_INFORMATION, type: 'solution' };
+                        a[0] = { id: 'component', label: ' ' + LOC_COMPONENT, type: 'component' };
                         resetResultLast(results);
-                        a[1].children = results;
-                        console.log('dataFilter',a);
+                        a[0].children = results;
+                        console.log('dataFilter', a);
+                        treeDatas = a;
                         return a;
                     }
                     , selectable: true
@@ -827,21 +623,39 @@
             }
             );
             },
+            openCount:0,
             openNode: function (id) {
-                try{
+                try {
+                    customizeNav.openCount++;
                     var node = customizeNav.$tree.tree('getNodeById', id);
                     if (node == null) {
+                        if (customizeNav.openCount > 10) {
+                            customizeNav.openCount = 0;
+                            return;
+                        }
                         window.setTimeout(customizeNav.openNode, 300, id);
                         return;
                     }
-                    customizeNav.$tree.tree('openNode', node);
+                    var $tree = customizeNav.$tree.tree('openNode', node);
+                    var $node = $('.jqtree-title[data-nodeid="' + id + '"]');
+                    if ($node.length > 0) {
+                        var offsetT = $node.parents('.jqtree_common:first').position().top - 40;
+
+                        if ($('#sidebar').scrollTop() > 0) {
+                            offsetT += $('#sidebar').scrollTop();
+                        }
+                         if (offsetT < 0) {
+                            offsetT = 0;
+                        }
+                        $('#sidebar').scrollTop(offsetT);
+                    }
                 }catch(e){
                     window.setTimeout(customizeNav.openNode, 300, id);
                 }
             },
             load: function (url,node) {
                 url += url.indexOf('?') > 0 ? '&solutionid=' + solutionid : '?solutionid=' + solutionid;
-                
+
                 if (node&&node.type=='group')
                     url = url + '&entitygroupid=' + node.id;
                   console.log(node,url)
@@ -863,7 +677,6 @@
             },
             loadComponents: function(node){
                 this.load('/customize/solution/components',node);
-
 
             },
             loadEntities: function (node) {
@@ -925,7 +738,22 @@
             loadLabels: function (node) {
                 this.load('/customize/localizedlabel/index',node);
             }
+            , loadGloCharts: function(node) {
+                this.load('/customize/chart/index?entityid=' + emptyGuid,node);
+            }
+            , loadGloDuplicaterRule: function(node) {
+                 this.load('/customize/duplicaterule/index?entityid=' + emptyGuid,node);
+            }
+            , loadGloEntityMap: function(node) {
+                 this.load('/customize/entitymap/index?entityid=' + emptyGuid,node);
+            }
+            , loadGloFilterRule: function(node) {
+                 this.load('/customize/filterrule/index?entityid=' + emptyGuid,node);
+            }
+
         }
+        var emptyGuid = Xms.Utility.Guid.EmptyGuid.ToString();
+
         function checkIsCreateFormPage(){
             var href = location.href;
             if(href.indexOf("/customize/systemform/createform")>-1){
@@ -1205,7 +1033,7 @@
 
         function historyLoaded(data,id) {
             if (id) {
-                xms_nav.openLeaf(id);
+              //  xms_nav.openLeaf(id);
             }
         }
 

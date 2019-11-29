@@ -37,6 +37,7 @@ namespace Xms.Business.DuplicateValidator
             _duplicateRuleConditionService = duplicateRuleConditionService;
             _dataFinder = dataFinder;
         }
+
         /// <summary>
         /// 重复规则命中
         /// </summary>

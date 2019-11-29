@@ -12,6 +12,7 @@ namespace Xms.Business.DuplicateValidator
         {
             return appContext.OrganizationUniqueName + ":duplicaterules";
         }
+
         public static string BuildKey(DuplicateRule entity)
         {
             return entity.EntityId + "/" + entity.DuplicateRuleId.ToString() + "/";

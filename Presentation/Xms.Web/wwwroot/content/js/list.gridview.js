@@ -8,9 +8,9 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
     }
 
     var utils = {
-        getParamsByArray: function (arr,key,value) {
+        getParamsByArray: function (arr, key, value) {
             var res = [];
-            $.each(arr, function (i,n) {
+            $.each(arr, function (i, n) {
                 if (n[key] == value) {
                     res.push(n);
                 }
@@ -22,12 +22,11 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         var config = getDataGridConfig(datagridConfig);
         var $grid = $(GridViewModel.sectionid);
         var formular = gridFormular.formularInit($grid);
-        connectFormularConfig(config,formular);
+        connectFormularConfig(config, formular);
         console.log('gridconfig', config);
         grid = $(GridViewModel.sectionid).pqGrid(config);
         this.grid = grid;
         this.bindEvent();
-        
     }
 
     this.bindEvent = function () {
@@ -36,27 +35,27 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
 
             //delete button
             $grid.find("button.delete_btn").button({ icons: { primary: 'ui-icon-close' } })
-            .unbind("click")
-            .bind("click", function (evt) {
-                if (isEditing($grid)) {
-                    return false;
-                }
-                var $tr = $(this).closest("tr"),
-                    rowIndx = $grid.pqGrid("getRowIndx", { $tr: $tr }).rowIndx;
-                deleteRow(rowIndx, $grid);
-            });
+                .unbind("click")
+                .bind("click", function (evt) {
+                    if (isEditing($grid)) {
+                        return false;
+                    }
+                    var $tr = $(this).closest("tr"),
+                        rowIndx = $grid.pqGrid("getRowIndx", { $tr: $tr }).rowIndx;
+                    deleteRow(rowIndx, $grid);
+                });
             //edit button
             $grid.find("button.edit_btn").button({ icons: { primary: 'ui-icon-pencil' } })
-            .unbind("click")
-            .bind("click", function (evt) {
-                if (isEditing($grid)) {
+                .unbind("click")
+                .bind("click", function (evt) {
+                    if (isEditing($grid)) {
+                        return false;
+                    }
+                    var $tr = $(this).closest("tr"),
+                        rowIndx = $grid.pqGrid("getRowIndx", { $tr: $tr }).rowIndx;
+                    editRow(rowIndx, $grid);
                     return false;
-                }
-                var $tr = $(this).closest("tr"),
-                    rowIndx = $grid.pqGrid("getRowIndx", { $tr: $tr }).rowIndx;
-                editRow(rowIndx, $grid);
-                return false;
-            });
+                });
 
             //rows which were in edit mode before refresh, put them in edit mode again.
             var rows = $grid.pqGrid("getRowsByClass", { cls: 'pq-row-edit' });
@@ -67,13 +66,9 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         });
 
         grid.on("pqgridcellsave", function (event, ui) {
-
         });
 
-        
-
         grid.on("pqgrideditorbegin", function (event, ui) {
-            
         });
         grid.on("pqgridcellbeforesave", function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData, rowIndx = ui.rowIndx, newVal = ui.newVal, $editor = ui.$editor, colModel = grid.pqGrid("getColModel");
@@ -90,97 +85,93 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         });
         grid.on("pqgridcellsave", function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData;
-            
-            console.log(dataIndx,rowData);
-        });
 
+            console.log(dataIndx, rowData);
+        });
     }
 
     var bottomsInfo = [
-            {
-                type: "button",
-                label: '保存',
-                icon: 'ui-icon-disk',
-                listeners: [{
-                    click: function (a, b) {
-                        console.log('listeners', a, grid.pqGrid("getRowData"));
-                        var columns = grid.pqGrid("getColModel");
-                        var len = grid.find('.pq-grid-table tr').length - 1;
-                        var primarykey = '';
-                        var datas = [];
-                        for (var i = 0; i < len; i++) {
-                            var rowdata = grid.pqGrid("getRowData", { rowIndxPage: i });
-                            if (rowdata) {
-                                datas.push(rowdata);
-                            }
+        {
+            type: "button",
+            label: '保存',
+            icon: 'ui-icon-disk',
+            listeners: [{
+                click: function (a, b) {
+                    console.log('listeners', a, grid.pqGrid("getRowData"));
+                    var columns = grid.pqGrid("getColModel");
+                    var len = grid.find('.pq-grid-table tr').length - 1;
+                    var primarykey = '';
+                    var datas = [];
+                    for (var i = 0; i < len; i++) {
+                        var rowdata = grid.pqGrid("getRowData", { rowIndxPage: i });
+                        if (rowdata) {
+                            datas.push(rowdata);
                         }
+                    }
 
-                        datas = $.extend(true, [], datas);
-                        console.log(datas);
-                        var res = [];
-                        $.each(datas, function (key, item) {
-                            if (item.isEdited) {
-                                var obj = { entityid: GridViewModel.entityid, data: {} };
-                                obj.data = item;
-                                obj.name = GridViewModel.entityname;
-                                obj.relationshipname = GridViewModel.relationshipname;
-                                // obj.data.primarykey = grid.opts.primarykey;
-                                console.log(GridViewModel.entityname);
-                                obj.data[GridViewModel.referencingattributename] = GridViewModel.referencedrecordid;
-                                obj.data.primarykey = getPrimaryKey(grid)();
-                                obj.data.id = item[obj.data.primarykey];
-                                res.push(obj);
-                            }
-                        });
-                        console.log(res);
-                        var postData = {
-                            child: encodeURIComponent(JSON.stringify(res)),
-                            entityname: GridViewModel.entityname,
-                            parentid: Xms.Page.PageContext.RecordId
+                    datas = $.extend(true, [], datas);
+                    console.log(datas);
+                    var res = [];
+                    $.each(datas, function (key, item) {
+                        if (item.isEdited) {
+                            var obj = { entityid: GridViewModel.entityid, data: {} };
+                            obj.data = item;
+                            obj.name = GridViewModel.entityname;
+                            obj.relationshipname = GridViewModel.relationshipname;
+                            // obj.data.primarykey = grid.opts.primarykey;
+                            console.log(GridViewModel.entityname);
+                            obj.data[GridViewModel.referencingattributename] = GridViewModel.referencedrecordid;
+                            obj.data.primarykey = getPrimaryKey(grid)();
+                            obj.data.id = item[obj.data.primarykey];
+                            res.push(obj);
                         }
-                        purecms.post('/admin/dataservice/savechilds', postData, function () {
-
-                        }, function (response) {
-                            //$(document).trigger('subgrid.save', { data: response });
-                            //GridViewModel.rebind(null, function () {
-                            //    console.log($(GridViewModel.sectionid).parents('.subgrid:first'))
-                            //    if (typeof setSubGridFormular == 'function') {
-                            //        setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
-                            //    }
-                            //});
-                            console.log(response);
-                        });
-                        // console.log(grid.pqGrid( "getData"));
+                    });
+                    console.log(res);
+                    var postData = {
+                        child: encodeURIComponent(JSON.stringify(res)),
+                        entityname: GridViewModel.entityname,
+                        parentid: Xms.Page.PageContext.RecordId
                     }
-                }]
-            },
-            {
-                type: "button",
-                label: '新增行',
-                icon: 'ui-icon-plus',
-                listeners: [{
-                    click: function (a, b) {
-                        var primarykey = getPrimaryKey(grid)();
-                        var rowdata = { rowData: {} };
-                        rowdata.rowData[primarykey] = Xms.Utility.Guid.NewGuid().ToString('N');
-                        grid.pqGrid('addRow', rowdata);
-                        // console.log(grid.pqGrid( "getData"));
-                    }
-                }]
-            },
-            {
-                type: "button",
-                label: '删除',
-                icon: 'ui-icon-plus',
-                listeners: [{
-                    click: function (e, b) {
-
-                        // console.log(grid.pqGrid( "getData"));
-                    }
-                }]
-            }
+                    purecms.post('/admin/dataservice/savechilds', postData, function () {
+                    }, function (response) {
+                        //$(document).trigger('subgrid.save', { data: response });
+                        //GridViewModel.rebind(null, function () {
+                        //    console.log($(GridViewModel.sectionid).parents('.subgrid:first'))
+                        //    if (typeof setSubGridFormular == 'function') {
+                        //        setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
+                        //    }
+                        //});
+                        console.log(response);
+                    });
+                    // console.log(grid.pqGrid( "getData"));
+                }
+            }]
+        },
+        {
+            type: "button",
+            label: '新增行',
+            icon: 'ui-icon-plus',
+            listeners: [{
+                click: function (a, b) {
+                    var primarykey = getPrimaryKey(grid)();
+                    var rowdata = { rowData: {} };
+                    rowdata.rowData[primarykey] = Xms.Utility.Guid.NewGuid().ToString('N');
+                    grid.pqGrid('addRow', rowdata);
+                    // console.log(grid.pqGrid( "getData"));
+                }
+            }]
+        },
+        {
+            type: "button",
+            label: '删除',
+            icon: 'ui-icon-plus',
+            listeners: [{
+                click: function (e, b) {
+                    // console.log(grid.pqGrid( "getData"));
+                }
+            }]
+        }
     ];
-
 
     var datagridConfig = {
         height: '300',
@@ -196,7 +187,7 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         hwrap: false,
         resizable: true,
         columnBorders: false,
-        trackModel: { on: true }, //to turn on the track changes. 
+        trackModel: { on: true }, //to turn on the track changes.
         pageModel: { type: "remote", rPP: GridViewModel.pagesize, page: GridViewModel.page, strRpp: "{0}" },
         showHeader: true,
         roundCorners: true,
@@ -204,12 +195,11 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         columnBorders: true,
         selectionModel: { type: 'row' },
         numberCell: { show: false },
-        theme:true,
+        theme: true,
         postRenderInterval: -1, //synchronous post rendering.
         toolbar: {
             items: bottomsInfo
         },
-
     };
     datagridConfig.colModel = gridModel;
 
@@ -239,13 +229,12 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         }
     }
 
-
     function isEditing($grid) {
         var rows = $grid.pqGrid("getRowsByClass", { cls: 'pq-row-edit' });
         if (rows.length > 0) {
             var rowIndx = rows[0].rowIndx;
             $grid.pqGrid("goToPage", { rowIndx: rowIndx });
-            //focus on editor if any 
+            //focus on editor if any
             $grid.pqGrid("editFirstCellInRow", { rowIndx: rowIndx });
             return true;
         }
@@ -256,7 +245,7 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
     //    if (isEditing($grid)) {
     //        return false;
     //    }
-    //    //append empty row in the first row.                            
+    //    //append empty row in the first row.
     //    var rowData = { UnitPrice: 0, UnitsInStock: 0, UnitsOnOrder: 0, Discontinued: false, ProductName: "" }; //empty row template
     //    $grid.pqGrid("addRow", { rowIndxPage: 0, rowData: rowData });
 
@@ -358,7 +347,6 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         }
     }
 
-
     function getPrimaryKey(grid) {
         var primarykey = '';
         return function () {
@@ -374,7 +362,6 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
             } else {
                 return primarykey;
             }
-
         }
     }
 
@@ -389,12 +376,12 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
     function getDataGridConfig(datagridinfo) {
         datagridinfo.colModel = filterColumns(datagridinfo.colModel);
         datagridinfo.colModel.unshift(
-                {
-                    title: "", editable: false, minWidth: 165, sortable: false, render: function (ui) {
-                        return "<button type='button' class='edit_btn'>Edit</button>\
+            {
+                title: "", editable: false, minWidth: 165, sortable: false, render: function (ui) {
+                    return "<button type='button' class='edit_btn'>Edit</button>\
                             <button type='button' class='delete_btn'>Delete</button>";
-                    }
-                });
+                }
+            });
         return datagridinfo;
     }
 
@@ -446,12 +433,11 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
             obj.hidden = true;
             obj.key = true;
         }
-       // obj.precision = item.metadata.precision;
-       // item.isEdited = false;
+        // obj.precision = item.metadata.precision;
+        // item.isEdited = false;
 
         return obj;
     }
-
 
     function setEditorInfo(obj, item) {
         if (obj.edittype == 'picklist') {
@@ -465,22 +451,21 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                     function (ui) {
                         //debugger;
                         var $cell = ui.$cell,
-                                rowData = ui.rowData,
-                                dataIndx = ui.dataIndx,
-                                width = ui.column.width,
-                                cls = ui.cls;
+                            rowData = ui.rowData,
+                            dataIndx = ui.dataIndx,
+                            width = ui.column.width,
+                            cls = ui.cls;
                         var dc = $.trim(rowData[dataIndx.replace(/name$/, 'id')]);
 
                         var $inp = $("<input type='hidden' name='" + dataIndx + "' class='" + cls + " pq-ac-editor' />")
-                                .width(width - 6)
-                                .appendTo($cell)
-                                .val(dc);
+                            .width(width - 6)
+                            .appendTo($cell)
+                            .val(dc);
                         $inp.picklist({
                             required: $inp.is('.required'),
                             items: item.metadata.optionset.items,
                             isDefault: true,
                             changeHandler: function (e, obj) {
-
                             }
                         });
 
@@ -490,13 +475,12 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                             });
                         }, 50);
                     }
-                        ,
+                ,
                 options: options,
                 labelIndx: 'text',
                 valueIndx: 'value',
 
                 prepend: {
-
                 },
                 getData: function (ui) {
                     var clave = ui.$cell.find("select").val();
@@ -515,23 +499,22 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                         console.log(ui);
                         //debugger;
                         var $cell = ui.$cell,
-                                rowData = ui.rowData,
-                                dataIndx = ui.dataIndx,
-                                rowIndx = ui.rowIndx,
-                                width = ui.column.width,
-                                cls = ui.cls;
+                            rowData = ui.rowData,
+                            dataIndx = ui.dataIndx,
+                            rowIndx = ui.rowIndx,
+                            width = ui.column.width,
+                            cls = ui.cls;
                         var dc = $.trim(rowData[dataIndx.replace(/name$/, '')]);
                         var dctext = $.trim(rowData[dataIndx]);
                         var $in = $("<input type='hidden' name='" + dataIndx + "' id='" + dataIndx + "' class='" + cls + " pq-ac-editor' />")
-                                .width(width - 6)
-                                .appendTo($cell)
-                                .val(dc);
+                            .width(width - 6)
+                            .appendTo($cell)
+                            .val(dc);
                         $in.attr('data-value', dc);
                         $in.attr('data-text', dctext);
                         var field = dataIndx.replace(/name$/, 'id');
 
                         //if (!editor.props.$inputext) {
-
                         var $input = $('<input type="text" class="form-control" id="' + field + '_text" name="' + field + '_text" class="" />');
                         var $value = $('<input type="hidden" class="form-control" id="' + field + '" name="' + field + '" class=""  />');
                         // }
@@ -598,33 +581,33 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                                     purecms.opendialog(lookupurl, 'dataGridselectRecordCallback');
                                 }
                             }
-                                , clear: function () {
-                                    $('#' + inputid).val('');
-                                    $('#' + valueid).val('');
-                                    if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
-                                        var relationData = $('#' + inputid).data().relationData;
-                                        if (relationData && relationData.length > 0) {
-                                            $.each(relationData, function (key, item) {
-                                                var type = item.td.attr('data-type');
-                                                // console.log(attrname,type,eval('data.' + attrname));
-                                                if (type == 'nvarchar' || type == 'money' || type == 'int') {
-                                                    item.td.find('input[name=' + GridViewModel.nameprefix + item.attrname + ']').val('');
-                                                }
-                                                else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
-                                                    item.td.text('');
-                                                } else {
-                                                    item.td.text('');
-                                                }
-                                            });
-                                        }
+                            , clear: function () {
+                                $('#' + inputid).val('');
+                                $('#' + valueid).val('');
+                                if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
+                                    var relationData = $('#' + inputid).data().relationData;
+                                    if (relationData && relationData.length > 0) {
+                                        $.each(relationData, function (key, item) {
+                                            var type = item.td.attr('data-type');
+                                            // console.log(attrname,type,eval('data.' + attrname));
+                                            if (type == 'nvarchar' || type == 'money' || type == 'int') {
+                                                item.td.find('input[name=' + GridViewModel.nameprefix + item.attrname + ']').val('');
+                                            }
+                                            else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
+                                                item.td.text('');
+                                            } else {
+                                                item.td.text('');
+                                            }
+                                        });
                                     }
-                                    if ($('#' + inputid).siblings(".xms-dropdownLink").length > 0) {
-                                        $('#' + inputid).siblings(".xms-dropdownLink").remove();
-                                    }
-                                    return false;
                                 }
-                                , isDefaultSearch: true
-                                , isShowSearch: true,
+                                if ($('#' + inputid).siblings(".xms-dropdownLink").length > 0) {
+                                    $('#' + inputid).siblings(".xms-dropdownLink").remove();
+                                }
+                                return false;
+                            }
+                            , isDefaultSearch: true
+                            , isShowSearch: true,
                             searchOpts: {
                                 id: lookupid
                                 , addHandler: function (tar, obj, par) {
@@ -642,7 +625,6 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                             }
                         });
                         $('#' + inputid).on('dialog.return', function (e, obj) {
-
                             // $(this).parents('tr:first').attr('data-edited', true);
                             // console.log(obj);
                             // $input.val(obj.id);
@@ -651,8 +633,6 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                             $in.attr('data-value', obj.id);
                             $in.attr('data-text', obj.name);
                             var that = this;
-                            
-
                         });
 
                         setTimeout(function () {
@@ -684,7 +664,7 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                                     data: { entityid: entityid, value: v, allcolumns: true }
                                 }
                                 console.log('_isRelative', _isRelative);
-                                if (_isRelative==true) {
+                                if (_isRelative == true) {
                                     purecms.pageCache('renderGridView', '/admin/dataservice/RetriveReferencedRecord', params, function (response) {
                                         var data = response.content;
                                         console.log('response', data);
@@ -702,13 +682,13 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                                                             // console.log(attrname,type,eval('data.' + attrname));
                                                             if (type == 'nvarchar' || type == 'money' || type == 'int') {
                                                                 rowData[i] = data[attrs[1]];
-                                                               // $td.find('input[name=' + GridViewModel.nameprefix + ifield + ']').val(data[attrname]);
+                                                                // $td.find('input[name=' + GridViewModel.nameprefix + ifield + ']').val(data[attrname]);
                                                             }
                                                             else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
                                                                 //var _field = i.replace(/name$/, 'id');
                                                                 rowData[i] = data[ifield + 'name']
-                                                               // rowData[i] = data[dataIndx];
-                                                               // rowData[_field] = data[_field];
+                                                                // rowData[i] = data[dataIndx];
+                                                                // rowData[_field] = data[_field];
                                                             } else {
                                                                 rowData[i] = data[attrs[1]];
                                                                 //rowData[ifield] = data[ifield];
@@ -732,18 +712,15 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                                         //        if ((data[attrname] !== '' && data[attrname] !== null && data[attrname] !== undefined)) {
                                         //            // console.log(attrname,type,eval('data.' + attrname));
                                         //            if (type == 'nvarchar' || type == 'money' || type == 'int') {
-                                                       
                                         //            }
                                         //            else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
-                                                       
                                         //            } else {
-                                                       
                                         //            }
 
                                         //        }
                                         //    }
                                         //});
-                                       // $this.trigger('dialog.relationReturn', { row: $row, data: data });
+                                        // $this.trigger('dialog.relationReturn', { row: $row, data: data });
                                     });
                                 }
                                 // });
@@ -752,12 +729,11 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
 
                         var attrName = self.attr('data-name') ? self.attr('data-name').toLowerCase() : '';
                     }
-                        ,
+                ,
                 labelIndx: 'text',
                 valueIndx: 'value',
 
                 prepend: {
-
                 },
                 getData: function (ui) {
                     var clave = ui.$cell.find("input.pq-ac-editor").attr('data-value');
@@ -768,7 +744,6 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                         rowData[item.name] = text;
                         console.log(rowData)
                         //grid.pqGrid("refreshRow");
-
                     }
                     return text;
                 }
@@ -778,7 +753,7 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
         window.formular_utils = utils
     }
 
-    function connectFormularConfig(config,formularlist) {
+    function connectFormularConfig(config, formularlist) {
         if (formularlist.length > 0) {
             $.each(formularlist, function (key, item) {
                 if (item.type == 'formular') {
@@ -796,224 +771,218 @@ var Datagrid_page = function (GridViewModel, gridModel, sumsColumn) {
                     var tempArr = itemRuler.split('=');
                     var leftArr = getLeftFormular(itemArr, isLeft);//获取等号左边的等式
                     var rightRuler = itemArr[itemArr.length - 1];
-                    
                 }
             });
         }
     }
 }
 
-; (function () {
-    function getLeftFormular(items, isLeft) {//isLeft   需计算的字段是否在字段左边
-        var arr = [];
-        $.each(items, function (i, n) {
-            if (n == "=") {
-                return false;
-            } else {
-                if (!checkFormularRuler(n)) {
-                    arr.push(n);
-                }
-            }
-        });
-        if (isLeft) {
-            arr = arr.reverse();
-        }
-        return arr;
-    }
-    function checkFormularRuler(nn) {
-        var temp = nn;
-        nn = {}; nn.key = temp;
-        return nn.key == "+" || nn.key == "-" || nn.key == "*" || nn.key == "/" || nn.key == "=" || nn.key == "(" || nn.key == ")";
-    }
-
-    function getFormularResult(leftArr, leftStr, rights, context, dataIndx, newVal, colModel,callback) {//左边的字段，左边的等式
-
-        $.each(leftArr, function (key, item) {
-            if (dataIndx == item) {
-                var itemname = dataIndx;
-                var itemVal = newVal;
-            } else {
-                var itemname = item;
-                var itemObj = context[itemname.toLowerCase()] || 0;
-                var itemVal = 0;
-                if (itemObj !== 0) {
-                    itemVal=itemObj != '' ? (itemObj + '').replace(/\,/g, '') : '';
-                }
-            }
-           
-            var reg = new RegExp(itemname.toLowerCase());
-            leftStr = leftStr.toLowerCase().replace(reg, itemVal);
-        });
-        var res = 0;
-        try {
-            res = eval(leftStr);//计算公式
-            var rightobj = context[rights.toLowerCase()];
-            var col = formular_utils.getParamsByArray(colModel, 'dataIndx', rights);
-            if (col.length > 0) {
-                var type = col[0].edittype;
-                //var precision = col[0].precision;
-                // if (type == 'money' && res && res != '') {
-                //     res = (res * 1).toFixed(precision || 2);
-                // }
-            }
-           
-            context[rights.toLowerCase()] = res;
-            console.log(context);
-            callback && callback(rightobj);
-        } catch (e) {
-            // console.log(e);
-        }
-    }
-    //获取计算公式
-    function formularInit(grid) {
-        var self = this;
-        var formular = null;
-        return function () {
-            if (!formular) {
-                formular = this.formulars = getAndBindFormularInfo(grid);
-            }
-            return formular;
-        }
-    }
-
-    function setFormularAndRelation(formularlist,callback) {
-        if (formularlist.length > 0) {
-            $.each(formularlist, function (key, item) {
-                if (item.type == 'formular') {
-                    var isLeft = false;
-                    if (item.expression.indexOf('$$$') > -1) {
-                        var itemArr = item.expression.split('$$$');
-                    } else {
-                        var itemArr = JSON.parse(item.expression);
+    ; (function () {
+        function getLeftFormular(items, isLeft) {//isLeft   需计算的字段是否在字段左边
+            var arr = [];
+            $.each(items, function (i, n) {
+                if (n == "=") {
+                    return false;
+                } else {
+                    if (!checkFormularRuler(n)) {
+                        arr.push(n);
                     }
-                    if (itemArr[1] == '=') {
-                        itemArr = itemArr.reverse();
-                        isLeft = false;
-                    }
-                    var itemRuler = itemArr.join('');
-                    var tempArr = itemRuler.split('=');
-                    var leftArr = getLeftFormular(itemArr, isLeft);//获取等号左边的等式
-                    var rightRuler = itemArr[itemArr.length - 1];//等式右边的字段名
-                    callback && callback(itemArr, tempArr, itemRuler, leftArr, rightRuler);
-                    //var $rightRdom = $this.find('input[data-name="' + rightRuler.toLowerCase() + '"][data-isrelated="False"]');
-                    //console.log('$rightRdom', $rightRdom.length);
-                    //if ($rightRdom.length > 0) {
-                    //    $rightRdom.prop('readonly', true);
-                    //}
-
-                    //$.each(leftArr, function (ii, nn) {
-                    //    if (!checkFormularRuler(nn)) {
-                    //        if (theme == 'jqgrid') {
-
-                    //        } else {
-                    //            var input = $this.find('input[data-name="' + nn.toLowerCase() + '"][data-isrelated="False"]');
-                    //            input.each(function () {
-                    //                var that = $(this);
-                    //                var context = that.parents('tr:first');
-                    //                that.on('change', function () {//绑定字段方法
-                    //                    console.log('change')
-                    //                    getFormularResult(leftArr, tempArr[0], rightRuler, context);//处理等式
-                    //                    console.log(parTr, leftArr, tempArr[0], rightRuler, context)
-                    //                    var parTr = $(this).parents('tr');
-                    //                    var itemRightDom = parTr.find('input[data-name="' + rightRuler.toLowerCase() + '"][data-isrelated="False"]');
-                    //                    if (itemRightDom.length > 0) {
-                    //                        itemRightDom.trigger('change');
-                    //                    }
-                    //                });
-                    //                context.find('button[name=editRowBtn]').unbind('gridview.editRow').bind('gridview.editRow', function () {
-                    //                    setSubGridFormular($this)
-                    //                });
-                    //                context.find('button[name=saveRowBtn]').unbind('gridview.saveRow').bind('gridview.saveRow', function () {
-                    //                    setSubGridFormular($this)
-                    //                });
-                    //                context.find('button[name=cancelRowBtn]').unbind('gridview.cancelRow').bind('gridview.cancelRow', function () {
-                    //                    setSubGridFormular($this)
-                    //                });
-                    //            });
-
-                    //        }
-                    //    }
-                    //});
-                } else {//关联字段
-                    //var input = $('input.lookup[data-name="' + item.Name.toLowerCase() + '"][data-isrelated="False"]');
-                    //if (input.length == 0) return false;
-                    //console.log('item.Expression', JSON.parse(item.Expression));
-                    //var itemArr = JSON.parse(item.Expression);
-                    //if (input.length > 0) {
-                    //    input.on('change', function () {
-                    //        var inputid = $(this).attr('id');
-                    //        var hiddenDom = $('#' + inputid.replace('_text', ''));
-                    //        var changeEntityid = $(this).attr("data-lookup");;
-                    //        var changeValue = hiddenDom.val();
-                    //        var parentDom = $(this).parents('tr:first');
-                    //        var that = $(this);
-                    //        //console.log('hiddenDom',hiddenDom)
-                    //        setlabelsToTarget(changeEntityid, changeValue, function (data) {
-
-                    //            $.each(itemArr, function (ii, nn) {
-                    //                if (!nn) return true;
-                    //                var ntemp = nn.split('§');
-                    //                var tarv = ntemp[0];
-                    //                var sourv = ntemp[1];
-                    //                var $context = $('input[data-name="' + tarv.toLowerCase() + '"][data-isrelated="True"]', parentDom);
-                    //                $context.val('');
-                    //                var list = data.content;
-
-                    //                var type = sourv.toLowerCase();
-                    //                var controltype = $context.attr('data-type') || "nvarchar";
-                    //                //console.log($context);
-                    //                // console.log(type)
-                    //                //console.log("type"+controltype,type);
-                    //                // console.log("setexts"+controltype,list);
-                    //                if (!list || !list[type]) return true;
-                    //                //html.push('<span class="label-tag" data-id="'+list.id+'">'+list[type]+'</span>');
-                    //                if ($context.is(":disabled")) { return true; }
-
-                    //                if (controltype == "lookup" || controltype == "owner" || controltype == "customer") {
-                    //                    // console.log("lookup:",list);
-                    //                    $context = $('input.lookup[data-name="' + nn.toLowerCase() + '"][data-isrelated="True"]', parentDom);
-                    //                    $contextid = $context.attr('id').replace('_text', '');
-                    //                    var $hidden = $('#' + $contextid, parentDom);
-                    //                    $context.val(list[type + "name"]);
-                    //                    $context.attr("data-id", list[type]);
-                    //                    $hidden.val(list[type + "name"]);
-                    //                    $hidden.attr("data-id", list[type]);
-                    //                } else if (controltype == "state") {
-                    //                    $context.parent().find("input[type='radio']").prop("checked", false);
-                    //                    $context.parent().find("input[type='radio'][value='" + list[type] + "']").prop("checked", true);
-                    //                    $context.val(list[type])
-                    //                } else if (controltype == "picklist") {
-                    //                    $context.siblings("select>option[value='" + list[type] + "']").prop("selected", true);
-                    //                    $context.val(list[type])
-                    //                } else {
-                    //                    $context.val(list[type]);
-                    //                }
-
-                    //                $context.trigger('change');
-                    //            })
-                    //        });
-                    //    });
-                    //}
                 }
             });
+            if (isLeft) {
+                arr = arr.reverse();
+            }
+            return arr;
         }
-    }
-    
+        function checkFormularRuler(nn) {
+            var temp = nn;
+            nn = {}; nn.key = temp;
+            return nn.key == "+" || nn.key == "-" || nn.key == "*" || nn.key == "/" || nn.key == "=" || nn.key == "(" || nn.key == ")";
+        }
 
-    function getAndBindFormularInfo(grid, theme) {
-        var $this = $(grid).parents('.subgrid:first');
-        var ruler = $this.attr("data-formular");
-        if (!ruler || ruler == "") { return false; }
-        // console.log(decodeURIComponent(ruler));
-        var rulerObj = JSON.parse(decodeURIComponent(ruler).toLowerCase());
-        var formularlist = rulerObj;//getSubGridEntityList(rulerObj);//获取值计算的列表
-        return formularlist;
-        
-    }
-    window.gridFormular = {
-        getFormularResult: getFormularResult,
-        formularInit: formularInit,
-        setFormularAndRelation: setFormularAndRelation
-    }
-    //window.formularInit = formularInit;
-})();
+        function getFormularResult(leftArr, leftStr, rights, context, dataIndx, newVal, colModel, callback) {//左边的字段，左边的等式
+            $.each(leftArr, function (key, item) {
+                if (dataIndx == item) {
+                    var itemname = dataIndx;
+                    var itemVal = newVal;
+                } else {
+                    var itemname = item;
+                    var itemObj = context[itemname.toLowerCase()] || 0;
+                    var itemVal = 0;
+                    if (itemObj !== 0) {
+                        itemVal = itemObj != '' ? (itemObj + '').replace(/\,/g, '') : '';
+                    }
+                }
+
+                var reg = new RegExp(itemname.toLowerCase());
+                leftStr = leftStr.toLowerCase().replace(reg, itemVal);
+            });
+            var res = 0;
+            try {
+                res = eval(leftStr);//计算公式
+                var rightobj = context[rights.toLowerCase()];
+                var col = formular_utils.getParamsByArray(colModel, 'dataIndx', rights);
+                if (col.length > 0) {
+                    var type = col[0].edittype;
+                    //var precision = col[0].precision;
+                    // if (type == 'money' && res && res != '') {
+                    //     res = (res * 1).toFixed(precision || 2);
+                    // }
+                }
+
+                context[rights.toLowerCase()] = res;
+                console.log(context);
+                callback && callback(rightobj);
+            } catch (e) {
+                // console.log(e);
+            }
+        }
+        //获取计算公式
+        function formularInit(grid) {
+            var self = this;
+            var formular = null;
+            return function () {
+                if (!formular) {
+                    formular = this.formulars = getAndBindFormularInfo(grid);
+                }
+                return formular;
+            }
+        }
+
+        function setFormularAndRelation(formularlist, callback) {
+            if (formularlist.length > 0) {
+                $.each(formularlist, function (key, item) {
+                    if (item.type == 'formular') {
+                        var isLeft = false;
+                        if (item.expression.indexOf('$$$') > -1) {
+                            var itemArr = item.expression.split('$$$');
+                        } else {
+                            var itemArr = JSON.parse(item.expression);
+                        }
+                        if (itemArr[1] == '=') {
+                            itemArr = itemArr.reverse();
+                            isLeft = false;
+                        }
+                        var itemRuler = itemArr.join('');
+                        var tempArr = itemRuler.split('=');
+                        var leftArr = getLeftFormular(itemArr, isLeft);//获取等号左边的等式
+                        var rightRuler = itemArr[itemArr.length - 1];//等式右边的字段名
+                        callback && callback(itemArr, tempArr, itemRuler, leftArr, rightRuler);
+                        //var $rightRdom = $this.find('input[data-name="' + rightRuler.toLowerCase() + '"][data-isrelated="False"]');
+                        //console.log('$rightRdom', $rightRdom.length);
+                        //if ($rightRdom.length > 0) {
+                        //    $rightRdom.prop('readonly', true);
+                        //}
+
+                        //$.each(leftArr, function (ii, nn) {
+                        //    if (!checkFormularRuler(nn)) {
+                        //        if (theme == 'jqgrid') {
+                        //        } else {
+                        //            var input = $this.find('input[data-name="' + nn.toLowerCase() + '"][data-isrelated="False"]');
+                        //            input.each(function () {
+                        //                var that = $(this);
+                        //                var context = that.parents('tr:first');
+                        //                that.on('change', function () {//绑定字段方法
+                        //                    console.log('change')
+                        //                    getFormularResult(leftArr, tempArr[0], rightRuler, context);//处理等式
+                        //                    console.log(parTr, leftArr, tempArr[0], rightRuler, context)
+                        //                    var parTr = $(this).parents('tr');
+                        //                    var itemRightDom = parTr.find('input[data-name="' + rightRuler.toLowerCase() + '"][data-isrelated="False"]');
+                        //                    if (itemRightDom.length > 0) {
+                        //                        itemRightDom.trigger('change');
+                        //                    }
+                        //                });
+                        //                context.find('button[name=editRowBtn]').unbind('gridview.editRow').bind('gridview.editRow', function () {
+                        //                    setSubGridFormular($this)
+                        //                });
+                        //                context.find('button[name=saveRowBtn]').unbind('gridview.saveRow').bind('gridview.saveRow', function () {
+                        //                    setSubGridFormular($this)
+                        //                });
+                        //                context.find('button[name=cancelRowBtn]').unbind('gridview.cancelRow').bind('gridview.cancelRow', function () {
+                        //                    setSubGridFormular($this)
+                        //                });
+                        //            });
+
+                        //        }
+                        //    }
+                        //});
+                    } else {//关联字段
+                        //var input = $('input.lookup[data-name="' + item.Name.toLowerCase() + '"][data-isrelated="False"]');
+                        //if (input.length == 0) return false;
+                        //console.log('item.Expression', JSON.parse(item.Expression));
+                        //var itemArr = JSON.parse(item.Expression);
+                        //if (input.length > 0) {
+                        //    input.on('change', function () {
+                        //        var inputid = $(this).attr('id');
+                        //        var hiddenDom = $('#' + inputid.replace('_text', ''));
+                        //        var changeEntityid = $(this).attr("data-lookup");;
+                        //        var changeValue = hiddenDom.val();
+                        //        var parentDom = $(this).parents('tr:first');
+                        //        var that = $(this);
+                        //        //console.log('hiddenDom',hiddenDom)
+                        //        setlabelsToTarget(changeEntityid, changeValue, function (data) {
+                        //            $.each(itemArr, function (ii, nn) {
+                        //                if (!nn) return true;
+                        //                var ntemp = nn.split('§');
+                        //                var tarv = ntemp[0];
+                        //                var sourv = ntemp[1];
+                        //                var $context = $('input[data-name="' + tarv.toLowerCase() + '"][data-isrelated="True"]', parentDom);
+                        //                $context.val('');
+                        //                var list = data.content;
+
+                        //                var type = sourv.toLowerCase();
+                        //                var controltype = $context.attr('data-type') || "nvarchar";
+                        //                //console.log($context);
+                        //                // console.log(type)
+                        //                //console.log("type"+controltype,type);
+                        //                // console.log("setexts"+controltype,list);
+                        //                if (!list || !list[type]) return true;
+                        //                //html.push('<span class="label-tag" data-id="'+list.id+'">'+list[type]+'</span>');
+                        //                if ($context.is(":disabled")) { return true; }
+
+                        //                if (controltype == "lookup" || controltype == "owner" || controltype == "customer") {
+                        //                    // console.log("lookup:",list);
+                        //                    $context = $('input.lookup[data-name="' + nn.toLowerCase() + '"][data-isrelated="True"]', parentDom);
+                        //                    $contextid = $context.attr('id').replace('_text', '');
+                        //                    var $hidden = $('#' + $contextid, parentDom);
+                        //                    $context.val(list[type + "name"]);
+                        //                    $context.attr("data-id", list[type]);
+                        //                    $hidden.val(list[type + "name"]);
+                        //                    $hidden.attr("data-id", list[type]);
+                        //                } else if (controltype == "state") {
+                        //                    $context.parent().find("input[type='radio']").prop("checked", false);
+                        //                    $context.parent().find("input[type='radio'][value='" + list[type] + "']").prop("checked", true);
+                        //                    $context.val(list[type])
+                        //                } else if (controltype == "picklist") {
+                        //                    $context.siblings("select>option[value='" + list[type] + "']").prop("selected", true);
+                        //                    $context.val(list[type])
+                        //                } else {
+                        //                    $context.val(list[type]);
+                        //                }
+
+                        //                $context.trigger('change');
+                        //            })
+                        //        });
+                        //    });
+                        //}
+                    }
+                });
+            }
+        }
+
+        function getAndBindFormularInfo(grid, theme) {
+            var $this = $(grid).parents('.subgrid:first');
+            var ruler = $this.attr("data-formular");
+            if (!ruler || ruler == "") { return false; }
+            // console.log(decodeURIComponent(ruler));
+            var rulerObj = JSON.parse(decodeURIComponent(ruler).toLowerCase());
+            var formularlist = rulerObj;//getSubGridEntityList(rulerObj);//获取值计算的列表
+            return formularlist;
+        }
+        window.gridFormular = {
+            getFormularResult: getFormularResult,
+            formularInit: formularInit,
+            setFormularAndRelation: setFormularAndRelation
+        }
+        //window.formularInit = formularInit;
+    })();

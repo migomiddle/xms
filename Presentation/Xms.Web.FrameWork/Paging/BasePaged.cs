@@ -1,5 +1,5 @@
-﻿using Xms.Core.Context;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Xms.Core.Context;
 
 namespace Xms.Web.Framework.Paging
 {
@@ -9,15 +9,19 @@ namespace Xms.Web.Framework.Paging
         /// 查询所有记录
         /// </summary>
         public bool GetAll { get; set; }
+
         /// <summary>
         /// 结果数
         /// </summary>
         public long TotalItems { get; set; }
+
         private long _totalpages;
+
         /// <summary>
         /// 总页数
         /// </summary>
-        public long TotalPages {
+        public long TotalPages
+        {
             get
             {
                 _totalpages = TotalItems / PageSize;
@@ -26,6 +30,7 @@ namespace Xms.Web.Framework.Paging
                 return _totalpages;
             }
         }
+
         //public PagedList<T> PagedResult { get; set; }
         /// <summary>
         /// 结果集
@@ -54,6 +59,7 @@ namespace Xms.Web.Framework.Paging
         }
 
         private int _page = 1;
+
         /// <summary>
         /// 当前页
         /// </summary>
@@ -70,6 +76,7 @@ namespace Xms.Web.Framework.Paging
         }
 
         private int _pageSize = 10;
+
         /// <summary>
         /// 每页记录数
         /// </summary>
@@ -85,9 +92,11 @@ namespace Xms.Web.Framework.Paging
                 PageSizeBySeted = true;
             }
         }
+
         public bool PageSizeBySeted { private set; get; }
 
         private string _sortby = "CreatedOn";
+
         /// <summary>
         /// 排序字段名称
         /// </summary>
@@ -109,6 +118,7 @@ namespace Xms.Web.Framework.Paging
             private set;
             get;
         }
+
         /// <summary>
         /// 排序类型
         /// </summary>

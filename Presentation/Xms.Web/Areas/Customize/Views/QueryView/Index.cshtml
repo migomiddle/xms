@@ -1,43 +1,53 @@
 ﻿@model Xms.Web.Customize.Models.QueryViewModel
 
-<div class="" id="gridview">
-    <div class="mb-2 toolbar">
-       
-        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
-            @Html.HiddenFor(x => x.SolutionId)
-            @Html.HiddenFor(x => x.EntityId)
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="btn-group btn-group-sm">
-                            <a class="btn btn-info" target="_blank" href="@("/"+app.OrganizationUniqueName)/customize/queryview/createqueryview?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
-                                <span class="glyphicon glyphicon-plus-sign"></span> 新增
-                            </a>
-                            <button type="button" class="btn btn-info" data-action="/customize/queryview/deletequeryview" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
-                            <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewDefault?isdefault=true&entityid=@Model.EntityId" data-actiondata='{"isdefault":true}' data-role="update"><span class="glyphicon glyphicon-check"></span> 设为默认</button>
-                            <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewState?entityid=@Model.EntityId&isenabled=true" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
-                            <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewState?entityid=@Model.EntityId&isenabled=false" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
-                    </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="" id="gridview">
+                <div class="mb-2 toolbar">
+                    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
+                        @Html.HiddenFor(x => x.SolutionId)
+                        @Html.HiddenFor(x => x.EntityId)
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-info" target="_blank" href="@("/"+app.OrganizationUniqueName)/customize/queryview/createqueryview?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
+                                        <span class="glyphicon glyphicon-plus-sign"></span> 新增
+                                    </a>
+                                    <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewDefault?isdefault=true&entityid=@Model.EntityId" data-actiondata='{"isdefault":true}' data-role="update"><span class="glyphicon glyphicon-check"></span> 设为默认</button>
+                                    <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewState?entityid=@Model.EntityId&isenabled=true" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
+                                    <button type="button" class="btn btn-info" data-action="/customize/queryview/SetQueryViewState?entityid=@Model.EntityId&isenabled=false" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+                                    <button type="button" class="btn btn-warning" data-action="/customize/queryview/deletequeryview" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-sm">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-sm-4">
-                    <div class="input-group input-group-sm">
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
-                        </span>
-                    </div>
 
+                <div class="table-datagrid-view">
+                    <div class="datagrid-view"></div>
+                    <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+                    </table>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-   
-    <div class="table-datagrid-view">
-        <div class="datagrid-view"></div>
-        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-         
-        </table>
-    </div>
-   
 </div>
 <!-- （Modal） -->
 <div class="modal fade" id="copyModal" tabindex="-1" role="dialog"
@@ -101,7 +111,7 @@
         var pageUrl = '';
          var solutionid = '@Model.SolutionId';
         $(function () {
-          
+
             var theaders = {
                 'name': '名称',
                 'default': '默认',
@@ -123,7 +133,7 @@
                     cb: { all: true, header: true }
                 },
                 {
-                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                    title: "", dataIndx: "hidden", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
                      cls: 'ui-state-default', sortable: false, editable: false,
                     hidden:true,
                     render: function (ui) {
@@ -184,7 +194,6 @@
                         if (!datas.isdefault) {
                                    html+= ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\''+datas.queryviewid+'\',\'/customize/queryview/deletequeryview\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>'
                                 }
-                        
 
                         return html
                     }
@@ -218,9 +227,9 @@
                     location.reload();
                 },100)
             });
-            
+
         });
-        
+
         function rebind() {
            // $('#searchForm').submit();
              $('.datagrid-view').cDatagrid('refreshDataAndView')
@@ -230,7 +239,7 @@
             $('#copyModal').modal('show');
         }
         function CopyPost() {
-           
+
             $('#copyForm').submit();
         }
     </script>

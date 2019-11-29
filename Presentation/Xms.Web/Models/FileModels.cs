@@ -14,6 +14,7 @@ namespace Xms.Web.Models
         public Schema.Domain.Entity EntityMetaData { get; set; }
         public List<Schema.Domain.Attribute> AttributeMetaDatas { get; set; }
     }
+
     public class CreateAttachmentModel
     {
         public string Name { get; set; }
@@ -23,7 +24,8 @@ namespace Xms.Web.Models
         public string Description { get; set; }
         public List<IFormFile> Attachments { get; set; }
     }
-    public class DeleteAttachmentModel: DeleteManyModel
+
+    public class DeleteAttachmentModel : DeleteManyModel
     {
         public Guid EntityId { get; set; }
         public Guid ObjectId { get; set; }

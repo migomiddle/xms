@@ -22,6 +22,7 @@ namespace Xms.Flow
             //依赖于字段
             return _dependencyService.Create(WorkFlowDefaults.ModuleName, entity.WorkFlowId, EntityDefaults.ModuleName, entity.EntityId);
         }
+
         public bool Update(Domain.WorkFlow entity)
         {
             //依赖于字段

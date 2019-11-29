@@ -43,7 +43,6 @@
     </div>
     <div style="padding:15px;">
         <div class="datagrid-view">
-
         </div>
     </div>
     <div class="table-responsive" style="overflow:visible;">
@@ -61,16 +60,14 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#" data-action="/api/role/SetRoleState" data-role="update"  data-actiondata='{"isenabled":true}' >@app.T["enabled"]</a></li>
-                                <li><a href="#" data-action="/api/role/SetRoleState" data-role="update"  data-actiondata='{"isenabled":false}'>@app.T["disabled"]</a></li>
+                                <li><a href="#" data-action="/api/role/SetRoleState" data-role="update" data-actiondata='{"isenabled":true}'>@app.T["enabled"]</a></li>
+                                <li><a href="#" data-action="/api/role/SetRoleState" data-role="update" data-actiondata='{"isenabled":false}'>@app.T["disabled"]</a></li>
                             </ul>
                         </div>
                     </td>
                 </tr>
             </tfoot>
         </table>
-
-
     </div>
 
     @*<div class="panel-footer">
@@ -128,16 +125,16 @@
 @section Scripts {
     <script type="text/html" id="rolelistTmpl">
         @*@foreach (var resourceOwner in Xms.Security.Abstractions.ResourceOwnerCollection.Descriptors)
-        {
-            if (resourceOwner.Value.UIEndpoint.IsNotEmpty())
             {
-                <li><a href="/@app.OrganizationUniqueName@resourceOwner.Value.UIEndpoint?roleid={{roleid}}"><span class="glyphicon glyphicon-lock"></span> @app.T[resourceOwner.Key].IfEmpty(resourceOwner.Key)</a></li>
-            }
-            else
-            {
-            <li><a href="EditRolePermissions?roleid={{roleid}}&resourcename=@resourceOwner.Key"><span class="glyphicon glyphicon-lock"></span> @app.T[resourceOwner.Key].IfEmpty(resourceOwner.Key)</a></li>
-            }
-        }*@
+                if (resourceOwner.Value.UIEndpoint.IsNotEmpty())
+                {
+                    <li><a href="/@app.OrganizationUniqueName@resourceOwner.Value.UIEndpoint?roleid={{roleid}}"><span class="glyphicon glyphicon-lock"></span> @app.T[resourceOwner.Key].IfEmpty(resourceOwner.Key)</a></li>
+                }
+                else
+                {
+                <li><a href="EditRolePermissions?roleid={{roleid}}&resourcename=@resourceOwner.Key"><span class="glyphicon glyphicon-lock"></span> @app.T[resourceOwner.Key].IfEmpty(resourceOwner.Key)</a></li>
+                }
+            }*@
     </script>
     <script>
 
@@ -184,7 +181,6 @@
             //$("#datatable").ajaxTable();
             //ajaxgrid_reset();
 
-
             var rolehtml = $('#rolelistTmpl').html();
             //列数据配置数据
             var columnConfigs = [
@@ -226,7 +222,7 @@
 
                 { "dataIndx": "createdon", "title": theaders.create_time, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string" },
                 {
-                    "dataIndx": "displayname", "title": theaders.displayname, editable: false, "dataType": "string", "width": 100,align:'center', "isprimaryfield": false, "attributetypename": "string", sortable: false, 
+                    "dataIndx": "displayname", "title": theaders.displayname, editable: false, "dataType": "string", "width": 100,align:'center', "isprimaryfield": false, "attributetypename": "string", sortable: false,
                     render: function (ui) {
                         var datas = ui.rowData;
                         var dataIndx = ui.dataIndx;
@@ -266,7 +262,7 @@
                     }
                 }
             ];
-         
+
             var $form = $('#searchForm');
             var roles_filters = new XmsFilter();
             var datagridconfig = {
@@ -278,8 +274,6 @@
             };
             //  console.log(itemtmpl);
             $('.datagrid-view').xmsDataTable(datagridconfig);
-
-
 
         });
         //function ajaxgrid_reset() {

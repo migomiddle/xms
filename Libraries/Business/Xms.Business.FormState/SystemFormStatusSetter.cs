@@ -11,6 +11,7 @@ namespace Xms.Business.FormStateRule
     public class SystemFormStatusSetter : ISystemFormStatusSetter
     {
         private readonly ISystemFormStateRuleService _systemFormStateRuleService;
+
         public SystemFormStatusSetter(ISystemFormStateRuleService systemFormStateRuleService)
         {
             _systemFormStateRuleService = systemFormStateRuleService;

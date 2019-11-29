@@ -37,6 +37,7 @@ namespace Xms.RibbonButton
             }
             return true;
         }
+
         public bool Update(Domain.RibbonButton entity)
         {
             if (entity.JsLibrary.IsNotEmpty() && entity.JsLibrary.StartsWith("$webresource:"))

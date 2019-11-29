@@ -12,6 +12,7 @@ namespace Xms.Web.Customize.Controllers
     public class LocalizationController : CustomizeBaseController
     {
         private readonly ILocalizedTextProvider _localizedTextProvider;
+
         public LocalizationController(IWebAppContext appContext
             , ISolutionService solutionService
             , ILocalizedTextProvider localizedTextProvider)

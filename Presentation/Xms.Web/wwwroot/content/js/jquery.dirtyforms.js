@@ -20,9 +20,9 @@ License MIT
     }
 }(function ($, window, document, undefined) {
     /*</iife_head>*/
-    // Can't use ECMAScript 5's strict mode because several apps 
-    // including ASP.NET trace the stack via arguments.caller.callee 
-    // and Firefox dies if you try to trace through "use strict" call chains. 
+    // Can't use ECMAScript 5's strict mode because several apps
+    // including ASP.NET trace the stack via arguments.caller.callee
+    // and Firefox dies if you try to trace through "use strict" call chains.
     // See jQuery issue (#13335)
     // Support: Firefox 18+
     //"use strict";
@@ -120,7 +120,7 @@ License MIT
         },
         // Marks the element(s) and any helpers within the element not dirty.
         // If all of the fields in a form are marked not dirty, the form itself will be marked not dirty even
-        // if it is not included in the selector. Also resets original values to the current state - 
+        // if it is not included in the selector. Also resets original values to the current state -
         // essentially "forgetting" the node or its descendants are dirty.
         setClean: function (excludeIgnored, excludeHelpers) {
             dirtylog('setClean called');
@@ -228,15 +228,15 @@ License MIT
 
         if (staySelector !== '') {
             $(staySelector).unbind('click', doCommit)
-                             .click(doCommit);
+                .click(doCommit);
         }
         if (proceedSelector !== '') {
             $(proceedSelector).unbind('click', doProceed)
-                               .click(doProceed);
+                .click(doProceed);
         }
         if (choice.bindEscKey || choice.bindEnterKey) {
             $(document).unbind('keydown', bindKeys)
-                       .keydown(choice, bindKeys);
+                .keydown(choice, bindKeys);
         }
     };
 
@@ -281,7 +281,7 @@ License MIT
         bind: function (window, document, data) {
             $(window).bind('beforeunload', data, events.onBeforeUnload);
             $(document).on('click', 'a:not([target="_blank"])', data, events.onAnchorClick)
-                       .on('submit', 'form', data, events.onSubmit);
+                .on('submit', 'form', data, events.onSubmit);
         },
         bindForm: function ($form, data) {
             var dirtyForms = $.DirtyForms;
@@ -290,9 +290,9 @@ License MIT
             var isIE8_9 = ('onpropertychange' in document.createElement('input'));
             var inputEvents = 'change input' + (isIE8_9 ? ' keyup selectionchange cut paste' : '');
             $form.addClass(dirtyForms.listeningClass)
-                 .on('focus keydown', dirtyForms.fieldSelector, data, events.onFocus)
-                 .on(inputEvents, dirtyForms.fieldSelector, data, events.onFieldChange)
-                 .bind('reset', data, events.onReset);
+                .on('focus keydown', dirtyForms.fieldSelector, data, events.onFocus)
+                .on(inputEvents, dirtyForms.fieldSelector, data, events.onFieldChange)
+                .bind('reset', data, events.onReset);
         },
         // For any fields added after the form was initialized, store the value when focused.
         onFocus: function (ev) {

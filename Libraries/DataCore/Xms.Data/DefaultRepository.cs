@@ -24,7 +24,8 @@ namespace Xms.Data
             _repository = new DataRepository<T, TImpl>(dbContext);
         }
 
-        public virtual IDbContext DbContext {
+        public virtual IDbContext DbContext
+        {
             get
             {
                 return _repository.GetDbContext();
@@ -34,10 +35,12 @@ namespace Xms.Data
                 _repository.SetDbContext(value);
             }
         }
+
         public virtual PetaPoco.Database Database
         {
             get { return DbContext as PetaPoco.Database; }
         }
+
         /// <summary>
         /// 实体元数据
         /// </summary>
@@ -59,6 +62,7 @@ namespace Xms.Data
                 return MetaData.TableInfo.TableName;
             }
         }
+
         /// <summary>
         /// 查询记录数
         /// </summary>
@@ -153,6 +157,7 @@ namespace Xms.Data
         {
             return _repository.Query(q);
         }
+
         public virtual List<T> Query(Expression<Func<T, bool>> predicate)
         {
             QueryDescriptor<T> q = QueryDescriptorBuilder.Build<T>();
@@ -174,6 +179,7 @@ namespace Xms.Data
         {
             return _repository.QueryPaged(q);
         }
+
         /// <summary>
         /// 保存记录
         /// </summary>
@@ -182,6 +188,7 @@ namespace Xms.Data
         {
             _repository.Save(entity);
         }
+
         /// <summary>
         /// 获取前X条记录
         /// </summary>
@@ -206,6 +213,7 @@ namespace Xms.Data
         {
             return _repository.Update(entity);
         }
+
         /// <summary>
         /// 更新记录
         /// </summary>
@@ -216,7 +224,6 @@ namespace Xms.Data
             return _repository.Update(context);
         }
     }
-
 
     /// <summary>
     /// 具有一组默认行为的仓储
@@ -244,10 +251,12 @@ namespace Xms.Data
                 _repository.SetDbContext(value);
             }
         }
+
         public virtual PetaPoco.Database Database
         {
             get { return DbContext as PetaPoco.Database; }
         }
+
         /// <summary>
         /// 实体元数据
         /// </summary>
@@ -269,6 +278,7 @@ namespace Xms.Data
                 return MetaData.TableInfo.TableName;
             }
         }
+
         /// <summary>
         /// 查询记录数
         /// </summary>
@@ -363,6 +373,7 @@ namespace Xms.Data
         {
             return _repository.Query(q);
         }
+
         public virtual List<T> Query(Expression<Func<T, bool>> predicate)
         {
             QueryDescriptor<T> q = QueryDescriptorBuilder.Build<T>();
@@ -384,6 +395,7 @@ namespace Xms.Data
         {
             return _repository.QueryPaged(q);
         }
+
         /// <summary>
         /// 保存记录
         /// </summary>
@@ -392,6 +404,7 @@ namespace Xms.Data
         {
             _repository.Save(entity);
         }
+
         /// <summary>
         /// 获取前X条记录
         /// </summary>
@@ -416,6 +429,7 @@ namespace Xms.Data
         {
             return _repository.Update(entity);
         }
+
         /// <summary>
         /// 更新记录
         /// </summary>

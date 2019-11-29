@@ -20,21 +20,18 @@ namespace Xms.Schema.OptionSet
     {
         private readonly IOptionSetRepository _optionSetRepository;
         private readonly IOptionSetDetailFinder _optionSetDetailFinder;
-        //private readonly ILocalizedLabelService _localizedLabelService;
         private readonly Caching.CacheManager<Domain.OptionSet> _cacheService;
         private readonly IAppContext _appContext;
 
         public OptionSetFinder(IAppContext appContext
             , IOptionSetRepository optionSetRepository
             , IOptionSetDetailFinder optionSetDetailFinder
-            //, ILocalizedLabelService localizedLabelService
             )
         {
             _appContext = appContext;
             _optionSetRepository = optionSetRepository;
             _optionSetDetailFinder = optionSetDetailFinder;
-            //_localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", OptionSetCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public Domain.OptionSet FindById(Guid id)
@@ -42,15 +39,15 @@ namespace Xms.Schema.OptionSet
             var dic = new Dictionary<string, string>();
             dic.Add("optionsetid", id.ToString());
 
-            Domain.OptionSet entity = _cacheService.Get(dic,() =>
-            {
-                var o = _optionSetRepository.FindById(id);
-                if (o != null)
-                {
-                    o.Items = _optionSetDetailFinder.FindByParentId(id);
-                }
-                return o;
-            });
+            Domain.OptionSet entity = _cacheService.Get(dic, () =>
+             {
+                 var o = _optionSetRepository.FindById(id);
+                 if (o != null)
+                 {
+                     o.Items = _optionSetDetailFinder.FindByParentId(id);
+                 }
+                 return o;
+             });
 
             if (entity != null)
             {
@@ -99,10 +96,10 @@ namespace Xms.Schema.OptionSet
 
         public List<Domain.OptionSet> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -124,6 +121,7 @@ namespace Xms.Schema.OptionSet
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
@@ -131,7 +129,8 @@ namespace Xms.Schema.OptionSet
         }
 
         public int ComponentType => ModuleCollection.GetIdentity(OptionSetDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<Domain.OptionSet> datas)
         {

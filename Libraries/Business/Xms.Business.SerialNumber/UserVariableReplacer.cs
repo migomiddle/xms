@@ -32,7 +32,8 @@ namespace Xms.Business.SerialNumber
             if (text.IndexOf("{businessunit.parent.number}") >= 0)
             {
                 var currentBusinessUnit = _businessUnitService.FindById(_currentUser.BusinessUnitId);
-                if (currentBusinessUnit.ParentBusinessUnitId.HasValue) {
+                if (currentBusinessUnit.ParentBusinessUnitId.HasValue)
+                {
                     var parentBusinessUnit = _businessUnitService.FindById(currentBusinessUnit.ParentBusinessUnitId.Value);
                     text = text.Replace("{businessunit.parent.number}", parentBusinessUnit.UnitNumber);
                 }

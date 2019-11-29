@@ -1,6 +1,5 @@
 ﻿//闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -11,7 +10,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -30,7 +29,6 @@
         this.addToLocalStorage = function () {
             value = JSON.stringify(this.usersettings.getDatas());
             localStorage.setItem(this.localstorageName, value);
-            
         }
         this.getByLocalStorage = function () {
             var value = localStorage.getItem(this.localstorageName);
@@ -44,7 +42,7 @@
                 return self.getDatas();
             }
         }
-        
+
         this.getDatas = function () {
             return this.usersettings.getDatas();
         }
@@ -53,7 +51,7 @@
         }
         this.batchInList = function (list) {
             var self = this;
-            $.each(list, function (i,n) {
+            $.each(list, function (i, n) {
                 if (n) {
                     n.key = n.name;
                     n.value = n.value;
@@ -70,17 +68,16 @@
             });
             return list;
         }
-        this.saveByRemote = function() {
+        this.saveByRemote = function () {
             var datas = this.changeToPostData();
             console.log(datas);
             $.each(datas, function (i, n) {
                 Xms.Web.Post(ORG_SERVERURL + '/api/userpersonalization/set', n, false, function (res) {
                     console.log(res);
                 }, null, false, false, null);
-
             });
         }
-        this.addSetting = function (key,value,id,iscover) {
+        this.addSetting = function (key, value, id, iscover) {
             self.usersettings.add({ id: id, key: key, value: value }, iscover);
             return this;
         }
@@ -188,7 +185,6 @@
         }
     });
 
-    
     //获取用户和页面的某一区域配置信息，_pageSettingName:当天页面的用户配置信息名字 ， funSettingName：页面某一块区域的配置信息名字
     function getUserAndPageSetting(_pageSettingName, funSettingName) {
         var userSettingName = _pageSettingName;

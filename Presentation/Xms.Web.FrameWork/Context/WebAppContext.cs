@@ -11,10 +11,11 @@ using Xms.Infrastructure;
 using Xms.Infrastructure.Utility;
 using Xms.Localization.Abstractions;
 using Xms.Organization;
-using Xms.SiteMap.Domain;
-using Xms.SiteMap;
 using Xms.Security.Principal;
+using Xms.SiteMap;
+using Xms.SiteMap.Domain;
 using Xms.UserPersonalization;
+
 namespace Xms.Web.Framework.Context
 {
     /// <summary>
@@ -48,6 +49,7 @@ namespace Xms.Web.Framework.Context
             _userPersonalizationService = userPersonalizationService;
             SetFeatures();
         }
+
         /// <summary>
         /// 组织数据服务器信息
         /// </summary>
@@ -55,31 +57,39 @@ namespace Xms.Web.Framework.Context
         {
             get; set;
         }
+
         public HttpContext HttpContext { get; }
+
         /// <summary>
         /// //当前请求是否为ajax请求
         /// </summary>
         public bool IsAjaxRequest { get; set; }
+
         /// <summary>
         /// 客户端IP
         /// </summary>
         public string IP { get; set; }
+
         /// <summary>
         /// 当前访问的URL
         /// </summary>
         public string Url { get; set; }
+
         /// <summary>
         /// 上一次访问的url
         /// </summary>
         public string UrlReferrer { get; set; }
+
         /// <summary>
         /// 区域
         /// </summary>
         public string Area { get; set; }
+
         /// <summary>
         /// 控制器名称
         /// </summary>
         public string ControllerName { get; set; }
+
         /// <summary>
         /// 方法名称
         /// </summary>
@@ -94,6 +104,7 @@ namespace Xms.Web.Framework.Context
         }
 
         private string _organizationUniqueName;
+
         /// <summary>
         /// 当前组织唯一名称
         /// </summary>
@@ -120,7 +131,9 @@ namespace Xms.Web.Framework.Context
                 _organizationUniqueName = value;
             }
         }
+
         private string _organizationName;
+
         /// <summary>
         /// 当前组织名称
         /// </summary>
@@ -139,7 +152,9 @@ namespace Xms.Web.Framework.Context
                 _organizationName = value;
             }
         }
+
         private Organization.Domain.Organization _orgInfo;
+
         /// <summary>
         /// 组织信息
         /// </summary>
@@ -165,7 +180,9 @@ namespace Xms.Web.Framework.Context
                 _orgInfo = value;
             }
         }
+
         private ICurrentUser _currentUser;
+
         /// <summary>
         /// 当前用户信息
         /// </summary>
@@ -190,7 +207,9 @@ namespace Xms.Web.Framework.Context
                 _currentUser = value;
             }
         }
+
         private PlatformSetting _platformSettings;
+
         /// <summary>
         /// 平台参数
         /// </summary>
@@ -214,6 +233,7 @@ namespace Xms.Web.Framework.Context
         /// 语言服务
         /// </summary>
         public ILocalizedTextProvider T { get; set; }
+
         /// <summary>
         /// 页面布局方式
         /// </summary>
@@ -225,7 +245,9 @@ namespace Xms.Web.Framework.Context
             }
             set { }
         }
+
         private string _pageTitle;
+
         /// <summary>
         /// 页面标题
         /// </summary>
@@ -254,11 +276,12 @@ namespace Xms.Web.Framework.Context
         }
 
         private List<Privilege> _privilegeTree;
+
         public List<Privilege> PrivilegeTree
         {
             get
             {
-                if(_privilegeTree == null)
+                if (_privilegeTree == null)
                 {
                     var url = HttpContext.GetThisPageUrl(false);
                     if (url.IsNotEmpty())
@@ -281,6 +304,7 @@ namespace Xms.Web.Framework.Context
                 return this.CurrentUser != null && this.CurrentUser.HasValue();
             }
         }
+
         /// <summary>
         /// 登录地址
         /// </summary>
@@ -291,6 +315,7 @@ namespace Xms.Web.Framework.Context
                 return XmsAuthenticationDefaults.LoginPath;
             }
         }
+
         /// <summary>
         /// 登出地址
         /// </summary>
@@ -299,6 +324,17 @@ namespace Xms.Web.Framework.Context
             get
             {
                 return XmsAuthenticationDefaults.LogoutPath;
+            }
+        }
+
+        /// <summary>
+        /// 初始化地址
+        /// </summary>
+        public string InitializationUrl
+        {
+            get
+            {
+                return XmsAuthenticationDefaults.InitializationPath;
             }
         }
 
@@ -325,19 +361,24 @@ namespace Xms.Web.Framework.Context
             HttpContext.Features.Set(CurrentUser);
             HttpContext.Features.Set(T);
         }
+
         /// <summary>
         /// 主题
         /// </summary>
         public string Theme { get; set; }
+
         /// <summary>
         /// 用户个性化
         /// </summary>
         private string _userPersonalizations;
-        public  string  UserPersonalizations {
+
+        public string UserPersonalizations
+        {
             get
             {
-                if (_userPersonalizations.IsEmpty()&&this.CurrentUser != null && this.CurrentUser.HasValue()) {
-                     _userPersonalizations=_userPersonalizationService.Get(this.CurrentUser.SystemUserId).SerializeToJson();
+                if (_userPersonalizations.IsEmpty() && this.CurrentUser != null && this.CurrentUser.HasValue())
+                {
+                    _userPersonalizations = _userPersonalizationService.Get(this.CurrentUser.SystemUserId).SerializeToJson();
                 }
                 return _userPersonalizations;
             }

@@ -54,7 +54,6 @@
             _this.loadTab(_this.plugInType);
             _this.container.append(_this.el);
             $('a:first', _this.navContainer).tab('show');
-
         },
         refresh: function (data) {
             this._args.data = data;
@@ -67,7 +66,6 @@
             $(data).each(function (i, e) {
                 _this.addTab(e);
             });
-
         },
         addTab: function (data) {
             var _this = this;
@@ -86,7 +84,6 @@
                 _this.loadTabOkCount++;
                 if (_this.loadTabTotalCount == _this.loadTabOkCount)
                     _this.handleLoadEnd();
-
             });
         },
         filterData: function (data) {
@@ -97,9 +94,7 @@
                         if (_e.name == data.instances)
                             _fdata.push(e);
                     });
-
                 }
-
             });
             return _fdata;
         },
@@ -128,13 +123,11 @@
                 _this.request(_rid, function (rId, rData) {
                     $.ajaxSetup({ sign: rData.sign });
                     Xms.Schema.GetEntities({ getall: true }, function (data) {
-
                         if (!data || data.length == 0) return;
                         _this.data.Entities = data;
                         $(_this.requestList[rId]).each(function (i, e) {
                             rData.callback(e.sign, _this.data.Entities);
                         });
-
                     });
                 }, { sign: sign, callback: callback });
             }
@@ -152,7 +145,6 @@
                     }
                 });
             }
-
         },
         loadQueryViews: function (entityid, callback) {
             var _this = this.control;
@@ -166,11 +158,8 @@
                         _this.data.QueryViews[entityid] = data.items;
                         callback(_this.data.QueryViews[entityid]);
                     }
-
-
                 });
             }
-
         },
         loadSystemForms: function (entityid, callback) {
             var _this = this.control;
@@ -288,13 +277,6 @@
             '事件',
             '</span >',
             '<div class="input-group-event-thead">',
-            //'<input type="hidden" name="AssemblyName" disabled="disabled" />',
-            //'<input type="hidden" name="ClassName" disabled="disabled"/>',
-            //'<input type="checkbox"/>创建',
-            //'<input type="checkbox"/>修改',
-            //'<input type="checkbox"/>删除',
-            //'<input type="checkbox"/>共享',
-            //'<input type="checkbox"/>分派',
             '</div>',
             '</div>',
             '</th>',
@@ -314,12 +296,8 @@
             '<td class="table-thead-td1">',
             '<div class="input-group input-group-sm">',
             '<span class= "input-group-addon">',
-            //'<input type="checkbox"/>',
             '</span>',
-
             '<span class="entity-content" >',
-
-            //'<input class="entity-checkbox-all"  type="checkbox"/>',
             '<span class="entity"  data-toggle="collapse"  aria-expanded="false" aria-controls="collapseExample" >',
             '<span class="entity-text"></span>',
             '<span class="caret"></span>',
@@ -327,7 +305,6 @@
             '</span>',
             '<div class="collapse" >',
             '<ul class="collapse-content">',
-
             '</ul>',
             '<div>',
             '</div>',
@@ -357,7 +334,6 @@
         ];
         this.templateCollapseItem = [
             '<li>',
-            //'<input type="checkbox"  class="collapse-item-checkbox"/>',
             '<span class="collapse-item-text"></span>',
             '</li>'
         ];
@@ -434,7 +410,6 @@
                                 var _entityText = $($(this).attr("href"));
                                 $('tr', _entityText.parents('.entity-list')).removeClass('active');
                                 $(_entityText).parents('tr:first').addClass('active');
-
                             });
                             _dropdownMenu.append(_menu);
                         });
@@ -480,7 +455,6 @@
                         $(this).parent().nextAll().find('.noteventname').removeAttr('disabled');
                     else
                         $(this).parent().nextAll().find('.noteventname').attr('disabled', 'disabled');
-
                 });
                 _collapse.attr({ 'id': _id });
 
@@ -497,9 +471,7 @@
                                     _groupEvent.append(_this.getNewEventItem(e, _this.primaryKey, _this.typeCode, pluginData))
                                 });
                             }
-
                         });
-
                     }
                     $(this).parents('td:first').next().find('.input-event-item').show(200);
                 });
@@ -577,7 +549,6 @@
             $(data).each(function (i, e) {
                 _this.addPluginNav(e);
             });
-
         },
         addPluginNav: function (data) {
             var id = "pluginItem" + Xms.Utility.Guid.NewGuid().ToString();
@@ -590,14 +561,12 @@
             $(data).each(function (i, e) {
                 _this.addPlugin(e);
             });
-
         },
         addPlugin: function (data) {
             var _this = this;
             $(this.entityLists).each(function () {
                 $(this).append(_this.getNewPlugin(data, $(this).data('plugin')));
             });
-
         },
         initInput: function (inputs, id, typeCode, pluginData) {
             $(inputs).each(function () {
@@ -637,6 +606,4 @@
             this.pluginContentTableContainer.css({ "height": (size.height - 245 - 34.5) + "px" });
         },
     };
-
-
 }(window.jQuery));

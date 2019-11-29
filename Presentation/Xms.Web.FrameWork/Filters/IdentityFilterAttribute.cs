@@ -40,7 +40,7 @@ namespace Xms.Web.Framework.Filters
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 var loginUrl = _appContext.LoginUrl;
-                //loginUrl = _appContext.OrganizationUniqueName.HasValue() ? "/" + _appContext.OrganizationUniqueName + loginUrl : loginUrl;                
+                //loginUrl = _appContext.OrganizationUniqueName.HasValue() ? "/" + _appContext.OrganizationUniqueName + loginUrl : loginUrl;
                 if (filterContext.HttpContext.IsRequestJson())
                 {
                     filterContext.Result = new JsonResult(new JsonResultObject() { IsSuccess = false, StatusName = "Signin", Content = "请先登录", Url = loginUrl });
@@ -60,7 +60,6 @@ namespace Xms.Web.Framework.Filters
                     //根目录跳转
                     if (!_appContext.OrganizationUniqueName.HasValue())
                     {
-
                         var thisPageUrl = filterContext.HttpContext.GetThisPageUrl(includeQueryString: true);
                         //var url = _appContext.OrganizationUniqueName.HasValue() ? "/" + _appContext.OrganizationUniqueName + thisPageUrl : thisPageUrl;
                         var url = "/" + OrgUniqueName.Value + thisPageUrl;
@@ -71,7 +70,7 @@ namespace Xms.Web.Framework.Filters
                         //禁止不退出数据库切换
                         if (OrgUniqueName.Value != _appContext.OrganizationUniqueName)
                         {
-                            var url = filterContext.HttpContext.GetThisPageUrl(includeQueryString: true);                            
+                            var url = filterContext.HttpContext.GetThisPageUrl(includeQueryString: true);
                             Regex r = new Regex("/" + _appContext.OrganizationUniqueName);
                             url = r.Replace(url, "/" + OrgUniqueName.Value, 1);
                             filterContext.Result = new RedirectResult(url);

@@ -595,13 +595,15 @@ limitations under the License.
             };
 
             ElementsRenderer.prototype.createFolderLi = function (node, level, is_selected) {
-                var button_classes, button_link, div, folder_classes, icon_element, is_folder, li;
+                var button_classes, button_link, div, folder_classes, icon_element, is_folder, li,icon_quart;
                 button_classes = this.getButtonClasses(node);
                 folder_classes = this.getFolderClasses(node, is_selected);
                 if (node.is_open) {
                     icon_element = this.opened_icon_element;
+                    icon_quart = '<span class="icon-quart icon-quart-mins">-</span>';
                 } else {
                     icon_element = this.closed_icon_element;
+                    icon_quart = '<span class="icon-quart icon-quart-plus">+</span>';
                 }
                 li = document.createElement('li');
                 li.className = "jqtree_common " + folder_classes;
@@ -615,10 +617,11 @@ limitations under the License.
                 button_link.appendChild(icon_element.cloneNode(false));
                 button_link.setAttribute('role', 'presentation');
                 button_link.setAttribute('aria-hidden', 'true');
+                button_link.innerHTML = icon_quart;
                 if (this.tree_widget.options.buttonLeft) {
                     div.appendChild(button_link);
                 }
-                div.appendChild(this.createTitleSpan(node.name, level, is_selected, node.is_open, is_folder = true));
+                div.appendChild(this.createTitleSpan(node.name, level, is_selected, node.is_open, is_folder = true,node));
                 if (!this.tree_widget.options.buttonLeft) {
                     div.appendChild(button_link);
                 }
@@ -639,11 +642,11 @@ limitations under the License.
                 div.className = "jqtree-element jqtree_common";
                 div.setAttribute('role', 'presentation');
                 li.appendChild(div);
-                div.appendChild(this.createTitleSpan(node.name, level, is_selected, node.is_open, is_folder = false));
+                div.appendChild(this.createTitleSpan(node.name, level, is_selected, node.is_open, is_folder = false,node));
                 return li;
             };
 
-            ElementsRenderer.prototype.createTitleSpan = function (node_name, level, is_selected, is_open, is_folder) {
+            ElementsRenderer.prototype.createTitleSpan = function (node_name, level, is_selected, is_open, is_folder,_node) {
                 var classes, title_span;
                 title_span = document.createElement('span');
                 classes = "jqtree-title jqtree_common";
@@ -652,13 +655,15 @@ limitations under the License.
                 }
                 title_span.className = classes;
                 title_span.setAttribute('role', 'treeitem');
+                title_span.setAttribute('data-nodeid', _node.id);
                 title_span.setAttribute('aria-level', level);
                 title_span.setAttribute('aria-selected', util.getBoolString(is_selected));
                 title_span.setAttribute('aria-expanded', util.getBoolString(is_open));
                 if (is_selected) {
                     title_span.setAttribute('tabindex', 0);
                 }
-                title_span.innerHTML = this.escapeIfNecessary(node_name);
+                //title_span.innerHTML = this.escapeIfNecessary(node_name);
+                $(title_span).append('<i></i>', this.escapeIfNecessary(node_name));
                 return title_span;
             };
 
@@ -1651,7 +1656,8 @@ limitations under the License.
                     $button = this.getButton();
                     $button.removeClass('jqtree-closed');
                     $button.html('');
-                    $button.append(this.tree_widget.renderer.opened_icon_element.cloneNode(false));
+                    $button.append('<span class="icon-quart  icon-quart-mins">-</span>')
+                    //$button.append(this.tree_widget.renderer.opened_icon_element.cloneNode(false));
                     doOpen = (function (_this) {
                         return function () {
                             var $li, $span;
@@ -1686,7 +1692,8 @@ limitations under the License.
                     $button = this.getButton();
                     $button.addClass('jqtree-closed');
                     $button.html('');
-                    $button.append(this.tree_widget.renderer.closed_icon_element.cloneNode(false));
+                    $button.append('<span class="icon-quart  icon-quart-plus">+</span>')
+                   // $button.append(this.tree_widget.renderer.closed_icon_element.cloneNode(false));
                     doClose = (function (_this) {
                         return function () {
                             var $li, $span;

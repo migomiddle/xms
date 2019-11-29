@@ -1,13 +1,13 @@
 ﻿using System;
-using Xms.Plugin.Domain;
+using System.Collections.Generic;
 using Xms.Context;
 using Xms.Core;
 using Xms.Core.Data;
 using Xms.Identity;
+using Xms.Infrastructure.Inject;
 using Xms.Infrastructure.Utility;
 using Xms.Plugin.Abstractions;
-using Xms.Infrastructure.Inject;
-using System.Collections.Generic;
+using Xms.Plugin.Domain;
 
 namespace Xms.Plugin
 {
@@ -21,6 +21,7 @@ namespace Xms.Plugin
         private readonly IAppContext _appContext;
         private readonly IServiceResolver _serviceResolver;
         private readonly ICurrentUser _currentUser;
+
         public EntityPluginExecutor(IAppContext appContext
             , IEntityPluginFinder entityPluginFinder
             , IEntityPluginFileProvider entityPluginFileProvider
@@ -33,7 +34,6 @@ namespace Xms.Plugin
             _serviceResolver = serviceResolver;
         }
 
-
         public void Execute(OperationTypeEnum op, OperationStage stage, Entity entity, Schema.Domain.Entity entityMetadata, List<Schema.Domain.Attribute> attributeMetadatas)
         {
             var plugins = _entityPluginFinder.QueryByEntityId(entityMetadata.EntityId, Enum.GetName(typeof(OperationTypeEnum), op));
@@ -41,7 +41,7 @@ namespace Xms.Plugin
             {
                 foreach (var pg in plugins)
                 {
-                    if(pg.StateCode == RecordState.Disabled)
+                    if (pg.StateCode == RecordState.Disabled)
                     {
                         continue;
                     }

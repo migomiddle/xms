@@ -1,0 +1,296 @@
+.btn>[class*="icon-"] {
+	display:inline;
+	margin-right:4px
+}
+.btn>[class*="icon-"].icon-on-right {
+	margin-right:0;
+	margin-left:4px
+}
+.btn>.icon-only[class*="icon-"] {
+	margin:0;
+	vertical-align:middle;
+	text-align:center;
+	padding:0
+}
+.btn-large>[class*="icon-"] {
+	margin-right:6px
+}
+.btn-large>[class*="icon-"].icon-on-right {
+	margin-right:0;
+	margin-left:6px
+}
+.btn-sm>[class*="icon-"] {
+	margin-right:3px
+}
+.btn-sm>[class*="icon-"].icon-on-right {
+	margin-right:0;
+	margin-left:3px
+}
+.btn-xs>[class*="icon-"],.btn-minier>[class*="icon-"] {
+	margin-right:2px
+}
+.btn-xs>[class*="icon-"].icon-on-right,.btn-minier>[class*="icon-"].icon-on-right {
+	margin-right:0;
+	margin-left:2px
+}
+
+.nav-list {
+	margin:0;
+	padding:0;
+	list-style:none
+}
+.nav-list .open>a,.nav-list .open>a:hover,.nav-list .open>a:focus {
+	background-color:#fafafa
+}
+.nav-list>li>a,.nav-list .nav-header {
+	margin:0
+}
+.nav-list>li {
+	display:block;
+	padding:0;
+	margin:0;
+	border:0;
+	border-top:1px solid #fcfcfc;
+	border-bottom:1px solid #e5e5e5;
+	position:relative
+}
+.nav-list>li:first-child {
+	border-top:0
+}
+.nav-list li>a:focus {
+	outline:0
+}
+.nav-list>li>a {
+	display:block;
+	height:38px;
+	line-height:36px;
+	padding:0 16px 0 7px;
+	background-color:#f9f9f9;
+	color:#585858;
+	text-shadow:none!important;
+	font-size:13px;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	text-decoration:none
+}
+.nav-list>li>a>[class*="icon-"]:first-child {
+	display:inline-block;
+	vertical-align:middle;
+	min-width:30px;
+	text-align:center;
+	font-size:18px;
+	font-weight:normal;
+	margin-right:2px
+}
+.nav-list>li>a:focus {
+	background-color:#f9f9f9;
+	color:#1963aa
+}
+.nav-list>li>a:hover {
+	background-color:#FFF;
+	color:#1963aa
+}
+.nav-list>li>a:hover:before {
+	display:block;
+	content:"";
+	position:absolute;
+	top:-1px;
+	bottom:0;
+	left:0;
+	width:3px;
+	max-width:3px;
+	overflow:hidden;
+	background-color:#3382af
+}
+.nav-list>li a>.arrow {
+	display:inline-block;
+	width:14px!important;
+	height:14px;
+	line-height:14px;
+	text-shadow:none;
+	font-size:18px;
+	position:absolute;
+	right:11px;
+	top:11px;
+	padding:0;
+	color:#666
+}
+.nav-list>li a:hover>.arrow,.nav-list>li.active>a>.arrow,.nav-list>li.open>a>.arrow {
+	color:#1963aa
+}
+.nav-list>li.separator {
+	height:3px;
+	background-color:transparent;
+	position:static;
+	margin:1px 0;
+	-webkit-box-shadow:none;
+	box-shadow:none
+}
+.nav-list>li.open>a {
+	background-color:#fafafa;
+	color:#1963aa
+}
+.nav-list>li.active {
+	background-color:#fff
+}
+.nav-list>li.active>a,.nav-list>li.active>a:hover,.nav-list>li.active>a:focus,.nav-list>li.active>a:active {
+	background-color:#fff;
+	color:#2b7dbc;
+	font-weight:bold;
+	font-size:13px;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.nav-list>li.active>a>[class*="icon-"] {
+	font-weight:normal
+}
+.nav-list>li.active>a:hover:before {
+	display:none
+}
+.nav-list>li.active:after {
+	display:inline-block;
+	content:"";
+	position:absolute;
+	right:-2px;
+	top:-1px;
+	bottom:0;
+	z-index:1;
+	border:2px solid #2b7dbc;
+	border-width:0 2px 0 0
+}
+.nav-list>li.open {
+	border-bottom-color:#e5e5e5
+}
+.nav-list>li.active .submenu {
+	display:block
+}
+.nav-list>li .submenu {
+	display:none;
+	list-style:none;
+	margin:0;
+	padding:0;
+	position:relative;
+	background-color:#fff;
+	border-top:1px solid #e5e5e5
+}
+.nav-list>li .submenu>li {
+	margin-left:0;
+	position:relative
+}
+.nav-list>li .submenu>li>a {
+	display:block;
+	position:relative;
+	color:#616161;
+	padding:7px 0 9px 37px;
+	margin:0;
+	border-top:1px dotted #e4e4e4;
+	font-size:13px;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.nav-list>li .submenu>li>a:focus {
+	text-decoration:none
+}
+.nav-list>li .submenu>li>a:hover {
+	text-decoration:none;
+	color:#4b88b7
+}
+.nav-list>li .submenu>li.active>a {
+	color:#2b7dbc
+}
+.nav-list>li .submenu>li a>[class*="icon-"]:first-child {
+	display:none;
+	font-size:12px;
+	font-weight:normal;
+	width:18px;
+	height:auto;
+	line-height:12px;
+	text-align:center;
+	position:absolute;
+	left:10px;
+	top:11px;
+	z-index:1;
+	background-color:#FFF
+}
+.nav-list>li .submenu>li.active>a>[class*="icon-"]:first-child,.nav-list>li .submenu>li:hover>a>[class*="icon-"]:first-child {
+	display:inline-block
+}
+.nav-list>li .submenu>li.active>a>[class*="icon-"]:first-child {
+	color:#c86139
+}
+.nav-list>li>.submenu>li:before {
+	content:"";
+	display:inline-block;
+	position:absolute;
+	width:7px;
+	left:20px;
+	top:17px;
+	border-top:1px dotted #9dbdd6
+}
+.nav-list>li>.submenu>li:first-child>a {
+	border-top:1px solid #fafafa
+}
+.nav-list>li>.submenu:before {
+	content:"";
+	display:block;
+	position:absolute;
+	z-index:1;
+	left:18px;
+	top:0;
+	bottom:0;
+	border:1px dotted #9dbdd6;
+	border-width:0 0 0 1px
+}
+.nav-list>li.active>.submenu>li:before {
+	border-top-color:#8eb3d0
+}
+.nav-list>li.active>.submenu:before {
+	border-left-color:#8eb3d0
+}
+.nav-list li .submenu {
+	overflow:hidden
+}
+.nav-list li.active>a:after {
+	display:block;
+	content:"";
+	position:absolute!important;
+	right:0;
+	top:4px;
+	border:8px solid transparent;
+	border-width:14px 10px;
+	border-right-color:#2b7dbc
+}
+.nav-list li.open>a:after {
+	display:none
+}
+.nav-list li.active.open>.submenu>li.active.open>a.dropdown-toggle:after {
+	display:none
+}
+.nav-list li.active>.submenu>li.active>a:after {
+	display:none
+}
+.nav-list li.active.open>.submenu>li.active>a:after {
+	display:block
+}
+.nav-list li.active.no-active-child>a:after {
+	display:inline-block!important
+}
+.nav-list a .badge,.nav-list a .label {
+	font-size:12px;
+	padding-left:6px;
+	padding-right:6px;
+	position:absolute;
+	top:9px;
+	right:11px;
+	opacity:.88
+}
+.nav-list a .badge [class*="icon-"],.nav-list a .label [class*="icon-"] {
+	vertical-align:middle;
+	margin:0
+}
+.nav-list a.dropdown-toggle .badge,.nav-list a.dropdown-toggle .label {
+	right:28px
+}
+.nav-list a:hover .badge,.nav-list a:hover .label {
+	opacity:1
+}
+.nav-list .submenu .submenu a .badge,.nav-list .submenu .submenu a .label {
+	top:6px
+}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xms.Solution.Abstractions;
 using Xms.Solution.Domain;
 using Xms.Web.Framework.Models;
@@ -49,6 +48,7 @@ namespace Xms.Web.Customize.Models
 
         public SolutionComponentDescriptor ComponentDescriptor { get; set; }
     }
+
     public class SolutionComponentDialogModel : DialogModel
     {
         public Guid SolutionId { get; set; }
@@ -56,6 +56,7 @@ namespace Xms.Web.Customize.Models
 
         public SolutionComponentDescriptor ComponentDescriptor { get; set; }
     }
+
     public class CreateSolutionComponentModel
     {
         public Guid SolutionId { get; set; }

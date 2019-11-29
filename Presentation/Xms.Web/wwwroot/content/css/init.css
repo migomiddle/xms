@@ -1,0 +1,176 @@
+﻿/**text*/
+.text-white {
+    color: white;
+}
+
+.link-white, a.link-white:hover, a.link-white:link, a.link-white:active, a.link-white:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.xms-custom .navbar-default {
+    background-color: #336699;
+    color: #fff;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    background: url(/content/images/plogin-bg.jpg) no-repeat #555;
+}
+
+input:-webkit-autofill {
+    background-color: transparent;
+    -webkit-text-fill-color: #999999 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-text {
+    border: none;
+    /* border-bottom: 1px solid #fff; */
+    width: 100%;
+    outline: none;
+    background: none;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+}
+
+.field-validation-error {
+    color: #ff7676;
+}
+
+.form-text::-webkit-input-placeholder {
+    color: #aaa;
+}
+
+.form-text:-moz-placeholder {
+    color: #aaa;
+}
+
+.form-text::-moz-placeholder {
+    color: #aaa;
+}
+
+.form-text:-ms-input-placeholder {
+    color: #aaa;
+}
+
+.form-group label {
+    color: #fff;
+}
+
+.authent {
+    box-shadow: 0px 20px 30px 3px rgba(0, 0, 0, 0.55);
+    display: none;
+    background: #35394a;
+    background: linear-gradient(230deg, rgba(53, 57, 74, 0) 0%, rgb(0, 0, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(53, 57, 74, 0)', endColorstr='rgb(0, 0, 0)',GradientType=1 );
+    position: absolute;
+    left: 0;
+    right: 90px;
+    margin: auto;
+    width: 240px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 20px 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 110px;
+    opacity: 0;
+}
+
+    .authent p {
+        text-align: center;
+        color: white;
+    }
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #aaa;
+    text-align: right;
+    width: 155px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-left: 0px;
+    padding-right: 6.5px;
+    background-color: transparent;
+    border: none;
+}
+
+.init-check-step table {
+    font-size: 12px;
+}
+
+.edit-item {
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 0 2px;
+    border-radius: 3px;
+}
+
+.check-btn:hover {
+    color: #4fa1d9;
+}
+
+.check-btn {
+    border-radius: 50px;
+    background: 0 0;
+    padding: 9px 50px;
+    border: 2px solid #4fa1d9;
+    color: #4fa1d9;
+    text-transform: uppercase;
+    font-size: 12px;
+    -webkit-transition-property: background,color;
+    transition-property: background,color;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+    margin-top: 15px;
+}
+
+.center-wrap {
+    box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+    opacity: 1;
+    top: 20px;
+    -webkit-transition-timing-function: cubic-bezier(0.68, -0.25, 0.265, 0.85);
+    -webkit-transition-property: -webkit-transform,opacity,box-shadow,top,left;
+    transition-property: transform,opacity,box-shadow,top,left;
+    -webkit-transition-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transform-origin: 161px 100%;
+    -ms-transform-origin: 161px 100%;
+    transform-origin: 161px 100%;
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    position: relative;
+    width: 340px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 80px 40px 40px 40px;
+    background: #35394a;
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, rgb(0, 0, 0)));
+    background: -webkit-linear-gradient(230deg, rgba(53, 57, 74, 0) 0%, rgb(0, 0, 0) 100%);
+    background: linear-gradient(230deg, rgba(53, 57, 74, 0) 0%, rgb(0, 0, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(53, 57, 74, 0)', endColorstr='rgb(0, 0, 0)',GradientType=1 );
+    box-sizing: initial;
+}

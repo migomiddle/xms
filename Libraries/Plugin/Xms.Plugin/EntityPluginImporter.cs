@@ -18,6 +18,7 @@ namespace Xms.Plugin
         private readonly IEntityPluginUpdater _entityPluginUpdater;
         private readonly IEntityPluginFinder _entityPluginFinder;
         private readonly IAppContext _appContext;
+
         public EntityPluginImporter(IAppContext appContext
             , IEntityPluginCreater entityPluginCreater
             , IEntityPluginUpdater entityPluginUpdater

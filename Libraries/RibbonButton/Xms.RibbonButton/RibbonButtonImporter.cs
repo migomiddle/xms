@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Xms.Context;
 using Xms.Identity;
 using Xms.Infrastructure.Utility;
-using Xms.RibbonButton.Domain;
 
 namespace Xms.RibbonButton
 {

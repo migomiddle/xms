@@ -58,7 +58,7 @@
                         <a class="@btn.CssClass" href="javascript:void(0)" onclick="@btn.JsAction"><span class="@btn.Icon"></span> @btn.Label</a>
                     }
                 }
-                </div>
+            </div>
             <div class="pull-right">
                 <table style="position:relative;">
                     <tr>
@@ -247,7 +247,6 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-link btn-xs" name="removeRowBtn"><span class="glyphicon glyphicon-remove"></span></button>
                                         </div>
-
                                     </td>
                                 }
                                 @foreach (var cell in Model.Grid.Rows[0].Cells)
@@ -289,19 +288,18 @@
                                         var value = lines.Find(n => n.Key.IsCaseInsensitiveEqual(columnName)).Value;
                                         var valuenum = lines.Find(n => n.Key.IsCaseInsensitiveEqual(cell.Name.ToLower())).Value;
 
-                                        
-                                            <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName">
-                                                @if (isrelated)
-                                                {
-                                                    <input type="text" data-isrelated="@isrelated" class="form-control input-sm" name="@(inputName)" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" value="@valuenum" disabled />
-                                                }
-                                                else
-                                                {
-                                                    var itemStr = (attr.TypeIsPickList() || attr.TypeIsStatus()) ? attr.OptionSet.Items.SerializeToJson() : attr.PickLists.SerializeToJson();
-                                                    <input type="text" class="form-control input-sm @attr.AttributeTypeName" data-isedit="true" name="@(inputName)" data-name="@attr.Name.ToLower()" data-isrelated="@isrelated" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" value="@valuenum" data-items="@(Html.UrlEncoder.Encode(itemStr))" />
-                                                }
-                                            </td>
-                                        
+                                        <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName">
+                                            @if (isrelated)
+                                            {
+                                                <input type="text" data-isrelated="@isrelated" class="form-control input-sm" name="@(inputName)" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" value="@valuenum" disabled />
+                                            }
+                                            else
+                                            {
+                                                var itemStr = (attr.TypeIsPickList() || attr.TypeIsStatus()) ? attr.OptionSet.Items.SerializeToJson() : attr.PickLists.SerializeToJson();
+                                                <input type="text" class="form-control input-sm @attr.AttributeTypeName" data-isedit="true" name="@(inputName)" data-name="@attr.Name.ToLower()" data-isrelated="@isrelated" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" value="@valuenum" data-items="@(Html.UrlEncoder.Encode(itemStr))" />
+                                            }
+                                        </td>
+
                                     }
                                     else if (attr.TypeIsBit())
                                     {
@@ -309,52 +307,50 @@
                                         var value = lines.Find(n => n.Key.IsCaseInsensitiveEqual(columnName)).Value;
                                         String valuenum = lines.Find(n => n.Key.IsCaseInsensitiveEqual(cell.Name.ToLower())).Value + "";
 
-                                        
-                                            <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName">
-                                                @if (isrelated)
+                                        <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName">
+                                            @if (isrelated)
+                                            {
+                                                if (valuenum == "True")
                                                 {
-                                                    if (valuenum == "True")
-                                                    {
-                                                        valuenum = "是";
-                                                    }
-                                                    else if (valuenum == "False")
-                                                    {
-                                                        valuenum = "否";
-                                                    }
-                                                    else
-                                                    {
-                                                        valuenum = "";
-                                                    }
-                                                    <input type="text" data-isrelated="@isrelated" class="form-control input-sm" name="@(inputName)" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" value="@valuenum" disabled />
+                                                    valuenum = "是";
+                                                }
+                                                else if (valuenum == "False")
+                                                {
+                                                    valuenum = "否";
                                                 }
                                                 else
                                                 {
-                                                    var itemStr = (attr.TypeIsPickList() || attr.TypeIsStatus()) ? attr.OptionSet.Items.SerializeToJson() : attr.PickLists.SerializeToJson();
-                                                    if (valuenum == "True")
-                                                    {
-                                                        valuenum = "1";
-                                                    }
-                                                    else if (valuenum == "False")
-                                                    {
-                                                        valuenum = "0";
-                                                    }
-                                                    else
-                                                    {
-                                                        valuenum = "";
-                                                    }
-                                                    <input type="text" data-isrelated="@isrelated" class="form-control input-sm @attr.AttributeTypeName" data-isedit="true" name="@(inputName)" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" data-value="@valuenum" value="@valuenum" data-items="@(Html.UrlEncoder.Encode(itemStr))" />
+                                                    valuenum = "";
                                                 }
-                                            </td>
-                                        
+                                                <input type="text" data-isrelated="@isrelated" class="form-control input-sm" name="@(inputName)" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" value="@valuenum" disabled />
+                                            }
+                                            else
+                                            {
+                                                var itemStr = (attr.TypeIsPickList() || attr.TypeIsStatus()) ? attr.OptionSet.Items.SerializeToJson() : attr.PickLists.SerializeToJson();
+                                                if (valuenum == "True")
+                                                {
+                                                    valuenum = "1";
+                                                }
+                                                else if (valuenum == "False")
+                                                {
+                                                    valuenum = "0";
+                                                }
+                                                else
+                                                {
+                                                    valuenum = "";
+                                                }
+                                                <input type="text" data-isrelated="@isrelated" class="form-control input-sm @attr.AttributeTypeName" data-isedit="true" name="@(inputName)" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" data-value="@valuenum" value="@valuenum" data-items="@(Html.UrlEncoder.Encode(itemStr))" />
+                                            }
+                                        </td>
+
                                     }
                                     else if (attr.TypeIsDateTime())
                                     {
                                         var value = lines.Find(n => n.Key.IsCaseInsensitiveEqual(columnName)).Value;
                                         value = string.Format("{0:G}", value);
-                                        
 
-                                            <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName"><input type="text" class="form-control isvalidata input-sm datepicker datetime" data-isedit="true" name="@(inputName)" value="@value" data-dataformat="@attr.DataFormat" data-format="@attr.DataFormat" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" @(isrelated || attr.Name.IsCaseInsensitiveEqual("createdon") || attr.Name.IsCaseInsensitiveEqual("modifiedon") ? " disabled" : "") /></td>
-                                        
+                                        <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName"><input type="text" class="form-control isvalidata input-sm datepicker datetime" data-isedit="true" name="@(inputName)" value="@value" data-dataformat="@attr.DataFormat" data-format="@attr.DataFormat" data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" @(isrelated || attr.Name.IsCaseInsensitiveEqual("createdon") || attr.Name.IsCaseInsensitiveEqual("modifiedon") ? " disabled" : "") /></td>
+
                                     }
                                     else
                                     {
@@ -393,16 +389,15 @@
                                                 continue;
                                             }
                                         }
-                                        
-                                            <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName"><input type="text" class="form-control normal-input isvalidata input-sm @attr.AttributeTypeName" data-dataformat="@attr.DataFormat" data-isrelated="@isrelated" name="@(inputName)" data-name="@attr.Name.ToLower()" data-precision="@precision" data-isedit="true" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" @(isrelated ? " disabled" : "") value="@value" /></td>
-                                        
+
+                                        <td data-name="@attr.Name.ToLower()" data-type="@attr.AttributeTypeName" data-isrequired="@required" data-entityname="@attr.EntityName" data-localizedname="@attr.LocalizedName"><input type="text" class="form-control normal-input isvalidata input-sm @attr.AttributeTypeName" data-dataformat="@attr.DataFormat" data-isrelated="@isrelated" name="@(inputName)" data-name="@attr.Name.ToLower()" data-precision="@precision" data-isedit="true" data-type="@attr.AttributeTypeName" data-controltype="@attr.AttributeTypeName" data-entityname="@attr.EntityName" @(isrelated ? " disabled" : "") value="@value" /></td>
+
                                     }
                                 }
                             </tr>
                         }
                     </tbody>
                 </table>
-
             </div>
             @if (Model.PagingEnabled)
             {
@@ -461,12 +456,8 @@
         createmode: Xms.Page && Xms.Page.PageContext && Xms.Page.PageContext.RecordId == null ? 'local' : 'server'//local or server
     }
 </script>
-    <script src="/content/js/pages/entity.rendergridview.js?v=@app.PlatformSettings.VersionNumber"></script>
+<script src="/content/js/pages/entity.rendergridview.js?v=@app.PlatformSettings.VersionNumber"></script>
 <script>
-
-        
-
-
 
         function formSaveSubGrid(){
             var check = checkSubGridData();

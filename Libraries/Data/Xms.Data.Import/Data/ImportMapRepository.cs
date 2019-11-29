@@ -10,11 +10,6 @@ namespace Xms.Data.Import.Data
     {
         public ImportMapRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=page/entity.gridview.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -24,7 +23,7 @@
 }(function ($) {
     //this page url  /content//js/pages/entity.gridview.js
     /*
-    * deps   
+    * deps
     *  /common/filters,
     *  /pages/entity.list.js
      *  /common/charts.js
@@ -50,8 +49,6 @@
                         $('.breadcrumb').append('<li><a href="' + ORG_SERVERURL + '/entity/list?queryviewid=' + page_Common_Info.queryId + '">' + page_Common_Info.queryName + '</a></li>');
                         $('title').prepend(page_Common_Info.queryName + ' - ');
                     }
-
-                   
                 }
 
                 if ($('#QField').val() != '')
@@ -60,7 +57,6 @@
                     //默认第一列为快速查找字段
                     $('#fieldDropdown').next().find('a:eq(1)').trigger('click');
 
-                
                 GetChartList();
                 $(".picklist").each(function (i, n) {
                     var $this = $(n);
@@ -74,7 +70,7 @@
                         console.log('picklist', decodeURIComponent($this.attr('data-items')), e);
                     }
                 });
-                
+
                 $(".xms-formDropDown").xmsFormDrop({
                     noHidePlace: ".modal,.datepicker,#listAlignTop",
                     Event: "click",
@@ -82,7 +78,6 @@
                 });
                 if (transitionEnd) {
                     $("#entityCreateSection").bind(transitionEnd, function (e) {
-
                         if ($("body").hasClass("rightIframe-open")) {
                             $("#entityCreateSection").removeClass("end");
                         } else {
@@ -112,7 +107,7 @@
                         var $silderRightCrumb = $('.silder-right-crumb');
                         $silderRightCrumb.empty();
                         // filters = new Xms.Fetch.FilterExpression();
-                       // pageFilter.submitFilter();
+                        // pageFilter.submitFilter();
                         rebind();
                     }
                     renderChart(chartid, queryid);
@@ -125,16 +120,13 @@
                         var $silderRightCrumb = $('.silder-right-crumb');
                         $silderRightCrumb.empty();
                         // filters = new Xms.Fetch.FilterExpression();
-                       // pageFilter.submitFilter();
+                        // pageFilter.submitFilter();
                         rebind();
                     }
                     renderChart(chartid, queryid);
                 }
-
             });
 
-
-            
             $('#qfield-selector').off('click').on('click', 'a', function () {
                 $('#QField').val($(this).attr('data-name'));
                 $('#fieldDropdown').find('span:first').text($(this).text());
@@ -173,7 +165,6 @@
                     }
                     $(".menu-md.menu-right").css({ "width": 367, "border": "1px solid #ccc" });
                     $(".xms-fixed-slider").find(".glyphicon").addClass("glyphicon-arrow-right");
-
                 }
                 groupsInserModal.removeClass('active');
             });
@@ -186,13 +177,11 @@
                     $(".menu-md.menu-wrap").css("width", 367);
                     renderChart(chartid, queryid, { 'width': '100%', 'height': '300px' });
                 } else {
-
                     $(".xms-table-section").css("right", 35);
                     $this.attr("active", "1");
                     $(".menu-md.menu-wrap").css("width", 600);
                     renderChart(chartid, queryid, { 'width': '600px', 'height': '300px' });
                 }
-
             });
 
             $(".entityCreateSection-close").click(function () {
@@ -222,7 +211,6 @@
                     $('#xms-gridview-section').addClass('hide');
                     $('#kanbanSearch').addClass('in');
                     if ($('#xms-table-section').length > 0) { $('#xms-table-section').empty(); }
-
                 } else {
                     $('.kanban-filter').addClass('hide');
                     $('.filter-section').removeClass('hide');
@@ -272,7 +260,6 @@
                                     $('#entityRecordsModal').find('input[name="recordid"][value="' + item + '"]').prop('checked', true);
                                 });
                             } catch (e) {
-
                             }
                         } else {
                             $dialogInput.val(_value);
@@ -313,7 +300,6 @@
         });
     }
 
-
     function aggFildeName() {
         var _AggregateTypeList = { '_1': '合计：', '_2': '平均值：', '_3': '最大值：', '_4': '最小值：' };
         var $AggregateFields = $('#AggregateFields');
@@ -332,11 +318,6 @@
             });
         }
     }
-
-
-    
-
-    
 
     function selectRecordCallback(result, inputid) {
         console.log(result);
@@ -368,7 +349,6 @@
             var arrids = id.split(',');
             var arrvalues = values.split(',');
             var alink = $('<a target="_blank" href="' + ORG_SERVERURL + '/entity/create?entityid=' + $(obj).attr("data-entityid") + '&recordid=' + arrids[0] + '" class="xms-dropdownLink" title="' + $(obj).val() + '"><span class="glyphicon glyphicon-list-alt"></span> <span class="xms-drlinki" data-id="" data-value="">' + $(obj).val() + '</span></a>');
-
         }
         $(obj).parent().append(alink);
         $(obj).css({ "color": "#fff" });
@@ -381,7 +361,6 @@
         alink.css("width", lenW + 20);
         $(obj).focus();
     }
-    
 
     function closeRecordIframe() {
         entityIframe('hide');
@@ -395,7 +374,6 @@
             } catch (e) { }
         }
     }
-    
 
     function entityIframe(type, url) {
         var top = 65;//$("#entityCreateIframe").offset().top;
@@ -406,17 +384,12 @@
             //  $("#entityCreateSection").show();
             $("body").addClass("rightIframe-open").removeClass("rightIframe-close");
             $("#entityCreateIframe").attr("src", url);
-
         } else {
-
             $("body").addClass("rightIframe-close").removeClass("rightIframe-open");
             // $("#entityCreateSection").hide()
-
         }
-
     }
 
-    
     function DayQuery(e) {
         var $this = $(e);
         if ($this.is('.active')) {
@@ -433,7 +406,7 @@
         condition.Operator = Xms.Fetch.ConditionOperator.GreaterEqual;
         condition.Values.push(setDate);
         filter.Conditions.push(condition);
-       
+
         console.log(gridview_filters)
         pageFilter.addFilter('createdon', filter, true);
         gridview_filters.removeAllCondition('createdon');
@@ -446,7 +419,7 @@
             renderChart(chartid, queryid, { 'width': '100%', 'height': '300px' });
         }
     }
-    function EditRecord(newWindow,obj) {
+    function EditRecord(newWindow, obj) {
         var event = event || window.event || (arguments && arguments.callee && arguments.callee.caller && arguments.callee.caller.arguments[0]);
         var target = $('#datatable');
         if (event) {
@@ -467,9 +440,8 @@
         }
     }
 
-    
     window.renderChart = renderChart;
-    
+
     window.entityIframe = entityIframe;
     window.pageWrap_Gridview = pageWrap_Gridview;
     window.selectRecordCallback = selectRecordCallback;

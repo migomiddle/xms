@@ -1,0 +1,115 @@
+﻿@using Xms.Schema.Extensions;
+@model ImportModel
+@{
+    Layout = null;
+}
+@{
+    DialogModel dialogModel = ViewBag.dialogmodel as DialogModel;
+    Dictionary<string, object> mapData = ViewBag.mapdata as Dictionary<string, object>;
+}
+<style>
+    #mapping button, #mapping select {
+        border: none;
+        line-height: 30px;
+        height: 34px;
+        border-radius: 0;
+    }
+</style>
+<form id="mappingForm" action="/@app.OrganizationUniqueName/dataimport/savemap" method="post">
+    @Html.HiddenFor(x => x.EntityId)
+    @Html.HiddenFor(x => x.EntityName)
+    @Html.HiddenFor(x => x.MapCustomizations)
+    @Html.HiddenFor(x => x.DuplicateDetection)
+    @Html.HiddenFor(x => x.DataFileName)
+    @if (Model.ImportMaps.NotEmpty())
+    {
+        <div class="form-group">
+            <select id="maps" name="importmapid" class="form-control input-sm" data-value="@Model.ImportMapId">
+                <option value="">选择已存在的映射规则=></option>
+                @foreach (var item in Model.ImportMaps)
+                {
+                    <option value="@item.ImportMapId">@item.Name</option>
+                }
+            </select>
+        </div>
+    }
+    <div class="form-group">
+        <label for="customize" class="control-label"><input type="checkbox" name="customize" id="customize" /> <span class="text-info">自定义</span></label>
+    </div>
+    <div id="customizeArea" class="hide">
+        <div class="form-group">
+            <label for="Name" class="control-label">名称</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm" })
+        </div>
+        <div class="form-group hide">
+            <label for="targetEntity" class="control-label">记录类型</label>
+            <select id="targetEntity" class="form-control input-sm">
+                <option value="@Model.Attributes.First().EntityId">@Model.Attributes.First().EntityLocalizedName</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <table class="table table-bordered" id="mapping">
+                <thead><tr><th>主键</th><th class="col-sm-4">源字段</th><th>目标字段</th></tr></thead>
+                <tbody>
+                    @foreach (var item in Model.MapData)
+                    {
+                        var a = item.Value;
+                        bool isConfigAttr = a != null && (a.TypeIsBit() || a.TypeIsPickList() || a.TypeIsLookUp() || a.TypeIsOwner() || a.TypeIsState() || a.TypeIsStatus());
+                        var canMapAttributes = Model.Attributes.Where(n => n.AttributeTypeName == a.AttributeTypeName);
+                        if (a.TypeIsPickList() && a.OptionSetId.HasValue)
+                        {
+                            canMapAttributes = canMapAttributes.Where(n => n.OptionSetId == a.OptionSetId);
+                        }
+                        <tr>
+                            <td>
+                                <input type="radio" name="IsUpdatePrimaryField"@(item.Value.IsPrimaryField || item.Value.TypeIsPrimaryKey() ? " checked" : "") />
+                            </td>
+                            <td>@item.Key</td>
+                            <td data-attributename="@a.Name" data-attributeid="@a.AttributeId" data-attributetypename="@a.AttributeTypeName" data-optionsetid="@a.OptionSetId" data-referencedentityid="@a.ReferencedEntityId" data-referencedentityname="@a.ReferencedEntityName" style="padding:0;">
+                                <div class="input-group col-sm-12">
+                                    @if (isConfigAttr)
+                                    {
+                                        <span class="input-group-btn" name="configBtn">
+                                            <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-cog"></span></button>
+                                        </span>
+                                    }
+                                    <select class="form-control input-sm" name="fields">
+                                        <option value="">忽略</option>
+                                        @foreach (var attr in canMapAttributes)
+                                        {
+                                            var optionname = attr.LocalizedName;
+                                            if (attr.TypeIsBit() || attr.TypeIsState())
+                                            {
+                                                optionname += "(是/否)";
+                                            }
+                                            else if (attr.TypeIsPickList() || a.TypeIsStatus())
+                                            {
+                                                optionname += "(选项集)";
+                                            }
+                                            else if (attr.TypeIsLookUp() || a.TypeIsOwner())
+                                            {
+                                                optionname += "(引用)";
+                                            }
+                                            if (a != null && a.Name.IsCaseInsensitiveEqual(attr.Name))
+                                            {
+                                                <option data-type="@attr.AttributeTypeName" value="@attr.Name" selected>
+                                                    @optionname
+                                                </option>
+                                            }
+                                            else
+                                            {
+                                                <option data-type="@attr.AttributeTypeName" value="@attr.Name">
+                                                    @optionname
+                                                </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

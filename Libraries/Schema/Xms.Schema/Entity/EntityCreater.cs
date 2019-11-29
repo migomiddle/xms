@@ -47,7 +47,7 @@ namespace Xms.Schema.Entity
             _solutionComponentService = solutionComponentService;
             _defaultAttributeProvider = defaultAttributeProvider;
             _attributeCreater = attributeCreater;
-            _cacheService = new Caching.CacheManager<Domain.Entity>(_appContext.OrganizationUniqueName + ":entities", EntityCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.Entity>(_appContext.OrganizationUniqueName + ":entities", _appContext.PlatformSettings.CacheEnabled);
             _eventPublisher = eventPublisher;
         }
 
@@ -58,7 +58,7 @@ namespace Xms.Schema.Entity
 
         public bool Create(Domain.Entity entity, params string[] defaultAttributeNames)
         {
-            if (_entityRepository.Exists(x=>x.Name == entity.Name))
+            if (_entityRepository.Exists(x => x.Name == entity.Name))
             {
                 throw new XmsException(_loc["name_already_exists"]);
             }
@@ -85,15 +85,23 @@ namespace Xms.Schema.Entity
                 //创建默认字段
                 _attributeCreater.CreateDefaultAttributes(entity, defaultAttributeNames);
                 //如果是子实体，则创建引用字段
-                if (parentEntity != null) {
-                    _attributeCreater.Create(new Domain.Attribute {
+                if (parentEntity != null)
+                {
+                    _attributeCreater.Create(new Domain.Attribute
+                    {
                         Name = parentEntity.Name + "Id"
-                        , AttributeTypeName = AttributeTypeIds.LOOKUP
-                        , EntityId = entity.EntityId
-                        , EntityName = entity.Name
-                        , IsRequired = true
-                        , LocalizedName = parentEntity.LocalizedName
-                        , ReferencedEntityId = parentEntity.EntityId
+                        ,
+                        AttributeTypeName = AttributeTypeIds.LOOKUP
+                        ,
+                        EntityId = entity.EntityId
+                        ,
+                        EntityName = entity.Name
+                        ,
+                        IsRequired = true
+                        ,
+                        LocalizedName = parentEntity.LocalizedName
+                        ,
+                        ReferencedEntityId = parentEntity.EntityId
                     });
                 }
                 //事件发布

@@ -15,6 +15,7 @@ namespace Xms.Event
     public class EventMessageService : IEventMessageService
     {
         private readonly IEventMessageRepository _eventMessageRepository;
+
         public EventMessageService(IEventMessageRepository eventMessageRepository)
         {
             _eventMessageRepository = eventMessageRepository;

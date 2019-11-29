@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using Xms.Configuration.Domain;
 using Xms.Localization.Abstractions;
 
 namespace Xms.Context
@@ -80,18 +81,29 @@ namespace Xms.Context
         /// </summary>
         string LogoutUrl { get; }
 
+        /// <summary>
+        /// 初始化地址
+        /// </summary>
+        string InitializationUrl { get; }
+
         LanguageCode BaseLanguage { get; }
 
         T GetFeature<T>();
+
         /// <summary>
         /// 主题
         /// </summary>
         string Theme { get; set; }
+
         /// <summary>
         /// 用户个性化
         /// </summary>
-         
-         string UserPersonalizations { get; }
 
+        string UserPersonalizations { get; }
+
+        /// <summary>
+        /// 平台参数
+        /// </summary>
+        PlatformSetting PlatformSettings { get; set; }
     }
 }

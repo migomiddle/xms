@@ -14,11 +14,9 @@
     }
 
     function loadHistory(url) {
-
     }
 
     function hashToObj(str) {
-
     }
 
     function pathRegExp(path, opts) {
@@ -143,7 +141,6 @@
             }
         }
     }
-
 
     $.moHistory = {};
     var his = new RouteProvider();

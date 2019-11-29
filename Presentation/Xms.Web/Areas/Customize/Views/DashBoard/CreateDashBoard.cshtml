@@ -16,7 +16,7 @@
     @Html.HiddenFor(x => x.SystemFormId)
     @Html.HiddenFor(x => x.FormConfig)
     <div class="container-fluid sc-toolbar ykf-toolbar">
-        <div class="form-group">
+        <div class="form-group row">
             <div class="col-sm-12 ykf-toolbar-items">
                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
                 <button type="button" onclick="charslayoutShow()" class="btn btn-info">
@@ -25,12 +25,11 @@
                 <span onclick="charRowModal()" class="btn btn-info">
                     <em class="glyphicon glyphicon-th-large"></em> 添加区块
                 </span>
-                <button type="button" class="btn btn-default" onclick="Xms.Web.OpenWindow('')"><span class="glyphicon glyphicon-fullscreen"></span></button>
             </div>
         </div>
         @*<form action="" class="form-horizontal"></form>*@
         <input type="hidden" name="dashBoardType" id="dashBoardType" value="" />
-        <div class="form-group">
+        <div class="form-group row mt-3">
             <label class="col-sm-1 control-label">@app.T["dashboard_name_colon"]</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control required" name="Name" id="Name" />
@@ -39,8 +38,6 @@
     </div>
     <div id="wrapbydashboard" class="wrapbydashboard custom-group-box">
         <div class="custom-group-section clearfix">
-            <h5>title</h5>
-
         </div>
     </div>
     <div class="modal" id="charslayout">
@@ -121,7 +118,6 @@
                             <p class="text-center">@app.T["focus_dashboard"]</p>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer">
@@ -323,7 +319,6 @@
             </div>
         </div>
     </div>
-
 </form>
 <!--script html tmplate-->
 <script id="customIconList" type="text/x-jquery-tmpl">
@@ -947,7 +942,7 @@
 
                     $.get(ORG_SERVERURL + '/api/webresource?ids=' + resourcePar.webresource, function (cdata) {
                         var dHtml = $('<pre></pre>');
-                        dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': oparent.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+                        dHtml.css({ 'width': '100%;', 'text-align': 'left', 'margin-bottom': '0px', 'height': oparent.innerHeight() - 37 }).text(cdata.replace(/</g, "&lt;").replace( />/g, "&gt;"));
                         oparent.html('');
                         oparent.append(formGroupHtml);
                         oparent.find('.item-top-title').text(resourcePar.label);
@@ -1105,7 +1100,6 @@
         root.addIconToLayer = addIconToLayer;
 
     })(jQuery, window);
-
 </script>
 <script>
     //测试数据
@@ -1138,7 +1132,6 @@
         $('#FormConfig').val(JSON.stringify(panel));
         console.log(panel);
     }
-
 
     ; (function ($, root, un) {
         "use strict"
@@ -1229,7 +1222,6 @@
             saveform();
         });
 
-
         Xms.Web.Form($('#editform'), function (response) {
             Xms.Web.Alert(response.IsSuccess, response.Content, function () {
                 Xms.Web.Event.publish('refresh');
@@ -1284,7 +1276,6 @@
                 addLayoutCell(_layout[i]);
             }
         }
-
 
     }
     function addLayoutCell(type) {

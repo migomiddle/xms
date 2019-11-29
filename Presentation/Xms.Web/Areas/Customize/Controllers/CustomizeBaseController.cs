@@ -16,12 +16,14 @@ namespace Xms.Web.Customize.Controllers
     {
         protected readonly ISolutionService _solutionService;
         public Guid? SolutionId { get; set; }
+
         public CustomizeBaseController(IWebAppContext appContext
-            , ISolutionService solutionService) 
+            , ISolutionService solutionService)
             : base(appContext)
         {
             _solutionService = solutionService;
         }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

@@ -14,7 +14,6 @@ namespace Xms.Flow.Data
     {
         public WorkFlowRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -32,6 +31,7 @@ namespace Xms.Flow.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

@@ -7,7 +7,9 @@ namespace Xms.Business.SerialNumber
     /// </summary>
     public class DateTimeVariableReplacer : IVariableReplacer
     {
-        public DateTimeVariableReplacer() { }
+        public DateTimeVariableReplacer()
+        {
+        }
 
         public string Replace(string text)
         {

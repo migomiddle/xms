@@ -26,8 +26,8 @@ namespace Xms.SiteMap
         private readonly Caching.CacheManager<Privilege> _cacheService;
         private readonly IAppContext _appContext;
 
-        public PrivilegeService(IAppContext appContext,
-            IPrivilegeRepository privilegeRepository
+        public PrivilegeService(IAppContext appContext
+            , IPrivilegeRepository privilegeRepository
             , ILocalizedLabelService localizedLabelService
             , IEventPublisher eventPublisher)
         {
@@ -35,7 +35,7 @@ namespace Xms.SiteMap
             _privilegeRepository = privilegeRepository;
             _localizedLabelService = localizedLabelService;
             _eventPublisher = eventPublisher;
-            _cacheService = new Caching.CacheManager<Privilege>(_appContext.OrganizationUniqueName + ":privileges", BuildKey, PreCacheAll);
+            _cacheService = new Caching.CacheManager<Privilege>(_appContext.OrganizationUniqueName + ":privileges", BuildKey, _appContext.PlatformSettings.CacheEnabled, PreCacheAll);
         }
 
         /// <summary>
@@ -138,21 +138,16 @@ namespace Xms.SiteMap
                 });
                 //set to cache
                 var items = _privilegeRepository.Query(f => f.PrivilegeId.In(id)).ToList();
-                foreach (var item in items) {
+                foreach (var item in items)
+                {
                     _cacheService.SetEntity(item);
                 }
-                
             }
             return result;
         }
 
         public Privilege FindById(Guid id)
         {
-            //Privilege entity = _cacheService.GetItemByPattern(() =>
-            //{
-            //    return _privilegeRepository.FindById(id);
-            //}, id + "/*");
-            
             var dic = new Dictionary<string, string>();
             dic.Add("privilegeid", id.ToString());
             var entity = _cacheService.Get(dic, () =>
@@ -170,11 +165,6 @@ namespace Xms.SiteMap
 
         public Privilege Find(string systemName, string className, string methodName)
         {
-            //Privilege entity = _cacheService.GetItemByPattern(() =>
-            //{
-            //    return this.Find(n => n.Where(f => f.SystemName == systemName && f.ClassName == className && f.MethodName == methodName));
-            //}, "*/" + systemName + "/" + className + "/" + methodName + "/*");
-
             var dic = new Dictionary<string, string>();
             dic.Add("systemName", systemName);
             dic.Add("className", className);
@@ -188,11 +178,6 @@ namespace Xms.SiteMap
 
         public Privilege Find(string url)
         {
-            //Privilege entity = _cacheService.GetItemByPattern(() =>
-            //{
-            //    return this.Find(n => n.Where(f => f.Url == url));
-            //}, "*/" + url.UrlEncode() + "/*");
-
             var dic = new Dictionary<string, string>();
             dic.Add("url", url.UrlEncode());
             var entity = _cacheService.Get(dic, () =>
@@ -247,10 +232,10 @@ namespace Xms.SiteMap
 
         public List<Privilege> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -267,10 +252,10 @@ namespace Xms.SiteMap
         {
             get
             {
-                List<Privilege> entities = _cacheService.GetVersionItems("allOrder",() =>
-                {
-                    return this.Query(n => n.Sort(s => s.SortDescending(f => f.DisplayOrder)));
-                });
+                List<Privilege> entities = _cacheService.GetVersionItems("allOrder", () =>
+                 {
+                     return this.Query(n => n.Sort(s => s.SortDescending(f => f.DisplayOrder)));
+                 });
                 return entities;
             }
         }

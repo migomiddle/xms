@@ -23,7 +23,6 @@ namespace Xms.Data
         where T : class
         where TImpl : class, T
     {
-
         protected readonly IDataProvider<TImpl> _repository;
         protected readonly Type _entityType = typeof(TImpl);
 
@@ -460,6 +459,7 @@ namespace Xms.Data
             var result = _repository.Exists(ctx);
             return result;
         }
+
         #endregion 是否存在
 
         #region 执行

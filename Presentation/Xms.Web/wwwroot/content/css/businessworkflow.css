@@ -797,8 +797,6 @@ tr.step-item:hover > td.pos-rt > .delstepBtn {
         display: flex;
     }*/
 
-
-
 .icon-arrow-white {
     font-size: 0;
     line-height: 0;
@@ -937,7 +935,6 @@ tr.step-item:hover > td.pos-rt > .delstepBtn {
     margin-top: -1px;
 }
 
-
 .stepItems .active .step-fields {
     display: block;
 }
@@ -951,9 +948,6 @@ tr.step-item:hover > td.pos-rt > .delstepBtn {
     border-top-color: transparent;
     border-bottom-color: transparent;
 }
-
-
-
 
 .stepItems .active .arrow-center, .stepItems .active .icon-arrow-first {
     background: #cd9835;

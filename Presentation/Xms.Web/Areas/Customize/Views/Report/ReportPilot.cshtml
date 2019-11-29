@@ -36,7 +36,6 @@
                         <div id="row_1" class="pilot-row row" data-isshow="show" style="margin-bottom:5px;">
                             <div class="col-sm-1" style="position:relative;height:30px;">
                                 <em class="pilot-choose" onclick="downSelect(this,'row')" style="display: none; background: url(../content/images/report/selectListR.png) center no-repeat; position: absolute; height: 15px; width: 15px; top: 30%; left: 50%; cursor: pointer;"></em>
-
                             </div>
                             <div class="col-sm-11">
                                 <select class="form-control pilot-fieldM pilot-null input-sm">
@@ -69,7 +68,6 @@
                         <div id="row_2" class=" pilot-row row" data-isshow="show">
                             <div class="col-sm-1" style="position:relative;height:30px;">
                                 <em class="pilot-choose" onclick="downSelect(this,'row')" style="display: none; background: url(../content/imgs/selectListR.png) center no-repeat; position: absolute; height: 15px; width: 15px; top: 30%; left: 50%; cursor: pointer;"></em>
-
                             </div>
                             <div class="col-sm-11">
                                 <select class="form-control pilot-fieldR pilot-null input-sm">
@@ -635,8 +633,6 @@
             EditPage4();
             EditPage5();
         }
-
-
 
         //第二页绑定时间
         $('body').off('click', '#GroupList .group-null:first');
@@ -1264,7 +1260,6 @@
         $('#AddField-column').removeProp('disabled');
     }
 
-
     function insertField(go_on) {
         var target = $('#AddFieldModal');
         //
@@ -1636,7 +1631,6 @@
                 }
                 Columns.push(Column);
 
-
                 //
                 if (centityname != EntityRelationship.toLowerCase() || (typeof $(n).attr('data-crelationship') != 'undefined' && $(n).attr('data-crelationship') != '')) {
                     var le = new LinkEntity();//生成关联实体别名
@@ -1714,7 +1708,6 @@
                 queryObj.LinkEntities.push(le);
             }
         }
-
 
         //
         //
@@ -2105,13 +2098,7 @@
         return self;
     }
 
-
-
     function EditInitPage2() {
 
     }
-
-
-
-
 </script>

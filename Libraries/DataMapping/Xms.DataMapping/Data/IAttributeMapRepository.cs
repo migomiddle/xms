@@ -1,5 +1,5 @@
-﻿using Xms.DataMapping.Domain;
-using Xms.Core.Data;
+﻿using Xms.Core.Data;
+using Xms.DataMapping.Domain;
 
 namespace Xms.DataMapping.Data
 {

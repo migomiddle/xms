@@ -33,6 +33,7 @@ namespace Xms.Web.Controllers
         private readonly IWebHelper _webHelper;
         private readonly ISessionService _sessionService;
         private readonly ISettingFinder _settingFinder;
+
         private string ImportDirectory
         {
             get
@@ -185,7 +186,6 @@ namespace Xms.Web.Controllers
         [HttpPost]
         public IActionResult ImportConfirm(ImportModel model)
         {
-
             return View("ImportConfirm", model);
         }
 

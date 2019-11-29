@@ -28,6 +28,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IRibbonButtonFinder _ribbonButtonFinder;
         private readonly IRibbonButtonDeleter _ribbonButtonDeleter;
         private readonly IWebResourceFinder _webResourceFinder;
+
         public RibbonButtonController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -45,6 +46,7 @@ namespace Xms.Web.Customize.Controllers
             _ribbonButtonDeleter = ribbonButtonDeleter;
             _webResourceFinder = webResourceFinder;
         }
+
         [Description("按钮列表")]
         public IActionResult Index(RibbonButtonModel model)
         {
@@ -125,7 +127,7 @@ namespace Xms.Web.Customize.Controllers
                 model.CopyTo(entity);
                 entity.RibbonButtonId = Guid.NewGuid();
                 entity.CreatedBy = CurrentUser.SystemUserId;
-                if(entity.ShowArea != RibbonButtonArea.Form && entity.ShowArea != RibbonButtonArea.ListRow)
+                if (entity.ShowArea != RibbonButtonArea.Form && entity.ShowArea != RibbonButtonArea.ListRow)
                 {
                     entity.CommandRules = string.Empty;
                 }
@@ -201,6 +203,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return _ribbonButtonDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         /// <summary>
         /// 按钮对话框
         /// </summary>

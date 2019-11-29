@@ -16,10 +16,10 @@ namespace Xms.Flow.Data
     {
         public WorkFlowProcessRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
+
         public long QueryHandledCount(Guid handlerId, Guid? entityid)
         {
             string s = @"select count(1) as Count
@@ -86,6 +86,7 @@ namespace Xms.Flow.Data
             }
             return 0;
         }
+
         public PagedList<dynamic> QueryHandlingList(Guid handlerId, int page, int pageSize, Guid? entityid)
         {
             string s = @"select a.*,e.Name AS WorkFlowName,b.ApplicantId,b.EntityId,b.ObjectId,b.Description as ApplyDescription,c.LocalizedName as EntityLocalizedName,d.Name as ApplicantIdName
@@ -128,6 +129,7 @@ namespace Xms.Flow.Data
             }
             return 0;
         }
+
         public PagedList<dynamic> QueryApplyHandledList(Guid applierId, int page, int pageSize, Guid? entityid)
         {
             string s = @"select b.*,c.LocalizedName as EntityLocalizedName,d.Name as ApplicantIdName,e.Name AS WorkFlowName
@@ -169,6 +171,7 @@ namespace Xms.Flow.Data
             }
             return 0;
         }
+
         public PagedList<dynamic> QueryApplyHandlingList(Guid applierId, int page, int pageSize, Guid? entityid)
         {
             string s = @"select b.*,c.LocalizedName as EntityLocalizedName,d.Name as ApplicantIdName,e.Name AS WorkFlowName

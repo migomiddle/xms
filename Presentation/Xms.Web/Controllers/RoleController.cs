@@ -143,7 +143,7 @@ namespace Xms.Web.Controllers
             EditRolePermissionsModel model = new EditRolePermissionsModel
             {
                 ResourceName = AttributeDefaults.ModuleName,
-                ResourceOwnerDescriptor = resourceOwner, 
+                ResourceOwnerDescriptor = resourceOwner,
                 Role = _roleService.FindById(roleId),
                 RoleId = roleId,
                 RoleObjectAccess = _roleObjectAccessService.QueryRolePermissions(roleId, DataAuthorizationDefaults.ModuleName)
@@ -201,7 +201,7 @@ namespace Xms.Web.Controllers
             };
             return DynamicResult(model, $"~/Views/Security/{WebContext.ActionName}.cshtml");
         }
-        
+
         [Description("安全角色权限编辑")]
         [HttpGet]
         public IActionResult EditRolePermissions(EditRolePermissionsModel model)

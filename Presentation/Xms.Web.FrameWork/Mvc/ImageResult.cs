@@ -29,5 +29,4 @@ namespace Xms.Web.Framework
             return response.Body.WriteAsync(Image, 0, Image.Length);
         }
     }
-
 }

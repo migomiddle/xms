@@ -12,10 +12,12 @@ namespace Xms.Security.Verify
     public class RandomImageGenernator
     {
         private readonly Random _random;
+
         public RandomImageGenernator()
         {
             _random = new Random();
         }
+
         /// <summary>
         /// 创建随机图片
         /// </summary>
@@ -97,6 +99,7 @@ namespace Xms.Security.Verify
             }
         }
     }
+
     /// <summary>
     /// 随机图片
     /// </summary>

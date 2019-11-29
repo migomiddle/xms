@@ -11,10 +11,12 @@ namespace Xms.Business.Filter
     public class FilterRuleExporter : ISolutionComponentExporter
     {
         private readonly IFilterRuleFinder _filterRuleFinder;
+
         public FilterRuleExporter(IFilterRuleFinder filterRuleFinder)
         {
             _filterRuleFinder = filterRuleFinder;
         }
+
         public string GetXml(Guid solutionId)
         {
             StringBuilder result = new StringBuilder();

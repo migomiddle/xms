@@ -56,7 +56,7 @@ namespace Xms.Schema.Attribute
             _relationShipCreater = relationShipCreater;
             _optionSetCreater = optionSetCreater;
             _stringMapCreater = stringMapCreater;
-            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", AttributeCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", _appContext.PlatformSettings.CacheEnabled);
             _metadataService = metadataService;
             _defaultAttributeProvider = defaultAttributeProvider;
             _dependencyService = dependencyService;
@@ -161,10 +161,10 @@ namespace Xms.Schema.Attribute
                 }
                 _localizedLabelService.Save();
                 //add to cache
-                foreach (var attr in attributes) {
+                foreach (var attr in attributes)
+                {
                     _cacheService.SetEntity(attr);
                 }
-                
             }
             return result;
         }

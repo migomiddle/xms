@@ -19,11 +19,10 @@ namespace Xms.Business.DataAnalyse.Data
     {
         public ReportRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
-        
+
         public string GetFieldValueName(IQueryResolver queryTranslator, string field, Schema.Domain.Attribute attr = null)
         {
             if (attr == null)
@@ -127,6 +126,7 @@ namespace Xms.Business.DataAnalyse.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

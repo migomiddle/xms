@@ -15,13 +15,16 @@ namespace Xms.Web.Customize.Models
     {
         public Guid EntityId { get; set; }
         public string Name { get; set; }
+
         //public List<ConditionExpression> Conditions { get; set; }
         //public LogicalOperator LogicalOperator { get; set; }
         public string Conditions { get; set; }
+
         public string ToolTip { get; set; }
         public string EventName { get; set; }
         public RecordState StateCode { get; set; }
     }
+
     public class EditFilterRuleModel
     {
         public Guid FilterRuleId { get; set; }
@@ -31,5 +34,6 @@ namespace Xms.Web.Customize.Models
         public string ToolTip { get; set; }
         public string EventName { get; set; }
         public RecordState StateCode { get; set; }
+        public Schema.Domain.Entity EntityMeta { get; set; }
     }
 }

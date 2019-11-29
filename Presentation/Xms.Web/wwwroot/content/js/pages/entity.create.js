@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=pages/entity.create.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -25,10 +24,9 @@
     //page Url = /pages/entity.create.js
     //deps
     var asyncindex = -1;
-   
+
     var isSyncLoadSubGrid = false;//单据体是否使用异步加载方式
-   
-    
+
     var setlabelsToTarget = createlabelsToTargetFactory();
     var syncCount = 0;//页面需要统计的异步方法个数
     var SetFormStateStep = 0;
@@ -45,12 +43,12 @@
             //Xms.Web.Post()
         },
         init: function () {
-            asyncindex=Xms.Form.getTabIsAsync(_form.Panels);
+            asyncindex = Xms.Form.getTabIsAsync(_form.Panels);
             if (~asyncindex) {
                 isSyncLoadSubGrid = true;
             }
             $(function () {
-                
+                $(document).scrollTop(0);
                 if ($('.breadcrumb > li:not(.pull-right)').length <= 1) {
                     $('.breadcrumb').append('<li>' + page_Common_Info.localizeName + '</li>');
                 }
@@ -58,7 +56,7 @@
                 if (top.location != location) {
                     $('.breadcrumb').parent().hide();
                 }
-                $('#main').css('margin-bottom',0)
+                $('#main').css('margin-bottom', 0)
                 $('title').prepend(page_Common_Info.title + ' - ');
                 $(".modal").draggable({
                     handle: ".modal-header",
@@ -82,10 +80,9 @@
                     var labels = formcss.labels;
                     var inputs = formcss.inputs;
                     $.addClassToElement(null, null, $.changeobjtoStyle(labels, 'form-cell-label'));
-                    $.addClassToElement(null, null, $.changeobjtoStyle({'font-size':labels['font-size']}, 'form-cell-label>label'));
-                    $.addClassToElement(null, null, $.changeobjtoStyle(inputs, '.form-cell-ctrl input,.form-cell-ctrl select',' '));
+                    $.addClassToElement(null, null, $.changeobjtoStyle({ 'font-size': labels['font-size'] }, 'form-cell-label>label'));
+                    $.addClassToElement(null, null, $.changeobjtoStyle(inputs, '.form-cell-ctrl input,.form-cell-ctrl select', ' '));
                 }
-
 
                 //Xms.Page.getControl('users').seteditable(false);
                 //Xms.Page.getControl('users').setfilter({"FilterOperator":0,"Conditions":[{"AttributeName":"lk_tms_systemuserid.teamid","Operator":0,"Values":[Xms.Page.PageContext.RecordId]}],"Filters":[]});
@@ -104,14 +101,12 @@
                             //  if(type==1){
                             changeFormIframe($this);
                             //  }else{
-
                             //  }
                             if (e.preventDefault) {
                                 e.preventDefault();
                             } else if (e.returnValue) {
                                 e.returnValue = false;
                             }
-
                         });
                     }
                 }
@@ -122,7 +117,7 @@
                 //加载业务流程
                 if (Xms.Page.PageContext.RecordId != null && Xms.Page.PageContext.BusinessFlowEnabled == true) {
                     Xms.Web.LoadPage('/flow/businessprocess'
-                        , { entityid: Xms.Page.PageContext.EntityId, recordid: Xms.Page.PageContext.RecordId, businessflowinstanceid : Xms.Page.PageContext.BusinessFlowInstanceId }, function (data) {
+                        , { entityid: Xms.Page.PageContext.EntityId, recordid: Xms.Page.PageContext.RecordId, businessflowinstanceid: Xms.Page.PageContext.BusinessFlowInstanceId }, function (data) {
                             if (data.indexOf('{') == 0) {
                                 var d = JSON.parse(data);
                                 console.log(d);
@@ -166,7 +161,6 @@
 
                 //引用类型扩展属性显示标签
                 $(".lookupLabel").each(function (key, obj) {
-
                     var self = $(obj);
                     var valueid = self.prop('id');
                     var name = self.attr('name').toLowerCase();
@@ -180,9 +174,6 @@
                     }
                     // });
                 });
-
-                
-
 
                 var hasValueList = [];//保存lookup有值的
                 //查找输入框
@@ -243,7 +234,6 @@
                                             toSetLabels(that, data, tarType, controlType);
                                         });
                                     });
-
                                 }
                             }
                             if (self.attr('data-onlylabel') && self.attr('data-onlylabel') == 'true') {
@@ -252,7 +242,7 @@
                             }
                             else {
                                 var attr = Xms.Page.getAttribute(self.prop('name').replace(/_text/, ''));
-                              //  console.log(response);
+                                //  console.log(response);
                                 $("#" + inputid).val(response[valueid.toLowerCase() + "name"]);
                                 $("#" + valueid).val(response[valueid.toLowerCase()]);
                                 self.lookup({
@@ -332,10 +322,8 @@
                                             tagContext.html('');
                                         }
                                     }
-
                                 });
                             }
-
                         });
                         //  });
                     }
@@ -433,9 +421,7 @@
                                             var tagContext = $('div[data-sourceattributename="' + tarid + '"]');
                                             tagContext.html('');
                                         }
-
                                     }
-
                                 });
                             }
                         }
@@ -463,7 +449,6 @@
                             toSetLabels(that, data, tarType, controlType);
                         });
                     });
-
                 });
                 //console.log($(".extParamEnti"))
                 $(".extParamEnti").each(function () {
@@ -486,14 +471,11 @@
                             target.Target.on('extend.changeEnd');
                         });
                     });
-
                 });
 
                 if (getPageType() == 'edit') {
                     $('#attachSection').show();
                 }
-
-               
 
                 function loadDataGrid() {
                     renderDataGrid();
@@ -539,7 +521,6 @@
                                 if (attr.Target.attr('data-onlylabel') && self.attr('data-onlylabel') == 'true') {
                                     attr.Target.next().remove();
                                     attr.Target.replaceWith('<a href="' + ORG_SERVERURL + '/entity/edit?entityid=' + lookupid + '&recordid=' + value + '" target="_blank"><span name="' + self.prop('name') + '" id="' + self.prop('id') + '">' + response.content.name + '</span></a>');
-
                                 }
                                 else {
                                     var obj = { id: response.content.id, name: response.content.name };
@@ -569,7 +550,7 @@
                             WindowPostMessage('refresh');
                         }
                         Xms.Web.Alert(true, data.Content, function () {
-                            var    url = location.href;
+                            var url = location.href;
                             url = $.setUrlParam(url, 'copyid', null);
                             if (_formSaveAction == Xms.FormSaveAction.save) {
                                 url = $.setUrlParam(url, 'recordid', data.Extra.id);
@@ -583,7 +564,7 @@
                                 Xms.Web.CloseWindow();
                             }
                         }, function () {
-                             var    url = location.href;
+                            var url = location.href;
                             url = $.setUrlParam(url, 'recordid', data.Extra.id);
                             location.href = url;
                         });
@@ -603,12 +584,12 @@
                     }
                     if (!formIsSave) {
                         return false;
-                        }
-                        //保存单据体数据
+                    }
+                    //保存单据体数据
                     if (entityDatagirdList && entityDatagirdList.list.length > 0) {
                         var flag = true;
                         var gridDatas = [];
-                        $.each(entityDatagirdList.list, function (i,n) {
+                        $.each(entityDatagirdList.list, function (i, n) {
                             var _grid = n;
                             var info = n.getAndValidDatas();
                             if (info && info.isvalid == false) {
@@ -616,10 +597,10 @@
                                 console.log(info.requiredDatas);
                                 var msg = [];
                                 if (info.requiredDatas && info.requiredDatas.length > 0) {
-                                    $.each(info.requiredDatas, function (i,n) {
-                                        msg.push('<p>'+n.label+'：不能为空</p>')
+                                    $.each(info.requiredDatas, function (i, n) {
+                                        msg.push('<p>' + n.label + '：不能为空</p>')
                                     });
-                                    Xms.Web.Toast(msg.join(''),false)
+                                    Xms.Web.Toast(msg.join(''), false)
                                 }
                                 return false;
                             }
@@ -631,19 +612,19 @@
                                     var temp = { data: nn, name: n.datas.entityName, entityid: n.datas.entityId, relationshipname: n.datas.relationshipname, rownumber: i };
                                     if (nn.cdatagrid_editer === 'new') {
                                         temp.data[n.datas.entityName + 'id'] = Xms.Utility.Guid.EmptyGuid.ToString()
-                                    } 
+                                    }
                                     gridDatas.push(temp);
                                 });
-                               // gridDatas.push(griddatas);
+                                // gridDatas.push(griddatas);
                             }
                             var deldatas = n.deleteList;
                             if (deldatas && deldatas.length > 0) {
                                 $.each(deldatas, function (ii, nn) {
                                     var data = {
-                                        data: {}, name: n.datas.entityName, entityid: n.datas.entityId, relationshipname: n.datas.relationshipname, rownumber: i, entitystatus: 3 };
+                                        data: {}, name: n.datas.entityName, entityid: n.datas.entityId, relationshipname: n.datas.relationshipname, rownumber: i, entitystatus: 3
+                                    };
                                     data.data[n.datas.entityName + 'id'] = nn[n.datas.entityName + 'id']
-                                    
-                                    
+
                                     gridDatas.push(data);
                                 });
                             }
@@ -653,15 +634,15 @@
                         }
                         console.log(gridDatas);
                         console.log(JSON.stringify(gridDatas));
-                        $('#child').val(encodeURIComponent( JSON.stringify(gridDatas)));
-                    }else{
-                           // $('#child').val('');
+                        $('#child').val(encodeURIComponent(JSON.stringify(gridDatas)));
+                    } else {
+                        // $('#child').val('');
                     }
                     console.log('dirtyChecker.isDirty', dirtyChecker.isDirty);
                     formIsSave = false;//防止重复提交
                 }, { //setting
-                        ignore: ".readonly"
-                    });
+                    ignore: ".readonly"
+                });
 
                 $('.collapse').collapse({
                     toggle: false
@@ -685,9 +666,7 @@
                         console.log($this)
                         $this.val(value);
                         $this.trigger('change');
-
                     });
-
                 });
 
                 $('.freetext').each(function () {
@@ -697,7 +676,6 @@
                         $(this).html(val);
                     }
                 });
-
 
                 //return false;
                 $('a[onClick^=Save]').bind("click", function () {
@@ -715,7 +693,6 @@
                 //日期选择框
                 $.datetimepicker.setLocale('zh');
                 $('.datepicker:not(:disabled)').each(function () {
-
                     var format = $(this).attr('data-fmdata') || 'yyyy/MM/dd hh:mm:ss';
                     // var isdisabled = $(this).prop('readonly');
                     // if(isdisabled)return false;
@@ -739,21 +716,18 @@
                     }
                 });
 
-
                 dirtyChecker.bindCheckerEvent(dirtyChecker.watchs);
 
                 $(document.body).on('xmsChecker.dirty', function () {
                     dirtyChecker.setFormDirtyValue();
                 });
 
-                if (pageWrap_Create.cellsStyles && pageWrap_Create.cellsStyles.length>0) {
+                if (pageWrap_Create.cellsStyles && pageWrap_Create.cellsStyles.length > 0) {
                     $.addClassToElement(null, null, pageWrap_Create.cellsStyles.join(''))
                 }
-
-
             });
         },
-        loadFileUploader: function(){
+        loadFileUploader: function () {
             var fileLimitSize = 100;
             if ($(".uploadify-field").length > 0) {
                 $(".uploadify-field").uploadTo64({
@@ -765,25 +739,26 @@
                         });
                         $(value).trigger('change');
                     }
-                }).hide();
+                });
                 $(".upload-file-del").bind("click", function () {
                     var $this = $(this);
                     var fileUp = $this.siblings(".upload-file").children(".uploadify-field");
                     var fileValue = $this.siblings(".uploadinput");
                     var fileText = $this.siblings(".upload-file-input");
+                    $this.parents('.upload-file-box:first').find('.uploadinput').trigger('change');
+                    dirtyChecker.isDirty = true;
                     fileUp.val('');
                     fileValue.val('');
                     fileText.text('');
-                    dirtyChecker.setValue(fileValue.attr("id"), '');
-                    dirtyChecker.checkWatchs(function () {
-                        bindBeforeUnload();
-                    });
+                    //dirtyChecker.setValue(fileValue.attr("id"), '');
+                    //dirtyChecker.checkWatchs(function () {
+                    //    bindBeforeUnload();
+                    //});
                 });
             }
             $(".upload-file-input").imgShow();
         }
         , loadSubGrid: function () {
-
             //如果页面所有单据体都不需要异步加载
             if (isSyncLoadSubGrid == false) {
                 var subGridDom = $('.subgrid');
@@ -805,8 +780,6 @@
                                 obj.trigger('subpage.resetWidth');
                                 $('form').trigger('onload', {});//方便在所有数据加载完后触发其他的方法
                                 console.log($parent)
-
-                                
                             }
                         });
                     });
@@ -856,7 +829,6 @@
                                 }
                                 obj.trigger('subpage.resetWidth');
                                 $('form').trigger('onload', {});//方便在所有数据加载完后触发其他的方法
-                                
                             }
                         });
                     });
@@ -882,7 +854,6 @@
                     selecter: ".formTab",
                     type: "after",
                     clickHandler: function ($obj, $id) {//异步加载对应的单据体
-
                         var _subgrid = $id.find('.subgrid');
                         if (_subgrid.hasClass('noasncSubgrid')) {//不加载不是异步加载的单据体
                             return false;
@@ -905,10 +876,7 @@
                         }
                     }
                 });
-               
             }
-
-            
         }
     }
     function createlabelsToTargetFactory() {
@@ -919,7 +887,6 @@
             if (cacheFactory[entityid + value] != undefined) {
                 var timer = setInterval(function () {
                     if (cacheFactory[entityid + value].content) {
-
                         callback(cacheFactory[entityid + value]);
                         clearInterval(timer);
                     }
@@ -927,7 +894,7 @@
                 //return false;
             } else {
                 cacheFactory[entityid + value] = [];
-               // var url = '/api/data/retrieve/' + entityname + '/' + v;
+                // var url = '/api/data/retrieve/' + entityname + '/' + v;
                 Xms.Web.GetJson('/api/data/Retrieve/ReferencedRecord/' + entityid + '/' + value + '/true', null, function (data) {
                     cacheFactory[entityid + value] = data;
                     callback(data);
@@ -941,17 +908,17 @@
         if (!navDatas || navDatas.length == 0) { return false; }
         var _html = [];
         _html.push('<dl class="list-group col-sm-2" id="formNav">');
-        
+
         for (var i = 0, len = navDatas.length; i < len; i++) {
             var item = navDatas[i];
-            var timestrap = (new Date() * 1).toString(16)+i;
+            var timestrap = (new Date() * 1).toString(16) + i;
             _html.push('<dt class="list-group-item" ><span class="glyphicon glyphicon-chevron-down collapse-title" data-target="#tab_' + timestrap + '" aria-expanded="true" data-toggle="collapse"></span>' + item.Label + '</dt>');
             _html.push('<dd id="tab_' + timestrap + '" class="panel-collapse collapse in" aria-expanded="true">');
             for (var j = 0, jlen = item.NavItems.length; j < jlen; j++) {
                 var jitem = item.NavItems[j];
                 //console.log(jitem);
                 if ((jitem.Url == "" && jitem.RelationshipName && jitem.RelationshipName.length > 0) || !jitem.Url) {
-                    _html.push('<div class="list-group-item"><span class="' + jitem.Icon + '"></span><a data-type="1" class="form-navlink" target="_blank" data-href="' + ORG_SERVERURL + '/entity/list?entityid=' + jitem.Id + '&relationshipname=' + jitem.RelationshipName+'">' + jitem.Label + '</a></div>');
+                    _html.push('<div class="list-group-item"><span class="' + jitem.Icon + '"></span><a data-type="1" class="form-navlink" target="_blank" data-href="' + ORG_SERVERURL + '/entity/list?entityid=' + jitem.Id + '&relationshipname=' + jitem.RelationshipName + '">' + jitem.Label + '</a></div>');
                 } else if (!jitem.RelationshipName || (jitem.RelationshipName == "" && jitem.Url && jitem.Url.length > 0)) {
                     _html.push('<div class="list-group-item"><span class="' + jitem.Icon + '"></span><a data-type="0" target="_blank" href="' + jitem.Url + '" class="form-navlink">' + jitem.Label + '</a></div>');
                 }
@@ -1088,7 +1055,7 @@
     function renderGridView($this, callback) {
         var data = {};
         data = $.extend({}, data);
-          data.theme = 'jqgrid';
+        data.theme = 'jqgrid';
         if ($this.length > 0) {
             if ($this.attr('data-relationshipname')) {
                 data.relationshipname = $this.attr('data-relationshipname');
@@ -1123,7 +1090,7 @@
                     $.extend(data.filter, _filter);
                 }
             }
-        } else if ($this.queryviewid){
+        } else if ($this.queryviewid) {
             $.extend(data, $this);
         }
         if (data.theme == 'jqgrid') {
@@ -1135,7 +1102,7 @@
                     data.pageIsEdit = false;
                 }
                 var filter = { operator: 0, Conditions: [{ AttributeName: relaattribute, Operator: 8, values: [Xms.Page.PageContext.RecordId] }], Filters: [] }
-               // data.filter = filter;
+                // data.filter = filter;
                 $.extend(data.filter, filter);
             }
             var url = ORG_SERVERURL + '/api/schema/queryview/GetViewInfo?';
@@ -1145,19 +1112,18 @@
                 var jsonres = JSON.parse(res.Content);
                 data.queryviews = jsonres.views;
                 var _id = $this.attr('id');
-                var $grid = $('<div class="entity-datagrid-wrap" id="datagrid_wrap_'+_id+'" data-id="' + _id+'"></div>');//防止datagrid出现显示问题
+                var $grid = $('<div class="entity-datagrid-wrap" id="datagrid_wrap_' + _id + '" data-id="' + _id + '"></div>');//防止datagrid出现显示问题
                 $this.append($grid);
                 var datas = $.extend({}, data, jsonres);
                 datas.gridviewLoaded = function () {
                     callback && callback($this);
                 }
-                var grid = new entityDatagrid(_id, $grid,datas);
-                
-               // grid.setDatas(datas);
-               // grid.loadDatagird($grid);
-                
+                var grid = new entityDatagrid(_id, $grid, datas);
+
+                // grid.setDatas(datas);
+                // grid.loadDatagird($grid);
+
                 console.log(res);
-               
             });
         } else {
             var url = $this.attr('data-url');

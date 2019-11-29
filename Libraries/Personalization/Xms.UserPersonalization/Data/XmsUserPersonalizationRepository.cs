@@ -1,18 +1,20 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xms.Infrastructure.Utility;
 using Xms.UserPersonalization.Domain;
-using System.Linq;
+
 namespace Xms.UserPersonalization.Data
 {
     public class XmsUserPersonalizationRepository : IUserPersonalizationRepository
     {
         private readonly Xms.IUserPersonalizationRepository _userPersonalizationRepository;
+
         public XmsUserPersonalizationRepository(Xms.IUserPersonalizationRepository userPersonalizationRepository)
         {
             _userPersonalizationRepository = userPersonalizationRepository;
         }
+
         public List<Domain.UserPersonalization> Get(Guid ownerId)
         {
             return Convert(_userPersonalizationRepository.Query(x => x.OwnerId == ownerId));
@@ -34,8 +36,8 @@ namespace Xms.UserPersonalization.Data
             {
                 return _userPersonalizationRepository.Create(entity);
             }
-
         }
+
         public bool Delete(Guid ownerId)
         {
             var list = _userPersonalizationRepository.Query(x => x.OwnerId == ownerId);
@@ -54,8 +56,8 @@ namespace Xms.UserPersonalization.Data
                 return _userPersonalizationRepository.DeleteById(entity.UserCustomizationId);
             }
             return true;
-
         }
+
         public bool DeleteById(Guid id)
         {
             return _userPersonalizationRepository.DeleteById(id);
@@ -102,8 +104,5 @@ namespace Xms.UserPersonalization.Data
             }
             return list;
         }
-
-
-
     }
 }

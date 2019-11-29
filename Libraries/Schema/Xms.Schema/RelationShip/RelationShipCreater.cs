@@ -19,7 +19,7 @@ namespace Xms.Schema.RelationShip
         {
             _appContext = appContext;
             _relationShipRepository = relationShipRepository;
-            _cacheService = new Caching.CacheManager<Domain.RelationShip>(_appContext.OrganizationUniqueName + ":relationships", RelationShipCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.RelationShip>(_appContext.OrganizationUniqueName + ":relationships", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(Domain.RelationShip entity)

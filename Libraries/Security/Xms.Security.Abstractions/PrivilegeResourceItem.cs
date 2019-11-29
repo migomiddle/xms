@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Xms.Security.Abstractions
 {
-
     public class PrivilegeResourceItem
     {
         public Guid? Id { get; set; }

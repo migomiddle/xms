@@ -11,10 +11,12 @@ namespace Xms.Plugin
     public class EntityPluginExporter : ISolutionComponentExporter
     {
         private readonly IEntityPluginFinder _entityPluginFinder;
+
         public EntityPluginExporter(IEntityPluginFinder entityPluginFinder)
         {
             _entityPluginFinder = entityPluginFinder;
         }
+
         public string GetXml(Guid solutionId)
         {
             StringBuilder result = new StringBuilder();

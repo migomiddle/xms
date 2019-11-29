@@ -124,6 +124,7 @@ namespace Xms.Dependency
             }
             return flag;
         }
+
         public bool DeleteByDependentId(int dependentComponentType, params Guid[] dependentId)
         {
             Guard.NotEmpty(dependentId, nameof(dependentId));

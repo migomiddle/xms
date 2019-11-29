@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xms.Core.Data;
 using Xms.Data;
-using Xms.Infrastructure.Utility;
-using Xms.Solution.Abstractions;
 
 namespace Xms.Security.Role.Data
 {

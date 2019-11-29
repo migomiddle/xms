@@ -46,7 +46,7 @@ namespace Xms.Localization
 
         public bool Update(Language entity)
         {
-            var result =  _languageRepository.Update(entity);
+            var result = _languageRepository.Update(entity);
             if (result)
             {
                 _cache.Remove();

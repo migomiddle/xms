@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Xms.Web.Api.Models
 {
@@ -13,6 +12,5 @@ namespace Xms.Web.Api.Models
     public class UpdateAuthorizationStateModel
     {
         public Guid[] ObjectId { get; set; }
-
     }
 }

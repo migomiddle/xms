@@ -118,6 +118,7 @@ namespace Xms.Security.DataAuthorization
         {
             return _roleObjectAccessRepository.DeleteMany(x => x.RoleId == roleId && x.ObjectTypeCode == objectTypeCode);
         }
+
         public bool DeleteByRole(Guid roleId, string objectTypeName)
         {
             return this.DeleteByRole(roleId, ModuleCollection.GetIdentity(objectTypeName));
@@ -138,14 +139,13 @@ namespace Xms.Security.DataAuthorization
 
         public List<RoleObjectAccess> Query(Guid objectId, string objectTypeName)
         {
-            return _roleObjectAccessRepository.Query(x=>x.ObjectId == objectId && x.ObjectTypeCode == ModuleCollection.GetIdentity(objectTypeName))?.ToList();
+            return _roleObjectAccessRepository.Query(x => x.ObjectId == objectId && x.ObjectTypeCode == ModuleCollection.GetIdentity(objectTypeName))?.ToList();
         }
 
         public List<RoleObjectAccess> QueryRolePermissions(Guid roleId, string objectTypeName)
         {
             return _roleObjectAccessRepository.Query(x => x.RoleId == roleId && x.ObjectTypeCode == ModuleCollection.GetIdentity(objectTypeName))?.ToList();
         }
-
 
         public bool Exists(Guid objectId, int objectTypeCode, params Guid[] roleId)
         {
@@ -180,7 +180,7 @@ namespace Xms.Security.DataAuthorization
             }
             int objectTypeCode = ModuleCollection.GetIdentity(objectTypeName);
             var resourceOwner = _resourceOwnerService.FindByName(objectTypeName);
-            if(resourceOwner == null || resourceOwner.StateCode == Core.RecordState.Disabled)
+            if (resourceOwner == null || resourceOwner.StateCode == Core.RecordState.Disabled)
             {
                 return result;
             }

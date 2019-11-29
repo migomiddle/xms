@@ -17,10 +17,13 @@ namespace Xms.Localization
         private readonly ILocalizedLabelService _localizedLabelService;
         private readonly ILocalizedTextProvider _loc;
         private readonly ILanguageService _languageService;
+
         //private readonly IDataExporter _dataExporter;
         //private readonly IDataImporter _dataImporter;
         private readonly IAppContext _appContext;
+
         private readonly IWebHelper _webHelper;
+
         public LocalizedLabelImportExport(IAppContext appContext
             , ILocalizedLabelRepository localizedLabelRepository
             , ILocalizedLabelService localizedLabelService
@@ -39,7 +42,6 @@ namespace Xms.Localization
             //_dataImporter = dataImporter;
             _webHelper = webHelper;
         }
-
 
         public string Export(Guid solutionId, LanguageCode baseLanguageId)
         {

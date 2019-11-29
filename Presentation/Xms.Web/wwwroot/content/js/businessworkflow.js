@@ -13,7 +13,6 @@ function loadEntities(callback) {
     });
 }
 $(function () {
-
     var datasUrl = {
         attributes: "/api/schema/attribute?entityid="
         , entityById: "/api/schema/relationship/GetReferenced/"//获取关联的实体,
@@ -76,9 +75,8 @@ $(function () {
         $('.work-flow').stop().slideToggle();
     });
 
-
     //添加关联实体
-    $('#addEntityRelationBtn').on('click', function () {
+    $('.addEntityRelationBtn').on('click', function () {
         var wrap = $('#entityMenu');
         var items = wrap.children('li.menu-item');
         gApp.entityMenulist.removeAll();
@@ -101,7 +99,6 @@ $(function () {
                         )
                         //  }
                     });
-
                 } else {
                 }
             }, true);
@@ -129,13 +126,11 @@ $(function () {
                 }
             }, true);
         }
-
     });
 
     $('#entityMenu').on('click', 'li.menu-item', function () {
         var $this = $(this);
         $this.siblings('li.menu-item').removeClass('active').end().addClass('active');
-
     });
 
     $('button[type="submit"]').off('click').on('click', function (e) {
@@ -156,7 +151,6 @@ $(function () {
             postData.WorkFlowId = $('#WorkFlowId').val();
         }
         Xms.Web.Post(url, postData, false, function (res) {
-
             if (PAGE_TYPE == 'CREATE') {
                 if (res.IsSuccess) {
                     Xms.Web.Alert(true, res.Content, function () {
@@ -165,7 +159,6 @@ $(function () {
                 } else {
                     Xms.Web.Alert(false, res.Content);
                 }
-
             } else {
                 if (res.IsSuccess) {
                     Xms.Web.Alert(true, res.Content);
@@ -173,7 +166,6 @@ $(function () {
                     Xms.Web.Alert(false, res.Content);
                 }
             }
-
         }, null, null, false);
         //$('form').submit();
         return false;
@@ -202,7 +194,6 @@ $(function () {
                 $.each(res.content, function (key, item) {
                     self.options.push({ optionVal: item.localizedname, optionId: item.attributeid });
                 });
-
             }, true);
             gApp.entityList.addEntity(self.name, this.value, this.key, this.relationName);
         }
@@ -222,7 +213,6 @@ $(function () {
             }
         }
     }
-
 
     //步骤
     function StepModel(attributename, displayname, isrequired, attrvalue) {
@@ -373,7 +363,6 @@ $(function () {
                 self.name(val);
                 $span.show();
                 $target.addClass('c-hide');
-
             }
         }
         this.addStep = function (attributename, displayname, isrequired, attrvalue) {
@@ -397,7 +386,6 @@ $(function () {
         }
 
         this.delStep = function (obj, e) {
-
             e = e || window.event;
             var target = e.target || e.srcElement;
             if (e.stopPropagation) { e.stopPropagation(); }
@@ -406,7 +394,6 @@ $(function () {
 
             self.steps.remove(this);
         }
-
     }
 
     function EntityModel(name, entityname, id, rel) {
@@ -448,7 +435,7 @@ $(function () {
 
             this.last = item
             var len = this.items().length;
-            //item.isShow(true); 
+            //item.isShow(true);
 
             this.items.push(item);
             item._super = this;
@@ -474,7 +461,6 @@ $(function () {
             if (e.stopPropagation) { e.stopPropagation(); }
             if (self.items().length == 1) return false;
 
-
             self.items.remove(this);
             self.showItem(self.items()[0]);
         }
@@ -488,14 +474,12 @@ $(function () {
             } else {
                 self._super.showEntity(this.entityid());
             }
-
         }
         this.activeStage = function (obj, e) {
             //console.log(obj)
             this.last = obj;
         }
         this.getIndex = function (item) {
-
         }
         this.moveUp = function (obj, e) {
             e = e || window.event;
@@ -507,7 +491,6 @@ $(function () {
             var del = self.items.splice(index - 1, 1);
             console.log('del())', del);
             self.items.splice(index, 0, del[0]);
-
         }
         this.moveDown = function (obj, e) {
             e = e || window.event;
@@ -524,7 +507,6 @@ $(function () {
         }
 
         this.showItem = function (item) {
-
             $.each(this.items(), function (key, e) {
                 e.isShow(false);
             });
@@ -541,7 +523,6 @@ $(function () {
             return entityid;
         }
     }
-
 
     function entityList() {
         var self = this;
@@ -578,7 +559,6 @@ $(function () {
                 } else {
                     item.isShow(false);
                 }
-
             });
         }
         this.remove = function () {
@@ -602,10 +582,7 @@ $(function () {
         this.removeAll = function () {
             this.list.removeAll();
         }
-      
     }
-
-
 
     function saveCurrentFlow() {
         var flowName = $('#Name').val();
@@ -689,7 +666,6 @@ $(function () {
                 return false;
             }
             //entity.Steps = JSON.stringify(entity.steps);
-
         });
         if (!checkflag) {
             if (checkStepMsg != '') {
@@ -700,7 +676,7 @@ $(function () {
             return false;
         }
 
-        //提交数据 
+        //提交数据
 
         //var postData = {
         //    name: $('#Name').val(),
@@ -720,7 +696,7 @@ $(function () {
     //加载数据
     var $stepDom = $('#StepData');
     var gApp = window.gApp = {};
-  
+
     //是编辑还是新建
     if ($stepDom.val() == "") {//新建
         gApp.entityMenulist = new entityMenu(); // 添加实体时的菜单
@@ -736,7 +712,6 @@ $(function () {
         //    "stageorder": 1,
         //    "steps": "[{\"attributename\":\"SaleStage\",\"displayname\":\"销售阶段\",\"isrequired\":false},{\"attributename\":\"BudgetAmount\",\"displayname\":\"预算金额\",\"isrequired\":false}]"
         //}]
-
     } else {
         getAllEntity(initPage, true);//编辑时加载数据
     }
@@ -755,7 +730,6 @@ $(function () {
             }
             result[n.entityid].relationshipname = n.relationshipname;
             result[n.entityid].push(n);
-
         });
 
         for (var i in result) {
@@ -797,7 +771,6 @@ $(function () {
                     var n = datas[jj];
                     var rel = n.relationshipname || '';
 
-
                     if (rel == "") {//第一个实体的数据
                         var name = getEntityData(entitydatas, 'entityid', jj, 'name');
 
@@ -836,7 +809,6 @@ $(function () {
                     } else {//后面关联的实体的数据
                         var curentityid = currentEntityid
                         getEntityRelation(curentityid, function () {
-
                             var relationdatas = Xms.Web.PageCacheData['businessflow']['relation' + curentityid].data.content;
                             currentEntityid = jj;
                             var name = getEntityData(relationdatas, 'referencingentityid', jj, 'referencingentityname');//relationdatas[0]['referencingentityname'];
@@ -867,8 +839,6 @@ $(function () {
                                                         var step = stage.addStep(attrname, displayname, isrequired, attrvalue);
                                                         step.isAttrDefault = false;
                                                     }, 10);
-
-
                                                 });
                                             });
                                         }
@@ -885,7 +855,6 @@ $(function () {
         $(window).on('resize', function () {
             $('.step-fields').css('width', ($(document).width() - 70) + 'px');
         })
-
     }
 
     function entitychange() {
@@ -908,21 +877,28 @@ $(function () {
             var name = $('#EntitySel').find('option:selected').attr('data-relationship');
             var value = $('#EntitySel').find('option:selected').text();
             var key = $('#EntitySel').find('option:selected').val();
-          
+
             var dEntity = gApp.entityList.addEntity(name, value, key);
             console.log(gApp.entityList)
             var dItems = dEntity.addItems();
             entitychange();
+            setTimeout(function () {
+                Xms.Web.fullByContext($(window), $('#collapseTwo'), -120);
+                $('.step-fields').css('width', ($(document).width() - 70) + 'px');
+                $(window).on('resize', function () {
+                    $('.step-fields').css('width', ($(document).width() - 70) + 'px');
+                })
+            }, 50)
         });
-
     } else {
         loadEntities(function () {
             Xms.Web.SelectedValue($('#EntitySel'), $('#EntitySel').attr('data-value'));
             entitychange();
+            setTimeout(function () {
+                Xms.Web.fullByContext($(window), $('#collapseTwo'), -120)
+            }, 50)
         })
     }
 
     window.saveCurrentFlow = saveCurrentFlow;
 });
-
-

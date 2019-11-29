@@ -1,4 +1,4 @@
-﻿;(function ($) {
+﻿; (function ($) {
     "use strict"
     var defaults = {
         offsetWidth: 0,
@@ -6,7 +6,7 @@
         leftCtrl: $(".xms-sb-ctrlLeft"),
         rightCtrl: $(".xms-sb-ctrlRight"),
         delAllCtrl: $(".xms-sb-ctrlDelAll"),
-        delItemFunc:null
+        delItemFunc: null
     }
     function getItemsWidth(items) {
         var sum = 0;
@@ -25,7 +25,7 @@
         return this.each(function () {
             var self = this, $this = $(self), items = $this.children(), itemsLength = items.length, winSize = { width: $(window).width(), height: $(window).height() };
             var offset = $this.offset();
-            var wrapWidth = winSize.width-offset.left, ctrlMargin = 0, index = 0, end = 0, start = 0;
+            var wrapWidth = winSize.width - offset.left, ctrlMargin = 0, index = 0, end = 0, start = 0;
             if (opts.offsetWidth > 0) {
                 wrapWidth = winSize.width - opts.offsetWidth;
             }
@@ -46,7 +46,6 @@
             //
             var isPressLeft = false;
             function pressLeft() {
-
                 if (index <= 0) {
                     index = 0;
 
@@ -56,7 +55,6 @@
                     opts.leftCtrl.addClass("disabled");
                     opts.rightCtrl.removeClass("disabled");
                 } else {
-
                     $this.children("a:lt(" + index + ")").hide();
                     $this.children("a:gt(" + (index + opts.showCount - 1) * 1 + ")").hide();
                     isPressRight = true;
@@ -82,8 +80,6 @@
                     $this.children("a:lt(" + index + ")").hide();
                     $this.children("a:gt(" + (index + opts.showCount - 1) * 1 + ")").hide();
                 }
-
-
             }
 
             opts.leftCtrl.bind("click", function () {
@@ -112,7 +108,7 @@
 ; (function ($, root) {
     "use strict"
     var navTmplate = '';
-    
+
     $.fn.mainNavRender = function (opts) {
         this.each(function () {
             var self = this;
@@ -121,26 +117,26 @@
 
                 var defaultTreeHtml = '{{if children && children.length>0}} {{each children}} {{if this.children}}<li class="dropdown dropdown-hover"><a class="dropdown-toggle navbar-link nav-side-alink" target="${navGetTarget(this)}" onclick="" data-href="${navGetLink(this)}" data-id="${$value.id}" data-name="${$value.label}"><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span> <span class="caret"></span></a><div class="dropdown-menu dropdown-hover-level"><ul class="">{{if this.children}} {{each this.children}} {{if this.children}} {{if this.url}} {{if this.smallicon}}<li><a class="nav-side-alink" data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}"  data-name="${$value.label}" target="${navGetTarget(this)}" ><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span> </a> {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{else}}<li><a data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}" class="nav-side-alink"  data-name="${$value.label}" target="${navGetTarget(this)}" >${$value.label}</a> {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{/if}} {{else}} {{if this.smallicon}}<li class="dropdown-header"><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span> </li>{{else}}<li class="dropdown-header">${$value.label}</li>{{/if}} {{/if}} {{each this.children}} {{if this.children}}<li class="dropdown dropdown-hover"><a class="dropright-toggle navbar-link nav-side-alink" data-toggle="dropright" data-href="${navGetLink(this)}" onclick="takeToBottom(this)"  data-id="${$value.id}" data-name="${$value.label}" target="${navGetTarget(this)}" ><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span><span class="caret trans"></span></a><ul class="dropdown-menu dropdown-hover-level">{{each this.children}}<li><a class="dropright-toggle navbar-link nav-side-alink" data-toggle="dropright" data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}"  data-name="${$value.label}" target="${navGetTarget(this)}" ><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span></a>  {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{/each}}</ul></li>{{else}}<li><a class="nav-side-alink" data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}"  data-name="${$value.label}" target="${navGetTarget(this)}" ><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span></a> {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{/if}} {{/each}} {{else}} {{if this.url}} {{if this.smallicon}}<li><a class="nav-side-alink" data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}"  data-name="${$value.label}" target="${navGetTarget(this)}" ><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span> </a> {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{else}}<li><a class="nav-side-alink" data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}"  data-name="${$value.label}" target="${navGetTarget(this)}" >${$value.label}</a> {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{/if}} {{else}} {{if this.smallicon}}<li class="dropdown-header"><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span> </li>{{else}}<li class="dropdown-header">${$value.label}</li>{{/if}} {{/if}} {{/if}} {{/each}} {{/if}}</ul></div></li>{{else}}<li><a class="nav-side-alink" data-href="${navGetLink(this)}" onclick="takeToBottom(this)" data-id="${$value.id}"  data-name="${$value.label}" target="${navGetTarget(this)}"  class="navbar-link"><span class="${navGetIcon(this)}" title="${$value.label}"></span> <span class="nav-subtitle" title="${$value.label}" >${$value.label}</span></a> {{if this.url}}<span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>{{/if}}</li>{{/if}} {{/each}} {{/if}}<ul></ul>';
                 if ($(".toggle-tree").length > 0) {
-                //    var navtmpl = $.template("navtmpl", toggleTreeTmpl);
-                    renderToggleTree(data.content, $(self)) 
+                    //    var navtmpl = $.template("navtmpl", toggleTreeTmpl);
+                    renderToggleTree(data.content, $(self))
                 } else {
-                     var navtmpl = $.template("navtmpl", defaultTreeHtml);
+                    var navtmpl = $.template("navtmpl", defaultTreeHtml);
                 }
                 //data.content = JSON.parse(data.Content);
                 //console.log(data.content);
-              // $.tmpl("navtmpl", data.content).appendTo($(self));
+                // $.tmpl("navtmpl", data.content).appendTo($(self));
                 //设置链接为主页
                 $('.navsethomepage', '#side-menu').on('click', function (e) {
                     setHomePage(this);
                 });
                 function setHomePage(obj) {
                     var _url = $(obj).prev('a').attr('data-href');
-                    if (_url == "" || !_url) {  return false; }
+                    if (_url == "" || !_url) { return false; }
                     Xms.Web.Post("/user/SetUserHomePage?homepage=" + _url, {}, function (response) {
                         if (response.IsSuccess) {
                             Xms.Web.Alert('设置成功');
                         }
-                    }, null, null, true, true, { jsonajax:true});
+                    }, null, null, true, true, { jsonajax: true });
                 }
                 opts.callback && opts.callback(self);
             });
@@ -148,13 +144,13 @@
     }
 
     function renderToggleTree(datas, $context) {
-       // console.log(datas);
+        // console.log(datas);
         var res = renderToggleLeaf(datas[0].children);
         //console.log(res);
         $context.append($(res.join('')))
     }
 
-    function renderToggleLeaf(datas,res) {
+    function renderToggleLeaf(datas, res) {
         res = res || [];
         $.each(datas, function (i, n) {
             var hasChildren = n.children && n.children.length > 0;
@@ -164,7 +160,7 @@
             } else {
                 res.push('<a class="dropdown-toggle navbar-link  nav-side-alink" target="' + navGetTarget(n) + '" onclick="takeToBottom(this)" data-href="' + navGetLink(n) + '" data-id="' + n.id + '" data-name="' + n.label + '"><span class="' + navGetIcon(n) + '" title="' + n.label + '"></span>' + navGetCaret(n) + ' <span class="nav-subtitle" title="' + n.label + '">' + n.label + '</span></a><span class="navsethomepage glyphicon glyphicon-home" title="设为首页"></span>');
             }
-            
+
             if (hasChildren) {
                 res.push('<div class="dropdown-menu dropdown-hover-level"><ul class="dropdown-toggle">')
                 renderToggleLeaf(n.children, res);
@@ -177,12 +173,12 @@
 
     function navGetCaret(link) {
         if (link && link.children && link.children.length > 0) return '<span class="caret"></span>';
-        if (link && (!link.children || link.children.length==0)) return '';
+        if (link && (!link.children || link.children.length == 0)) return '';
     }
 
     function navGetLink(link) {
-       // console.log('navGetLink', link);
-        if (link && link.url) return (link.url.indexOf('http:') == 0 || link.url.indexOf('https:') == 0) ? link.url : (~link.url.indexOf(ORG_SERVERURL))? link.url : ORG_SERVERURL + link.url;//link.url /*+ (link.url.indexOf('?') > 0 ? '&isiframe=1' : '?isiframe=1')*/;
+        // console.log('navGetLink', link);
+        if (link && link.url) return (link.url.indexOf('http:') == 0 || link.url.indexOf('https:') == 0) ? link.url : (~link.url.indexOf(ORG_SERVERURL)) ? link.url : ORG_SERVERURL + link.url;//link.url /*+ (link.url.indexOf('?') > 0 ? '&isiframe=1' : '?isiframe=1')*/;
         if (link && !link.url) return "javascript:void(0)";
     }
     function navSetHomePage(link) {

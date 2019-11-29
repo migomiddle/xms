@@ -27,6 +27,7 @@ namespace Xms.Flow
         WorkFlowInstance Find(Expression<Func<WorkFlowInstance, bool>> predicate);
 
         WorkFlowInstance FindById(Guid id);
+
         List<WorkFlowInstance> Top(Func<QueryDescriptor<WorkFlowInstance>, QueryDescriptor<WorkFlowInstance>> container);
 
         List<WorkFlowInstance> Query(Func<QueryDescriptor<WorkFlowInstance>, QueryDescriptor<WorkFlowInstance>> container);

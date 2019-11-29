@@ -18,6 +18,7 @@ namespace Xms.Business.DataAnalyse.Visualization
         private readonly IChartUpdater _chartUpdater;
         private readonly IChartFinder _chartFinder;
         private readonly IAppContext _appContext;
+
         public ChartImporter(IAppContext appContext
             , IChartCreater chartCreater
             , IChartUpdater chartUpdater
@@ -28,6 +29,7 @@ namespace Xms.Business.DataAnalyse.Visualization
             _chartUpdater = chartUpdater;
             _chartFinder = chartFinder;
         }
+
         public bool Import(Guid solutionId, IList<Chart> charts)
         {
             if (charts.NotEmpty())

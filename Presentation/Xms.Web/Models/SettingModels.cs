@@ -21,6 +21,7 @@ namespace Xms.Web.Models
         public bool DataLogEnabled { get; set; }
         public bool VerifyCodeEnabled { get; set; }
         public int MaxFetchRecords { get; set; }
+        public bool CacheEnabled { get; set; }
     }
 
     public class SmsSettingModel
@@ -48,21 +49,26 @@ namespace Xms.Web.Models
         public List<string> Name { get; set; }
         public List<string> Content { get; set; }
     }
+
     public class SendEmailsModel
     {
         [Required]
         public string EmailAddresses { get; set; }
+
         [Required]
         public string Subject { get; set; }
+
         [Required]
         public string Content { get; set; }
     }
+
     public class UploadSettingModel
     {
         public string FileExts { get; set; }
         public long MaxSize { get; set; }
         public string FormatName { get; set; }
     }
+
     public class CacheSettingModel
     {
         public bool Enabled { get; set; }

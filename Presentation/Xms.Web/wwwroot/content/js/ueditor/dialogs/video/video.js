@@ -7,7 +7,6 @@
  */
 
 (function(){
-
     var video = {},
         uploadVideoList = [],
         isModifyUploadVideo = false,
@@ -281,7 +280,6 @@
         '</embed>';
     }
 
-
     /* 插入上传视频 */
     function insertUpload(){
         var videoObjs=[],
@@ -312,7 +310,6 @@
     function initUpload(){
         uploadFile = new UploadFile('queueList');
     }
-
 
     /* 上传附件 */
     function UploadFile(target) {
@@ -537,7 +534,6 @@
                     } else {
                         $wrap.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + (~~((file.rotation / 90) % 4 + 4) % 4) + ')');
                     }
-
                 });
 
                 $li.insertBefore($filePickerBlock);
@@ -570,16 +566,13 @@
             }
 
             function setState(val, files) {
-
                 if (val != state) {
-
                     var stats = uploader.getStats();
 
                     $upload.removeClass('state-' + state);
                     $upload.addClass('state-' + val);
 
                     switch (val) {
-
                         /* 未选择文件 */
                         case 'pedding':
                             $queue.addClass('element-invisible');
@@ -634,7 +627,6 @@
 
                     state = val;
                     updateStatus();
-
                 }
 
                 if (!_this.getQueueCount()) {
@@ -642,7 +634,6 @@
                 } else {
                     $upload.removeClass('disabled')
                 }
-
             }
 
             function updateStatus() {
@@ -787,5 +778,4 @@
             this.uploader.refresh();
         }
     };
-
 })();

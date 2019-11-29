@@ -28,7 +28,8 @@ namespace Xms.Business.DataAnalyse.Report
         public void OnStarting()
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 13);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/report/solutioncomponents";
             });

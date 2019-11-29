@@ -10,19 +10,24 @@ namespace Xms.File
     public class AttachmentService
     {
         private readonly IAppContext _appContext;
+
         public AttachmentService(IAppContext appContext)
         {
             _appContext = appContext;
         }
+
         /// <summary>
         /// 附件实体名称
         /// </summary>
         public virtual string EntityName { get; set; } = "attachment";
+
         private string _path;
+
         /// <summary>
         /// 附件保存路径
         /// </summary>
-        public virtual string Path {
+        public virtual string Path
+        {
             get
             {
                 if (_path.IsEmpty())
@@ -36,6 +41,5 @@ namespace Xms.File
                 _path = value;
             }
         }
-
     }
 }

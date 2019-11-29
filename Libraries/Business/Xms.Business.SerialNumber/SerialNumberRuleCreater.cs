@@ -41,7 +41,7 @@ namespace Xms.Business.SerialNumber
             _solutionComponentService = solutionComponentService;
             _dependencyService = dependencyService;
             _entityPluginCreater = entityPluginCreater;
-            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), SerialNumberRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SerialNumberRule>(SerialNumberRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(Domain.SerialNumberRule entity)

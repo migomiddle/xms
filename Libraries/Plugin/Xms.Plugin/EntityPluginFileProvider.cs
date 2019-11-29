@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
 using Xms.Configuration;
@@ -21,6 +20,7 @@ namespace Xms.Plugin
         private readonly IAppContext _appContext;
         private readonly IWebHelper _webHelper;
         private readonly ISettingFinder _settingFinder;
+
         public EntityPluginFileProvider(IAppContext appContext
             , IWebHelper webHelper
             , ISettingFinder settingFinder)
@@ -34,10 +34,12 @@ namespace Xms.Plugin
         {
             return _webHelper.MapPath("~/entityplugins/" + _appContext.OrganizationUniqueName + "/", true);
         }
+
         public string GetTempDirectory()
         {
             return _webHelper.MapPath("~/tempuploadfiles/" + _appContext.OrganizationUniqueName + "/", true);
         }
+
         public async Task<string> Save(IFormFile file)
         {
             if (file != null)
@@ -49,6 +51,7 @@ namespace Xms.Plugin
             }
             return string.Empty;
         }
+
         public string Save(string fileName)
         {
             string tempDir = GetTempDirectory();
@@ -66,7 +69,6 @@ namespace Xms.Plugin
 
         public bool LoadAssembly(EntityPlugin entity)
         {
-
             try
             {
                 var dllPath = GetBaseDirectory() + entity.AssemblyName;
@@ -99,10 +101,10 @@ namespace Xms.Plugin
                     var pluginAnalysis = PluginAnalysisHelper.GetPluginAnalysis(result.FilePath);
                     return pluginAnalysis;
                 }
-
             }
             return null;
         }
+
         public List<PluginAnalysis> BeforehandLoad(string fileName)
         {
             string dir = GetBaseDirectory();
@@ -115,6 +117,5 @@ namespace Xms.Plugin
             }
             return null;
         }
-
     }
 }

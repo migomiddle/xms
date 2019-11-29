@@ -54,7 +54,7 @@ namespace Xms.Web.Controllers
             {
                 container.And(n => n.CreatedOn <= m.EndTime);
             }
-            if(m.StatusCode > 0)
+            if (m.StatusCode > 0)
             {
                 container.And(n => n.StatusCode == m.StatusCode);
             }

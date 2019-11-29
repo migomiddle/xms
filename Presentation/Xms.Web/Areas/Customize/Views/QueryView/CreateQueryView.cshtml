@@ -1,7 +1,7 @@
 ﻿@model Xms.Web.Customize.Models.EditQueryViewModel
 
 <div class="">
-   
+
     <div id="collapseTwo" class="">
         <div class="">
             <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" role="form">
@@ -14,8 +14,8 @@
                 @Html.HiddenFor(x => x.LayoutConfig)
                 <input type="hidden" id="AggregateConfig" name="AggregateConfig" value="" />
                 <input type="hidden" id="EntityName" name="EntityName" value="@Model.EntityMetaData.Name" />
-              
-                <div class="row position-relative">
+
+                <div class="row position-relative ml-0">
                     <div class="col-sm-3">
                         <div class="tab-pane in active" id="info" style="padding:5px;">
                             <div class="form-group-head"><i class="glyphicon glyphicon-chevron-down"></i>基本信息</div>
@@ -81,7 +81,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -99,7 +98,6 @@
                                         </label>
                                     </span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="clearfix  pt-5">
@@ -185,7 +183,6 @@
                                         </div>
                                         <span class="addMove glyphicon glyphicon-plus" onclick="checkAdd(this)" style="cursor:pointer;"></span>
                                     </div>
-
                                 </div>
                                 <div class="rowC-item" style="padding:10px;display: inline-block;">
                                     <label class="text-muted">动作类型：</label>
@@ -203,14 +200,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div id="myTabContent" class="tab-content">
-
-
-
                 </div>
 
                 <div class="rightModal" id="existsButtons" style="" tabindex="-1">
@@ -253,7 +246,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
@@ -263,7 +255,6 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 <!--排序设置-->
@@ -359,10 +350,9 @@
                         <option value="Avg">平均值</option>
                     </select>
                 </div>
-                
             </div>
             <div class="modal-footer">
-                
+
                 <button type="button" class="btn btn-primary" onclick="saveColumnParams()">
                     确定更改
                 </button>
@@ -514,6 +504,7 @@
     <script>
 
         $(function () {
+            Xms.Web._callParentMethod('changeLeftWrapState');
             $("#editform").on('submit', function () {
                 saveRowCommandValue();
             })
@@ -648,8 +639,6 @@
                 $("#views").parents('table').find('.shadow').addClass('hide').width(0);
                 saveGridConfig();
 
-
-
                // addAttributeToInput();
             });
             $("#views").on("sortremove", function (event, ui) {
@@ -662,7 +651,7 @@
 
             $.when(loadEntities()).done(loadAttributes(function () {
                  $('#renderBody').css('margin-bottom', 27);
-                $.fullHeight($('#attributes').parent(),-52);
+                $.fullHeight($('#attributes').parent(),-135);
             }));
             loadFilterAttributes();
 
@@ -742,8 +731,6 @@
                 $(this).parents('.rightModal').removeClass('in');
             })
 
-
-
             var $rowcommand = $('#rowcommand');
             var rowCommandCn = { LogicalOperat4or: { or: "或者", and: "并且" }, EventType: { onbinding: "行绑定时" }, ActionType: { SetRowBackground: "设置背景" }, Action: { color: '背景色' } }
              $("body").on("click", function (e) {
@@ -787,6 +774,5 @@
             addAttributeToInput();
         });
     </script>
-
 
 }

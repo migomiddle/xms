@@ -7,7 +7,6 @@
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     padding: 0;
-    /*top: -1px;*/
 }
 
 .pluginnav {
@@ -43,7 +42,6 @@
 }
 
 .pluginnav:first-child a {
-    /*border-top: 1px solid #ccc;*/
 }
 
 .m-0 {
@@ -55,7 +53,6 @@
 }
 
 .plugincontent-table-thead {
-    /*overflow-y: scroll;*/
 }
 
 .plugincontents {
@@ -95,7 +92,6 @@
             margin-right: 5px;
         }
 
-
 .plugincontent-table-thead .table-bordered > thead > tr > th {
     border-bottom: none;
     border-right: none;
@@ -105,15 +101,12 @@
     width: 250px;
 }
 
-
 .table-thead th {
     padding: 0 !important;
     height: 35.5px;
     line-height: 35.5px !important;
     font-weight: 500;
 }
-
-
 
     .table-thead th .input-group-addon, .entity-list td .input-group-addon {
         border: none;
@@ -123,12 +116,9 @@
         width: 45px;
     }
 
-
-
 .table-thead-th1 > div > .input-group-addon {
     border-right: none !important;
 }
-
 
 .table-thead th .form-control {
     border-top: none;
@@ -145,7 +135,6 @@
 .entity-list td .input-group-addon input[type=checkbox] {
     margin-left: 0px;
 }
-
 
 .entity-list td {
     padding: 0 !important;
@@ -170,7 +159,6 @@
     margin-right: 0 !important;
 }
 
-
 .table-thead-td1 .input-group-addon input[type=checkbox] {
     margin-left: -10px !important;
 }
@@ -182,11 +170,10 @@
 .collapse-content {
     list-style: none;
     padding-left: 0;
-    margin-bottom:0;
+    margin-bottom: 0;
 }
 
     .collapse-content li {
-        /*line-height: 13px;*/
     }
 
 .dropdown-menu {
@@ -207,17 +194,19 @@
     color: #555;
     text-align: center;
     display: grid;
-    margin: 200px auto 0 auto;
+    margin: 150px auto 0 auto;
     border-width: 5px;
 }
 
     .btn-upload i {
         text-indent: 12px;
     }
+
     .btn-upload span {
         font-weight: 600;
         font-size: 24px;
     }
+
 .event {
-text-indent:10px;
+    text-indent: 10px;
 }

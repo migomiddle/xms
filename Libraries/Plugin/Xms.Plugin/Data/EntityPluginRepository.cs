@@ -14,9 +14,7 @@ namespace Xms.Plugin.Data
     {
         public EntityPluginRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
 
         #region implements
 
@@ -33,6 +31,7 @@ namespace Xms.Plugin.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

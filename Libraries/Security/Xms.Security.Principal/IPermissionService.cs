@@ -4,6 +4,6 @@
     {
         bool HasPermission(string areaName, string className, string methodName, bool ignoreNull = true);
 
-        bool HasPermission(string url,bool ignoreNull = true);
+        bool HasPermission(string url, bool ignoreNull = true);
     }
 }

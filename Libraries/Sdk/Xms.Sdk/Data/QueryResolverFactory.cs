@@ -1,9 +1,5 @@
-﻿using Xms.Context;
-using Xms.Core.Data;
-using Xms.Infrastructure.Inject;
-using Xms.Schema.Attribute;
+﻿using Xms.Infrastructure.Inject;
 using Xms.Sdk.Abstractions.Query;
-using Xms.Sdk.Extensions;
 using Xms.Sdk.Query;
 
 namespace Xms.Sdk.Data
@@ -24,7 +20,7 @@ namespace Xms.Sdk.Data
             //, IDbContext dbContext
             //, IQueryMetadataFinder queryMetadataFinder
             //, IAttributeFinder attributeFinder
-            //, 
+            //,
             IServiceResolver serviceResolver
             )
         {

@@ -15,6 +15,7 @@ namespace Xms.Event
     public class ConsumerService : IConsumerService
     {
         private readonly IConsumerRepository _consumerRepository;
+
         public ConsumerService(IConsumerRepository consumerRepository)
         {
             _consumerRepository = consumerRepository;

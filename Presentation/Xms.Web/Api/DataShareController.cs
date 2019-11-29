@@ -29,7 +29,7 @@ namespace Xms.Web.Api
             _principalObjectAccessService = principalObjectAccessService;
             _dataSharer = dataSharer;
         }
-        
+
         [Description("共享对象列表")]
         [HttpGet("SharedPrincipals")]
         public IActionResult SharedPrincipals(SharedPrincipalsModel model)

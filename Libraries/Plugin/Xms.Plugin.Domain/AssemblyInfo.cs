@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
-
-namespace Xms.Plugin.Domain
+﻿namespace Xms.Plugin.Domain
 {
-
     public class AssemblyInfo
     {
-
         public string FullName { get; set; }
         public string CodeBase { get; set; }
         public string EscapedCodeBase { get; set; }

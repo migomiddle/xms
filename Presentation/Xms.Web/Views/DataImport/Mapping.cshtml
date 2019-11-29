@@ -62,7 +62,7 @@
                         }
                         <tr>
                             <td>
-                                <input type="radio" name="IsUpdatePrimaryField"@(item.Value.IsPrimaryField || item.Value.TypeIsPrimaryKey() ? " checked" : "") />
+                                <input type="radio" name="IsUpdatePrimaryField" @(item.Value.IsPrimaryField || item.Value.TypeIsPrimaryKey() ? " checked" : "") />
                             </td>
                             <td>@item.Key</td>
                             <td data-attributename="@a.Name" data-attributeid="@a.AttributeId" data-attributetypename="@a.AttributeTypeName" data-optionsetid="@a.OptionSetId" data-referencedentityid="@a.ReferencedEntityId" data-referencedentityname="@a.ReferencedEntityName" style="padding:0;">

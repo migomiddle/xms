@@ -98,6 +98,7 @@ namespace Xms.Data.Provider
             _providerOptions = options;
             ConnectionString = _providerOptions.ConnectionString;
         }
+
         public DataProvider(IDbContext dbContext)
         {
             DbContext = dbContext;

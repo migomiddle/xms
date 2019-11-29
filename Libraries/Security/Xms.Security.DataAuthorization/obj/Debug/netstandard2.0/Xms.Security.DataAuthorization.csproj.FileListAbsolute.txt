@@ -51,3 +51,7 @@ G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\n
 G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Authrization.Abstractions.pdb
 G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Security.Resource.dll
 G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Security.Resource.pdb
+G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Configuration.Domain.dll
+G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Logging.Abstractions.dll
+G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Configuration.Domain.pdb
+G:\projects\xms_v2\Libraries\Security\Xms.Security.DataAuthorization\bin\Debug\netstandard2.0\Xms.Logging.Abstractions.pdb

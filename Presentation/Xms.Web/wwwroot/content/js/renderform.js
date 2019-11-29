@@ -1,5 +1,4 @@
-﻿
-//表单编辑
+﻿//表单编辑
 function renderFormHeader(Panels) {
     if (!Panels || Panels.length == 0) { return false; }
     var headerDom = $("#formHeader");
@@ -91,10 +90,10 @@ function renderFormHeader(Panels) {
                     }
                     var customcss = '';
                     if (Cells[iiii].CustomCss) {
-                        customcss = ' data-customcss="' + Cells[iiii].CustomCss+'" '
+                        customcss = ' data-customcss="' + Cells[iiii].CustomCss + '" '
                     }
                     panelHtml.push('<td class="col-sm-' + (Cells[iiii].ColSpan * 2) + ' field ui-droppable ui-sortable' + labelflag + '" colspan="' + Cells[iiii].ColSpan + '">');
-                    panelHtml.push('<table class="table cell"  data-label="' + Cells[iiii].Label + '" data-name="' + Cells[iiii].Control.Name + '" data-entityname="' + Cells[iiii].Control.EntityName + '" data-type="" data-isshowlabel="' + Cells[iiii].IsShowLabel + '" data-isvisible="' + (Cells[iiii].IsVisible || true) + '" data-colspan="' + Cells[iiii].ColSpan + '" data-isreadonly="' + readonly + '" data-controltype="' + Cells[iiii].Control.ControlType + '" data-timestamp="" data-defaultviewreadonly="true" data-viewpickerreadonly="true" ' + customcss+' data-disableviewpicker="true" ' + dataSubgrid + dataLookup + '><tbody><tr style="height:100%;">');
+                    panelHtml.push('<table class="table cell"  data-label="' + Cells[iiii].Label + '" data-name="' + Cells[iiii].Control.Name + '" data-entityname="' + Cells[iiii].Control.EntityName + '" data-type="" data-isshowlabel="' + Cells[iiii].IsShowLabel + '" data-isvisible="' + (Cells[iiii].IsVisible || true) + '" data-colspan="' + Cells[iiii].ColSpan + '" data-isreadonly="' + readonly + '" data-controltype="' + Cells[iiii].Control.ControlType + '" data-timestamp="" data-defaultviewreadonly="true" data-viewpickerreadonly="true" ' + customcss + ' data-disableviewpicker="true" ' + dataSubgrid + dataLookup + '><tbody><tr style="height:100%;">');
 
                     if (typeof Cells[iiii].Control.ControlType != 'undefined' && (typeof Cells[iiii].Control.ControlType == "string") && Cells[iiii].Control.ControlType.toLowerCase() == 'none') {
                         //if (Cells[iiii].Control.ControlType.toLowerCase() == 'none') {
@@ -207,7 +206,7 @@ function renderFormFooter(Panels) {
                             freetextparam += ' data-labelentityname="" data-attributename="" data-sourceattributename=""';
                         }
                         //  console.log(labelparam)
-                    } 
+                    }
 
                     var customcss = '';
                     if (Cells[iiii].CustomCss) {
@@ -364,7 +363,7 @@ function renderFormContent(Panels) {
                                 iframestr += ' data-url="' + Cells[iiii].Control.Parameters.Url + '" data-allowcrossdomain="' + Cells[iiii].Control.Parameters.AllowCrossDomain + '" data-border="' + Cells[iiii].Control.Parameters.Border + '" data-rowsize="' + Cells[iiii].Control.Parameters.RowSize + '" ';
                             }
 
-                            var labelflag = '',freetextflag='';
+                            var labelflag = '', freetextflag = '';
                             if (typeof Cells[iiii].Control.ControlType != 'undefined' && Cells[iiii].Control.ControlType.toString().toLowerCase() == 'label') {
                                 labelflag = ' labelbox';
                                 //  console.log(Cells[iiii].Control.Parameters)
@@ -396,8 +395,8 @@ function renderFormContent(Panels) {
                             if (Cells[iiii].CustomCss) {
                                 customcss = ' data-customcss=\'' + Cells[iiii].CustomCss + '\' '
                             }
-                            panelHtml.push('<td class="col-sm-' + (Cells[iiii].ColSpan * 2) + ' field ui-droppable ui-sortable' + labelflag + ' ' + freetextflag+'" colspan="' + Cells[iiii].ColSpan + '">');
-                            panelHtml.push('<table class="table cell"  data-label="' + Cells[iiii].Label + '" data-name="' + Cells[iiii].Control.Name + '" data-isreadonly="' + readonly + '" data-entityname="' + Cells[iiii].Control.EntityName + '" data-type="" data-isshowlabel="' + Cells[iiii].IsShowLabel + '" data-isvisible="' + Cells[iiii].IsVisible + '" data-colspan="' + Cells[iiii].ColSpan + '" data-controltype="' + Cells[iiii].Control.ControlType + '" data-timestamp="" data-defaultviewreadonly="true" data-viewpickerreadonly="true" ' + customcss+' data-disableviewpicker="true" ' + dataSubgrid + dataLookup + labelparam + freetextparam + extParam + iframestr + formulaP + '><tbody><tr style="height:100%;">');
+                            panelHtml.push('<td class="col-sm-' + (Cells[iiii].ColSpan * 2) + ' field ui-droppable ui-sortable' + labelflag + ' ' + freetextflag + '" colspan="' + Cells[iiii].ColSpan + '">');
+                            panelHtml.push('<table class="table cell"  data-label="' + Cells[iiii].Label + '" data-name="' + Cells[iiii].Control.Name + '" data-isreadonly="' + readonly + '" data-entityname="' + Cells[iiii].Control.EntityName + '" data-type="" data-isshowlabel="' + Cells[iiii].IsShowLabel + '" data-isvisible="' + Cells[iiii].IsVisible + '" data-colspan="' + Cells[iiii].ColSpan + '" data-controltype="' + Cells[iiii].Control.ControlType + '" data-timestamp="" data-defaultviewreadonly="true" data-viewpickerreadonly="true" ' + customcss + ' data-disableviewpicker="true" ' + dataSubgrid + dataLookup + labelparam + freetextparam + extParam + iframestr + formulaP + '><tbody><tr style="height:100%;">');
                             // console.log(Cells[iiii].Label, Cells[iiii].IsShowLabel=='true', Cells[iiii].IsVisible)
                             if (typeof Cells[iiii].Control.ControlType != 'undefined' && Cells[iiii].Control.ControlType.toString().toLowerCase() == 'none') {
                                 //if (Cells[iiii].Control.ControlType.toLowerCase() == 'none') {
@@ -467,7 +466,7 @@ function filterInsertEdAttri(items) {
 
 //加载字段
 function loadAttributes(callback) {
-    Xms.Schema.GetAttributesByEntityId( entityid , function (data) {
+    Xms.Schema.GetAttributesByEntityId(entityid, function (data) {
         attributes = data;
 
         loadAttributesFormula(attributes);	//加载公式可选字段
@@ -485,7 +484,7 @@ function loadScript(type) {
 
 function insertToAttributeList(e, res) {
     var reid = '';
-    Xms.Schema.GetAttributes( { getall: true, entityid: entityid }, function (data) {
+    Xms.Schema.GetAttributes({ getall: true, entityid: entityid }, function (data) {
         attributes = data;
         $.each(attributes, function (key, obj) {
             if (obj.attributeid == res) {
@@ -1159,7 +1158,7 @@ function insertBill() {
     target.find('#subgrid-pagesize').val('5');
     target.find('#subgrid-entity').empty();
     target.find('#subgrid-viewid').empty();
-    target.find('#subgrid-record').trigger('change');
+    target.find('input[name="subgrid-record"]:checked').trigger('change');
     target.find('#subgrid-isshowlabel').prop('checked', false);
     target.find('#subgrid-isvisible').prop('checked', 'checked');
     $('#subgrid-editable').change(function () {
@@ -1218,7 +1217,7 @@ function getEntity(e, callback) {
     var html = [];
     var that = $(e);
     var target = $('#subGridModal');
-    if (that.find('option:selected').val() == 'related') {
+    if (that.val() == 'related') {
         Xms.Web.GetJson('/api/schema/relationship/GetReferenced/' + entityid + '', null, function (data) {
             html.push('<option value="">请选择</option>');
             $(data.content).each(function (ii, nn) {
@@ -1230,7 +1229,7 @@ function getEntity(e, callback) {
             }
         });
     } else {
-        Xms.Schema.GetEntities({},function (data) {
+        Xms.Schema.GetEntities({}, function (data) {
             html.push('<option value="">请选择</option>');
             $(data).each(function (i, n) {
                 html.push('<option value="' + n.entityid + '" data-relationshipname="">' + n.localizedname + '</option>');
@@ -1528,8 +1527,8 @@ function editSubGrid() {
         }
     });
     if (selected.attr('data-relationshipname') == '') {
-        target.find('#subgrid-record option[value="entity"]').attr("selected", true);
-        getEntity(target.find('#subgrid-record'), function () {
+        target.find('input[name="subgrid-record"][value="entity"]').prop("checked", true);
+        getEntity(target.find('input[name="subgrid-record"]:checked'), function () {
             target.find('#subgrid-entity option[value="' + selected.attr('data-targetentityname') + '"]').attr("selected", true);
 
             getViewid(target.find('#subgrid-entity'), function () {
@@ -1556,8 +1555,8 @@ function editSubGrid() {
         });
     }
     else {
-        target.find('#subgrid-record option[value="related"]').attr("selected", true);
-        getEntity(target.find('#subgrid-record'), function () {
+        target.find('input[name="subgrid-record"][value="related"]').prop("checked", true);
+        getEntity(target.find('input[name="subgrid-record"]:checked'), function () {
             var relationname = selected.attr('data-relationshipname');
             if (relationname) {
                 target.find('#subgrid-entity option[value="' + selected.attr('data-targetentityname') + '"][data-relationshipname="' + relationname + '"]').attr("selected", true);
@@ -1601,7 +1600,7 @@ function editSubGrid() {
 function getEntityCnName(data, name) {
     var res = '';
     $.each(data, function (key, item) {
-        if (name.toLowerCase() == item.name.toLowerCase()) {
+        if (item && item.name && (name.toLowerCase() == item.name.toLowerCase())) {
             res = item.localizedname;
             return false;
         }
@@ -1726,7 +1725,7 @@ function formulaEdit(selected, subgrid_viewid, type) {
         var $this = $(this);
         var viewid = $('#subgrid-viewid>option:selected').val();
         if ($("#subgrid-entityedit>option:selected").val() == -1 || $("#subgrid-entityedit>option:selected").val() == '') {
-            Xms.Web.Toast('请先选择上方字段',false)
+            Xms.Web.Toast('请先选择上方字段', false)
             return false;
         }
         var value = $this.attr("value");
@@ -1980,7 +1979,7 @@ function handleSubgridAllAttribute(alldatas, callback) {
     //var _suportType = ["int", "float", "money"];
     var _html = [];
     if (!alldatas.content) return false;
-    $.each(alldatas.content.items, function (key, obj) {
+    $.each(alldatas.content, function (key, obj) {
         //if (_suportType.indexOf(obj.attributetypename) > -1) {//过滤不支持的字段类型
         _html.push('<option value="' + obj.name + '" data-referencedentityid="' + obj.referencedentityid + '" data-entityid="' + obj.entityid + '" data-type="' + obj.attributetypename + '">' + obj.localizedname + '</option>');
         // }
@@ -1991,6 +1990,7 @@ function subgridEntityEdit(subgrid_viewid, callback, type) {
     if (subgrid_viewid && subgrid_viewid != "") {
         if (typeof subGridCache[subgrid_viewid] == 'undefined') {//缓存中是否已有数据
             Xms.Web.GetJson("/api/schema/queryview/getattributes/" + subgrid_viewid, null, function (alldatas) {
+                // alldatas = alldatas.content;
                 /*缓存数据*/
                 subGridCache[subgrid_viewid] = {};
                 subGridCache[subgrid_viewid].alldatas = alldatas;
@@ -2019,7 +2019,9 @@ function subgridGetAttributes(entityid, callback, type, isall) {
     var getall = isall ? "&getall=true" : "";
     if (entityid && entityid != "") {
         if (typeof subGridCache[entityid + getall] == 'undefined') {//缓存中是否已有数据
-            Xms.Schema.GetAttributes({ getall: true, entityid: entityid }, function (alldatas) {
+            Xms.Schema.GetAttributes({ getall: true, entityid: entityid }, function (_alldatas) {
+                var alldatas = {};
+                alldatas.content = _alldatas;
                 /*缓存数据*/
                 subGridCache[entityid + getall] = {};
                 subGridCache[entityid + getall].alldatas = alldatas;
@@ -2265,37 +2267,35 @@ function editFormParams() {
 
             if (_formcss && _formcss.labels) {
                 var _labels = _formcss.labels;
-                _labels['color']  ? $('input[name="table-islabelfontcolor"]').prop('checked', true) && $('input[name="table-fontcolor"]').spectrum("set", _labels['color']) : $('input[name="table-islabelfontcolor"]').prop('checked', false) ;
-                _labels['font-size'] ? $('input[name="table-islabelfontsize"]').prop('checked', true) && $('input[name="table-labelfontsize"]').jRange('setValue', _labels['font-size']) : $('input[name="table-islabelfontsize"]').prop('checked', false) 
-                _labels['background-color']  ? $('input[name="table-islabelbackgroundcolor"]').prop('checked', true) && $('input[name="table-labelbackgroundcolor"]').spectrum("set", _labels['background-color']) : $('input[name="table-islabelbackgroundcolor"]').prop('checked', false) ;
-                _labels['text-align'] ? $('input[name="table-islabeltextalign"]').prop('checked', true) && $('input[name="table-labeltextalign"][value="' + _labels['text-align'] + '"]').prop('checked', true) : $('input[name="table-islabeltextalign"]').prop('checked', false) ;
-                
+                _labels['color'] ? $('input[name="table-islabelfontcolor"]').prop('checked', true) && $('input[name="table-fontcolor"]').spectrum("set", _labels['color']) : $('input[name="table-islabelfontcolor"]').prop('checked', false);
+                _labels['font-size'] ? $('input[name="table-islabelfontsize"]').prop('checked', true) && $('input[name="table-labelfontsize"]').jRange('setValue', _labels['font-size']) : $('input[name="table-islabelfontsize"]').prop('checked', false)
+                _labels['background-color'] ? $('input[name="table-islabelbackgroundcolor"]').prop('checked', true) && $('input[name="table-labelbackgroundcolor"]').spectrum("set", _labels['background-color']) : $('input[name="table-islabelbackgroundcolor"]').prop('checked', false);
+                _labels['text-align'] ? $('input[name="table-islabeltextalign"]').prop('checked', true) && $('input[name="table-labeltextalign"][value="' + _labels['text-align'] + '"]').prop('checked', true) : $('input[name="table-islabeltextalign"]').prop('checked', false);
+
                 //$('input[name="table-labelfontsize"]').val();
                 //$('input[name="table-labelbackgroundcolor"]').val();
                 //$('input[name="table-labeltextalign"]').val();
-
             }
             if (_formcss && _formcss.inputs) {
                 var _inputs = _formcss.inputs;
                 _inputs['border-color'] ? $('input[name="table-isinputbordercolor"]').prop('checked', true) && $('input[name="table-inputbordercolor"]').spectrum("set", _inputs['border-color']) : $('input[name="table-isinputbordercolor"]').prop('checked', false)
-                _inputs['border-width']  ? $('input[name="table-isinputbordersize"]').prop('checked', true) && $('input[name="table-inputbordersize"]').jRange('setValue', _inputs['border-width']) : $('input[name="table-isinputbordersize"]').prop('checked', false)
+                _inputs['border-width'] ? $('input[name="table-isinputbordersize"]').prop('checked', true) && $('input[name="table-inputbordersize"]').jRange('setValue', _inputs['border-width']) : $('input[name="table-isinputbordersize"]').prop('checked', false)
                 _inputs['background-color'] ? $('input[name="table-isinputbackgroundcolor"]').prop('checked', true) && $('input[name="table-inputbackgroundcolor"]').spectrum("set", _inputs['background-color']) : $('input[name="table-isinputbackgroundcolor"]').prop('checked', false)
-                _inputs['text-align']  ? $('input[name="table-isinputtextalign"]').prop('checked', true) && $('input[name="table-inputtextalign"][value="' + _inputs['text-align'] + '"]').prop('checked', true) : $('input[name="table-isinputtextalign"]').prop('checked', false)
+                _inputs['text-align'] ? $('input[name="table-isinputtextalign"]').prop('checked', true) && $('input[name="table-inputtextalign"][value="' + _inputs['text-align'] + '"]').prop('checked', true) : $('input[name="table-isinputtextalign"]').prop('checked', false)
                 //$('input[name="table-inputbordercolor"]').val();
                 //$('input[name="table-inputbordersize"]').val();;
                 //$('input[name="table-inputbackgroundcolor"]').val();
                 //$('input[name="table-inputtextalign"]').val();
             }
-        
-    }catch (e) { console.error(e) }
-}
+        } catch (e) { console.error(e) }
+    }
     var scriptHtml = [];
     var scriptselect = [];
     for (var i = 0; i < scriptlist.length; i++) {
-       //  if (scriptlist[i].Attribute=='') {
+        //  if (scriptlist[i].Attribute=='') {
         scriptHtml.push('<tr onclick="chooseRowInfo(this)" class="scriptrow" data-id="' + scriptlist[i].Id + '"><td data-value="' + scriptlist[i].Name + '">' + scriptlist[i].Name + '</td><td>' + scriptlist[i].Info + '</td></tr>');
         scriptselect.push('<option value="' + scriptlist[i].Name + '">' + scriptlist[i].Name + '</option>');
-       //  }
+        //  }
     }
     target.find('#formScript').html(scriptHtml.join(''));
     var eventHtml = [];
@@ -2359,11 +2359,10 @@ function saveFormParams() {
     if ($('input[name="table-isinputtextalign"]').prop('checked')) {
         styles.inputs['text-align'] = $('input[name="table-inputtextalign"]:checked').val() ? $('input[name="table-inputtextalign"]:checked').val() : '';
     }
-   
-    if (FormConfig.CustomCss && FormConfig.CustomCss!="") {
+
+    if (FormConfig.CustomCss && FormConfig.CustomCss != "") {
         var cuscss = JSON.parse(FormConfig.CustomCss);
         styles = $.extend(true, {}, styles);
-        
     }
     FormConfig.CustomCss = JSON.stringify(styles);
     $('#CustomCss').val(JSON.stringify(styles));
@@ -2379,7 +2378,6 @@ function saveFormParams() {
         eventlist.push(eventitem);
     });
     target.find('#formScript').find('tr').each(function (i, n) {
-       
         var scriptitem = {
             'Attribute': '',
             'Name': $(n).find('td:eq(0)').text(),
@@ -2605,7 +2603,7 @@ function editTab() {
     target.find('#tabEvent').html('');
     for (var i = 0; i < eventlist.length; i++) {
         if (eventlist[i].Attribute.toLowerCase() == selected.attr('data-name').toLowerCase()) {
-            target.find('#tabEvent').append('<tr onclick="chooseRowInfo(this)" data-id="'+eventlist[i].eventid+'"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onstatechange">onstatechange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
+            target.find('#tabEvent').append('<tr onclick="chooseRowInfo(this)" data-id="' + eventlist[i].eventid + '"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onstatechange">onstatechange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
             target.find('#tabEvent').find('tr:last').find('td:eq(0)').find('option[value="' + eventlist[i].JsLibrary + '"]').attr('selected', "selected");
             target.find('#tabEvent').find('tr:last').find('td:eq(1)').find('option[value="' + eventlist[i].Name + '"]').attr('selected', "selected");
         }
@@ -2686,7 +2684,7 @@ function saveTab() {
             'Name': $(n).find('td:eq(1)').find('option:selected').val(),
             'JsAction': $(n).find('td:eq(2)').find('input').val(),
             'JsLibrary': $(n).find('td:eq(0)').find('option:selected').val(),
-            'eventid':  Xms.Utility.Guid.NewGuid().ToString()
+            'eventid': Xms.Utility.Guid.NewGuid().ToString()
         };
         eventlist.push(eventitem);
     });
@@ -2908,7 +2906,7 @@ function editField() {
     target.find('#fieldEvent').html('');
     for (var i = 0; i < eventlist.length; i++) {
         if (eventlist[i].Attribute.toLowerCase() == selected.attr('data-name').toLowerCase()) {
-            target.find('#fieldEvent').append('<tr class="eventitem" data-id="' + eventlist[i].eventid +'" onclick="chooseRowInfo(this)"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
+            target.find('#fieldEvent').append('<tr class="eventitem" data-id="' + eventlist[i].eventid + '" onclick="chooseRowInfo(this)"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
             target.find('#fieldEvent').find('tr:last').find('td:eq(0)').find('option[value="' + eventlist[i].JsLibrary + '"]').attr('selected', "selected");
             target.find('#fieldEvent').find('tr:last').find('td:eq(1)').find('option[value="' + eventlist[i].Name + '"]').attr('selected', "selected");
         }
@@ -2923,7 +2921,6 @@ function editField() {
         $('#attributeTab li:eq(2)').hide();
     }
 
-
     //样式配置
     var customcss = selected.attr('data-customcss');
     if (customcss && customcss != "") {
@@ -2932,32 +2929,21 @@ function editField() {
 
             if (styles && styles.labels) {
                 var _labels = styles.labels;
-                 _labels['color'] ? $('input[name="tableattribute-islabelfontcolor"]').prop('checked', true) && $('input[name="tableattribute-labelfontcolor"]').spectrum("set", _labels['color']) : $('input[name="tableattribute-islabelfontcolor"]').prop('checked', false) 
+                _labels['color'] ? $('input[name="tableattribute-islabelfontcolor"]').prop('checked', true) && $('input[name="tableattribute-labelfontcolor"]').spectrum("set", _labels['color']) : $('input[name="tableattribute-islabelfontcolor"]').prop('checked', false)
 
-                _labels['font-size'] ? $('input[name="tableattribute-islabelfontsize"]').prop('checked', true) && $('input[name="tableattribute-labelfontsize"]').jRange('setValue', _labels['font-size']) : $('input[name="tableattribute-islabelfontsize"]').prop('checked', false) 
+                _labels['font-size'] ? $('input[name="tableattribute-islabelfontsize"]').prop('checked', true) && $('input[name="tableattribute-labelfontsize"]').jRange('setValue', _labels['font-size']) : $('input[name="tableattribute-islabelfontsize"]').prop('checked', false)
 
-                _labels['background-color']  ? $('input[name="tableattribute-islabelbackgroundcolor"]').prop('checked', true) && $('input[name="tableattribute-labelbackgroundcolor"]').spectrum("set", _labels['background-color']) : $('input[name="tableattribute-islabelbackgroundcolor"]').prop('checked', false) ;
+                _labels['background-color'] ? $('input[name="tableattribute-islabelbackgroundcolor"]').prop('checked', true) && $('input[name="tableattribute-labelbackgroundcolor"]').spectrum("set", _labels['background-color']) : $('input[name="tableattribute-islabelbackgroundcolor"]').prop('checked', false);
 
                 _labels['text-align'] ? $('input[name="tableattribute-islabeltextalign"]').prop('checked', true) && $('input[name="tableattribute-labeltextalign"][value="' + _labels['text-align'] + '"]').prop('checked', true) : $('input[name="tableattribute-islabeltextalign"]').prop('checked', false);
-
-
-                //$('input[name="table-labelfontsize"]').val();
-                //$('input[name="table-labelbackgroundcolor"]').val();
-                //$('input[name="table-labeltextalign"]').val();
-
             }
             if (styles && styles.inputs) {
                 var _inputs = styles.inputs;
-                _inputs['border-color']  ? $('input[name="tableattribute-isinputbordercolor"]').prop('checked', true) && $('input[name="tableattribute-inputbordercolor"]').spectrum("set", _inputs['border-color']) : $('input[name="tableattribute-isinputbordercolor"]').prop('checked', false) 
-                _inputs['border-width'] ? $('input[name="tableattribute-isinputbordersize"]').prop('checked', true) && $('input[name="tableattribute-inputbordersize"]').jRange('setValue', _inputs['border-width']) : $('input[name="tableattribute-isinputbordersize"]').prop('checked', false) 
-                _inputs['background-color']  ? $('input[name="tableattribute-isinputbackgroundcolor"]').prop('checked', true) && $('input[name="tableattribute-inputbackgroundcolor"]').spectrum("set", _inputs['background-color']) : $('input[name="tableattribute-isinputbackgroundcolor"]').prop('checked', false) 
-                _inputs['text-align']  ? $('input[name="tableattribute-isinputtextalign"]').prop('checked', true) && $('input[name="tableattribute-inputtextalign"][value="' + _inputs['text-align'] + '"]').prop('checked', true) : $('input[name="tableattribute-isinputtextalign"]').prop('checked', false);
-                //$('input[name="tableattribute-inputbordercolor"]').val();
-                //$('input[name="table-inputbordersize"]').val();;
-                //$('input[name="table-inputbackgroundcolor"]').val();
-                //$('input[name="table-inputtextalign"]').val();
+                _inputs['border-color'] ? $('input[name="tableattribute-isinputbordercolor"]').prop('checked', true) && $('input[name="tableattribute-inputbordercolor"]').spectrum("set", _inputs['border-color']) : $('input[name="tableattribute-isinputbordercolor"]').prop('checked', false)
+                _inputs['border-width'] ? $('input[name="tableattribute-isinputbordersize"]').prop('checked', true) && $('input[name="tableattribute-inputbordersize"]').jRange('setValue', _inputs['border-width']) : $('input[name="tableattribute-isinputbordersize"]').prop('checked', false)
+                _inputs['background-color'] ? $('input[name="tableattribute-isinputbackgroundcolor"]').prop('checked', true) && $('input[name="tableattribute-inputbackgroundcolor"]').spectrum("set", _inputs['background-color']) : $('input[name="tableattribute-isinputbackgroundcolor"]').prop('checked', false)
+                _inputs['text-align'] ? $('input[name="tableattribute-isinputtextalign"]').prop('checked', true) && $('input[name="tableattribute-inputtextalign"][value="' + _inputs['text-align'] + '"]').prop('checked', true) : $('input[name="tableattribute-isinputtextalign"]').prop('checked', false);
             }
-
         } catch (e) { console.error(e) }
     } else {
         $('input[name="tableattribute-islabelfontcolor"]').prop('checked', false);
@@ -2969,7 +2955,8 @@ function editField() {
         $('input[name="tableattribute-isinputbackgroundcolor"]').prop('checked', false);
         $('input[name="tableattribute-isinputtextalign"]').prop('checked', false);
     }
-    activeAttributeScriptTag()
+    changeStylePreviewTarget();
+    activeAttributeScriptTag();
     target.modal({
         keyboard: true
     })
@@ -3076,20 +3063,19 @@ function saveField() {
     initFieldEvent();
     formulaSave();		//保存公式
 
-
     //保存样式
     var styles = {
         labels: {
-          //  'font-size': '12',
-         //   'color': '#555',
-         //   'background-color': 'none',
-         //   'text-align': 'left'
+            //  'font-size': '12',
+            //   'color': '#555',
+            //   'background-color': 'none',
+            //   'text-align': 'left'
         },
         inputs: {
-          //  'border-color': '#ddd',
-          //  'border-width': '1',
-          ////  'background-color': 'none',
-          //  'text-align': 'left'
+            //  'border-color': '#ddd',
+            //  'border-width': '1',
+            ////  'background-color': 'none',
+            //  'text-align': 'left'
         }
     };
     if ($('input[name="tableattribute-islabelfontcolor"]').prop('checked')) {
@@ -3116,16 +3102,64 @@ function saveField() {
     if ($('input[name="tableattribute-isinputtextalign"]').prop('checked')) {
         styles.inputs['text-align'] = $('input[name="tableattribute-inputtextalign"]:checked').val() ? $('input[name="tableattribute-inputtextalign"]:checked').val() : '';
     }
-    
+
     if (selected.attr('data-customcss') && selected.attr('data-customcss') != "") {
         var cuscss = JSON.parse(selected.attr('data-customcss'));
         styles = $.extend(true, {}, styles);
-
     }
     selected.attr('data-customcss', JSON.stringify(styles));
     activeAttributeScriptTag()
     //handleFieldColspan(selected.parent());
     target.modal('hide');
+}
+
+function changeStylePreviewTarget() {
+    var styles = {
+        labels: {},
+        inputs: {}
+    }
+    if ($('input[name="tableattribute-islabelfontcolor"]').prop('checked')) {
+        styles.labels['color'] = $('input[name="tableattribute-labelfontcolor"]').val() ? $('input[name="tableattribute-labelfontcolor"]').val() : '';
+    } else {
+        styles.labels['color'] = 'initial';
+    }
+    if ($('input[name="tableattribute-islabelfontsize"]').prop('checked')) {
+        styles.labels['font-size'] = $('input[name="tableattribute-labelfontsize"]').val() ? $('input[name="tableattribute-labelfontsize"]').val() + 'px' : '';
+    } else {
+        styles.labels['font-size'] = 12 + 'px';
+    }
+    if ($('input[name="tableattribute-islabelbackgroundcolor"]').prop('checked')) {
+        styles.labels['background-color'] = $('input[name="tableattribute-labelbackgroundcolor"]').val() ? $('input[name="tableattribute-labelbackgroundcolor"]').val() : '';
+    } else {
+        styles.labels['background-color'] = 'initial';
+    }
+    if ($('input[name="tableattribute-islabeltextalign"]').prop('checked')) {
+        styles.labels['text-align'] = $('input[name="tableattribute-labeltextalign"]:checked').val() ? $('input[name="tableattribute-labeltextalign"]:checked').val() : '';
+    } else {
+        styles.labels['text-align'] = 'left';
+    }
+    $('#previewshowLabel').css(styles.labels);
+    if ($('input[name="tableattribute-isinputbordercolor"]').prop('checked')) {
+        styles.inputs['border-color'] = $('input[name="tableattribute-inputbordercolor"]').val() ? $('input[name="tableattribute-inputbordercolor"]').val() : '';
+    } else {
+        styles.inputs['border-color'] = 'initial';
+    }
+    if ($('input[name="tableattribute-isinputbordersize"]').prop('checked')) {
+        styles.inputs['border-width'] = $('input[name="tableattribute-inputbordersize"]').val() ? $('input[name="tableattribute-inputbordersize"]').val() + 'px' : '';
+    } else {
+        styles.inputs['border-width'] = '0';
+    }
+    if ($('input[name="tableattribute-isinputbackgroundcolor"]').prop('checked')) {
+        styles.inputs['background-color'] = $('input[name="tableattribute-inputbackgroundcolor"]').val() ? $('input[name="tableattribute-inputbackgroundcolor"]').val() : '';
+    } else {
+        styles.inputs['background-color'] = 'initial';
+    }
+    if ($('input[name="tableattribute-isinputtextalign"]').prop('checked')) {
+        styles.inputs['text-align'] = $('input[name="tableattribute-inputtextalign"]:checked').val() ? $('input[name="tableattribute-inputtextalign"]:checked').val() : '';
+    } else {
+        styles.inputs['text-align'] = 'left';
+    }
+    $('#previewshowInput').css(styles.inputs);
 }
 
 //插入空格
@@ -3288,9 +3322,8 @@ function saveForm() {
                 if (entityid) {
                     item.Id = $(n).attr('data-entityid') || '';
                 }
-                
             } else if ($(n).attr('data-type') == "0") {
-                item.Url = $(n).attr('data-url')||'';
+                item.Url = $(n).attr('data-url') || '';
                 item.RelationshipName = '';
                 var entityid = $(n).attr('data-entityid');
                 if (entityid) {
@@ -3479,7 +3512,7 @@ function saveForm() {
                             }
                             cell.Control.ControlType = "label";
                             cell.Control.Parameters = $.extend({}, cell.Control.Parameters, labelparam);
-                        } else if($(nnn).children('table').attr('data-controlType') == 'freetext') {
+                        } else if ($(nnn).children('table').attr('data-controlType') == 'freetext') {
                             var labelparam = {
                                 EntityName: $(nnn).children('table').attr('data-labelentityname'),
                                 AttributeName: $(nnn).children('table').attr('data-attributename'),
@@ -3505,15 +3538,6 @@ function saveForm() {
                                 var formularArr = [];
                                 if (formularvalue && formularvalue != '') {
                                     formularArr = JSON.parse(decodeURIComponent(formularvalue));
-                                    //$.each(formularArr, function (fkey,fitems) {
-                                    //    var fitem = new Xms.Form.SubGridFormulars();
-                                    //    $.each(fitems.expression, function (ffkey, ffitem) {
-                                    //        var foritem = Xms.Form.Formular();
-                                    //        foritem.key = ffitem.key;
-                                    //        fitem.expression.push(foritem);
-                                    //    });
-                                    //    formulars.push(fitem)
-                                    //});
                                 }
                                 console.log(formularArr)
                                 /*读取单据体字段间的值计算 数据   end */
@@ -3557,16 +3581,7 @@ function saveForm() {
                         }
                         cell.Control.ReadOnly = $(nnn).children('table').attr('data-isreadonly');
                     }
-                    //else if ($(nnn).children('table').length == 0) {
-                    //    cell.Control = new Xms.Form.ControlDescriptor();
-                    //    cell.Control.Name = ' ';
-                    //    cell.Control.ControlType = 'none';
-                    //    cell.Label = undefined;
-                    //    cell.IsShowLabel = undefined;
-                    //    cell.IsVisible = undefined;
-                    //    cell.ColSpan = undefined;
-                    //    cell.RowSpan = undefined;
-                    //}
+
                     if (cell.Control.Name && cell.Control.Name != '') {
                         row.Cells.push(cell);
                     }
@@ -3689,9 +3704,8 @@ function submitForm() {
                     location.href = ORG_SERVERURL + "/customize/systemform/editform?id=" + toEditId;
                 }
             }, 5000);
-           
         } else {
-             Xms.Web.Alert(response.IsSuccess, response.Content);
+            Xms.Web.Alert(response.IsSuccess, response.Content);
             Xms.Web.Event.publish('refresh');
         }
     });
@@ -3788,16 +3802,15 @@ function chooseRowInfo(e, type) {
 function removeRow(e, type) {
     var _par = $(e).parents("fieldset:first");
     _par.find('.info').remove();
-    
+
     if (type == 'script') {
         var target = _par.find('tbody');
         updateScriptItem(target);
     } else if (type == 'event') {
-       // var target = _par.find('.info');
-      //  updateEventItem(target);
-      //  _par.find('.info').remove();
+        // var target = _par.find('.info');
+        //  updateEventItem(target);
+        //  _par.find('.info').remove();
     }
-   
 }
 function updateEventItem(target) {
     //var eventid = $(target).attr('data-id');
@@ -5113,7 +5126,7 @@ function changeGetEntityName(obj, callback, target, filter, isrequire) {
     if (!selectObj.attr('data-name') || selectObj.attr('data-name') == "") { selector.empty(); return false; }
     var entityid = selectObj.attr("data-referencedentityid");
 
-    Xms.Schema.GetAttributes({ getall: true, entityid: entityid },function (data) {
+    Xms.Schema.GetAttributes({ getall: true, entityid: entityid }, function (data) {
         var html = [];
         var repdatas = data;
         if (filter && typeof filter === "function") {
@@ -5259,7 +5272,7 @@ function editLabel() {
     target.find('#fieldEvent').html('');
     for (var i = 0; i < eventlist.length; i++) {
         if (eventlist[i].Attribute.toLowerCase() == selected.attr('data-name').toLowerCase()) {
-            target.find('#fieldEvent').append('<tr onclick="chooseRowInfo(this)" data-id="' + eventlist[i].eventid +'"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
+            target.find('#fieldEvent').append('<tr onclick="chooseRowInfo(this)" data-id="' + eventlist[i].eventid + '"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
             target.find('#fieldEvent').find('tr:last').find('td:eq(0)').find('option[value="' + eventlist[i].JsLibrary + '"]').attr('selected', "selected");
             target.find('#fieldEvent').find('tr:last').find('td:eq(1)').find('option[value="' + eventlist[i].Name + '"]').attr('selected', "selected");
         }
@@ -5337,8 +5350,6 @@ function saveLabel() {
     target.modal('hide');
 }
 
-
-
 function insertFreeText() {
     var selected = $('#formBody').find('.selected');
     if (selected.length <= 0) {
@@ -5379,8 +5390,6 @@ function insertFreeText() {
     initFieldEvent();
 }
 
-
-
 function editFreeText() {
     var selected = $('.selected');
     if (selected.attr('data-controltype') == 'subGrid') {
@@ -5414,7 +5423,7 @@ function editFreeText() {
     target.find('#setfreetext-colspan').val(selected.attr('data-colspan'));
 
     var ue = loadFreeText();
-    var contents = selected.attr('data-paramcontent') || ''; 
+    var contents = selected.attr('data-paramcontent') || '';
     if (contents && contents !== '') {
         contents = decodeURIComponent(contents);
     }
@@ -5478,7 +5487,7 @@ function editFreeText() {
     target.find('#fieldEvent').html('');
     for (var i = 0; i < eventlist.length; i++) {
         if (eventlist[i].Attribute.toLowerCase() == selected.attr('data-name').toLowerCase()) {
-            target.find('#fieldEvent').append('<tr onclick="chooseRowInfo(this)" data-id="' + eventlist[i].eventid +'"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
+            target.find('#fieldEvent').append('<tr onclick="chooseRowInfo(this)" data-id="' + eventlist[i].eventid + '"><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
             target.find('#fieldEvent').find('tr:last').find('td:eq(0)').find('option[value="' + eventlist[i].JsLibrary + '"]').attr('selected', "selected");
             target.find('#fieldEvent').find('tr:last').find('td:eq(1)').find('option[value="' + eventlist[i].Name + '"]').attr('selected', "selected");
         }
@@ -5519,7 +5528,7 @@ function savefreetext() {
     if (contents && contents !== '') {
         contents = encodeURIComponent(contents);
     }
-    selected.attr('data-paramcontent', contents); 
+    selected.attr('data-paramcontent', contents);
     //***********save event
     removeSriptEvent(selected.attr('data-name'));
     target.find('#fieldEvent').find('tr').each(function (i, n) {
@@ -5564,7 +5573,7 @@ function savefreetext() {
 function loadFreeText() {
     var $serfreetextContextHtml = $('#serfreetextContextHtml');
     var width = $serfreetextContextHtml.parent().width();
-    
+
     if (!$serfreetextContextHtml.data().ue) {
         var ue = UE.getEditor('serfreetextContextHtml', {
             toolbars: [
@@ -5572,15 +5581,13 @@ function loadFreeText() {
                     'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',]
             ],
             initialFrameHeight: 250,
-            initialFrameWidth: width-50,
+            initialFrameWidth: width - 50,
             autoHeightEnabled: false
         });
 
         ue.addListener('ready', function (editor) {
-
         });
         ue.addListener("contentChange", function () {
-
         });
         $serfreetextContextHtml.data().ue = ue;
     } else {
@@ -5589,7 +5596,6 @@ function loadFreeText() {
 
     return ue;
 }
-
 
 function getEntityTypeBAttrs(entName) {
     if (!attributes || attributes.length == 0 || !entName) { return false; }
@@ -5606,7 +5612,7 @@ function editEvents() {
     var scriptselect = [];
     for (var i = 0; i < scriptlist.length; i++) {
         // if (scriptlist[i].Attribute.toLowerCase() == selected.attr('data-name').toLowerCase()) {
-        scriptHtml.push('<tr onclick="chooseRowInfo(this)" class="scriptrow" data-attributename="' + scriptlist[i].Attribute+'" data-id="' + scriptlist[i].Id + '"><td data-value="' + scriptlist[i].Name + '">' + scriptlist[i].Name + '</td><td>' + scriptlist[i].Info + '</td></tr>');
+        scriptHtml.push('<tr onclick="chooseRowInfo(this)" class="scriptrow" data-attributename="' + scriptlist[i].Attribute + '" data-id="' + scriptlist[i].Id + '"><td data-value="' + scriptlist[i].Name + '">' + scriptlist[i].Name + '</td><td>' + scriptlist[i].Info + '</td></tr>');
         scriptselect.push('<option value="' + scriptlist[i].Name + '">' + scriptlist[i].Name + '</option>');
         // }
     }
@@ -5614,10 +5620,9 @@ function editEvents() {
     var eventHtml = [];
     target.find('#fieldEvent').empty();
     for (var i = 0; i < eventlist.length; i++) {
-        target.find('#fieldEvent').append('<tr class="eventitem" data-id="' + eventlist[i].eventid +'" onclick="chooseRowInfo(this)"><td>' + eventlist[i].Attribute + '</td><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
-            target.find('#fieldEvent').find('tr:last').find('td:eq(1)').find('option[value="' + eventlist[i].JsLibrary + '"]').attr('selected', "selected");
-            target.find('#fieldEvent').find('tr:last').find('td:eq(2)').find('option[value="' + eventlist[i].Name + '"]').attr('selected', "selected");
-        
+        target.find('#fieldEvent').append('<tr class="eventitem" data-id="' + eventlist[i].eventid + '" onclick="chooseRowInfo(this)"><td>' + eventlist[i].Attribute + '</td><td><select class="scriptlist">' + scriptselect.join('') + '</select></td><td><select><option value="onchange">onchange</option></select></td><td><input type="text" value="' + eventlist[i].JsAction + '" /></td></tr>');
+        target.find('#fieldEvent').find('tr:last').find('td:eq(1)').find('option[value="' + eventlist[i].JsLibrary + '"]').attr('selected', "selected");
+        target.find('#fieldEvent').find('tr:last').find('td:eq(2)').find('option[value="' + eventlist[i].Name + '"]').attr('selected', "selected");
     }
     $('#setEventsModal').modal('show');
     console.log()
@@ -5664,7 +5669,7 @@ function saveEvents() {
 function activeAttributeScriptTag() {
     if (eventlist.length > 0) {
         $('.cell[data-name]').removeClass('right-top-tag');
-        $.each(eventlist, function (i,n) {
+        $.each(eventlist, function (i, n) {
             if (n.Attribute) {
                 var $attribute = $('.cell[data-name="' + n.Attribute + '"]');
                 if ($attribute.length > 0) {
@@ -5686,3 +5691,9 @@ function moveColumn(direction) {
     }
     saveGridConfig();
 }
+
+$(function () {
+    $('.changestylecheckbox').on('click', function () {
+        changeStylePreviewTarget()
+    })
+})

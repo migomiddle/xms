@@ -6,7 +6,6 @@ using Xms.Schema.Attribute;
 using Xms.Schema.OptionSet;
 using Xms.Schema.RelationShip;
 using Xms.Schema.StringMap;
-using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Controller;
 using Xms.Web.Models;
 
@@ -58,7 +57,7 @@ namespace Xms.Web.Controllers
                 {
                     model.AttributeMeta = _attributeFinder.Find(model.EntityId, model.Field);
                 }
-                if(model.AttributeMeta == null)
+                if (model.AttributeMeta == null)
                 {
                     return NotFound();
                 }

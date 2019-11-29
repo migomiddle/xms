@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xms.Context;
-using Xms.Sdk.Abstractions.Query;
 using Xms.Identity;
 using Xms.Infrastructure.Utility;
+using Xms.Sdk.Abstractions.Query;
 using Xms.Sdk.Client;
 using Xms.Sdk.Extensions;
 
@@ -19,10 +19,11 @@ namespace Xms.File
         private readonly IDataFinder _dataFinder;
         private readonly IDataDeleter _dataDeleter;
         private readonly IWebHelper _webHelper;
+
         public AttachmentDeleter(IAppContext appContext
             , IDataFinder dataFinder
             , IDataDeleter dataDeleter
-            , IWebHelper webHelper) 
+            , IWebHelper webHelper)
             : base(appContext)
         {
             _appContext = appContext;
@@ -40,6 +41,7 @@ namespace Xms.File
         {
             return _dataDeleter.Delete(EntityName, id);
         }
+
         /// <summary>
         /// 删除多条记录
         /// </summary>
@@ -49,6 +51,7 @@ namespace Xms.File
         {
             return _dataDeleter.Delete(EntityName, ids);
         }
+
         /// <summary>
         /// 删除记录
         /// </summary>

@@ -18,8 +18,8 @@ namespace Xms.Web.Customize.Models
         public Schema.Domain.Entity Entity { get; set; }
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
-
     }
+
     public class CustomButtonsDialogModel : DialogModel
     {
         public Guid EntityId { get; set; }

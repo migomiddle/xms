@@ -3,6 +3,7 @@
     public static class SerialNumberRuleDefaults
     {
         public const string ModuleName = "SerialNumberRule";
+
         public static string AssemblyName
         {
             get

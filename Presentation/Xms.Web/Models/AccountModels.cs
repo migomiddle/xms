@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Xms.Web.Models
 {
@@ -20,6 +19,7 @@ namespace Xms.Web.Models
 
         [Required(ErrorMessage = "组织代码不能为空")]
         public string OrgUniqueName { get; set; }
+
         public string OrgName { get; set; }
     }
 }

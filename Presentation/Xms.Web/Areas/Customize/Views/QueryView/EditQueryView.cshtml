@@ -20,7 +20,7 @@
                 <input type="hidden" id="EntityName" name="EntityName" value="@Model.EntityMetaData.Name" />
                 <div class="row position-relative">
                     <div class="col-sm-3">
-                        
+
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane in active" id="info" style="padding:5px;">
                                 <div class="form-group-head"><i class="glyphicon glyphicon-chevron-down"></i>基本信息</div>
@@ -88,10 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                     <div class="col-sm-9">
                         <div class="tab-pane" id="buttons">
@@ -107,7 +104,6 @@
                                         </label>
                                     </span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="clearfix pt-5">
@@ -222,7 +218,6 @@
                                         </div>
                                         <span class="addMove glyphicon glyphicon-plus" onclick="checkAdd(this)" style="cursor:pointer;"></span>
                                     </div>
-
                                 </div>
                                 <div class="rowC-item" style="padding:10px;display: inline-block;">
                                     <label class="text-muted">动作类型：</label>
@@ -240,7 +235,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-sm-2"></div>
@@ -306,7 +300,6 @@
                 </div><!-- /.modal -->
             </form>
         </div>
-
     </div>
 </div>
 <!--排序设置-->
@@ -560,7 +553,7 @@
     <script src="/content/js/colorpicker/spectrum.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery.sumoselect.js?v=@app.PlatformSettings.VersionNumber"></script>
     @{await Html.RenderPartialAsync("FetchLabel"); }
-<script src="~/content/js/pages/customize.queryview.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/pages/customize.queryview.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script>
         var savetype = 'save';
         var jslibs = @Html.Raw(Model.WebResources.SerializeToJson(false));
@@ -571,7 +564,7 @@
         var EntityName=$('#EntityName').val();
         var FetchConfig=JSON.parse($('#FetchConfig').val());
         $(function () {
-
+            Xms.Web._callParentMethod('changeLeftWrapState');
             //编辑时初始排序start
             var Orders=QueryObject.Orders;
             for(var i=0;i<Orders.length;i++){
@@ -790,8 +783,10 @@
             });
 
             $.when(loadEntities()).done(loadAttributes(function () {
-                 $('#renderBody').css('margin-bottom', 27);
-                $.fullHeight($('#attributes').parent(),-52);
+                $('#renderBody').css('margin-bottom', 10);
+                setTimeout(function () {
+                  $.fullHeight($('#attributes').parent(), -52);
+                },100)
             }));
             loadFilterAttributes();
 
@@ -862,7 +857,6 @@
 
                 }
             });
-
 
             var $rowcommand = $('#rowcommand');
             var rowCommandCn = { LogicalOperat4or: { or: "或者", and: "并且" }, EventType: { onbinding: "行绑定时" }, ActionType: { SetRowBackground: "设置背景" }, Action: { color: '背景色' } }
@@ -938,9 +932,6 @@
                 }
             }, 100);
 
-
-
-
             function initRowCommand(datas,_context){
 
                 console.log('initRowCommand',_row);
@@ -993,7 +984,6 @@
                             }
                             operaInput.val(jItem.Operator);
                             operaInput.trigger('change');
-
 
                             //设置值
                             var _value =jItem.Values;

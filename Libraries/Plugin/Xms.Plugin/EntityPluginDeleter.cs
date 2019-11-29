@@ -22,6 +22,7 @@ namespace Xms.Plugin
         private readonly ISolutionComponentService _solutionComponentService;
         private readonly Caching.CacheManager<EntityPlugin> _cacheService;
         private readonly IDependencyService _dependencyService;
+
         public EntityPluginDeleter(IAppContext appContext
             , IEntityPluginRepository entityPluginRepository
             , ISolutionComponentService solutionComponentService
@@ -30,13 +31,13 @@ namespace Xms.Plugin
             _entityPluginRepository = entityPluginRepository;
             _solutionComponentService = solutionComponentService;
             _dependencyService = dependencyService;
-            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), EntityPluginCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool DeleteById(params Guid[] ids)
         {
             Guard.NotEmpty(ids, nameof(ids));
-            var deleteds = _entityPluginRepository.Query(x=>x.EntityPluginId.In(ids.ToArray()));
+            var deleteds = _entityPluginRepository.Query(x => x.EntityPluginId.In(ids.ToArray()));
             if (deleteds.IsEmpty())
             {
                 return false;
@@ -59,7 +60,7 @@ namespace Xms.Plugin
             Guard.NotEmpty(deleteds, nameof(deleteds));
             var result = true;
             var solutionId = deleteds.First().SolutionId;
-            var ids = deleteds.Select(x=>x.EntityPluginId).ToArray();
+            var ids = deleteds.Select(x => x.EntityPluginId).ToArray();
             using (UnitOfWork.Build(_entityPluginRepository.DbContext))
             {
                 result = _entityPluginRepository.DeleteMany(ids);

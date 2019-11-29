@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using Xms.ServerHostManage;
 using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Controller;
-using Xms.Infrastructure.Utility;
-using System.ComponentModel;
+
 namespace Xms.Web.Api
 {
     /// <summary>
@@ -18,7 +14,6 @@ namespace Xms.Web.Api
     {
         private readonly IServerHostManageService _serverHostManageService;
 
-
         public ServerHostManageController(IWebAppContext appContext
             , IServerHostManageService serverHostManageService
            )
@@ -26,13 +21,13 @@ namespace Xms.Web.Api
         {
             _serverHostManageService = serverHostManageService;
         }
+
         [Description("获取用户个性化")]
         [HttpGet("getSystemInfomation")]
         public IActionResult GetSystemInfomation()
         {
             var result = _serverHostManageService.GetSystemInfomation();
             return JOk(result);
-
         }
     }
 }

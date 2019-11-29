@@ -83,7 +83,7 @@ namespace Xms.Sdk.Client
             , IQueryResolverFactory queryResolverFactory)
         {
             _appContext = appContext;
-            User = _appContext.GetFeature<ICurrentUser>();            
+            User = _appContext.GetFeature<ICurrentUser>();
             _stringMapFinder = stringMapFinder;
             _optionSetDetailFinder = optionSetDetailFinder;
             _systemUserPermissionService = systemUserPermissionService;
@@ -450,8 +450,6 @@ namespace Xms.Sdk.Client
                 this.User.Roles = fetch.User.Roles;
             }
 
-
-
             if (fetch.User != null && !fetch.User.IsSuperAdmin && fetch.User.Roles.NotEmpty())
             {
                 var roles = fetch.User.Roles.Select(r => r.RoleId);
@@ -459,7 +457,7 @@ namespace Xms.Sdk.Client
                 var entIds = _entityFinder.FindByNames(entities.ToArray()).Select(n => n.EntityId);
                 fetch.User.RoleObjectAccessEntityPermission = _roleObjectAccessEntityPermissionService.GetPermissions(entIds, roles, AccessRightValue.Read);
                 this.User.RoleObjectAccessEntityPermission = fetch.User.RoleObjectAccessEntityPermission;
-            }            
+            }
             //this.User.UserName = "test";
             //this.SetRetrieveConditions(this.User, this.QueryExpression);
 

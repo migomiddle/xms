@@ -59,6 +59,7 @@ namespace Xms.Web.Controllers
         }
 
         #region 用户权限
+
         /// <summary>
         /// 重设用户角色
         /// </summary>
@@ -103,17 +104,17 @@ namespace Xms.Web.Controllers
         [HttpPost]
         public IActionResult AddUserRoles([FromBody]AddUserRolesModel model)
         {
-            if (model.UserId.IsEmpty() || model.RoleId .IsEmpty())
+            if (model.UserId.IsEmpty() || model.RoleId.IsEmpty())
             {
                 return NotSpecifiedRecord();
             }
             var userRoles = new List<SystemUserRoles>();
-            var existsUserRoles = _systemUserRolesService.Query(x=>x.Where(f=>f.SystemUserId.In(model.UserId) && f.RoleId.In(model.RoleId)));
+            var existsUserRoles = _systemUserRolesService.Query(x => x.Where(f => f.SystemUserId.In(model.UserId) && f.RoleId.In(model.RoleId)));
             foreach (var uid in model.UserId)
             {
                 foreach (var rid in model.RoleId)
                 {
-                    if(existsUserRoles.Exists(x=>x.RoleId == rid && x.SystemUserId == uid))
+                    if (existsUserRoles.Exists(x => x.RoleId == rid && x.SystemUserId == uid))
                     {
                         continue;
                     }
@@ -227,6 +228,7 @@ namespace Xms.Web.Controllers
         #endregion 对象权限
 
         #region 用户密码
+
         [HttpGet]
         [Description("用户密码修改")]
         public IActionResult EditUserPassword(Guid id)
@@ -271,9 +273,11 @@ namespace Xms.Web.Controllers
             }
             return UpdateFailure(GetModelErrors());
         }
-        #endregion
+
+        #endregion 用户密码
 
         #region 对话框
+
         [Description("角色对话框")]
         public IActionResult RolesDialog([FromBody]RoleDialogModel model)
         {
@@ -309,7 +313,8 @@ namespace Xms.Web.Controllers
             model.TotalItems = result.TotalItems;
             return View(model);
         }
-        #endregion
+
+        #endregion 对话框
 
         [Description("权限资源管理")]
         public IActionResult PrivilegeResources(string resourceName)

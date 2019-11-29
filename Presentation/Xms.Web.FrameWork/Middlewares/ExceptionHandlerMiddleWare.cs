@@ -2,12 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Xms.Core;
-using Xms.Infrastructure;
-using Xms.Infrastructure.Utility;
-using Xms.Web.Framework.Models;
 
 namespace Xms.Web.Framework.Middlewares
 {
@@ -90,6 +86,7 @@ namespace Xms.Web.Framework.Middlewares
             //}
         }
     }
+
     public static class ExceptionHandlerMiddleWareExtensions
     {
         public static IApplicationBuilder UseExceptionHandlerMiddleWare(this IApplicationBuilder builder)

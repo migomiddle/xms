@@ -9,7 +9,7 @@ using Xms.Sdk.Query;
 namespace Xms.Business.DataAnalyse.Data
 {
     public interface IReportRepository : IRepository<Domain.Report>
-    {        
+    {
         string GetFieldValueName(IQueryResolver queryTranslator, string field, Schema.Domain.Attribute attr = null);
 
         string GetGroupingName(ReportDescriptor report, IQueryResolver queryTranslator, string field, bool includeAlias = false);

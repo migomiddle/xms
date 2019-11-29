@@ -12,15 +12,17 @@ namespace Xms.Business.SerialNumber
     {
         private readonly ISerialNumberRuleFinder _serialNumberRuleFinder;
         private readonly ISerialNumberGenerator _serialNumberGenerator;
+
         public SerialNumberExecutor(ISerialNumberRuleFinder serialNumberRuleFinder
             , ISerialNumberGenerator serialNumberGenerator)
         {
             _serialNumberRuleFinder = serialNumberRuleFinder;
             _serialNumberGenerator = serialNumberGenerator;
         }
+
         public void Execute(PluginExecutionContext context)
         {
-            if(context.MessageName == OperationTypeEnum.Create && context.Stage == OperationStage.PreOperation)
+            if (context.MessageName == OperationTypeEnum.Create && context.Stage == OperationStage.PreOperation)
             {
                 var snr = _serialNumberRuleFinder.FindByEntityId(context.EntityMetadata.EntityId);
                 if (snr != null && context.Target.GetStringValue(snr.AttributeName).IsEmpty())

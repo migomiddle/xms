@@ -18,44 +18,44 @@ namespace Xms.Plugin
     {
         private readonly IEntityPluginRepository _entityPluginRepository;
         private readonly Caching.CacheManager<EntityPlugin> _cacheService;
-        public EntityPluginFinder(IAppContext appContext 
-            ,IEntityPluginRepository entityPluginRepository)
+
+        public EntityPluginFinder(IAppContext appContext
+            , IEntityPluginRepository entityPluginRepository)
         {
             _entityPluginRepository = entityPluginRepository;
-            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), EntityPluginCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), appContext.PlatformSettings.CacheEnabled);
         }
 
         public EntityPlugin FindById(Guid id)
         {
             var dic = new Dictionary<string, string>();
             dic.Add("EntityPluginId", id.ToString());
-            EntityPlugin entity = _cacheService.Get(dic,() =>
-            {
-                return _entityPluginRepository.FindById(id);
-            });
+            EntityPlugin entity = _cacheService.Get(dic, () =>
+             {
+                 return _entityPluginRepository.FindById(id);
+             });
             return entity;
         }
 
-        public List<EntityPlugin> QueryByEntityId(Guid entityid, string eventName, Guid? businessObjectId=null,PlugInType typeCode = PlugInType.Entity)
+        public List<EntityPlugin> QueryByEntityId(Guid entityid, string eventName, Guid? businessObjectId = null, PlugInType typeCode = PlugInType.Entity)
         {
-            List<EntityPlugin> entities = _cacheService.GetVersionItems(entityid + "/" + eventName,() =>
-            {
-                return _entityPluginRepository.Query(x => x.EntityId == entityid)?.ToList();
-            });
+            List<EntityPlugin> entities = _cacheService.GetVersionItems(entityid + "/" + eventName, () =>
+             {
+                 return _entityPluginRepository.Query(x => x.EntityId == entityid)?.ToList();
+             });
             if (entities.NotEmpty())
             {
                 if (businessObjectId.HasValue)
                 {
-                    entities.RemoveAll(x => !(x.EventName.IsCaseInsensitiveEqual(eventName) && x.BusinessObjectId == businessObjectId.Value && x.TypeCode==(int)typeCode));
+                    entities.RemoveAll(x => !(x.EventName.IsCaseInsensitiveEqual(eventName) && x.BusinessObjectId == businessObjectId.Value && x.TypeCode == (int)typeCode));
                 }
-                else {
+                else
+                {
                     entities.RemoveAll(x => !(x.EventName.IsCaseInsensitiveEqual(eventName) && x.BusinessObjectId == Guid.Empty && x.TypeCode == (int)typeCode));
-                }                
+                }
             }
-            return entities.OrderBy(x=>x.ProcessOrder).ToList();
+            return entities.OrderBy(x => x.ProcessOrder).ToList();
         }
-
-
 
         public PagedList<EntityPlugin> QueryPaged(Func<QueryDescriptor<EntityPlugin>, QueryDescriptor<EntityPlugin>> container)
         {
@@ -79,10 +79,10 @@ namespace Xms.Plugin
 
         public List<EntityPlugin> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             return entities;
         }
 

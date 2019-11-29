@@ -94,7 +94,7 @@ namespace Xms.Identity
                 return null;
             }
             var nameClaim = authenticateResult.Principal.FindFirst(claim => claim.Type.IsCaseInsensitiveEqual("Name"));
-                //&& claim.Issuer.Equals(XmsAuthenticationDefaults.ClaimsIssuer, StringComparison.InvariantCultureIgnoreCase)
+            //&& claim.Issuer.Equals(XmsAuthenticationDefaults.ClaimsIssuer, StringComparison.InvariantCultureIgnoreCase)
             if (nameClaim == null)
             {
                 return null;

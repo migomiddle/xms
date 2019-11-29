@@ -72,6 +72,7 @@ namespace Xms.Web.Controllers
         #endregion 列表
 
         #region 新建/编辑/查看记录
+
         [Description("更改记录状态")]
         [HttpPost]
         public IActionResult SetRecordState([FromBody]SetEntityRecordStateModel model)

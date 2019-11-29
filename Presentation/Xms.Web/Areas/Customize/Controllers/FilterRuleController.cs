@@ -6,6 +6,7 @@ using Xms.Business.Filter.Domain;
 using Xms.Core.Context;
 using Xms.Data.Provider;
 using Xms.Infrastructure.Utility;
+using Xms.Schema.Entity;
 using Xms.Solution;
 using Xms.Web.Customize.Models;
 using Xms.Web.Framework.Context;
@@ -19,23 +20,28 @@ namespace Xms.Web.Customize.Controllers
     /// </summary>
     public class FilterRuleController : CustomizeBaseController
     {
+        private readonly IEntityFinder _entityFinder;
         private readonly IFilterRuleCreater _filterRuleCreater;
         private readonly IFilterRuleUpdater _filterRuleUpdater;
         private readonly IFilterRuleFinder _filterRuleFinder;
         private readonly IFilterRuleDeleter _filterRuleDeleter;
+
         public FilterRuleController(IWebAppContext appContext
             , ISolutionService solutionService
+            , IEntityFinder entityFinder
             , IFilterRuleCreater filterRuleCreater
             , IFilterRuleUpdater filterRuleUpdater
             , IFilterRuleFinder filterRuleFinder
-            , IFilterRuleDeleter filterRuleDeleter) 
+            , IFilterRuleDeleter filterRuleDeleter)
             : base(appContext, solutionService)
         {
+            _entityFinder = entityFinder;
             _filterRuleCreater = filterRuleCreater;
             _filterRuleUpdater = filterRuleUpdater;
             _filterRuleFinder = filterRuleFinder;
             _filterRuleDeleter = filterRuleDeleter;
         }
+
         [Description("拦截规则列表")]
         public IActionResult Index(FilterRulesModel model)
         {
@@ -68,6 +74,7 @@ namespace Xms.Web.Customize.Controllers
             return DynamicResult(model);
         }
 
+        [HttpGet]
         [Description("新建拦截规则")]
         public IActionResult CreateFilterRule(Guid entityid)
         {
@@ -80,7 +87,6 @@ namespace Xms.Web.Customize.Controllers
         [HttpPost]
         public IActionResult CreateFilterRule(CreateFilterRuleModel model)
         {
-            string msg = string.Empty;
             if (ModelState.IsValid)
             {
                 var entity = new FilterRule();
@@ -94,10 +100,10 @@ namespace Xms.Web.Customize.Controllers
                 }
                 return JError(T["created_error"]);
             }
-            msg = GetModelErrors(ModelState);
-            return JError(T["created_error"] + ": " + msg);
+            return JError(T["created_error"] + ": " + GetModelErrors());
         }
 
+        [HttpGet]
         [Description("编辑拦截规则")]
         public IActionResult EditFilterRule(Guid id)
         {
@@ -114,6 +120,7 @@ namespace Xms.Web.Customize.Controllers
                     model.EntityId = entity.EntityId;
                     model.ToolTip = entity.ToolTip;
                     model.StateCode = entity.StateCode;
+                    model.EntityMeta = _entityFinder.FindById(entity.EntityId);
                     return View(model);
                 }
             }
@@ -144,6 +151,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return _filterRuleDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置拦截规则可用状态")]
         [HttpPost]
         public IActionResult SetFilterRuleState([FromBody]SetRecordStateModel model)

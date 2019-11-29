@@ -83,27 +83,25 @@
         </div>
     </div>
     <div class="container-fluid">
-        <ul id="myTab" class="nav nav-tabs"  role="tablist">
+        <ul id="myTab" class="nav nav-tabs" role="tablist">
             <li class="active">
                 <a href="javascript:;">
                     待我审批
                 </a>
             </li>
-            <li><a  href="javascript:;">我的申请</a></li>
-            <li><a  href="javascript:;">我已处理</a></li>
+            <li><a href="javascript:;">我的申请</a></li>
+            <li><a href="javascript:;">我已处理</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
-            
+
             <div class="tab-pane active" id="stage1">
                 <div class="datagrid-view mt-1"></div>
             </div>
             <div class="tab-pane@(Model.StateCode == 0 ? " in active":"")" id="stage2">
                 <div class="datagrid-view mt-1"></div>
-               
             </div>
             <div class="tab-pane@(Model.StateCode == 2 ? " in active":"")" id="stage3">
                 <div class="datagrid-view mt-1"></div>
-              
             </div>
         </div>
     </div>
@@ -127,9 +125,9 @@
     <script src="/content/js/jquery-toast/jquery.toast.min.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script>
         var entityid = '@Model.EntityId';
-        
+
         var statelist = ['等待中', '处理中', '通过', '不通过', '作废'];
-      
+
         var columsArr0 = [{ title: '流程', dataIndx: 'workflowname', width: 100 }, { title: '类型', dataIndx: 'entitylocalizedname', width: 100 }, { title: '发起人', dataIndx: 'applicantidname', width: 100 }, { title: '当前环节', dataIndx: 'name', width: 100 }, { title: '说明', dataIndx: 'description', width: 100 }, { title: '开始时间', dataIndx: 'createdon', width: 100 }];
 
         var columsArr1 = [{ title: '流程', dataIndx: 'workflowname', width: 100 }, { title: '类型', dataIndx: 'entitylocalizedname', width: 100 }, { title: '说明', dataIndx: 'description', width: 100 }, { title: '开始时间', dataIndx: 'createdon', width: 100 }];
@@ -154,7 +152,7 @@
                 } else {
                     return '-';
                 }
-                
+
             }
             }, { title: '开始时间', dataIndx: 'createdon', width: 100 }];
          var tabconfig = {
@@ -173,7 +171,7 @@
                     },
                     cb: { all: true, header: true }
                 });
-            
+
             var defaults = { "dataIndx": "", "title": '', editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "string" };
 
             if (arr.length > 0) {
@@ -184,8 +182,6 @@
             }
             return colums;
         }
-        
-
 
         $(function () {
             Xms.Web.Loader();

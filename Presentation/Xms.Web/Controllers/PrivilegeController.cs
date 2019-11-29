@@ -22,6 +22,7 @@ namespace Xms.Web.Controllers
     {
         private readonly IPrivilegeService _privilegeService;
         private readonly IPrivilegeTreeBuilder _privilegeTreeBuilder;
+
         public PrivilegeController(IWebAppContext appContext
             , IPrivilegeService privilegeService
             , IPrivilegeTreeBuilder privilegeTreeBuilder)
@@ -30,7 +31,7 @@ namespace Xms.Web.Controllers
             _privilegeService = privilegeService;
             _privilegeTreeBuilder = privilegeTreeBuilder;
         }
-        
+
         [Description("权限项")]
         public IActionResult Index(PrivilegeModel model, bool isAutoComplete = false)
         {

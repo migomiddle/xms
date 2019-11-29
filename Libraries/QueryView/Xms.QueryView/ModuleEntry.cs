@@ -16,6 +16,7 @@ namespace Xms.QueryView
                 return QueryViewDefaults.ModuleName;
             }
         }
+
         public Action<ModuleDescriptor> Configure()
         {
             return (o) =>
@@ -27,7 +28,8 @@ namespace Xms.QueryView
 
         public void OnStarting()
         {
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/schema/queryview/solutioncomponents";
             });

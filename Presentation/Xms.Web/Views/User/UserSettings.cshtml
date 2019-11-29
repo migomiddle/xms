@@ -1,63 +1,63 @@
 ﻿@model Xms.Web.Models.UserSettingsModel
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <a data-toggle="collapse"
-                   href="#collapseTwo">
-                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
-                </a>
-            </h3>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse in">
-            <div class="panel-body">
-                @using (Html.BeginForm("UserSettings", "user", FormMethod.Post, new { @id = "editform", @class = "form-horizontal" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(x => x.SystemUserSettingsId)
-                    <div class="form-group col-sm-12">
-                        @Html.LabelFor(x => x.PagingLimit, Model.AttributesMeta.Find(n => n.Name.ToLower() == "paginglimit").LocalizedName, new { @class = "col-sm-2 control-label" })
-                        <div class="col-sm-10">
-                            @Html.TextBoxFor(x => x.PagingLimit, new { @class = "form-control", @data_type = "int" })
-                        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            @using (Html.BeginForm("UserSettings", "user", FormMethod.Post, new { @id = "editform", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.SystemUserSettingsId)
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.PagingLimit, Model.AttributesMeta.Find(n => n.Name.ToLower() == "paginglimit").LocalizedName, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.PagingLimit, new { @class = "form-control", @data_type = "int" })
                     </div>
-                    <div class="form-group col-sm-12">
-                        @Html.LabelFor(x => x.LanguageUniqueId, Model.AttributesMeta.Find(n => n.Name.ToLower() == "languageuniqueid").LocalizedName, new { @class = "col-sm-2 control-label" })
-                        <div class="col-sm-10">
-                            <select class="form-control" name="LanguageUniqueId" id="LanguageUniqueId" data-value="@Model.LanguageUniqueId">
-                                @foreach (var item in Model.Languages)
-                                {
-                                    <option value="@item.UniqueId">@item.Name</option>
-                                }
-                            </select>
-                        </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.LanguageUniqueId, Model.AttributesMeta.Find(n => n.Name.ToLower() == "languageuniqueid").LocalizedName, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <select class="form-control" name="LanguageUniqueId" id="LanguageUniqueId" data-value="@Model.LanguageUniqueId">
+                            @foreach (var item in Model.Languages)
+                            {
+                                <option value="@item.UniqueId">@item.Name</option>
+                            }
+                        </select>
                     </div>
-                    <div class="form-group col-sm-12">
-                        @Html.LabelFor(x => x.CurrencyId, Model.AttributesMeta.Find(n => n.Name.ToLower() == "transactioncurrencyid").LocalizedName, new { @class = "col-sm-2 control-label" })
-                        <div class="col-sm-10">
-                            @Html.HiddenFor(x => x.CurrencyId, new { @class = "form-control", @data_type = "guid" })
-                            <select class="form-control" id="currencylist"></select>
-                        </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.CurrencyId, Model.AttributesMeta.Find(n => n.Name.ToLower() == "transactioncurrencyid").LocalizedName, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        @Html.HiddenFor(x => x.CurrencyId, new { @class = "form-control", @data_type = "guid" })
+                        <select class="form-control" id="currencylist"></select>
                     </div>
-                    <div class="form-group col-sm-12">
-                        @Html.LabelFor(x => x.CurrencyId, Model.AttributesMeta.Find(n => n.Name.ToLower() == "enablednotification").LocalizedName, new { @class = "col-sm-2 control-label" })
-                        <div class="col-sm-10">
-                            <label class="checkbox-inline">
-                                @Html.RadioButtonFor(x => x.EnabledNotification, true, new { @class = "required" }) 开启
-                            </label>
-                            <label class="checkbox-inline">
-                                @Html.RadioButtonFor(x => x.EnabledNotification, false, new { @class = "required" }) 关闭
-                            </label>
-                        </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    @Html.LabelFor(x => x.CurrencyId, Model.AttributesMeta.Find(n => n.Name.ToLower() == "enablednotification").LocalizedName, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.EnabledNotification, true, new { @class = "required" }) 开启
+                        </label>
+                        <label class="checkbox-inline">
+                            @Html.RadioButtonFor(x => x.EnabledNotification, false, new { @class = "required" }) 关闭
+                        </label>
                     </div>
-                    <div class="form-group col-sm-12 text-center" id="form-buttons">
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
-                        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
-                    </div>
-                }
-            </div>
+                </div>
+                <div class="form-group col-sm-12 text-center" id="form-buttons">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                </div>
+            }
         </div>
     </div>
+</div>
 @section Scripts {
     <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>

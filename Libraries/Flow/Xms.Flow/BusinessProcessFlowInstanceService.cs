@@ -30,7 +30,7 @@ namespace Xms.Flow
         {
             return _businessProcessFlowInstanceRepository.CreateMany(entities);
         }
-        
+
         public BusinessProcessFlowInstance FindById(Guid id)
         {
             return _businessProcessFlowInstanceRepository.FindById(id);

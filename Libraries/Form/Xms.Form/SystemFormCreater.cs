@@ -38,7 +38,7 @@ namespace Xms.Form
             _formService = formService;
             _dependencyService = dependencyService;
             _defaultSystemFormProvider = defaultSystemFormProvider;
-            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", SystemFormCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(Domain.SystemForm entity)

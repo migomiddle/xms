@@ -21,6 +21,7 @@ namespace Xms.Business.SerialNumber
             //依赖于字段
             return _dependencyService.Create(SerialNumberRuleDefaults.ModuleName, entity.SerialNumberRuleId, AttributeDefaults.ModuleName, entity.AttributeId);
         }
+
         public bool Update(Domain.SerialNumberRule entity)
         {
             //依赖于字段

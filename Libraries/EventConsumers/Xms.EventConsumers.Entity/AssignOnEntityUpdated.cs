@@ -1,5 +1,4 @@
-﻿using Xms.Event;
-using Xms.Schema.Abstractions;
+﻿using Xms.Schema.Abstractions;
 using Xms.Sdk.Abstractions;
 using Xms.Sdk.Client;
 using Xms.Sdk.Event;

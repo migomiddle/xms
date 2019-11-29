@@ -20,6 +20,7 @@ namespace Xms.Web.Controllers
     {
         private readonly IPrincipalObjectAccessService _principalObjectAccessService;
         private readonly IDataSharer _dataSharer;
+
         public EntitySharingController(IWebAppContext appContext
             , IPrincipalObjectAccessService principalObjectAccessService
             , IDataSharer dataSharer)

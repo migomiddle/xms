@@ -10,10 +10,10 @@ namespace Xms.Web.Customize.Models
     public class EntityMapModel : BasePaged<EntityMap>
     {
         public Guid EntityId { get; set; }
-        public Schema.Domain.Entity Entity { get; set; }
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
     }
+
     public class EditEntityMapModel
     {
         public Guid? EntityMapId { get; set; }

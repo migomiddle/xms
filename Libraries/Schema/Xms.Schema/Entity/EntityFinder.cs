@@ -7,7 +7,6 @@ using Xms.Core.Data;
 using Xms.Data.Provider;
 using Xms.Dependency.Abstractions;
 using Xms.Localization;
-using Xms.Localization.Abstractions;
 using Xms.Module.Core;
 using Xms.Schema.Abstractions;
 using Xms.Schema.Data;
@@ -21,7 +20,7 @@ namespace Xms.Schema.Entity
     {
         private readonly IEntityRepository _entityRepository;
         private readonly ILocalizedLabelService _localizedLabelService;
-        private readonly Caching.CacheManager<Domain.Entity> _cacheService;        
+        private readonly Caching.CacheManager<Domain.Entity> _cacheService;
         private readonly IAppContext _appContext;
 
         public EntityFinder(IAppContext appContext
@@ -32,7 +31,7 @@ namespace Xms.Schema.Entity
             _appContext = appContext;
             _entityRepository = entityRepository;
             _localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.Entity>(_appContext.OrganizationUniqueName + ":entities", EntityCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.Entity>(_appContext.OrganizationUniqueName + ":entities", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Exists(string name)
@@ -42,14 +41,9 @@ namespace Xms.Schema.Entity
 
         public Domain.Entity FindById(Guid id)
         {
-            //var entity = _cacheService.GetItemByPattern(() =>
-            //{
-            //    return _entityRepository.FindById(id);
-            //}, id + "/*");
-            
             var dic = new Dictionary<string, string>();
             dic.Add("entityid", id.ToString());
-            
+
             var entity = _cacheService.Get(dic, () =>
             {
                 return _entityRepository.FindById(id);
@@ -79,14 +73,13 @@ namespace Xms.Schema.Entity
         }
 
         public List<Domain.Entity> FindByNames(params string[] name)
-        {            
-            string sIndex=string.Join("/", name);
-            var entities = _cacheService.GetVersionItems(sIndex,() =>
-            {                
-                return this.Query(n => n.Where(f => f.Name.In(name)));
-            }
+        {
+            string sIndex = string.Join("/", name);
+            var entities = _cacheService.GetVersionItems(sIndex, () =>
+             {
+                 return this.Query(n => n.Where(f => f.Name.In(name)));
+             }
             );
-
 
             if (entities != null)
             {
@@ -96,11 +89,11 @@ namespace Xms.Schema.Entity
         }
 
         public List<Domain.Entity> FindAll()
-        {            
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return _entityRepository.FindAll()?.ToList();
-            }
+        {
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return _entityRepository.FindAll()?.ToList();
+             }
             );
 
             if (entities != null)
@@ -109,6 +102,7 @@ namespace Xms.Schema.Entity
             }
             return entities;
         }
+
         public PagedList<Domain.Entity> QueryPaged(Func<QueryDescriptor<Domain.Entity>, QueryDescriptor<Domain.Entity>> container)
         {
             QueryDescriptor<Domain.Entity> q = container(QueryDescriptorBuilder.Build<Domain.Entity>());
@@ -150,14 +144,16 @@ namespace Xms.Schema.Entity
         }
 
         #region dependency
+
         public int ComponentType => ModuleCollection.GetIdentity(EntityDefaults.ModuleName);
 
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.LocalizedName } : null;
-        } 
-        #endregion
+        }
+
+        #endregion dependency
 
         #region 多语言标签
 

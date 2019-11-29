@@ -38,7 +38,7 @@ namespace Xms.Web.Api
 
         [Description("实体引用关系列表")]
         [HttpGet("GetReferencing/{referencingEntityId}")]
-        public IActionResult GetReferencing(Guid referencingEntityId,Guid? referencedEntityId)
+        public IActionResult GetReferencing(Guid referencingEntityId, Guid? referencedEntityId)
         {
             List<Schema.Domain.RelationShip> result = _relationShipFinder.QueryByEntityId(referencingEntityId, referencedEntityId);
 

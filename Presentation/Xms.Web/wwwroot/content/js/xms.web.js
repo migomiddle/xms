@@ -4,11 +4,11 @@
 if (typeof (Xms) == "undefined") { Xms = { __namespace: true }; }
 //Xms.Web = function () { };
 Xms.Web = {
-   Loader: function (_context) {
+    Loader: function (_context) {
         var self = this;
         self.loader = jQuery('<div id="loader" class="ajax-backdrop fade in"><div class="ajax-loading">' + LOC_DATA_LOADING + '</div></div>')
-                        .appendTo(_context)
-                        .hide();
+            .appendTo(_context)
+            .hide();
         jQuery(document).ajaxStart(function () {
             self.loader.show();
         }).ajaxStop(function () {
@@ -25,35 +25,33 @@ Xms.Web = {
             .hide();
         jQuery(document).ajaxStart(function () {
             loader.show();
-            
         }).ajaxStop(function () {
             loader.hide();
-           
         }).ajaxError(function (a, b, e) {
             loader.hide();
             //Xms.Web.Alert(false, '发生了错误');
             //$.messager.popup("出错了");
             Xms.Web.Toast(LOC_ERROR, false, false);
             //Xms.Web.ErrorHandler(a, b, e);
-           
+
             console.log(a, b, e);
         });
     }
     //error handler
-   
+
     , ErrorHandler: function (xhr, textStatus, errorThrown) {
         console.log('error', xhr);
         var data = JSON.parse(xhr.responseText);
         var err = data.error ? data.error.message.value : (data.errormessage ? data.errormessage : xhr.responseText);
         var msg = "Error : " +
-              xhr.status + ": " +
-              xhr.statusText + ": " +
+            xhr.status + ": " +
+            xhr.statusText + ": " +
             err;
         //$.messager.popup("出错了");
         Xms.Web.Alert(false, LOC_ERROR + ": " + msg);
     }
     //发送POST请求
-    , Post: function (url, data, refresh, onsuccess, onerror, __async, istip,extopts) {
+    , Post: function (url, data, refresh, onsuccess, onerror, __async, istip, extopts) {
         var args = [].slice.call(arguments);
         if (args.length == 1 && typeof args[0] === 'object') {
             url = args[0].url;
@@ -84,7 +82,7 @@ Xms.Web = {
         var isAsync = true;
         if (typeof __async != 'undefined') isAsync = __async;
         var dtd = $.Deferred();
-       
+
         if (url.indexOf(ORG_SERVERURL) !== 0) {
             url = ORG_SERVERURL + (url.indexOf('/') == 0 ? "" : "/") + url;
         }
@@ -126,7 +124,7 @@ Xms.Web = {
         function setRepeatUrl(_url, datas, keyname) {
             if (datas && datas.length > 0) {
                 var isadd = false
-                $.each(datas, function (i,n) {
+                $.each(datas, function (i, n) {
                     if (~_url.indexOf('?')) {
                         _url = _url + '&' + keyname + '=' + n;
                     } else {
@@ -138,11 +136,10 @@ Xms.Web = {
                         }
                     }
                 });
-               
             }
             return _url;
         }
-        function deepHandler(data,url) {
+        function deepHandler(data, url) {
             if (data) {
                 for (var i in data) {
                     if (data.hasOwnProperty(i)) {
@@ -150,7 +147,7 @@ Xms.Web = {
                             if (Object.prototype.toString.call(data[i]) == '[object Array]') {
                                 var temp = data[i];
                                 var tempname = i;
-                                url = setRepeatUrl(url,temp,tempname);
+                                url = setRepeatUrl(url, temp, tempname);
                                 delete data[i]
                             } else {
                                 //Xms.Web.changeArrayToUrlParam(url,data);
@@ -179,7 +176,7 @@ Xms.Web = {
             type = args[0].type;
             issyn = args[0].issyn;
         }
-      
+
         //是否异步
         var isAsync = __async || true;
         if (issyn) {
@@ -252,7 +249,7 @@ Xms.Web = {
                     var result = response;
                     if (typeof (response.Content) != 'undefined') {
                         if (typeof (response.Content) == 'Object' || response.Content.indexOf('{') == 0)
-                            result = Xms.Web.GetAjaxResult(response,args);
+                            result = Xms.Web.GetAjaxResult(response, args);
                     }
                     onsuccess.call(this, result);
                 }
@@ -291,7 +288,7 @@ Xms.Web = {
                     var result = response;
                     if (typeof (response.Content) != 'undefined') {
                         if (typeof (response.Content) == 'Object' || response.Content.indexOf('{') == 0)
-                            result = Xms.Web.GetAjaxResult(response,args);
+                            result = Xms.Web.GetAjaxResult(response, args);
                     }
                     onsuccess.call(this, result);
                 }
@@ -307,7 +304,7 @@ Xms.Web = {
         });
         return dtd.promise();
     }
-    , Load: function (url, onsuccess, onerror,extopts) {
+    , Load: function (url, onsuccess, onerror, extopts) {
         var args = [].slice.call(arguments);
         if (args.length == 1 && typeof args[0] === 'object') {
             url = args[0].url;
@@ -349,7 +346,7 @@ Xms.Web = {
         });
         return dtd.promise();
     }
-    , LoadPage: function (url, data, onsuccess, onerror, callback,queryUrl) {
+    , LoadPage: function (url, data, onsuccess, onerror, callback, queryUrl) {
         var args = [].slice.call(arguments);
         if (args.length == 1 && typeof args[0] === 'object') {
             url = args[0].url;
@@ -398,7 +395,7 @@ Xms.Web = {
         return dtd.promise();
     }
     //获取服务器返回的数据
-    , GetAjaxResult: function (response,resource) {
+    , GetAjaxResult: function (response, resource) {
         var obj = {};
         obj.content = null;
         if (response) {
@@ -410,7 +407,7 @@ Xms.Web = {
                         obj.content = JSON.parse(response.Content);
                     }
                 } catch (e) {
-                    console.error(e,resource);//方便跟踪错误来源
+                    console.error(e, resource);//方便跟踪错误来源
                     console.error('数据返回错误：' + response.Content);
                     obj.content = response.Content;
                 }
@@ -493,7 +490,6 @@ Xms.Web = {
         }
         else {
             target.find("input[name=checkall]").prop('disabled', true);
-
         }
         //行单击时选中
         var isDblClick = false, fixtime = 300, timeouts = [], fixedCount = 50;
@@ -540,7 +536,6 @@ Xms.Web = {
                         //opts.unCheckHandler && opts.unCheckHandler($(this).find("input[name=recordid]:not(:disabled)"), flag, target);
                         $(this).removeClass("active");
                     }
-
                 }
                 else {
                     if (ischeckbox) {
@@ -670,7 +665,7 @@ Xms.Web = {
     //获取列表选中的记录ID
     , GetTableSelected: function (target, tostring) {
         var result = new Array();
-        console.log('target.find("input[name=recordid]:checked")',target.find("input[name=recordid]:checked"))
+        console.log('target.find("input[name=recordid]:checked")', target.find("input[name=recordid]:checked"))
         target.find("input[name=recordid]:checked").each(function (i, n) {
             result.push($(n).val());
         });
@@ -709,7 +704,7 @@ Xms.Web = {
     //获取选中行的ID
     , GetSelectingRowRecordId: function (e, istoggle, unselectother) {
         Xms.Web.SelectingRow(e, istoggle, unselectother);
-        var row = $(e).parents('tr:first'),res = [];
+        var row = $(e).parents('tr:first'), res = [];
         var id = row.find("input[name=recordid]").val();
         if (id) {
             res.push(id);
@@ -717,7 +712,7 @@ Xms.Web = {
         return res;
     }
     //删除一条记录
-    , Del: function (id, action, refresh, onsuccess, onerror, confirmtext, isconfirmagain,confirmext) {
+    , Del: function (id, action, refresh, onsuccess, onerror, confirmtext, isconfirmagain, confirmext) {
         if (!id || id == '' || id.length == 0) {
             Xms.Web.Toast(LOC_NOTSPECIFIED_RECORD, false);
             return;
@@ -794,14 +789,14 @@ Xms.Web = {
     //checkClose, //点击关闭时触发，返回false不关闭窗口
     //checkOk//点击确定时触发，返回false不关闭窗口
     //}
-    , Confirm: function (title, text, onOk, onCancel,extoptions) {
+    , Confirm: function (title, text, onOk, onCancel, extoptions) {
         var target = $("#confirmDialog");
         if (target.length > 0) {
             target.remove();
         }
         if (!title || title == undefined || title == '') title = LOC_CONFIRM_OPERATION_TITLE;
         if (!text || text == undefined || text == '') text = LOC_CONFIRM_OPERATION_TITLE;
-        
+
         var $dialog = $('<div id="confirmDialog" class="hide"></div>');
         var $dialog_header = $('<div class="confirm-dialog-header"></div>');
         var $dialog_content = $('<div class="confirm-dialog-content"></div>');
@@ -810,7 +805,7 @@ Xms.Web = {
         $("body").append($dialog);
         $dialog.append($dialog_header).append($dialog_content).append($dialog_footer);
         $dialog_header.append($dialog_tips);
-        if (extoptions && extoptions.showTip===false) {
+        if (extoptions && extoptions.showTip === false) {
             $dialog_tips.remove();
         }
         if (extoptions && extoptions.content) {
@@ -824,8 +819,6 @@ Xms.Web = {
                 }
             }
         }
-
-        
 
         target = $("#confirmDialog");
 
@@ -841,50 +834,50 @@ Xms.Web = {
                 target.parents('.modal').remove();
                 $(document.body).removeClass("modal-open");
             }
-        , buttons: [
-            {
-                text: "<span class=\"glyphicon glyphicon-remove\"></span> " + LOC_DIALOG_CLOSE,
-                classed: "btn-default",
-                click: function () {
-                    if (extoptions && typeof extoptions.checkClose == 'function') {
-                        var flag = extoptions.checkClose.call(this, extoptions);
-                        if (flag === false) {
-                            return false;
+            , buttons: [
+                {
+                    text: "<span class=\"glyphicon glyphicon-remove\"></span> " + LOC_DIALOG_CLOSE,
+                    classed: "btn-default",
+                    click: function () {
+                        if (extoptions && typeof extoptions.checkClose == 'function') {
+                            var flag = extoptions.checkClose.call(this, extoptions);
+                            if (flag === false) {
+                                return false;
+                            }
+                        }
+                        $(this).dialog("destroy");
+                        //target.remove();
+                        target.parents('.modal').next().remove();
+                        target.parents('.modal').remove();
+                        $(document.body).removeClass("modal-open");
+                        $(document.body).css("padding-right", 0);
+                        if (typeof (onCancel) == "function") {
+                            onCancel.call(this);
                         }
                     }
-                    $(this).dialog("destroy");
-                    //target.remove();
-                    target.parents('.modal').next().remove();
-                    target.parents('.modal').remove();
-                    $(document.body).removeClass("modal-open");
-                    $(document.body).css("padding-right", 0);
-                    if (typeof (onCancel) == "function") {
-                        onCancel.call(this);
-                    }
                 }
-            }
-            , {
-                text: "<span class=\"glyphicon glyphicon-ok\"></span> " + LOC_DIALOG_OK,
-                classed: "btn-info",
-                click: function () {
-                    if (extoptions && typeof extoptions.checkOk=='function') {
-                        var flag = extoptions.checkOk.call(this, extoptions);
-                        if (flag === false) {
-                            return false;
+                , {
+                    text: "<span class=\"glyphicon glyphicon-ok\"></span> " + LOC_DIALOG_OK,
+                    classed: "btn-info",
+                    click: function () {
+                        if (extoptions && typeof extoptions.checkOk == 'function') {
+                            var flag = extoptions.checkOk.call(this, extoptions);
+                            if (flag === false) {
+                                return false;
+                            }
+                        }
+                        $(this).dialog("destroy");
+                        //target.remove();
+                        target.parents('.modal').next().remove();
+                        target.parents('.modal').remove();
+                        $(document.body).removeClass("modal-open");
+                        $(document.body).css("padding-right", 0);
+                        if (typeof (onOk) == "function") {
+                            onOk.call(this);
                         }
                     }
-                    $(this).dialog("destroy");
-                    //target.remove();
-                    target.parents('.modal').next().remove();
-                    target.parents('.modal').remove();
-                    $(document.body).removeClass("modal-open");
-                    $(document.body).css("padding-right", 0);
-                    if (typeof (onOk) == "function") {
-                        onOk.call(this);
-                    }
                 }
-            }
-        ]
+            ]
         }).removeClass("hide");
         //dragable
         Xms.Web.Draggable();
@@ -909,7 +902,6 @@ Xms.Web = {
     //弹出信息提示框
     , Alert: function (status, text, onOk, onCancel) {
         // if (this instanceof arguments) {
-
         //   } else {//如果不是用 new alert()的话调用该函数
         if (Xms.Web.isShoAlertModal == true) {
             return false;
@@ -934,11 +926,10 @@ Xms.Web = {
         $("body").append('<div id="alertDialog" class="hide"><p class="' + cssName + '"><span class="' + icon + '"></span> <strong>' + text + '</strong></p></div>');
         target = $("#alertDialog");
         //}
-       
+
         target.dialog({
             title: "<span class=\"glyphicon glyphicon-info-sign\"></span> <strong>" + (LOC_NOTIFY || '确认提示') + "</strong>"
             , close: function (event, ui) {
-                
             }
             , backdrop: 'static'
             , onClose: function () {
@@ -951,38 +942,37 @@ Xms.Web = {
                 //target.remove();
                 target.parents('.modal').next().remove();
                 target.parents('.modal').remove();
-
             }
-        , buttons: [
-            {
-                text: "<span class=\"glyphicon glyphicon-remove\"></span> " + LOC_DIALOG_CLOSE,
-                click: function () {
-                    Xms.Web.isShoAlertModal = false;
-                    if (typeof (onCancel) == "function") {
-                        onCancel.call(this);
+            , buttons: [
+                {
+                    text: "<span class=\"glyphicon glyphicon-remove\"></span> " + LOC_DIALOG_CLOSE,
+                    click: function () {
+                        Xms.Web.isShoAlertModal = false;
+                        if (typeof (onCancel) == "function") {
+                            onCancel.call(this);
+                        }
+                        $(this).dialog("destroy");
+                        //target.remove();
+                        target.parents('.modal').next().remove();
+                        target.parents('.modal').remove();
+                        $(document.body).removeClass("modal-open");
                     }
-                    $(this).dialog("destroy");
-                    //target.remove();
-                    target.parents('.modal').next().remove();
-                    target.parents('.modal').remove();
-                    $(document.body).removeClass("modal-open");
                 }
-            }
-            , {
-                text: "<span class=\"glyphicon glyphicon-ok\"></span> " + LOC_DIALOG_OK,
-                classed: "btn-info",
-                click: function () {
-                    Xms.Web.isShoAlertModal = false;
-                    if (typeof (onOk) == "function") {
-                        onOk.call(this);
+                , {
+                    text: "<span class=\"glyphicon glyphicon-ok\"></span> " + LOC_DIALOG_OK,
+                    classed: "btn-info",
+                    click: function () {
+                        Xms.Web.isShoAlertModal = false;
+                        if (typeof (onOk) == "function") {
+                            onOk.call(this);
+                        }
+                        $(this).dialog("destroy");
+                        //target.remove();
+                        target.parents('.modal').next().remove();
+                        target.parents('.modal').remove();
+                        $(document.body).removeClass("modal-open");
                     }
-                    $(this).dialog("destroy");
-                    //target.remove();
-                    target.parents('.modal').next().remove();
-                    target.parents('.modal').remove();
-                    $(document.body).removeClass("modal-open");
-                }
-            }]
+                }]
         }).removeClass("hide");
         //dragable
         Xms.Web.Draggable();
@@ -990,19 +980,47 @@ Xms.Web = {
     , AlertSuccess: function (text, onOk, onCancel) {
         Xms.Web.Alert(true, text, onOk, onCancel);
     }
-    ,JsonSubmit: function (target,onsuccess,onerror,extoptions) {
-        var data = target.serializeFormJSON((extoptions? extoptions.ishiddendata:false)), action = target.attr('action'), isTips = target.attr('data-istip');
-        
-        return Xms.Ajax.Post(action, data, function (response) {
+    , JsonSubmit: function (target, onsuccess, onerror, extoptions) {
+        var data = target.serializeFormJSON((extoptions ? extoptions.ishiddendata : false)), action = target.attr('action'), isTips = target.attr('data-istip'), isformdata = target.attr('data-formdata'), files = [], formdata;
+        var postdata = data;
+        if (isformdata == 'true') {
+            formdata = new FormData();
+            target.find('input[type="file"]').each(function (key, item) {
+                files.push($(this).attr('name'));
+                formdata.append(this.name, this.files[0]);
+            });
+
+            for (var i in data) {
+                if (data.hasOwnProperty(i)) {
+                    var item = data[i];
+                    if (item !== "" && i === extoptions.ishiddendata && item.indexOf('___file_upload_') != -1) {
+                        item = item.replace(/___file_upload_/g, '');
+                    }
+                    formdata.append(i, item);
+                }
+            }
+            postdata = formdata;
+            extoptions.isformdata = true;
+            extoptions._extend = function (opts) {
+                $.extend(opts, {
+                    contentType: false,
+                    processData: false,
+                    mimeType: opts.mimeType || false,
+                });
+            };
+        }
+
+        return Xms.Ajax.Post(action, postdata, function (response) {
             //console.log(response);
             if (isTips != '' && isTips == 'true') {
                 Xms.Web.Toast(response.Content, response.IsSuccess);
             }
             onsuccess && onsuccess(response);
         }, function (xhr, textStatus, errorThrown) {
-                onerror && onerror(xhr, textStatus, errorThrown);
-            }, extoptions);
+            onerror && onerror(xhr, textStatus, errorThrown);
+        }, extoptions);
     }
+
     //表单
     , Form: function (target, onsuccess, onerror, beforesubmit, setting) {
         jQuery.validator.addMethod("isInt", function (value, element) {
@@ -1071,10 +1089,10 @@ Xms.Web = {
             if ($(this).prop('readonly')) {
                 $(this).removeClass('required');
             }
-           
+
             validrule.add(name, { "required": true });
         });
-        
+
         //添加lookup类型判断
         target.find("input.lookup").each(function (i, n) {
             if ($(this).prop('readonly') && !checkreadonly) {
@@ -1241,7 +1259,6 @@ Xms.Web = {
                 $.validator.addMethod(obj.name, function (value, element) {
                     var reg = new RegExp(obj.reg);
                     return reg.test(value);
-
                 }, obj.msg);
             });
         }
@@ -1279,11 +1296,12 @@ Xms.Web = {
             }
             , rules: rules
             , ignore: ":disabled,[readonly=readonly]"
-          
-            , submitHandler: function (form,ev) {
+
+            , submitHandler: function (form, ev) {
                 var ajaxsubmit = target.attr("data-ajaxsubmit");//是否以AJAX方式提交，默认是
                 var jsonAjax = target.attr('data-jsonajax');
                 var hiddenData = target.attr('data-hiddendata');//是否把除了hidden以外的数据放到一个新的data对象中
+                var formdata = target.attr('data-formdata');
                 if (ajaxsubmit != "" && ajaxsubmit == "false") {
                     form.submit();
                 }
@@ -1310,14 +1328,12 @@ Xms.Web = {
                                 if (status == true) target.resetForm();
                             }
                         }, function errorHandler(xhr, textStatus, errorThrown) {
-                         
                             if (typeof (onerror) == "function") {//失败回调方法
                                 onerror.call(this, xhr);
                             }
                         }, {//配置contenttype为JSOn
-                                'contentType': 'application/json; charset=utf-8'
-                            });
-
+                            'contentType': 'application/json; charset=utf-8'
+                        });
                     } else {
                         if (typeof (beforesubmit) == "function") {//提交前方法
                             var issubmit = beforesubmit.call(this);
@@ -1338,15 +1354,14 @@ Xms.Web = {
                                 if (status == true) target.resetForm();
                             }
                         }, function errorHandler(xhr, textStatus, errorThrown) {
-                          //  Xms.Web.ErrorHandler(xhr, textStatus, errorThrown);
+                            //  Xms.Web.ErrorHandler(xhr, textStatus, errorThrown);
                             if (typeof (onerror) == "function") {//失败回调方法
                                 onerror.call(this, xhr);
                             }
                         }, {//配置contenttype为JSOn
-                                'contentType': 'application/json; charset=utf-8',
-                                ishiddendata: hiddenData||'data'
-                            });
-
+                            'contentType': 'application/json; charset=utf-8',
+                            ishiddendata: hiddenData || 'data'
+                        });
                     }
                     return false;
                 }
@@ -1354,7 +1369,6 @@ Xms.Web = {
                     jQuery(form).ajaxSubmit({
                         type: "post",
                         beforeSubmit: function () {
-                            
                             if (typeof (beforesubmit) == "function") {//提交前方法
                                 return beforesubmit.call(this);
                             }
@@ -1438,7 +1452,7 @@ Xms.Web = {
                 target.find('option[value=' + value + ']').prop('selected', true);
             }
         }
-          
+
         else {
             var o = target.find('option:selected');
             if (o != undefined && o.length > 0) {
@@ -1459,7 +1473,7 @@ Xms.Web = {
     }
     , OpenDialog: function (url, callback, data, onopened) {
         var link = url;
-        
+
         link += (link.indexOf('?') == -1 ? '?' : '&') + '__r=' + new Date().getTime();
         var params = $.urlParamObj(url);
         $('div[data-dialog="' + encodeURIComponent(link) + '"]').remove();
@@ -1488,17 +1502,15 @@ Xms.Web = {
                     par.remove();
                 }
             } catch (e) {
-
             }
             container.html(response);
             if (typeof callback === 'string') {
                 container.find('.modal:first').data().OpenDialogCallback = window[callback];
-            } else if (container.find('.modal:first').data() && container.find('.modal:first').data().OpenDialogCallback ){
+            } else if (container.find('.modal:first').data() && container.find('.modal:first').data().OpenDialogCallback) {
                 container.find('.modal:first').data().OpenDialogCallback = callback;
             }
             if ($.fn.insertResizeBox) {
                 if (container.find('.modal:first').length > 0) {
-                   
                 }
             }
             if (typeof (onopened) == 'function') {
@@ -1507,7 +1519,7 @@ Xms.Web = {
             }
             //dragable
             Xms.Web.Draggable();
-        },null,null,true);
+        }, null, null, true);
     }
     , ParseParam: function (param, key) {
         var paramStr = "";
@@ -1521,8 +1533,7 @@ Xms.Web = {
         }
         return paramStr.substr(1);
     }
-    , getAttributePlugCallback: function (result,inputid) {
-        
+    , getAttributePlugCallback: function (result, inputid) {
     }
     , AttributePlugCount: 0
     , getAttributePlugValue: function ($plugInput) {
@@ -1550,9 +1561,9 @@ Xms.Web = {
         return res;
     }
     , emptyAttributePlugValue: function ($plugInput, val, label) {
-        Xms.Web.setAttributePlugValue($plugInput,'','');
+        Xms.Web.setAttributePlugValue($plugInput, '', '');
     }
-    , setAttributePlugValue: function ($plugInput,val,label) {
+    , setAttributePlugValue: function ($plugInput, val, label) {
         if ($plugInput && $plugInput.length > 0) {
             var $input = null;
             if ($plugInput.hasClass('xmsplug-forminput')) {
@@ -1567,7 +1578,7 @@ Xms.Web = {
                 $input.val(val);
                 $plugInput.find('select>option[value="' + val + '"]').prop('select', true);
             } else if (attrtype == "lookup" || attrtype == "customer" || attrtype == "owner" || attrtype == "primarykey") {
-                 $input.attr('data-value', val);
+                $input.attr('data-value', val);
                 $input.val(label)
             } else if (attrtype == "int" || attrtype == "float" || attrtype == "decimal" || attrtype == "money") {
                 $input.val(val);
@@ -1576,7 +1587,7 @@ Xms.Web = {
             }
         }
     }
-    , setAttributePlugState: function ($plugInput,state) {
+    , setAttributePlugState: function ($plugInput, state) {
         state = state || 'edit';
         if ($plugInput && $plugInput.length > 0) {
             var $input = null;
@@ -1587,9 +1598,8 @@ Xms.Web = {
                 $input = $plugInput.find('.xmsplug-forminput:first');
                 setState($plugInput, state)
             }
-            
         }
-        function setState($plugInput,state) {
+        function setState($plugInput, state) {
             if (state == 'readonly') {
                 $plugInput.find('input,textarea').prop('readonly', true);
                 $plugInput.find('button,select').prop('disabled', true);
@@ -1600,7 +1610,7 @@ Xms.Web = {
             }
         }
     }
-    , getAttributePlug: function (n,$target,opts) { //n是字段的信息  object,$target容器
+    , getAttributePlug: function (n, $target, opts) { //n是字段的信息  object,$target容器
         var attrname = n.name;
         $target = $target || $('body');
         if ($target.length == 0) {
@@ -1614,7 +1624,7 @@ Xms.Web = {
         ctrilId = ctrilId + Xms.Web.AttributePlugCount++;
         var referentityid = n.referencedentityid;
         var entityid = n.entityid;
-       
+
         // if (isrela) {
         var itemshtml = [];
         //  } else {
@@ -1624,7 +1634,6 @@ Xms.Web = {
         var prefix = 'xms_plug_id_';
         ctrilId = prefix + ctrilId;
         if (attrtype == 'datetime') {
-
             itemshtml.push('<div class="form-group xmsplug-formrangepicker">');
             itemshtml.push(' <input type="text" id="' + ctrilId + '" class="form-control xmsplug-forminput" data-type="' + attrtype + '" autocomplete="off" name="' + attrname + '" />');
             itemshtml.push('</div>');
@@ -1639,18 +1648,12 @@ Xms.Web = {
             itemshtml.push('</span>');
             itemshtml.push('</div>');
         } else if (attrtype == "int" || attrtype == "float" || attrtype == "decimal" || attrtype == "money") {
-
             itemshtml.push('<div class="form-group">');
             itemshtml.push('<input type = "text"  id = "' + ctrilId + '" class= "form-control  xmsplug-forminput" data-type="' + attrtype + '"  name = "' + attrname + '" value = "" />');
-           
+
             itemshtml.push('</div >');
-
-
         } else {
-
             itemshtml.push('<input type="text" id="' + ctrilId + '" class="form-control xmsplug-forminput" name="' + attrname + '" data-type="' + attrtype + '" value="" />');
-
-
         }
         var $plugInput = null;
         if (itemshtml.length > 0) {
@@ -1665,7 +1668,6 @@ Xms.Web = {
                     , format: "yyyy-mm-dd"
                     , language: "zh-CN"
                 });
-               
             }
         })
 
@@ -1682,10 +1684,10 @@ Xms.Web = {
             }
         });
 
-        $(".pluglookup",$plugInput).each(function () {
+        $(".pluglookup", $plugInput).each(function () {
             var self = this;
             var $input = $(self);
-            
+
             var inputid = $input.attr("id");
             if (!inputid) {
                 inputid = "lookup_" + new Date() * 1;
@@ -1695,7 +1697,7 @@ Xms.Web = {
                 var $this = $(this);
                 var type = $this.attr("data-name");
                 var inreferencedentityid = $this.parents("span:first").siblings("input").attr("data-referencedentityid");
-                
+
                 var lookupurl = '/entity/recordsdialog?entityid=' + inreferencedentityid + '&singlemode=true&inputid=' + inputid;
                 if ($this.attr('data-defaultviewid')) {
                     lookupurl = $.setUrlParam(lookupurl, 'queryid', $this.attr('data-defaultviewid'));
@@ -1715,7 +1717,6 @@ Xms.Web = {
                                     $('#entityRecordsModal').find('input[name="recordid"][value="' + item + '"]').prop('checked', true);
                                 });
                             } catch (e) {
-
                             }
                         } else {
                             $dialogInput.val(_value);
@@ -1723,7 +1724,6 @@ Xms.Web = {
                         }
                     }
                 });
-                
             });
 
             $(self).siblings("span").find(".ctrl-del").off('click').on('click', function () {
@@ -1754,19 +1754,14 @@ Xms.Web = {
                 } else {
                     opts.dialogReturn.call(this, e, result, inputid);
                 }
-               
             });
-
         });
 
         opts && opts.plugLoaded && opts.plugLoaded($plugInput);
-        
+
         return $plugInput;
-       
-        
     }
     , CloseDialog: function (target) {
-        
         $(target).parent().next().remove();
         $(target).parent().remove();
         $(document.body).removeClass("modal-open");
@@ -1789,16 +1784,18 @@ Xms.Web = {
                 isDblclick = true;
             }
         } else if (firstClick && secondClick) {
-
             self.removeAttr("firstclick");
             self.removeAttr("secondclick");
             Xms.Web.IsDbClick(self);
         }
         return isDblclick;
     }
-    , OpenWindow: function (url, type) {
+    , OpenWindow: function (url, type, extstr) {
         type = type || '_blank';
-        var d = $('<a href="' + url + '" class="hide" target="' + type + '"><span>a</span></a>');
+        extstr = extstr || '';
+        var alinkstr = '<a href="' + url + '" class="hide" target="' + type + '" {extstr} ><span>a</span></a>';
+        alinkstr = alinkstr.replace(/{extstr}/, extstr);
+        var d = $(alinkstr);
         $('body').append(d);
         d.find('span').trigger('click');
         d.remove();
@@ -1897,7 +1894,7 @@ Xms.Web = {
         }
         , localStorageEvent: new function () {
             var prefix = '_xms_event_';
-            function _EVENT(name,handler) {
+            function _EVENT(name, handler) {
                 this.name = name;
                 this.handler = handler;
             }
@@ -1917,9 +1914,9 @@ Xms.Web = {
                 return eventlist;
             }
             this.run = function (e, handlers, val) {
-                $.each(handlers, function (i,n) {
+                $.each(handlers, function (i, n) {
                     if (n && typeof n.handler == 'function') {
-                        n.handler.call(self,e,val);
+                        n.handler.call(self, e, val);
                     }
                 })
             }
@@ -1927,7 +1924,7 @@ Xms.Web = {
                 //console.log(e);
                 var name = e.key;
                 var val = e.newValue;
-                if (eventlist[name] && eventlist[name].length>0) {
+                if (eventlist[name] && eventlist[name].length > 0) {
                     self.run(e, eventlist[name], val);
                 }
             });
@@ -1967,14 +1964,13 @@ Xms.Web = {
         }
         function isIP(strIP) {
             if (isNull(strIP)) return false;
-            var re = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/g //匹配IP地址的正则表达式 
+            var re = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/g //匹配IP地址的正则表达式
             if (re.test(strIP)) {
                 if (RegExp.$1 < 256 && RegExp.$2 < 256 && RegExp.$3 < 256 && RegExp.$4 < 256) { return true; }
             }
             return false;
         }
         function isEnglishAndNumber(v) {
-
             var re = new RegExp("^[0-9a-zA-Z\_]+$");
             if (re.test(v)) return true;
             return false;
@@ -2063,7 +2059,7 @@ Xms.Web = {
         }
         return vali_Regexp[type] || false;
     }
-    
+
     , PageCacheConfig: { timeount: 5000, step: 50 }
     , PageCacheData: []//页面异步缓存数据
     , PageCache: function (type, url, param, callback, isSync, actype) {//页面缓存数据获取方法，type值同一个页面一样。
@@ -2103,7 +2099,7 @@ Xms.Web = {
         }
     },
 
-    getDataUrlApi: function(url) {
+    getDataUrlApi: function (url) {
         var index = url.indexOf('?');
         return url.substr(0, index);
     }
@@ -2201,7 +2197,6 @@ Xms.Web = {
     , ToastNotice: function () {
         var _oldnoticeId = '';
         var loops = Xms.Web.XmsLoops({
-
             loopHandler: function (loop) {
                 var filter = {};
                 filter.Filters = [{ "FilterOperator": Xms.Fetch.LogicalOperator.Or, "Conditions": [{ "AttributeName": "isread", "Operator": Xms.Fetch.ConditionOperator.Equal, "Values": [0] }] }, { "FilterOperator": Xms.Fetch.LogicalOperator.And, "Conditions": [{ "AttributeName": "ownerid", "Operator": Xms.Fetch.ConditionOperator.EqualUserId }] }];
@@ -2245,7 +2240,7 @@ Xms.Web = {
         }
         location.href = url;
     },
-    tabCount:0,
+    tabCount: 0,
     OpenTab: function (tabname, tabContentLink, tabId) {
         var prefix = "winTab__";
         var tabId = tabId || prefix + (Xms.Web.tabCount++);
@@ -2254,7 +2249,6 @@ Xms.Web = {
     OpenTabByHtml: function (tabname, tabHtml) {
         var prefix = "winTab__";
         var tabId = prefix + (Xms.Web.tabCount++)
-        
     }
     , callChildMethod: function (childid, method, arg1, arg2, arg3, arg4, arg5, arg6) {
         var child = document.getElementById(childid).contentWindow
@@ -2280,13 +2274,17 @@ Xms.Web = {
             return parent[method](document.body, arg1, arg2, arg3, arg4, arg5, arg6);
         }
     }
+    , _callParentMethod: function (method, arg1, arg2, arg3, arg4, arg5, arg6) {
+        if (parent && parent[method]) {
+            return parent[method](arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+    }
     , getParentWin: function () {
         return window.parent;
     },
-    iFrameHeight: function ($iframe,offsetH) {
+    iFrameHeight: function ($iframe, offsetH) {
         if (typeof $iframe == 'string') {
             var ifm = document.getElementById($iframe);
-            
         } else if (typeof $iframe == 'object') {
             var ifm = $($iframe).get(0);
         }
@@ -2297,7 +2295,7 @@ Xms.Web = {
             ifm.height = $(window).height() + navbarH;//subWeb.body.scrollHeight;
         }
     }
-    , loadScript :function(src, loaded, onLoad, onError, onEnd){
+    , loadScript: function (src, loaded, onLoad, onError, onEnd) {
         var script = document.createElement("script");
         script.onload = function () {
             this.onerror = null;
@@ -2311,7 +2309,6 @@ Xms.Web = {
             if (!loaded) {
                 if (onEnd && onEnd.call) {
                     onEnd();
-
                 }
                 return;
             }
@@ -2391,11 +2388,24 @@ Xms.Web = {
         }
         return this;
     }
+    , fullByContext: function ($context, $target, offsetH, offsetT, style) {
+        offsetH = offsetH || 0;
+        offsetT = offsetT || 0;
+        style = style || 'min-height'
+        var $cH = $context.height();
+        var _css = {};
+        _css[style] = $cH + offsetH + offsetT;
+        $target.css(_css);
+    }
+    , isImg: function (str) {
+        var reg = new RegExp('png|jpeg|jpg|gif|svg', 'gm');
+        return reg.test(str)
+    }
 }
 
 Xms.Ajax = new function () {
     var self = this;
-    this.contentTypes = ['application/x-www-form-urlencoded', "application/json; charset=utf-8","multipart/form-data"];
+    this.contentTypes = ['application/x-www-form-urlencoded', "application/json; charset=utf-8", "multipart/form-data"];
     this.baseUrl = '';
     this.setDefaults = function (opts) {
         $.extend(defaults, opts);
@@ -2403,7 +2413,7 @@ Xms.Ajax = new function () {
     this.setBaseUrl = function (baseUrl) {
         self.baseUrl = baseUrl;
     }
-    
+
     var defaults = {
         type: 'GET',
         //dataType: "json",
@@ -2422,9 +2432,8 @@ Xms.Ajax = new function () {
         asyncPost: $.extend({}, defaults, { type: 'POST', async: true }),
         getJson: $.extend({}, defaults, { type: 'GET', dataType: 'json' }),
         loadPage: $.extend({}, defaults, { type: 'GET', dataType: 'text' })
-        
     }
-    this.getOptsInfo = function (type,url, data, onsuccess, onerror, extOpts) {
+    this.getOptsInfo = function (type, url, data, onsuccess, onerror, extOpts) {
         var args = [].slice.call(arguments), opts;
         if (args.length == 2) {//如果只有2个参数，会视为args[1]为对象
             opts = $.extend({}, optsInfos[type], args[1]);
@@ -2433,16 +2442,14 @@ Xms.Ajax = new function () {
         }
         return opts;
     }
-    
+
     this.Get = function (url, data, onsuccess, onerror, extOpts) {
-        var opts = self.getOptsInfo.call(self,'get', url, data, onsuccess, onerror, extOpts);
+        var opts = self.getOptsInfo.call(self, 'get', url, data, onsuccess, onerror, extOpts);
         return self.send(opts);
-        
     }
     this.Post = function (url, data, onsuccess, onerror, extOpts) {
         var opts = self.getOptsInfo.call(self, 'post', url, data, onsuccess, onerror, extOpts);
         return self.send(opts);
-
     }
     this.Put = function (url, data, onsuccess, onerror, extOpts) {
         var opts = self.getOptsInfo.call(self, 'put', url, data, onsuccess, onerror, extOpts);
@@ -2470,43 +2477,38 @@ Xms.Ajax = new function () {
     this.AsyncGet = function (url, data, onsuccess, onerror, extOpts) {
         var opts = self.getOptsInfo.call(self, 'asyncGet', url, data, onsuccess, onerror, extOpts);
         return self.send(opts);
-
     }
     this.AsyncPost = function (url, data, onsuccess, onerror, extOpts) {
         var opts = self.getOptsInfo.call(self, 'asyncPost', url, data, onsuccess, onerror, extOpts);
         return self.send(opts);
-
     }
     this.GetJson = function (url, data, onsuccess, onerror, extOpts) {
         var opts = self.getOptsInfo.call(self, 'getJson', url, data, onsuccess, onerror, extOpts);
         return self.send(opts);
-
     }
-    
 
     this.send = function (opts) {
         var url = opts.url;
 
         var dtd = $.Deferred();
-        if (~url.indexOf('?')) {
+        if (~url.indexOf('?') && !opts.isformdata) {
             var model = {};
             model = $.urlParamObj(url);//如果请求方法中带有查询参数，提取出参数放到一个对象中
             url = Xms.Web.getDataUrlApi(url);
             url = url + (url.indexOf('?') == -1 ? '?' : '&') + '__r=' + new Date().getTime();
             opts.data = $.extend({}, model, opts.data);
-            
         }
         if (url.indexOf(ORG_SERVERURL) !== 0) {
-            url = ORG_SERVERURL + (url.indexOf('/') == 0 ? "" : "/")+url;
+            url = ORG_SERVERURL + (url.indexOf('/') == 0 ? "" : "/") + url;
         }
         var beforeRequest = opts.beforeRequest();
         if (beforeRequest === false) return false;
-        if (opts.contentType && ~opts.contentType.indexOf('json')) {
+        if (opts.contentType && ~opts.contentType.indexOf('json') && !opts.isformdata) {
             opts.data = JSON.stringify(opts.data);
         }
-        $.ajax({
+        var postOpts = {
             type: opts.type,
-            url: self.baseUrl+url,
+            url: self.baseUrl + url,
             data: opts.data,
             //processData: false,
             //mimeType: opts.mimeType || false,
@@ -2537,7 +2539,11 @@ Xms.Ajax = new function () {
                 }
                 dtd.reject(xhr, textStatus, errorThrown);
             }
-        });
+        }
+        if (opts._extend) {
+            opts._extend(postOpts);
+        }
+        $.ajax(postOpts);
         return dtd.promise();
     }
 }

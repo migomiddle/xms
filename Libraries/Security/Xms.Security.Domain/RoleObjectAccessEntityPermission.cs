@@ -21,6 +21,5 @@ namespace Xms.Security.Domain
         [ResultColumn]
         [LinkEntity(typeof(EntityPermission), LinkFromFieldName = "RoleObjectAccessId", LinkToFieldName = "EntityPermissionId")]
         public AccessRightValue AccessRight { get; set; }
-
     }
 }

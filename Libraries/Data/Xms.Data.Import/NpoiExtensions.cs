@@ -7,7 +7,6 @@ using System.Linq;
 
 namespace Xms.Data.Import
 {
-
     public static class NpoiExtensions
     {
         public static HSSFDataValidation CreateListConstraint(this HSSFWorkbook book, int columnIndex, IEnumerable<string> values)
@@ -78,6 +77,7 @@ namespace Xms.Data.Import
             {
                 case CellType.Blank:
                     break;
+
                 case CellType.Boolean:
                     value = cell.BooleanCellValue ? "1" : "0"; break;
                 case CellType.Error:

@@ -1,14 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.CreateBusinessFlowModel
 
 <div class="panel panel-default">
-    @*<div class="panel-heading">
-            <h3 class="panel-title">
-                <a data-toggle="collapse"
-                   href="#collapseTwo">
-                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
-                </a>
-            </h3>
-        </div>*@
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <div class="cntr">
@@ -50,9 +50,9 @@
                         <div class="dropdown add-business-btn " style="display: inline;">
                             <span class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="addminus-config">
-                                    <i class="glyphicon glyphicon-th-list icon-addminus-config hv" id="addEntityRelationBtn"></i>
+                                    <i class="glyphicon glyphicon-th-list icon-addminus-config hv addEntityRelationBtn" id="addEntityRelationBtn"></i>
                                 </span>
-                                <span>选项</span>
+                                <span class="addEntityRelationBtn">选项</span>
                             </span>
                             <div class="dropdown-menu add-business-menu">
                                 <ul class="menu business-list" id="entityMenu" data-bind="foreach: entityMenulist.list">
@@ -88,148 +88,141 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-
                                             </th>
                                         </tr>
                                     </thead>*@
                                 <tbody>
                                     <tr id="stepItems" class="stepItems" data-bind="foreach:{ data: litem.items, as: 'kitem' }">
-                                            <td class="step-item" data-bind="event:{'click':stageHandler},css:{active:kitem.isShow()}">
-                                                <table>
-                                                    <tr>
-                                                        <td width="13">
-                                                            <i class="icon-arrow-first"></i>
-                                                            <i class="icon-arrow-white"></i>
-                                                        </td>
-                                                        <td>
-                                                            <div class="arrow-center">
-                                                                <table>
-                                                                    <tr>
-                                                                        <td width="20">
-                                                                            <a class="btn btn-link delstageBtn" data-bind="click:litem.delStage"><i class="glyphicon glyphicon-trash "></i></a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <span data-bind="text:kitem.name,event:{'mouseenter':nameMouseEnter}"></span>
-                                                                            <input type="text" class="c-hide" name="step-name" data-bind="value:kitem.name,event:{'mouseout':nameMouseOut}" placeholder="阶段名称" />
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-
-                                                        </td>
-                                                        <td width="13">
-                                                            <i class="icon-arrow-forward"></i>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="step-fields">
-                                                        <td colspan="3">
+                                        <td class="step-item" data-bind="event:{'click':stageHandler},css:{active:kitem.isShow()}">
+                                            <table>
+                                                <tr>
+                                                    <td width="13">
+                                                        <i class="icon-arrow-first"></i>
+                                                        <i class="icon-arrow-white"></i>
+                                                    </td>
+                                                    <td>
+                                                        <div class="arrow-center">
                                                             <table>
                                                                 <tr>
-                                                                    <td colspan="3" class="pos-rt">
-                                                                        <div class="row stepItems fieldItems" data-bind="foreach:{ data: kitem.steps, as: 'step' }">
-                                                                            <div class="col-sm-4 pb-2">
-                                                                                <div class="col-sm-4 setW-first control-label">
-                                                                                    <table>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <span data-bind="text:step.displayname(),event:{'mouseenter':nameMouseEnter}"></span>
-                                                                                                <input type="text" class="c-hide field-label-input" name="step-name" data-bind="value:step.displayname(),event:{'mouseout':nameMouseOut}" />
-                                                                                            </td>
-                                                                                            <td width="10">
-                                                                                                <span class="pull-right " title="是否必填" data-bind="attr:{'class':step.isrequired?'text-danger':'field-required'},click:function(obj,e){  e = e || window.event;var target = e.target || e.srcElement;$(target).next().click();if($(target).hasClass('field-required')){$(target).removeClass('field-required').addClass('text-danger');}else{$(target).removeClass('text-danger').addClass('field-required');}}">*</span>
-                                                                                                <input class="hidden" type="checkbox" data-bind="checked:step.isrequired" />
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-
-                                                                                </div>
-                                                                                <div class="col-sm-8">
-                                                                                    <table>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <span class="form-control" data-bind="text:step.attrname(),event:{'mouseenter':attrMouseEnter}"></span>
-                                                                                                <select class="attr-selector c-hide form-control" name="step-attribute" data-bind="
+                                                                    <td width="20">
+                                                                        <a class="btn btn-link delstageBtn" data-bind="click:litem.delStage"><i class="glyphicon glyphicon-trash "></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span data-bind="text:kitem.name,event:{'mouseenter':nameMouseEnter}"></span>
+                                                                        <input type="text" class="c-hide" name="step-name" data-bind="value:kitem.name,event:{'mouseout':nameMouseOut}" placeholder="阶段名称" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                    <td width="13">
+                                                        <i class="icon-arrow-forward"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr class="step-fields">
+                                                    <td colspan="3">
+                                                        <table>
+                                                            <tr>
+                                                                <td colspan="3" class="pos-rt">
+                                                                    <div class="row stepItems fieldItems" data-bind="foreach:{ data: kitem.steps, as: 'step' }">
+                                                                        <div class="col-sm-4 pb-2">
+                                                                            <div class="col-sm-4 setW-first control-label">
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span data-bind="text:step.displayname(),event:{'mouseenter':nameMouseEnter}"></span>
+                                                                                            <input type="text" class="c-hide field-label-input" name="step-name" data-bind="value:step.displayname(),event:{'mouseout':nameMouseOut}" />
+                                                                                        </td>
+                                                                                        <td width="10">
+                                                                                            <span class="pull-right " title="是否必填" data-bind="attr:{'class':step.isrequired?'text-danger':'field-required'},click:function(obj,e){  e = e || window.event;var target = e.target || e.srcElement;$(target).next().click();if($(target).hasClass('field-required')){$(target).removeClass('field-required').addClass('text-danger');}else{$(target).removeClass('text-danger').addClass('field-required');}}">*</span>
+                                                                                            <input class="hidden" type="checkbox" data-bind="checked:step.isrequired" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div class="col-sm-8">
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span class="form-control" data-bind="text:step.attrname(),event:{'mouseenter':attrMouseEnter}"></span>
+                                                                                            <select class="attr-selector c-hide form-control" name="step-attribute" data-bind="
                                                             options:step.options(),
                                                             optionsText: 'optionText' ,
                                                             optionsValue:'optionValue',
                                                             event:{'change':attrChange,'mouseout':attrMouseOut}
                                                             ">
-                                                                                                    <option value=""></option>
-                                                                                                </select>
-
-                                                                                            </td>
-                                                                                            <td width="10"><a class="delstepBtn" data-bind="click:kitem.delStep"><i class="glyphicon glyphicon-trash "></i></a></td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>
+                                                                                                <option value=""></option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td width="10"><a class="delstepBtn" data-bind="click:kitem.delStep"><i class="glyphicon glyphicon-trash "></i></a></td>
+                                                                                    </tr>
+                                                                                </table>
                                                                             </div>
-
-                                                                            <div class="col-sm-4 btn btn-default field-add" id="add-step-btn" data-bind="click:function(){litem.addStep('','');}">
-                                                                                <i class=" glyphicon glyphicon-plus"></i>
-                                                                                &nbsp;添加步骤
-                                                                            </div>
-
                                                                         </div>
 
+                                                                        <div class="col-sm-4 btn btn-default field-add" id="add-step-btn" data-bind="click:function(){litem.addStep('','');}">
+                                                                            <i class=" glyphicon glyphicon-plus"></i>
+                                                                            &nbsp;添加步骤
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="step-item-add">
+                                            <div class="arrow-add">
+                                                <a class="btn btn-link move-left" data-bind="click:litem.moveUp">
+                                                    <i class="glyphicon glyphicon-arrow-left"></i>
+                                                </a>
+                                                <a class="btn btn-link move-right" data-bind="click:litem.moveDown">
+                                                    <i class="glyphicon glyphicon-arrow-right"></i>
+                                                </a>
+                                                <a class="btn btn-link item-add" id="add-stage-btn" data-bind="click:function(){litem.addItems()}">
+                                                    <i class=" glyphicon glyphicon-plus"></i>
+                                                    &nbsp;添加阶段
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @*<tr class="step-item" data-bind="click:stageHandler">
+                                                    <td width="38"></td>
+                                                    <td width="162">
+                                                        <span data-bind="text:kitem.name,event:{'mouseenter':nameMouseEnter}"></span>
+                                                        <input type="text" class="c-hide" name="step-name" data-bind="value:kitem.name,event:{'mouseout':nameMouseOut}" />
+                                                    </td>
+                                                    <td><span data-bind="text:kitem.stagetype"></span></td>
+                                                    <td colspan="3" class="pos-rt">
+                                                        <table cellpadding="0" cellspacing="0" class="stepItems">
+                                                            <tbody data-bind="foreach:{ data: kitem.steps, as: 'step' }">
+                                                                <tr>
+                                                                    <td class="setW-first" width="33.33%">
+                                                                        <span data-bind="text:step.displayname(),event:{'mouseenter':nameMouseEnter}"></span>
+                                                                        <input type="text" class="c-hide" name="step-name" data-bind="value:step.displayname(),event:{'mouseout':nameMouseOut}" />
+                                                                    </td>
+                                                                    <td class="setW-second" width="33.33%">
+                                                                        <span data-bind="text:step.attrname(),event:{'mouseenter':attrMouseEnter}"></span>
+                                                                        <select class="attr-selector c-hide" name="step-attribute" data-bind="
+                                        options:step.options(),
+                                        optionsText: 'optionText' ,
+                                        optionsValue:'optionValue',
+                                        event:{'change':attrChange,'mouseout':attrMouseOut}
+                                        ">
+                                                                            <option value=""></option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="setW-third" width="33.33%">
+                                                                        <input type="checkbox" data-bind="checked:step.isrequired" />
+                                                                        <div class="delstepBtn" data-bind="click:kitem.delStep">x</div>
                                                                     </td>
                                                                 </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                            <td class="step-item-add">
-                                                <div class="arrow-add">
-                                                    <a class="btn btn-link move-left" data-bind="click:litem.moveUp">
-                                                        <i class="glyphicon glyphicon-arrow-left"></i>
-                                                    </a>
-                                                    <a class="btn btn-link move-right" data-bind="click:litem.moveDown">
-                                                        <i class="glyphicon glyphicon-arrow-right"></i>
-                                                    </a>
-                                                    <a class="btn btn-link item-add" id="add-stage-btn" data-bind="click:function(){litem.addItems()}">
-                                                        <i class=" glyphicon glyphicon-plus"></i>
-                                                        &nbsp;添加阶段
-                                                    </a>
-
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @*<tr class="step-item" data-bind="click:stageHandler">
-                                        <td width="38"></td>
-                                        <td width="162">
-                                            <span data-bind="text:kitem.name,event:{'mouseenter':nameMouseEnter}"></span>
-                                            <input type="text" class="c-hide" name="step-name" data-bind="value:kitem.name,event:{'mouseout':nameMouseOut}" />
-                                        </td>
-                                        <td><span data-bind="text:kitem.stagetype"></span></td>
-                                        <td colspan="3" class="pos-rt">
-                                            <table cellpadding="0" cellspacing="0" class="stepItems">
-                                                <tbody data-bind="foreach:{ data: kitem.steps, as: 'step' }">
-                                                    <tr>
-                                                        <td class="setW-first" width="33.33%">
-                                                            <span data-bind="text:step.displayname(),event:{'mouseenter':nameMouseEnter}"></span>
-                                                            <input type="text" class="c-hide" name="step-name" data-bind="value:step.displayname(),event:{'mouseout':nameMouseOut}" />
-                                                        </td>
-                                                        <td class="setW-second" width="33.33%">
-                                                            <span data-bind="text:step.attrname(),event:{'mouseenter':attrMouseEnter}"></span>
-                                                            <select class="attr-selector c-hide" name="step-attribute" data-bind="
-                            options:step.options(),
-                            optionsText: 'optionText' ,
-                            optionsValue:'optionValue',
-                            event:{'change':attrChange,'mouseout':attrMouseOut}
-                            ">
-                                                                <option value=""></option>
-                                                            </select>
-                                                        </td>
-                                                        <td class="setW-third" width="33.33%">
-                                                            <input type="checkbox" data-bind="checked:step.isrequired" />
-                                                            <div class="delstepBtn" data-bind="click:kitem.delStep">x</div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="delstepBtn" data-bind="click:litem.delStage">x</div>
-                                        </td>
-                                    </tr>*@
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="delstepBtn" data-bind="click:litem.delStage">x</div>
+                                                    </td>
+                                                </tr>*@
                                 </tbody>
                                 @*<tfoot>
                                         <tr>
@@ -243,11 +236,8 @@
                                                     </li>
                                                     <li class="move-status">移动</li>
                                                 </ul>
-
                                             </td>
                                         </tr>
-
-
                                     </tfoot>*@
                             </table>
                         </div>
@@ -270,11 +260,10 @@
     <link href="/content/css/businessworkflow.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet" />
 }
 @section Scripts {
-    
+
     <script src="/content/js/knockout-2.2.0.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script>
         var PAGE_TYPE = 'CREATE';
-
     </script>
     <script src="/content/js/businessworkflow.js?v=@app.PlatformSettings.VersionNumber"></script>
 }

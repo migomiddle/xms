@@ -23,4 +23,3 @@ jQuery.paramquery.pqPager.regional['pl'] = {
     strRefresh: "Od?wie?",
     strRpp: "Wierszy na stron?: {0}"
 };
-

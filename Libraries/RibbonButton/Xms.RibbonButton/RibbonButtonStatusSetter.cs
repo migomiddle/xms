@@ -1,12 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Xms.Authorization.Abstractions;
-using Xms.Context;
 using Xms.Core.Data;
 using Xms.Form.Abstractions;
-using Xms.Identity;
-using Xms.Schema.Entity;
-using Xms.Security.Domain;
 
 namespace Xms.RibbonButton
 {

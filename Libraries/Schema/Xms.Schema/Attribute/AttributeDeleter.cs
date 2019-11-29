@@ -53,7 +53,7 @@ namespace Xms.Schema.Attribute
             _dependencyChecker = dependencyChecker;
             _eventPublisher = eventPublisher;
             _cascadeDeletes = cascadeDeletes;
-            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", AttributeCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool DeleteById(params Guid[] id)

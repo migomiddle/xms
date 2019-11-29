@@ -22,11 +22,13 @@ namespace Xms.Web.Models
         public Schema.Domain.Attribute AttributeMeta { get; set; }
         public FilterExpression Filter { get; set; }
     }
+
     public class SimpleFilterModel
     {
         public Guid EntityId { get; set; }
         public FilterExpression Filter { get; set; }
     }
+
     public class EntityRecordsModel : BasePaged<dynamic>
     {
         public Guid? EntityId { get; set; }

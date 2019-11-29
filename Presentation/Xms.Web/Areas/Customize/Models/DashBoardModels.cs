@@ -20,6 +20,7 @@ namespace Xms.Web.Customize.Models
         public Guid[] RecordId { get; set; }
         public bool IsEnabled { get; set; }
     }
+
     public class DashBoardModel : BasePaged<SystemForm>
     {
         public string Name { get; set; }

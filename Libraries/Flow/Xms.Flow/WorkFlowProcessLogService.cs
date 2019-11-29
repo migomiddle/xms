@@ -66,7 +66,7 @@ namespace Xms.Flow
 
         public bool DeleteByParentId(Guid parentid)
         {
-            return _workFlowProcessLogRepository.DeleteMany(x=>x.WorkFlowInstanceId == parentid);
+            return _workFlowProcessLogRepository.DeleteMany(x => x.WorkFlowInstanceId == parentid);
         }
 
         public PagedList<WorkFlowProcessLog> QueryPaged(Func<QueryDescriptor<WorkFlowProcessLog>, QueryDescriptor<WorkFlowProcessLog>> container)
@@ -82,7 +82,6 @@ namespace Xms.Flow
 
             return _workFlowProcessLogRepository.Query(q)?.ToList();
         }
-
 
         /// <summary>
         /// 级联删除

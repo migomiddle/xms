@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Xms.Sdk.Event.AggRoot
 {
@@ -11,9 +10,8 @@ namespace Xms.Sdk.Event.AggRoot
         public Dictionary<string, EntityAttributeMetadata> ListMetadatas { get; set; }
     }
 
-
     public class EntityAttributeMetadata
-    {        
+    {
         public Schema.Domain.Entity EntityMetadata { get; set; }
         public List<Schema.Domain.Attribute> AttributeMetadatas { get; set; }
     }

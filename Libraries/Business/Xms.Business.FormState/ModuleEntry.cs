@@ -15,6 +15,7 @@ namespace Xms.Business.FormStateRule
                 return FormStateRuleDefaults.ModuleName;
             }
         }
+
         public Action<ModuleDescriptor> Configure()
         {
             return (o) =>

@@ -54,6 +54,7 @@ namespace Xms.Web.Models
         public bool IsEditable { get; set; }
         public Guid? ReferencedRecordId { get; set; }
     }
+
     public class EntityGridModel : DataListModel
     {
         public GridDescriptor Grid { get; set; }
@@ -71,6 +72,7 @@ namespace Xms.Web.Models
         public dynamic AggregationData { get; set; }
         public List<AggregateExpressionField> AggregateFields { get; set; }
     }
+
     public class KanbanGridModel : BasePaged<dynamic>
     {
         public Guid? EntityId { get; set; }
@@ -87,10 +89,13 @@ namespace Xms.Web.Models
 
         public List<dynamic> GroupingDatas { get; set; }
         private int _groupingTop = 5;
-        public int GroupingTop {
+
+        public int GroupingTop
+        {
             get { return _groupingTop; }
             set { _groupingTop = value; }
         }
+
         public AggregateType AggType { get; set; }
     }
 
@@ -118,6 +123,7 @@ namespace Xms.Web.Models
         public List<Schema.Domain.Attribute> NonePermissionFields { get; set; }
         public bool OnlyEnabledRecords { get; set; } = true;
     }
+
     public class EntityFormModel
     {
         public Guid EntityId { get; set; }
@@ -134,6 +140,7 @@ namespace Xms.Web.Models
         public string RelationShipName { get; set; }
         public Guid? ReferencedRecordId { get; set; }
     }
+
     public class EditRecordModel
     {
         public Guid? RecordId { get; set; }
@@ -162,6 +169,7 @@ namespace Xms.Web.Models
         public Guid BusinessFlowId { get; set; }
         public Guid BusinessFlowInstanceId { get; set; }
     }
+
     public class SetEntityRecordStateModel
     {
         public Guid EntityId { get; set; }
@@ -172,12 +180,14 @@ namespace Xms.Web.Models
 
         public bool ReloadPage { get; set; } = true;
     }
+
     public class ChildEntityModel
     {
         public string Name { get; set; }
 
         public List<Entity> Datas { get; set; }
     }
+
     public class ImportModel
     {
         public Guid EntityId { get; set; }
@@ -199,6 +209,7 @@ namespace Xms.Web.Models
         public Guid ImportFileId { get; set; }
         public List<ImportMap> ImportMaps { get; set; }
     }
+
     public class EntityLogsModel : BasePaged<EntityLog>
     {
         public Guid EntityId { get; set; }
@@ -217,6 +228,7 @@ namespace Xms.Web.Models
     }
 
     #region flowing
+
     public class WorkFlowProcessingModel
     {
         public Guid EntityId { get; set; }
@@ -225,6 +237,7 @@ namespace Xms.Web.Models
         public WorkFlowProcess ProcessInfo { get; set; }
         public List<WorkFlowProcess> ProcessList { get; set; }
     }
+
     public class WorkFlowProcessedModel
     {
         public Guid WorkFlowProcessId { get; set; }
@@ -240,17 +253,20 @@ namespace Xms.Web.Models
     {
         public Guid WorkFlowId { get; set; }
     }
+
     public class WorkFlowInstanceDetailModel : BasePaged<WorkFlowInstance>
     {
         public WorkFlow FlowInfo { get; set; }
         public List<WorkFlowStep> Steps { get; set; }
     }
+
     public class WorkFlowProcessModel : BasePaged<WorkFlowProcess>
     {
         public Guid WorkFlowInstanceId { get; set; }
         public WorkFlowInstance InstanceInfo { get; set; }
         public WorkFlow FlowInfo { get; set; }
     }
+
     public class WorkFlowStateListModel : BasePaged<dynamic>
     {
         public int StateCode { get; set; }
@@ -260,6 +276,7 @@ namespace Xms.Web.Models
         public long ApplyHandledCount { get; set; }
         public long ApplyHandlingCount { get; set; }
     }
+
     public class BusinessProcessArgsModel
     {
         public Guid EntityId { get; set; }
@@ -267,6 +284,7 @@ namespace Xms.Web.Models
         public Guid? BusinessflowId { get; set; }
         public Guid? BusinessflowInstanceId { get; set; }
     }
+
     public class BusinessProcessModel
     {
         public Guid EntityId { get; set; }
@@ -281,9 +299,11 @@ namespace Xms.Web.Models
         public List<Schema.Domain.RelationShip> RelationShips { get; set; }
         public Dictionary<string, object> RelatedRecords { get; set; }
     }
-    #endregion
+
+    #endregion flowing
 
     #region principle
+
     public class SharedModel
     {
         public Guid EntityId { get; set; }
@@ -293,6 +313,7 @@ namespace Xms.Web.Models
         public string PrincipalsJson { get; set; }
         public List<PrincipalObjectAccess> Principals { get; set; }
     }
+
     public class SharedPrincipalsModel : BasePaged<PrincipalObjectAccess>
     {
         public Guid EntityId { get; set; }
@@ -310,6 +331,7 @@ namespace Xms.Web.Models
 
         public Schema.Domain.Entity EntityMetaData { get; set; }
     }
+
     public class AssignUserAllRecordsModel
     {
         public Guid UserId { get; set; }
@@ -336,6 +358,7 @@ namespace Xms.Web.Models
         public Core.Data.Entity Record2 { get; set; }
         public Schema.Domain.Entity EntityMetas { get; set; }
         public List<Schema.Domain.Attribute> Attributes { get; set; }
-    } 
-    #endregion
+    }
+
+    #endregion principle
 }

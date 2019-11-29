@@ -24,6 +24,7 @@ namespace Xms.Web.Customize.Controllers
     {
         private readonly ISolutionExporter _solutionExporter;
         private readonly ISolutionImporter _solutionImporter;
+
         public SolutionController(IWebAppContext appContext
             , ISolutionService solutionService
             , ISolutionExporter solutionExporter
@@ -34,6 +35,7 @@ namespace Xms.Web.Customize.Controllers
             _solutionExporter = solutionExporter;
             _solutionImporter = solutionImporter;
         }
+
         [Description("解决方案列表")]
         public IActionResult Index(SolutionModel model)
         {
@@ -372,6 +374,7 @@ namespace Xms.Web.Customize.Controllers
     public class SolutionComponentController : CustomizeBaseController
     {
         private readonly ISolutionComponentService _solutionComponentService;
+
         public SolutionComponentController(IWebAppContext appContext
             , ISolutionService solutionService
             , ISolutionComponentService solutionComponentService)
@@ -445,7 +448,7 @@ namespace Xms.Web.Customize.Controllers
         [HttpPost]
         public IActionResult DeleteSolutionComponent([FromBody]DeleteSolutionComponentModel model)
         {
-            return _solutionComponentService.DeleteObject(model.SolutionId , model.ComponentType, model.RecordId).DeleteResult(T);
+            return _solutionComponentService.DeleteObject(model.SolutionId, model.ComponentType, model.RecordId).DeleteResult(T);
         }
 
         /// <summary>

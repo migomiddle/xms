@@ -31,6 +31,7 @@ namespace Xms.Form.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

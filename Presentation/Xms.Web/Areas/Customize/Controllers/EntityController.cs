@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using Xms.Core.Context;
+using Xms.Core.Data;
 using Xms.Data.Provider;
 using Xms.Event.Abstractions;
 using Xms.Form.Abstractions;
@@ -14,8 +15,6 @@ using Xms.Solution;
 using Xms.Web.Customize.Models;
 using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Mvc;
-using Xms.Core.Data;
-
 
 namespace Xms.Web.Customize.Controllers
 {
@@ -25,6 +24,7 @@ namespace Xms.Web.Customize.Controllers
     public class EntityController : CustomizeBaseController
     {
         private readonly IEntityFinder _entityFinder;
+
         public EntityController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -76,7 +76,6 @@ namespace Xms.Web.Customize.Controllers
             model.TotalItems = result.TotalItems;
             model.SolutionId = SolutionId.Value;
 
-          
             return DynamicResult(model);
         }
 
@@ -168,6 +167,7 @@ namespace Xms.Web.Customize.Controllers
     {
         private readonly IEntityUpdater _entityUpdater;
         private readonly IEntityFinder _entityFinder;
+
         public UpdateEntityController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityUpdater entityUpdater
@@ -227,6 +227,7 @@ namespace Xms.Web.Customize.Controllers
     public class DeleteEntityController : CustomizeBaseController
     {
         private readonly IEntityDeleter _entityDeleter;
+
         public DeleteEntityController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityDeleter entityDeleter

@@ -15,6 +15,7 @@ namespace Xms.Localization
         private readonly ILocalizedLabelService _localizedLabelService;
         private readonly List<LocalizedLabel> _entities;
         private readonly IAppContext _appContext;
+
         public LocalizedLabelBatchBuilder(IAppContext appContext,
             ILocalizedLabelService localizedLabelService)
         {

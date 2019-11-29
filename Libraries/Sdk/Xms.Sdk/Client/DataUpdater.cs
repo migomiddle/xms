@@ -219,7 +219,8 @@ namespace Xms.Sdk.Client
             {
                 OnException(_loc["sdk_notspecified_primaryvalue"]);
             }
-            _entityValidator.VerifyValues(entity, entityMetadata, attributeMetadatas, (e) => {
+            _entityValidator.VerifyValues(entity, entityMetadata, attributeMetadatas, (e) =>
+            {
                 OnException(string.Join("\n", e));
             });
             if (attributeMetadatas.Exists(x => x.Name.IsCaseInsensitiveEqual("modifiedon")))

@@ -133,7 +133,6 @@ namespace Xms.Data.Import
                         {
                             if (mapping.NullHandle == "ignore")
                             {
-
                             }
                             else if (mapping.NullHandle == "defaultvalue")
                             {
@@ -175,7 +174,6 @@ namespace Xms.Data.Import
                         {
                             if (mapping.NullHandle == "ignore")
                             {
-
                             }
                             else if (mapping.NullHandle == "defaultvalue")
                             {

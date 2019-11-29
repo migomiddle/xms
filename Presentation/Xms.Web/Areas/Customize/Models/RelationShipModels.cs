@@ -12,6 +12,7 @@ namespace Xms.Web.Customize.Models
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
     }
+
     public class EditRelationShipModel
     {
         public Guid RelationShipId { get; set; }

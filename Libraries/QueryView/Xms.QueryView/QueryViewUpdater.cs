@@ -43,7 +43,7 @@ namespace Xms.QueryView
             _localizedLabelService = localizedLabelService;
             _dependencyService = dependencyService;
             _eventPublisher = eventPublisher;
-            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", QueryViewCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Update(Domain.QueryView entity)

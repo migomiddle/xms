@@ -12,6 +12,7 @@ namespace Xms.Sdk.Event
         {
             Object = @object;
         }
+
         public Entity Data { get; set; }
         public Schema.Domain.Entity EntityMetadata { get; set; }
         public List<Schema.Domain.Attribute> AttributeMetadatas { get; set; }

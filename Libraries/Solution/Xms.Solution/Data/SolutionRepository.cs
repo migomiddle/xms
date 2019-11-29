@@ -8,14 +8,9 @@ namespace Xms.Solution.Data
     /// </summary>
     public class SolutionRepository : DefaultRepository<Domain.Solution>, ISolutionRepository
     {
-
         public SolutionRepository(IDbContext dbContext
             ) : base(dbContext)
         {
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

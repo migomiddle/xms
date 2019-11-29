@@ -211,6 +211,7 @@ namespace Xms.Data
         {
             _repository.Save(entity);
         }
+
         #endregion 更新记录
 
         #region 查询记录
@@ -351,10 +352,10 @@ namespace Xms.Data
             //}
             //else
             //{
-                QueryDescriptor<T> q = QueryDescriptorBuilder.Build<T>();
-                q.QueryText = "[" + this.MetaData.TableInfo.TableName + "]." + this.MetaData.TableInfo.PrimaryKey + "=@0";
-                q.Parameters.Add(new QueryParameter("@0", id));
-                ctx = PocoHelper.ParseContext<T>(MetaData, q);
+            QueryDescriptor<T> q = QueryDescriptorBuilder.Build<T>();
+            q.QueryText = "[" + this.MetaData.TableInfo.TableName + "]." + this.MetaData.TableInfo.PrimaryKey + "=@0";
+            q.Parameters.Add(new QueryParameter("@0", id));
+            ctx = PocoHelper.ParseContext<T>(MetaData, q);
             //    PocoExecuteContainer[key] = ctx.ExecuteContainer;
             //}
             var result = _repository.Single(ctx);

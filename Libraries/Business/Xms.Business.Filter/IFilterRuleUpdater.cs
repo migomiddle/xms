@@ -7,6 +7,7 @@ namespace Xms.Business.Filter
     public interface IFilterRuleUpdater
     {
         bool Update(FilterRule entity);
+
         bool UpdateState(IEnumerable<Guid> ids, bool isEnabled);
     }
 }

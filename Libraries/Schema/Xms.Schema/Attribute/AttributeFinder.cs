@@ -19,30 +19,20 @@ namespace Xms.Schema.Attribute
     public class AttributeFinder : IAttributeFinder, IDependentLookup<Domain.Attribute>
     {
         private readonly IAttributeRepository _attributeRepository;
-
-        //private readonly ILocalizedLabelService _localizedLabelService;
         private readonly Caching.CacheManager<Domain.Attribute> _cacheService;
-
         private readonly IAppContext _appContext;
 
         public AttributeFinder(IAppContext appContext
             , IAttributeRepository attributeRepository
-            //, ILocalizedLabelService localizedLabelService
             )
         {
             _appContext = appContext;
             _attributeRepository = attributeRepository;
-            //_localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", AttributeCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.Attribute>(_appContext.OrganizationUniqueName + ":attributes", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public Domain.Attribute FindById(Guid id)
         {
-            //Domain.Attribute entity = _cacheService.GetItemByPattern(() =>
-            //{
-            //    return _attributeRepository.FindById(id);
-            //}, id + "/*");
-
             var dic = new Dictionary<string, string>();
             dic.Add("attributeid", id.ToString());
 
@@ -60,15 +50,9 @@ namespace Xms.Schema.Attribute
 
         public Domain.Attribute Find(Guid entityId, string name)
         {
-            //Domain.Attribute entity = _cacheService.GetItemByPattern(() =>
-            //{
-            //    return _attributeRepository.Find(n => n.EntityId == entityId && n.Name == name);
-            //}, entityId + "/*/" + name + "/");
-
             var dic = new Dictionary<string, string>();
             dic.Add("entityid", entityId.ToString());
             dic.Add("name", name);
-            
 
             var entity = _cacheService.Get(dic, () =>
             {
@@ -87,19 +71,19 @@ namespace Xms.Schema.Attribute
             dic.Add("entityname", entityName);
             dic.Add("name", name);
 
-            Domain.Attribute entity = _cacheService.Get(dic,() =>
-            {
-                return _attributeRepository.Find(n => n.EntityName == entityName && n.Name == name);
-            });
+            Domain.Attribute entity = _cacheService.Get(dic, () =>
+             {
+                 return _attributeRepository.Find(n => n.EntityName == entityName && n.Name == name);
+             });
             if (entity != null)
             {
                 WrapLocalizedLabel(entity);
             }
             return entity;
         }
+
         public List<Domain.Attribute> FindByName(Guid entityId, params string[] name)
         {
-
             var result = this.FindByEntityId(entityId)?.Where(x => name.Contains(x.Name, StringComparer.InvariantCultureIgnoreCase))?.ToList();
             if (result.NotEmpty())
             {
@@ -120,16 +104,11 @@ namespace Xms.Schema.Attribute
 
         public List<Domain.Attribute> FindByEntityId(Guid entityId)
         {
-            //List<Domain.Attribute> result = _cacheService.GetItemsByPattern(() =>
-            //{
-            //    return _attributeRepository.Query(n => n.EntityId == entityId)?.ToList();
-            //}, entityId + "/*");
-
             string sIndex = string.Join("/", entityId.ToString());
-            List<Domain.Attribute> result = _cacheService.GetVersionItems(sIndex,() =>
-            {
-                return _attributeRepository.Query(n => n.EntityId == entityId)?.ToList();
-            });
+            List<Domain.Attribute> result = _cacheService.GetVersionItems(sIndex, () =>
+             {
+                 return _attributeRepository.Query(n => n.EntityId == entityId)?.ToList();
+             });
 
             if (result.NotEmpty())
             {
@@ -141,10 +120,10 @@ namespace Xms.Schema.Attribute
         public List<Domain.Attribute> FindByEntityName(string entityName)
         {
             string sIndex = string.Join("/", entityName);
-            List<Domain.Attribute> result = _cacheService.GetVersionItems(sIndex,() =>
-            {
-                return _attributeRepository.Query(n => n.EntityName == entityName)?.ToList();
-            });
+            List<Domain.Attribute> result = _cacheService.GetVersionItems(sIndex, () =>
+             {
+                 return _attributeRepository.Query(n => n.EntityName == entityName)?.ToList();
+             });
             if (result.NotEmpty())
             {
                 WrapLocalizedLabel(result);
@@ -183,10 +162,10 @@ namespace Xms.Schema.Attribute
 
         public List<Domain.Attribute> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return _attributeRepository.FindAll()?.ToList();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return _attributeRepository.FindAll()?.ToList();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -213,14 +192,16 @@ namespace Xms.Schema.Attribute
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.LocalizedName + "-" + result.Name } : null;
         }
 
-        public int ComponentType => ModuleCollection.GetIdentity(AttributeDefaults.ModuleName); 
-        #endregion
+        public int ComponentType => ModuleCollection.GetIdentity(AttributeDefaults.ModuleName);
+
+        #endregion dependency
 
         #region 多语言标签
 

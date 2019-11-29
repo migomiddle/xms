@@ -18,6 +18,7 @@ namespace Xms.Business.Filter
         private readonly IFilterRuleUpdater _filterRuleUpdater;
         private readonly IFilterRuleFinder _filterRuleFinder;
         private readonly IAppContext _appContext;
+
         public FilterRuleImporter(IAppContext appContext
             , IFilterRuleCreater filterRuleCreater
             , IFilterRuleUpdater filterRuleUpdater
@@ -28,6 +29,7 @@ namespace Xms.Business.Filter
             _filterRuleUpdater = filterRuleUpdater;
             _filterRuleFinder = filterRuleFinder;
         }
+
         public bool Import(Guid solutionId, IList<FilterRule> businessRules)
         {
             if (businessRules.NotEmpty())

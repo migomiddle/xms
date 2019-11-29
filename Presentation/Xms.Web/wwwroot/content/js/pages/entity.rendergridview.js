@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=pages/entity.rendergridview.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -61,536 +60,527 @@
         }
         //return false;
         var GridViewModel = $.extend({}, pageWrap_RenderGirdView,
-        {
-            ajaxTable: function (count, flag) {
-                var self = $(GridViewModel.sectionid + " .datatable");
-                var containerId = '#' + self.attr('data-ajaxcontainer');
-                self.parent().delegate('a[data-ajax="true"]', 'click', function (e) {
-                    e.preventDefault();
-                    var url = $(this).attr('href');
-                    url = url + (url.indexOf('?') == -1 ? '?' : '&') + '__r=' + new Date().getTime();
-                    GridViewModel.rebind(url);
-                    return false;
-                });
-                if (!flag) {
-                    renderDefaultItems(count);
-                }
-
-            },
-            ajaxgrid_reset: function (count, flag) {
-                GridViewModel.ajaxTable(count, flag);
-                GridViewModel.pageUrl = $(GridViewModel.sectionid + " .datatable").attr('data-pageurl');
-                GridViewModel.pag_init();
-                Xms.Web.DataTable($(GridViewModel.sectionid + " .datatable"));
-                //默认第一列为快速查找字段
-                $(GridViewModel.sectionid + ' #fieldDropdown').next().find('a:eq(1)').trigger('click');
-                $(GridViewModel.sectionid + ' button[name=clearBtn]:first').on('click', null, function (e) {
-                    $(GridViewModel.sectionid + ' #Q').val('');
-                    GridViewModel.q = '';
-                    GridViewModel.rebind();
-                });
-                $(GridViewModel.sectionid + ' button[name=searchBtn]').off('click').on('click', null, function (e) {
-                    GridViewModel.q = $(GridViewModel.sectionid + ' #Q').val();
-                    GridViewModel.qfield = $(GridViewModel.sectionid + ' #QField').val() || '';
-                    GridViewModel.rebind();
-                });
-                // var isrunNext = true;
-                $(GridViewModel.sectionid + ' input.quickly-search-input').off('click').on("keydown", function (e) {
-                    e = e || window.event;
-                    //if(isrunNext == false)return false;
-                    //isrunNext = false;
-                    if (e.keyCode == 13) {
+            {
+                ajaxTable: function (count, flag) {
+                    var self = $(GridViewModel.sectionid + " .datatable");
+                    var containerId = '#' + self.attr('data-ajaxcontainer');
+                    self.parent().delegate('a[data-ajax="true"]', 'click', function (e) {
+                        e.preventDefault();
+                        var url = $(this).attr('href');
+                        url = url + (url.indexOf('?') == -1 ? '?' : '&') + '__r=' + new Date().getTime();
+                        GridViewModel.rebind(url);
+                        return false;
+                    });
+                    if (!flag) {
+                        renderDefaultItems(count);
+                    }
+                },
+                ajaxgrid_reset: function (count, flag) {
+                    GridViewModel.ajaxTable(count, flag);
+                    GridViewModel.pageUrl = $(GridViewModel.sectionid + " .datatable").attr('data-pageurl');
+                    GridViewModel.pag_init();
+                    Xms.Web.DataTable($(GridViewModel.sectionid + " .datatable"));
+                    //默认第一列为快速查找字段
+                    $(GridViewModel.sectionid + ' #fieldDropdown').next().find('a:eq(1)').trigger('click');
+                    $(GridViewModel.sectionid + ' button[name=clearBtn]:first').on('click', null, function (e) {
+                        $(GridViewModel.sectionid + ' #Q').val('');
+                        GridViewModel.q = '';
+                        GridViewModel.rebind();
+                    });
+                    $(GridViewModel.sectionid + ' button[name=searchBtn]').off('click').on('click', null, function (e) {
                         GridViewModel.q = $(GridViewModel.sectionid + ' #Q').val();
                         GridViewModel.qfield = $(GridViewModel.sectionid + ' #QField').val() || '';
-                        GridViewModel.rebind(null, function () {
-                            //  isrunNext = true;
-                        });
+                        GridViewModel.rebind();
+                    });
+                    // var isrunNext = true;
+                    $(GridViewModel.sectionid + ' input.quickly-search-input').off('click').on("keydown", function (e) {
+                        e = e || window.event;
+                        //if(isrunNext == false)return false;
+                        //isrunNext = false;
+                        if (e.keyCode == 13) {
+                            GridViewModel.q = $(GridViewModel.sectionid + ' #Q').val();
+                            GridViewModel.qfield = $(GridViewModel.sectionid + ' #QField').val() || '';
+                            GridViewModel.rebind(null, function () {
+                                //  isrunNext = true;
+                            });
+                        }
+                    });
+                    $(GridViewModel.sectionid + ' .datatable').find('input.normal-input').off('keydown').on('keydown', function (e, obj) {
+                        e = e || event || window.event;
+                        var ecode = e.keyCode;
+                        var $this = $(this);
+                        var curTr = $this.parents('tr:first');
+                        curTr.attr('data-edited', true);
+                        if ($this.data().msgbox && $this.data().msgbox.length > 0) {
+                            $this.data().msgbox.hide();
+                        }
+                        if (obj && obj.noGoNext) {
+                            riggerNextInputFocus(this, true);
+                        } else if (ecode == "13") {
+                            triggerNextInputFocus(this);
+                        }
+                    }).off('change').on('change', function () {
+                        var $this = $(this);
+                        var curTr = $this.parents('tr:first');
+                        curTr.attr('data-edited', true);//火狐下会没有触发keydown事件，所以添加
+                        var isChecke = checkEntityType($this);
+                        if (isChecke == false) { return false; }
+                    });
+                    $(GridViewModel.sectionid + ' button[name=createBtn]').off('click').on('click', null, function (e) {
+                        GridViewModel.CreateRecord();
+                    });
+                    if (GridViewModel.referencedrecordid != '') {
                     }
-                });
-                $(GridViewModel.sectionid + ' .datatable').find('input.normal-input').off('keydown').on('keydown', function (e, obj) {
-                    e = e || event || window.event;
-                    var ecode = e.keyCode;
-                    var $this = $(this);
-                    var curTr = $this.parents('tr:first');
-                    curTr.attr('data-edited', true);
-                    if ($this.data().msgbox && $this.data().msgbox.length > 0) {
-                        $this.data().msgbox.hide();
+                    else if (GridViewModel.relationshipname != '') {
+                        $(GridViewModel.sectionid + ' .toolbar button:not(.btnLocal)').addClass('disabled').prop('disabled', 'disabled');
                     }
-                    if (obj && obj.noGoNext) {
-                        riggerNextInputFocus(this, true);
-                    } else if (ecode == "13") {
-                        triggerNextInputFocus(this);
-                    }
-                }).off('change').on('change', function () {
-                    var $this = $(this);
-                    var curTr = $this.parents('tr:first');
-                    curTr.attr('data-edited', true);//火狐下会没有触发keydown事件，所以添加
-                    var isChecke = checkEntityType($this);
-                    if (isChecke == false) { return false; }
-                });
-                $(GridViewModel.sectionid + ' button[name=createBtn]').off('click').on('click', null, function (e) {
-                    GridViewModel.CreateRecord();
-                });
-                if (GridViewModel.referencedrecordid != '') {
-                }
-                else if (GridViewModel.relationshipname != '') {
-                    $(GridViewModel.sectionid + ' .toolbar button:not(.btnLocal)').addClass('disabled').prop('disabled', 'disabled');
-                }
-                $(GridViewModel.sectionid + ' button[name=deleteBtn]').off('click').on('click', null, function (e) {
-                    GridViewModel.DeleteRecord();
-                    $('body').trigger('gridview.delete');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.delete');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.server.delete');
-                    GridViewModel.resetRowNumber();
-                    GridViewModel.savetable();
-                });
-                $(GridViewModel.sectionid + ' button[name=addRowBtnLocal]').off('click').on('click', null, function (e) {
-                    var newrow = renderDefaultItems(1);
-                    GridViewModel.ajaxgrid_reset(1, true);
-                    if (typeof setSubGridFormular == 'function') {
-                        setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
-                    }
-                    $('body').trigger('gridview.add', { row: newrow });
-                    $('body ' + GridViewModel.sectionid).trigger('gridviewByid.add', { row: newrow });
-                    $(GridViewModel.sectionid).trigger('gridviewByid.server.add');
-                    GridViewModel.resetRowNumber();
-                    GridViewModel.savetable();
-                });
-                $(GridViewModel.sectionid + ' button[name=saveBtnLocal]').off('click').on('click', null, function (e) {
-                    saveCurrentSubGrid();
-                    $('body').trigger('gridview.save');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.save');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.server.save');
-                });
-                $(GridViewModel.sectionid + ' button[name=freshBtn]').off('click').on('click', null, function (e) {
-                    GridViewModel.rebind(null, function () {
-                        if (typeof setSubGridFormular !== 'undefined') {
+                    $(GridViewModel.sectionid + ' button[name=deleteBtn]').off('click').on('click', null, function (e) {
+                        GridViewModel.DeleteRecord();
+                        $('body').trigger('gridview.delete');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.delete');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.server.delete');
+                        GridViewModel.resetRowNumber();
+                        GridViewModel.savetable();
+                    });
+                    $(GridViewModel.sectionid + ' button[name=addRowBtnLocal]').off('click').on('click', null, function (e) {
+                        var newrow = renderDefaultItems(1);
+                        GridViewModel.ajaxgrid_reset(1, true);
+                        if (typeof setSubGridFormular == 'function') {
                             setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
                         }
+                        $('body').trigger('gridview.add', { row: newrow });
+                        $('body ' + GridViewModel.sectionid).trigger('gridviewByid.add', { row: newrow });
+                        $(GridViewModel.sectionid).trigger('gridviewByid.server.add');
+                        GridViewModel.resetRowNumber();
+                        GridViewModel.savetable();
                     });
-
-                    $('body').trigger('gridview.rebind');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.rebind');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.server.rebind');
-
-                });
-                $(GridViewModel.sectionid + ' button[name=resetRowBtn]').off('click').on('click', null, function (e) {
-                    var parTr = $(this).parents('tr:first');
-                    GridViewModel.resetRow(parTr);
-                    setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
-                    $('body').trigger('gridview.reset');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.reset');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.server.reset');
-                });
-                GridViewModel.initedit();
-            },
-            pag_init: function () {
-                $(GridViewModel.sectionid + ' #page-selection').bootpag({
-                    total: $(GridViewModel.sectionid + ' #page-selection').attr('data-total')
-                    , maxVisible: 5
-                    , page: $(GridViewModel.sectionid + ' #page-selection').attr('data-page')
-                    , leaps: true
-                    , prev: '&lsaquo;'
-                    , next: '&rsaquo;'
-                    , firstLastUse: true
-                    , first: '&laquo;'
-                    , last: '&raquo;'
-                    //, wrapClass: ''
-                }).on("page", function (event, num) {
-                    event.preventDefault();
-                    GridViewModel.page = num;
-                    GridViewModel.rebind();
-                    return false;
-                });
-                $(GridViewModel.sectionid).off('subpage.resetWidth').on('subpage.resetWidth', settableHeaderWidth).trigger('subpage.resetWidth');
-                console.log('GridViewModel.sectionid', $(GridViewModel.sectionid).parent());
-
-            },
-            rebind: function (url, callback) {
-                var url = url || '/entity/rendergridview';
-                url = url + (url.indexOf('?') == -1 ? '?' : '&') + '__r=' + new Date().getTime();
-                //console.log(url);
-                var model = new Object();
-                model.EntityId = GridViewModel.entityid;
-                model.QueryId = GridViewModel.queryid;
-                model.RelationShipName = GridViewModel.relationshipname;
-                model.ReferencedRecordId = GridViewModel.referencedrecordid;
-                model.Filter = GridViewModel.filters;
-                model.Q = $.getUrlParam("q", url) || GridViewModel.q;
-                model.QField = $.getUrlParam("qfield", url) || GridViewModel.qfield;
-                model.SortBy = $.getUrlParam("sortby", url) || GridViewModel.sortby;
-                model.SortDirection = $.getUrlParam("sortdirection", url) || GridViewModel.sortdir;
-                model.Page = $.getUrlParam("page", url) || GridViewModel.page;
-                model.PageSize = $.getUrlParam("pagesize", url) || GridViewModel.pagesize;
-                model.IsEditable = GridViewModel.iseditable;
-                model.defaultEmptyRows = GridViewModel.defaultEmptyRows;
-                model.PagingEnabled = GridViewModel.pagingEnabled;
-                //console.log(model);
-                Xms.Web.LoadPage(url, model, function (response) {
-                    Xms.Web.Console(response);
-                    //$(GridViewModel.sectionid + ' .gridview').html($(response).find('.gridview').html());
-                    $(GridViewModel.sectionid).html($(response).html());
-                    GridViewModel.ajaxgrid_reset();
-                    callback && callback();
-
-                    $('body').trigger('gridview.subgridRebind');
-                    $(GridViewModel.sectionid).trigger('gridviewByid.server.subgridRebind');
-                    GridViewModel.resetRowNumber();
-                });
-            },
-            CreateRecord: function () {
-                Xms.Web.Console(GridViewModel);
-                var url = ORG_SERVERURL + '/entity/create?entityid=' + GridViewModel.entityid + '&relationshipname=' + GridViewModel.relationshipname + '&referencedrecordid=' + GridViewModel.referencedrecordid + '&grid=' + GridViewModel.gridid;
-                //Xms.Web.OpenWindow(url);
-                $('#createModal').modal({
-                    keyboard: true
-                });
-                $('#createModal').find('.modal-body').html('<iframe src="' + url + '" frameborder="0" width="100%" height="500"></iframe>');
-                //$('#createModal').find('.modal-content').css('width',$(document).width()/2).css('height',$(document).height()/1.5);
-                $('#createModal').find('.modal-title').html('<span class="glyphicon glyphicon-file"></span> ' + GridViewModel.entityloclaizedname + ' - ' + (typeof LOC_NEWRECORD == 'undefined' ? '新建' : LOC_NEWRECORD));
-            },
-            DeleteRecord: function () {
-                var target = $(GridViewModel.sectionid + ' .datatable');
-                var id = Xms.Web.GetTableSelected(target);
-                // console.log(id);
-                //var parRow = $(this).parents('tr:first');
-                //GridViewModel.removeRow(parRow);
-                //$(this).trigger('gridview.removeRowBtn');//值计算时重新绑定对应的输入框的值
-                //e.preventDefault();
-                Xms.Web.Del(id, '/api/delete?entityid=' + GridViewModel.entityid, false, function () { GridViewModel.rebind('/entity/rendergridview'); });
-            },
-            initedit: function () {
-                $(GridViewModel.sectionid).find('.picklist:not(:disabled),.bit:not(:disabled),.status:not(:disabled)').each(function (i, n) {
-                    var self = $(n);
-                    //console.log(self)
-                    var items = JSON.parse(decodeURIComponent(self.attr('data-items')));
-                    var isdefault = (self.val() && self.val() != '') ? true : false;
-                    self.picklist({
-                        required: self.is('.required'),
-                        items: items,
-                        isDefault: isdefault,
-                        changeHandler: function (e, obj) {
-                            Xms.Web.Console('change', self);
-                            self.parents('tr:first').attr('data-edited', true);
-                            if (obj && obj.noGoNext) {
-                                triggerNextInputFocus(self, true);
-                            } else {
-                                triggerNextInputFocus(self);
-                            }
-                        }
+                    $(GridViewModel.sectionid + ' button[name=saveBtnLocal]').off('click').on('click', null, function (e) {
+                        saveCurrentSubGrid();
+                        $('body').trigger('gridview.save');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.save');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.server.save');
                     });
-                });
+                    $(GridViewModel.sectionid + ' button[name=freshBtn]').off('click').on('click', null, function (e) {
+                        GridViewModel.rebind(null, function () {
+                            if (typeof setSubGridFormular !== 'undefined') {
+                                setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
+                            }
+                        });
 
-                function checkTrInList(list, tr) {
-                    var index = -1;
-                    if (list.length == 0) return index;
-                    $.each(list, function (key, item) {
-                        if (item.get(0) == tr.get(0)) {
-                            index = key;
-                            return false;
-                        }
+                        $('body').trigger('gridview.rebind');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.rebind');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.server.rebind');
                     });
-                    return index;
-                }
-                var lookuplist = [];//防止多个相同实体且是引用类型的会给关联的字段多次赋值
-                var _trlist = [];
-                //console.log($(GridViewModel.sectionid + ' .datatable').find('.lookup:not(:disabled)'))
-                $(GridViewModel.sectionid + ' .datatable').find('.lookup:not(:disabled)').each(function (i, n) {
-                    var self = $(n);
-                    if (!self.prop('id')) {
-                        self.prop('id', self.prop('name') + Xms.Utility.Guid.NewGuid().ToString('N'));
-                    }
-                    //console.log('self',self)
-                    var lookupid = self.attr('data-lookup');
-                    var inputid = self.prop('id');
-                    var valueid = inputid.replace(/_text/, '');
-                    var parentTr = self.parents('tr:first');
-                    var _isRelative = false;
-                    //var queryid = self.attr('data-defaultviewid');
-                    if (!~checkTrInList(_trlist, parentTr)) {
-                        lookuplist = [];
-                        _trlist.push(parentTr);
-                    }
+                    $(GridViewModel.sectionid + ' button[name=resetRowBtn]').off('click').on('click', null, function (e) {
+                        var parTr = $(this).parents('tr:first');
+                        GridViewModel.resetRow(parTr);
+                        setSubGridFormular($(GridViewModel.sectionid).parents('.subgrid:first'), 'gridview');
+                        $('body').trigger('gridview.reset');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.reset');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.server.reset');
+                    });
+                    GridViewModel.initedit();
+                },
+                pag_init: function () {
+                    $(GridViewModel.sectionid + ' #page-selection').bootpag({
+                        total: $(GridViewModel.sectionid + ' #page-selection').attr('data-total')
+                        , maxVisible: 5
+                        , page: $(GridViewModel.sectionid + ' #page-selection').attr('data-page')
+                        , leaps: true
+                        , prev: '&lsaquo;'
+                        , next: '&rsaquo;'
+                        , firstLastUse: true
+                        , first: '&laquo;'
+                        , last: '&raquo;'
+                        //, wrapClass: ''
+                    }).on("page", function (event, num) {
+                        event.preventDefault();
+                        GridViewModel.page = num;
+                        GridViewModel.rebind();
+                        return false;
+                    });
+                    $(GridViewModel.sectionid).off('subpage.resetWidth').on('subpage.resetWidth', settableHeaderWidth).trigger('subpage.resetWidth');
+                    console.log('GridViewModel.sectionid', $(GridViewModel.sectionid).parent());
+                },
+                rebind: function (url, callback) {
+                    var url = url || '/entity/rendergridview';
+                    url = url + (url.indexOf('?') == -1 ? '?' : '&') + '__r=' + new Date().getTime();
+                    //console.log(url);
+                    var model = new Object();
+                    model.EntityId = GridViewModel.entityid;
+                    model.QueryId = GridViewModel.queryid;
+                    model.RelationShipName = GridViewModel.relationshipname;
+                    model.ReferencedRecordId = GridViewModel.referencedrecordid;
+                    model.Filter = GridViewModel.filters;
+                    model.Q = $.getUrlParam("q", url) || GridViewModel.q;
+                    model.QField = $.getUrlParam("qfield", url) || GridViewModel.qfield;
+                    model.SortBy = $.getUrlParam("sortby", url) || GridViewModel.sortby;
+                    model.SortDirection = $.getUrlParam("sortdirection", url) || GridViewModel.sortdir;
+                    model.Page = $.getUrlParam("page", url) || GridViewModel.page;
+                    model.PageSize = $.getUrlParam("pagesize", url) || GridViewModel.pagesize;
+                    model.IsEditable = GridViewModel.iseditable;
+                    model.defaultEmptyRows = GridViewModel.defaultEmptyRows;
+                    model.PagingEnabled = GridViewModel.pagingEnabled;
+                    //console.log(model);
+                    Xms.Web.LoadPage(url, model, function (response) {
+                        Xms.Web.Console(response);
+                        //$(GridViewModel.sectionid + ' .gridview').html($(response).find('.gridview').html());
+                        $(GridViewModel.sectionid).html($(response).html());
+                        GridViewModel.ajaxgrid_reset();
+                        callback && callback();
 
-                    if (!~$.inArray(lookupid, lookuplist)) {
-                        _isRelative = true;
-                        lookuplist.push(lookupid);
-                    }
-                    //console.log(self.prop('name')+'    lookuplist',_isRelative);
-                    self.attr('data-_isRelative', _isRelative);
-                    var value = self.val() || '';
-                    //if(value && value!=''){
-                    //    console.log('valueid',$('#' + valueid))
-                    //    console.log('inputid',$('#' + valueid))
-                    //}
-                    self.next().prop('id', valueid);
-                    var lookupurl = '/entity/RecordsDialog?inputid=' + inputid + '&sortby=CreatedOn&singlemode=true';
-
-                    self.lookup({
-                        dialog: function () {
-                            var f = $('#' + inputid).attr("data-filter");
-                            if (f) f = JSON.parse(decodeURIComponent(f));
-                            else f = null;
-                            if (self.attr('data-defaultviewid') && self.attr('data-defaultviewid') != '') {
-                                lookupurl = $.setUrlParam(lookupurl, 'queryid', self.attr('data-defaultviewid'));
-                                // lookupurl += '&queryid=' + self.attr('data-defaultviewid');
-                            }
-                            else {
-                                lookupurl = $.setUrlParam(lookupurl, 'entityid', self.attr('data-lookup'));
-                            }
-                            if (f) {
-                                Xms.Web.OpenDialog(lookupurl, 'selectRecordCallback', { filter: f });
-                            } else {
-                                Xms.Web.OpenDialog(lookupurl, 'selectRecordCallback');
-                            }
-                        }
-                        , clear: function () {
-                            $('#' + inputid).val('');
-                            $('#' + valueid).val('');
-                            if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
-                                var relationData = $('#' + inputid).data().relationData;
-                                if (relationData && relationData.length > 0) {
-                                    $.each(relationData, function (key, item) {
-                                        var type = item.td.attr('data-type');
-                                        // console.log(attrname,type,eval('data.' + attrname));
-                                        if (type == 'nvarchar' || type == 'money' || type == 'int') {
-                                            item.td.find('input[name=' + GridViewModel.nameprefix + item.attrname + ']').val('');
-                                        }
-                                        else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
-                                            item.td.text('');
-                                        } else {
-                                            item.td.text('');
-                                        }
-                                    });
+                        $('body').trigger('gridview.subgridRebind');
+                        $(GridViewModel.sectionid).trigger('gridviewByid.server.subgridRebind');
+                        GridViewModel.resetRowNumber();
+                    });
+                },
+                CreateRecord: function () {
+                    Xms.Web.Console(GridViewModel);
+                    var url = ORG_SERVERURL + '/entity/create?entityid=' + GridViewModel.entityid + '&relationshipname=' + GridViewModel.relationshipname + '&referencedrecordid=' + GridViewModel.referencedrecordid + '&grid=' + GridViewModel.gridid;
+                    //Xms.Web.OpenWindow(url);
+                    $('#createModal').modal({
+                        keyboard: true
+                    });
+                    $('#createModal').find('.modal-body').html('<iframe src="' + url + '" frameborder="0" width="100%" height="500"></iframe>');
+                    //$('#createModal').find('.modal-content').css('width',$(document).width()/2).css('height',$(document).height()/1.5);
+                    $('#createModal').find('.modal-title').html('<span class="glyphicon glyphicon-file"></span> ' + GridViewModel.entityloclaizedname + ' - ' + (typeof LOC_NEWRECORD == 'undefined' ? '新建' : LOC_NEWRECORD));
+                },
+                DeleteRecord: function () {
+                    var target = $(GridViewModel.sectionid + ' .datatable');
+                    var id = Xms.Web.GetTableSelected(target);
+                    // console.log(id);
+                    //var parRow = $(this).parents('tr:first');
+                    //GridViewModel.removeRow(parRow);
+                    //$(this).trigger('gridview.removeRowBtn');//值计算时重新绑定对应的输入框的值
+                    //e.preventDefault();
+                    Xms.Web.Del(id, '/api/delete?entityid=' + GridViewModel.entityid, false, function () { GridViewModel.rebind('/entity/rendergridview'); });
+                },
+                initedit: function () {
+                    $(GridViewModel.sectionid).find('.picklist:not(:disabled),.bit:not(:disabled),.status:not(:disabled)').each(function (i, n) {
+                        var self = $(n);
+                        //console.log(self)
+                        var items = JSON.parse(decodeURIComponent(self.attr('data-items')));
+                        var isdefault = (self.val() && self.val() != '') ? true : false;
+                        self.picklist({
+                            required: self.is('.required'),
+                            items: items,
+                            isDefault: isdefault,
+                            changeHandler: function (e, obj) {
+                                Xms.Web.Console('change', self);
+                                self.parents('tr:first').attr('data-edited', true);
+                                if (obj && obj.noGoNext) {
+                                    triggerNextInputFocus(self, true);
+                                } else {
+                                    triggerNextInputFocus(self);
                                 }
                             }
-                            if ($('#' + inputid).siblings(".xms-dropdownLink").length > 0) {
-                                $('#' + inputid).siblings(".xms-dropdownLink").remove();
-                            }
-                            return false;
-                        }
-                        , isDefaultSearch: true
-                        , isShowSearch: true,
-                        searchOpts: {
-                            id: lookupid
-                            , addHandler: function (tar, obj, par) {
-                                Xms.Web.Console('lookup', tar)
+                        });
+                    });
 
-                                //console.log(tar)
-                                //  $(par.obj).trigger("lookup.triggerChange");
+                    function checkTrInList(list, tr) {
+                        var index = -1;
+                        if (list.length == 0) return index;
+                        $.each(list, function (key, item) {
+                            if (item.get(0) == tr.get(0)) {
+                                index = key;
+                                return false;
                             }
-                            , delHandler: function (input) {
-                                var tarid = input.attr("id").replace("_text", "");
-                                var tarDom = $("#" + tarid);
-                                var tagContext = $('div[data-sourceattributename="' + tarid + '"]');
-                                tagContext.html('');
-                            }
+                        });
+                        return index;
+                    }
+                    var lookuplist = [];//防止多个相同实体且是引用类型的会给关联的字段多次赋值
+                    var _trlist = [];
+                    //console.log($(GridViewModel.sectionid + ' .datatable').find('.lookup:not(:disabled)'))
+                    $(GridViewModel.sectionid + ' .datatable').find('.lookup:not(:disabled)').each(function (i, n) {
+                        var self = $(n);
+                        if (!self.prop('id')) {
+                            self.prop('id', self.prop('name') + Xms.Utility.Guid.NewGuid().ToString('N'));
                         }
-                    });
-                    $('#' + inputid).on('dialog.return', function (e, obj) {
-                        if (obj && obj.noGoNext) {
-                            triggerNextInputFocus($('#' + inputid), true);
-                        } else {
-                            triggerNextInputFocus($('#' + inputid));
-                        }
-                        $(this).parents('tr:first').attr('data-edited', true);
-                    });
-                    $('#' + inputid).bind('change', function () {
-                        var $this = $(this);
-                        var inputid = $(this).prop('id');
+                        //console.log('self',self)
+                        var lookupid = self.attr('data-lookup');
+                        var inputid = self.prop('id');
                         var valueid = inputid.replace(/_text/, '');
-                        var v = $('#' + valueid).val();
-                        var entityid = $(this).attr('data-lookup');
-                        var relationData = $this.data().relationData = [];
-                        if (v && v != '') {
-                            var params = {
-                                type: entityid + v + 'true',
-                                data: { entityid: entityid, value: v, allcolumns: true }
+                        var parentTr = self.parents('tr:first');
+                        var _isRelative = false;
+                        //var queryid = self.attr('data-defaultviewid');
+                        if (!~checkTrInList(_trlist, parentTr)) {
+                            lookuplist = [];
+                            _trlist.push(parentTr);
+                        }
+
+                        if (!~$.inArray(lookupid, lookuplist)) {
+                            _isRelative = true;
+                            lookuplist.push(lookupid);
+                        }
+                        //console.log(self.prop('name')+'    lookuplist',_isRelative);
+                        self.attr('data-_isRelative', _isRelative);
+                        var value = self.val() || '';
+                        //if(value && value!=''){
+                        //    console.log('valueid',$('#' + valueid))
+                        //    console.log('inputid',$('#' + valueid))
+                        //}
+                        self.next().prop('id', valueid);
+                        var lookupurl = '/entity/RecordsDialog?inputid=' + inputid + '&sortby=CreatedOn&singlemode=true';
+
+                        self.lookup({
+                            dialog: function () {
+                                var f = $('#' + inputid).attr("data-filter");
+                                if (f) f = JSON.parse(decodeURIComponent(f));
+                                else f = null;
+                                if (self.attr('data-defaultviewid') && self.attr('data-defaultviewid') != '') {
+                                    lookupurl = $.setUrlParam(lookupurl, 'queryid', self.attr('data-defaultviewid'));
+                                    // lookupurl += '&queryid=' + self.attr('data-defaultviewid');
+                                }
+                                else {
+                                    lookupurl = $.setUrlParam(lookupurl, 'entityid', self.attr('data-lookup'));
+                                }
+                                if (f) {
+                                    Xms.Web.OpenDialog(lookupurl, 'selectRecordCallback', { filter: f });
+                                } else {
+                                    Xms.Web.OpenDialog(lookupurl, 'selectRecordCallback');
+                                }
                             }
-                            console.log('_isRelative', _isRelative);
-                            if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
-                                Xms.Web.PageCache('renderGridView', '/api/data/Retrieve/ReferencedRecord/' + params.data.entityid + '/' + params.data.value + '/' + params.data.allcolumns, params, function (response) {
-                                    var data = response.content;
-                                    var $row = $this.parents('tr:first');
-                                    $row.find('td[data-name]').each(function (i, n) {
-                                        var $td = $(this);
-                                        if ($('#' + valueid).parents('td').is($td)) return true;
-
-                                        var attrname = $td.attr('data-name') ? $td.attr('data-name').toLowerCase() : '';
-                                        if (!attrname) return true;
-                                        var type = $td.attr('data-type');
-                                        if ($td.attr('data-entityname').toLowerCase() != GridViewModel.entityname.toLowerCase()) {//关联记录带出字段内容
-                                            relationData.push({ td: $td, attrname: attrname });
-                                            if ((data[attrname] !== '' && data[attrname] !== null && data[attrname] !== undefined)) {
-                                                // console.log(attrname,type,eval('data.' + attrname));
-                                                if (type == 'nvarchar' || type == 'money' || type == 'int') {
-                                                    $td.find('input[name=' + GridViewModel.nameprefix + attrname + ']').val(data[attrname]);
-
-                                                }
-                                                else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
-                                                    $td.text(data[attrname + 'name']);
-                                                } else {
-                                                    $td.text(data[attrname]);
-                                                }
-
+                            , clear: function () {
+                                $('#' + inputid).val('');
+                                $('#' + valueid).val('');
+                                if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
+                                    var relationData = $('#' + inputid).data().relationData;
+                                    if (relationData && relationData.length > 0) {
+                                        $.each(relationData, function (key, item) {
+                                            var type = item.td.attr('data-type');
+                                            // console.log(attrname,type,eval('data.' + attrname));
+                                            if (type == 'nvarchar' || type == 'money' || type == 'int') {
+                                                item.td.find('input[name=' + GridViewModel.nameprefix + item.attrname + ']').val('');
                                             }
-                                        }
-                                    });
-                                    $this.trigger('dialog.relationReturn', { row: $row, data: data });
-                                });
+                                            else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
+                                                item.td.text('');
+                                            } else {
+                                                item.td.text('');
+                                            }
+                                        });
+                                    }
+                                }
+                                if ($('#' + inputid).siblings(".xms-dropdownLink").length > 0) {
+                                    $('#' + inputid).siblings(".xms-dropdownLink").remove();
+                                }
+                                return false;
                             }
-                            // });
+                            , isDefaultSearch: true
+                            , isShowSearch: true,
+                            searchOpts: {
+                                id: lookupid
+                                , addHandler: function (tar, obj, par) {
+                                    Xms.Web.Console('lookup', tar)
+
+                                    //console.log(tar)
+                                    //  $(par.obj).trigger("lookup.triggerChange");
+                                }
+                                , delHandler: function (input) {
+                                    var tarid = input.attr("id").replace("_text", "");
+                                    var tarDom = $("#" + tarid);
+                                    var tagContext = $('div[data-sourceattributename="' + tarid + '"]');
+                                    tagContext.html('');
+                                }
+                            }
+                        });
+                        $('#' + inputid).on('dialog.return', function (e, obj) {
+                            if (obj && obj.noGoNext) {
+                                triggerNextInputFocus($('#' + inputid), true);
+                            } else {
+                                triggerNextInputFocus($('#' + inputid));
+                            }
+                            $(this).parents('tr:first').attr('data-edited', true);
+                        });
+                        $('#' + inputid).bind('change', function () {
+                            var $this = $(this);
+                            var inputid = $(this).prop('id');
+                            var valueid = inputid.replace(/_text/, '');
+                            var v = $('#' + valueid).val();
+                            var entityid = $(this).attr('data-lookup');
+                            var relationData = $this.data().relationData = [];
+                            if (v && v != '') {
+                                var params = {
+                                    type: entityid + v + 'true',
+                                    data: { entityid: entityid, value: v, allcolumns: true }
+                                }
+                                console.log('_isRelative', _isRelative);
+                                if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
+                                    Xms.Web.PageCache('renderGridView', '/api/data/Retrieve/ReferencedRecord/' + params.data.entityid + '/' + params.data.value + '/' + params.data.allcolumns, params, function (response) {
+                                        var data = response.content;
+                                        var $row = $this.parents('tr:first');
+                                        $row.find('td[data-name]').each(function (i, n) {
+                                            var $td = $(this);
+                                            if ($('#' + valueid).parents('td').is($td)) return true;
+
+                                            var attrname = $td.attr('data-name') ? $td.attr('data-name').toLowerCase() : '';
+                                            if (!attrname) return true;
+                                            var type = $td.attr('data-type');
+                                            if ($td.attr('data-entityname').toLowerCase() != GridViewModel.entityname.toLowerCase()) {//关联记录带出字段内容
+                                                relationData.push({ td: $td, attrname: attrname });
+                                                if ((data[attrname] !== '' && data[attrname] !== null && data[attrname] !== undefined)) {
+                                                    // console.log(attrname,type,eval('data.' + attrname));
+                                                    if (type == 'nvarchar' || type == 'money' || type == 'int') {
+                                                        $td.find('input[name=' + GridViewModel.nameprefix + attrname + ']').val(data[attrname]);
+                                                    }
+                                                    else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
+                                                        $td.text(data[attrname + 'name']);
+                                                    } else {
+                                                        $td.text(data[attrname]);
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        $this.trigger('dialog.relationReturn', { row: $row, data: data });
+                                    });
+                                }
+                                // });
+                            }
+                        });
+
+                        var attrName = self.attr('data-name') ? self.attr('data-name').toLowerCase() : '';
+                        //通过引用实体添加时，则填充引用字段值
+                        if (GridViewModel.relationshipname != '' && GridViewModel.referencedrecordid != '' && GridViewModel.relationshipname.toLowerCase().indexOf(attrName) > 0) {
+                            var data = { name: GridViewModel.relationshipname };
+                            if (self.attr('data-name')) {
+                                if (GridViewModel.relationshipmeta.referencingattributename.toLowerCase() == attrName) {
+                                    var lookupid = GridViewModel.relationshipmeta.referencedentityid;
+                                    var params = {
+                                        type: lookupid + GridViewModel.referencedrecordid,
+                                        data: { entityid: lookupid, value: GridViewModel.referencedrecordid }
+                                    }
+                                    Xms.Web.PageCache('renderGridView', '/api/data/Retrieve/ReferencedRecord/' + params.data.entityid + '/' + params.data.value, params, function (response) {
+                                        var obj = { id: response.content.id, name: response.content.name };
+                                        $('#' + inputid).val(obj.name);
+                                        $('#' + valueid).val(obj.id);
+                                        $('#' + inputid).trigger('change');
+                                        $('#' + inputid).parents('.input-group').find('button').prop('disabled', 'disabled');
+                                        $("#" + inputid).trigger("searchDialog", { isDefault: true });
+                                    });
+                                    //  });
+                                }
+                            }
+                        }
+                        if (GridViewModel.relationshipname != '' && GridViewModel.referencedrecordid == '' && GridViewModel.relationshipname.toLowerCase().indexOf(attrName) > 0) {
+                            $('#' + inputid).parents('.input-group').find('button').prop('disabled', 'disabled');
                         }
                     });
 
-                    var attrName = self.attr('data-name') ? self.attr('data-name').toLowerCase() : '';
-                    //通过引用实体添加时，则填充引用字段值
-                    if (GridViewModel.relationshipname != '' && GridViewModel.referencedrecordid != '' && GridViewModel.relationshipname.toLowerCase().indexOf(attrName) > 0) {
-                        var data = { name: GridViewModel.relationshipname };
-                        if (self.attr('data-name')) {
-                            if (GridViewModel.relationshipmeta.referencingattributename.toLowerCase() == attrName) {
-                                var lookupid = GridViewModel.relationshipmeta.referencedentityid;
-                                var params = {
-                                    type: lookupid + GridViewModel.referencedrecordid,
-                                    data: { entityid: lookupid, value: GridViewModel.referencedrecordid }
-                                }
-                                Xms.Web.PageCache('renderGridView', '/api/data/Retrieve/ReferencedRecord/' + params.data.entityid + '/' + params.data.value, params, function (response) {
-                                    var obj = { id: response.content.id, name: response.content.name };
-                                    $('#' + inputid).val(obj.name);
-                                    $('#' + valueid).val(obj.id);
-                                    $('#' + inputid).trigger('change');
-                                    $('#' + inputid).parents('.input-group').find('button').prop('disabled', 'disabled');
-                                    $("#" + inputid).trigger("searchDialog", { isDefault: true });
-                                });
-                                //  });
-                            }
+                    $(GridViewModel.sectionid + ' .datatable button[name=saveRowBtn]').off('click').on('click', null, function (e) {
+                        Xms.Web.Console('saverow');
+                        GridViewModel.saverow($(this).parents('tr:first'));
+                        $(this).trigger('gridview.saveRow');//值计算时重新绑定对应的输入框的值
+                        $(GridViewModel.sectionid).trigger('gridview.control.saveRow');
+                        e.preventDefault();
+                    });
+                    $(GridViewModel.sectionid + ' .datatable button[name=editRowBtn]').off('click').on('click', null, function (e) {
+                        Xms.Web.Console('editrow');
+                        GridViewModel.editrow($(this).parents('tr:first'));
+                        $(this).trigger('gridview.editRow');//值计算时重新绑定对应的输入框的值
+                        $(GridViewModel.sectionid).trigger('gridview.control.editRow');
+                        e.preventDefault();
+                        GridViewModel.resetRowNumber();
+                        GridViewModel.savetable();
+                    });
+                    $(GridViewModel.sectionid + ' .datatable button[name=removeRowBtn]').off('click').on('click', null, function (e) {
+                        var parRow = $(this).parents('tr:first');
+                        GridViewModel.removeRow(parRow);
+                        $(this).trigger('gridview.removeRowBtn');//值计算时重新绑定对应的输入框的值
+                        $(GridViewModel.sectionid).trigger('gridview.control.removeRowBtn');
+                        e.preventDefault();
+                        GridViewModel.resetRowNumber();
+                        GridViewModel.savetable();
+                    });
+                    $(GridViewModel.sectionid + ' .datatable button[name=removeRowBtnLocal]').off('click').on('click', null, function (e) {
+                        var parRow = $(this).parents('tr:first');
+                        GridViewModel.removeRowBtnLocal(parRow);
+                        $(this).trigger('gridview.removeRowBtnLocal');//值计算时重新绑定对应的输入框的值
+                        $(GridViewModel.sectionid).trigger('gridview.control.removeRowBtnLocal');
+                        e.preventDefault();
+                        GridViewModel.resetRowNumber();
+                        GridViewModel.savetable();
+                    });
+                    $(GridViewModel.sectionid + ' .datatable button[name=cancelRowBtn]').off('click').on('click', null, function (e) {
+                        Xms.Web.Console('canceledit');
+                        if (GridViewModel.createmode == 'local') {
+                            var $row = $(this).parents('tr:first');
+                            var id = $row.find('input[name=recordid]').val();
+                            GridViewModel.removerecord(id);
+                            $row.remove();
                         }
-                    }
-                    if (GridViewModel.relationshipname != '' && GridViewModel.referencedrecordid == '' && GridViewModel.relationshipname.toLowerCase().indexOf(attrName) > 0) {
-                        $('#' + inputid).parents('.input-group').find('button').prop('disabled', 'disabled');
-                    }
-                });
+                        else {
+                            $(GridViewModel.sectionid + " .datatable").find('tbody>tr.editrow').remove();
+                            GridViewModel.editrowmodel.find('button[name=cancelRowBtn]').addClass('hide');
+                            $(GridViewModel.sectionid + " .datatable").find('tbody').prepend(GridViewModel.editrowmodel);
+                            $(GridViewModel.sectionid + " .datatable").find('tbody>tr').removeClass('hide');
+                        }
+                        $(this).trigger('gridview.cancelRow');//值计算时重新绑定对应的输入框的值
+                        $(GridViewModel.sectionid).trigger('gridview.control.cancelRow');
+                        e.preventDefault();
+                        GridViewModel.resetRowNumber();
+                        GridViewModel.savetable();
+                    });
+                    // $('.tableheaderResize').tableHdResize();
+                    // console.log($('.datepicker:not(disabled)',GridViewModel.sectionid + " .datatable"))
+                    $('.datepicker:not(:disabled)', GridViewModel.sectionid + " .datatable").each(function () {
+                        var format = $(this).attr('data-format') || 'yyyy-MM-dd HH:mm:ss';
+                        var tempformat = format;
+                        var dataname = $(this).attr('data-name');
+                        var value = $(this).val();
+                        if (value != '') {
+                            $(this).val(new Date(value).format(format))
+                        }
+                        Xms.Web.Console(dataname, format);
+                        format = format.replace("yyyy", "Y").replace("dd", "d").replace("hh", "h").replace("mm", "i").replace('MM', "m").replace('ss', "s").replace('HH', "H").replace('h', "H");
 
-                $(GridViewModel.sectionid + ' .datatable button[name=saveRowBtn]').off('click').on('click', null, function (e) {
-                    Xms.Web.Console('saverow');
-                    GridViewModel.saverow($(this).parents('tr:first'));
-                    $(this).trigger('gridview.saveRow');//值计算时重新绑定对应的输入框的值
-                    $(GridViewModel.sectionid).trigger('gridview.control.saveRow');
-                    e.preventDefault();
-                });
-                $(GridViewModel.sectionid + ' .datatable button[name=editRowBtn]').off('click').on('click', null, function (e) {
-                    Xms.Web.Console('editrow');
-                    GridViewModel.editrow($(this).parents('tr:first'));
-                    $(this).trigger('gridview.editRow');//值计算时重新绑定对应的输入框的值
-                    $(GridViewModel.sectionid).trigger('gridview.control.editRow');
-                    e.preventDefault();
-                    GridViewModel.resetRowNumber();
-                    GridViewModel.savetable();
-                });
-                $(GridViewModel.sectionid + ' .datatable button[name=removeRowBtn]').off('click').on('click', null, function (e) {
-                    var parRow = $(this).parents('tr:first');
-                    GridViewModel.removeRow(parRow);
-                    $(this).trigger('gridview.removeRowBtn');//值计算时重新绑定对应的输入框的值
-                    $(GridViewModel.sectionid).trigger('gridview.control.removeRowBtn');
-                    e.preventDefault();
-                    GridViewModel.resetRowNumber();
-                    GridViewModel.savetable();
-                });
-                $(GridViewModel.sectionid + ' .datatable button[name=removeRowBtnLocal]').off('click').on('click', null, function (e) {
-                    var parRow = $(this).parents('tr:first');
-                    GridViewModel.removeRowBtnLocal(parRow);
-                    $(this).trigger('gridview.removeRowBtnLocal');//值计算时重新绑定对应的输入框的值
-                    $(GridViewModel.sectionid).trigger('gridview.control.removeRowBtnLocal');
-                    e.preventDefault();
-                    GridViewModel.resetRowNumber();
-                    GridViewModel.savetable();
-                });
-                $(GridViewModel.sectionid + ' .datatable button[name=cancelRowBtn]').off('click').on('click', null, function (e) {
-                    Xms.Web.Console('canceledit');
-                    if (GridViewModel.createmode == 'local') {
-                        var $row = $(this).parents('tr:first');
-                        var id = $row.find('input[name=recordid]').val();
-                        GridViewModel.removerecord(id);
-                        $row.remove();
+                        if (tempformat.indexOf("hh:mm") > -1) {
+                            $(this).datetimepicker({
+                                language: "en"
+                                , step: 15
+                                , format: format
+                                , scrollInput: !1
+                                , scrollMonth: false
+                            }).on('change', function (e, obj) {
+                                var curTr = $(this).parents('tr:first');
+                                curTr.attr('data-edited', true);
+                                if (obj && obj.noGoNext) {
+                                    triggerNextInputFocus($(this), true);
+                                } else {
+                                    triggerNextInputFocus($(this))
+                                }
+                            })
+                        } else {
+                            $(this).datetimepicker({
+                                language: "en"
+                                , timepicker: false
+                                , format: format
+                                , scrollInput: !1
+                                , scrollMonth: false
+                            }).on('change', function (e, obj) {
+                                var curTr = $(this).parents('tr:first');
+                                curTr.attr('data-edited', true);
+                                if (obj && obj.noGoNext) {
+                                    triggerNextInputFocus($(this), true);
+                                } else {
+                                    triggerNextInputFocus($(this))
+                                }
+                            })
+                        }
+                    });
+                    if (typeof setSubGridFormular == 'function') {
+                        setSubGridFormular($(GridViewModel.sectionid).parent());//添加值计算
                     }
-                    else {
-                        $(GridViewModel.sectionid + " .datatable").find('tbody>tr.editrow').remove();
-                        GridViewModel.editrowmodel.find('button[name=cancelRowBtn]').addClass('hide');
-                        $(GridViewModel.sectionid + " .datatable").find('tbody').prepend(GridViewModel.editrowmodel);
-                        $(GridViewModel.sectionid + " .datatable").find('tbody>tr').removeClass('hide');
-                    }
-                    $(this).trigger('gridview.cancelRow');//值计算时重新绑定对应的输入框的值
-                    $(GridViewModel.sectionid).trigger('gridview.control.cancelRow');
-                    e.preventDefault();
-                    GridViewModel.resetRowNumber();
-                    GridViewModel.savetable();
-                });
-                // $('.tableheaderResize').tableHdResize();
-                // console.log($('.datepicker:not(disabled)',GridViewModel.sectionid + " .datatable"))
-                $('.datepicker:not(:disabled)', GridViewModel.sectionid + " .datatable").each(function () {
-                    var format = $(this).attr('data-format') || 'yyyy-MM-dd HH:mm:ss';
-                    var tempformat = format;
-                    var dataname = $(this).attr('data-name');
-                    var value = $(this).val();
-                    if (value != '') {
-                        $(this).val(new Date(value).format(format))
-                    }
-                    Xms.Web.Console(dataname, format);
-                    format = format.replace("yyyy", "Y").replace("dd", "d").replace("hh", "h").replace("mm", "i").replace('MM', "m").replace('ss', "s").replace('HH', "H").replace('h', "H");
+                    console.log('$(GridViewModel.sectionid)', $(GridViewModel.sectionid));
+                    $(GridViewModel.sectionid).trigger('gridviewId.loaded', { GridViewModel: GridViewModel });
 
-                    if (tempformat.indexOf("hh:mm") > -1) {
+                    var _parid = $(GridViewModel.sectionid).parents('.subgrid:first').attr('id');
 
-                        $(this).datetimepicker({
-                            language: "en"
-                            , step: 15
-                            , format: format
-                            , scrollInput: !1
-                            , scrollMonth: false
-                        }).on('change', function (e, obj) {
-                            var curTr = $(this).parents('tr:first');
-                            curTr.attr('data-edited', true);
-                            if (obj && obj.noGoNext) {
-                                triggerNextInputFocus($(this), true);
-                            } else {
-                                triggerNextInputFocus($(this))
-                            }
-                        })
-                    } else {
-
-                        $(this).datetimepicker({
-                            language: "en"
-                            , timepicker: false
-                            , format: format
-                            , scrollInput: !1
-                            , scrollMonth: false
-                        }).on('change', function (e, obj) {
-                            var curTr = $(this).parents('tr:first');
-                            curTr.attr('data-edited', true);
-                            if (obj && obj.noGoNext) {
-                                triggerNextInputFocus($(this), true);
-                            } else {
-                                triggerNextInputFocus($(this))
-                            }
-                        })
+                    if (_parid) {
+                        console.log('_parid', $('#' + _parid));
+                        $('#' + _parid).trigger('gridview.loaded', { GridViewModel: GridViewModel });
+                        $('body').trigger('gridview.' + _parid + '.loaded', { GridViewModel: GridViewModel });
                     }
-                });
-                if (typeof setSubGridFormular == 'function') {
-                    setSubGridFormular($(GridViewModel.sectionid).parent());//添加值计算
                 }
-                console.log('$(GridViewModel.sectionid)', $(GridViewModel.sectionid));
-                $(GridViewModel.sectionid).trigger('gridviewId.loaded', { GridViewModel: GridViewModel });
-
-                var _parid = $(GridViewModel.sectionid).parents('.subgrid:first').attr('id');
-
-                if (_parid) {
-                    console.log('_parid', $('#' + _parid));
-                    $('#' + _parid).trigger('gridview.loaded', { GridViewModel: GridViewModel });
-                    $('body').trigger('gridview.' + _parid + '.loaded', { GridViewModel: GridViewModel });
-                }
-            }
-
-        });
-
+            });
 
         var pageCache = { lookup: [] };
         GridViewModel.editrowmodel = $(GridViewModel.sectionid + " .datatable").find('tbody>tr.editrow').clone(true);
@@ -734,8 +724,6 @@
             }
         }
 
-
-
         GridViewModel.getTableData = function (type) {
             var table = $(GridViewModel.sectionid + " .datatable");
             var rows = table.find('tbody>tr:gt(0)');
@@ -762,7 +750,6 @@
                         var value = $input.val();
                         //console.log($input, value);
                         if (value == '' && $td.attr('data-isrequired')) {
-
                         } else {
                             if (type == 'float' || type == 'money') {
                                 value = value.replace(/\,/g, '');
@@ -789,7 +776,6 @@
             return res;
             var resultValue = encodeURIComponent(JSON.stringify(res));
             $(GridViewModel.sectionid).find('input[name=allsubgirddata]').val(resultValue);
-
         }
 
         GridViewModel.savetable = function (type) {
@@ -810,7 +796,6 @@
                     var attrname = $td.attr('data-name');
                     //console.log('attrname',attrname);
                     if (!attrname) return true;
-
 
                     if (typeof $td.attr('data-entityname') == 'string' && $td.attr('data-entityname').toLowerCase() == GridViewModel.entityname.toLowerCase()) {
                         //console.log(GridViewModel.nameprefix+attrname);
@@ -853,13 +838,11 @@
                 obj.relationshipname = GridViewModel.relationshipname;
                 obj.rownumber = rownumber;
                 if (obj.data.id) {
-
                     //console.log('obj.data.id',obj.data.id)
                     GridViewModel.removerecord(obj.data.id);
                     // console.log(GridViewModel.getrecords())
                     GridViewModel.addrecord(obj);
                 }
-
             });
             //console.log('flag',flag);
             if (flag == false) {
@@ -1060,7 +1043,7 @@
             //console.log(childRecords);
             return childRecords;
         }
-        
+
         function setrecords(childRecords) {
             $(GridViewModel.sectionid).find('input[name=tempdata]').val(encodeURIComponent(JSON.stringify(childRecords)));
         }
@@ -1094,7 +1077,6 @@
                 stype = 'isnull';
                 errmsg = '不能为空';
             } else if (stype == 'datetime') {
-
             }
             var checkfun = Xms.Web.ValidData(stype);
             if (!checkfun) return false;

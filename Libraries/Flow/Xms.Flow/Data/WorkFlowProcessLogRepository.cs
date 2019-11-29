@@ -12,7 +12,6 @@ namespace Xms.Flow.Data
     {
         public WorkFlowProcessLogRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -26,7 +25,6 @@ namespace Xms.Flow.Data
         {
             return _repository.Delete(n => n.WorkFlowInstanceId == parentid);
         }
-
 
         #endregion implements
     }

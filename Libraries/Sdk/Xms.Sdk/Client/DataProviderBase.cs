@@ -23,7 +23,7 @@ namespace Xms.Sdk.Client
     /// </summary>
     public abstract class DataProviderBase
     {
-        protected readonly IEntityFinder _entityFinder;        
+        protected readonly IEntityFinder _entityFinder;
         protected readonly IRoleObjectAccessEntityPermissionService _roleObjectAccessEntityPermissionService;
         protected readonly IPrincipalObjectAccessService _principalObjectAccessService;
         protected readonly IEventPublisher _eventPublisher;
@@ -35,7 +35,7 @@ namespace Xms.Sdk.Client
 
         public DataProviderBase(
             IAppContext appContext
-            , IEntityFinder entityFinder            
+            , IEntityFinder entityFinder
             , IRoleObjectAccessEntityPermissionService roleObjectAccessEntityPermissionService
             , IPrincipalObjectAccessService principalObjectAccessService
             , IEventPublisher eventPublisher

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Xms.Configuration;
 using Xms.Core.Context;
@@ -27,13 +26,14 @@ namespace Xms.Web.Customize.Controllers
         private readonly ILocalizedLabelImportExport _localizedLabelImportExport;
         private readonly IWebHelper _webHelper;
         private readonly ISettingFinder _settingFinder;
+
         public LocalizedLabelController(IWebAppContext appContext
             , ILocalizedLabelService localizedLabelService
             , ISolutionService solutionService
             , ILanguageService languageService
             , ILocalizedLabelImportExport localizedLabelImportExport
             , IWebHelper webHelper
-            , ISettingFinder settingFinder) 
+            , ISettingFinder settingFinder)
             : base(appContext, solutionService)
         {
             _localizedLabelService = localizedLabelService;
@@ -46,6 +46,7 @@ namespace Xms.Web.Customize.Controllers
         [Description("多语言显示标签")]
         public IActionResult Index(LocalizationLabelsModel model)
         {
+            return ToBePerfected();
             if (!model.IsSortBySeted)
             {
                 model.SortBy = "ObjectColumnName";
@@ -128,6 +129,7 @@ namespace Xms.Web.Customize.Controllers
             }
             return UpdateFailure(GetModelErrors());
         }
+
         [Description("导出多语言标签")]
         public IActionResult ExportLocalizationLabels()
         {
@@ -135,6 +137,7 @@ namespace Xms.Web.Customize.Controllers
             var fileName = System.IO.Path.GetFileName(file);
             return File(file, "application/zip", fileName);
         }
+
         [Description("导入多语言标签")]
         [HttpPost]
         public async Task<IActionResult> ImportLocalizationLabels(IFormFile file)

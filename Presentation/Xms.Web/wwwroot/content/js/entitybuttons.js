@@ -1,5 +1,5 @@
 ﻿/**/
-(function ($,root,un) {
+(function ($, root, un) {
     var entityButtons = {};
     var _prefix = 'entityBtn_';
     entityButtons.allbuttons = [];
@@ -8,39 +8,43 @@
     entityButtons.datas = [];//已经存在的按钮
     entityButtons.delbuttons = [];//已经删除的按钮
     var setttings = {
-        url:'',
+        url: '',
         data: {},
-        success:null,
+        success: null,
         type: 'get',
         isSort: true,//是否根据displayorder排序
         context: $('#formButtons'),
         isDefaultRender: true,//是否使用默认的渲染方式,为false时，customRender必须为函数
         customRender: null
     }
-    if ($('#EntityId').length>0) {
-        setttings.url =  '/customize/RibbonButton/index?entityid=' + $('#EntityId').val();
+    if ($('#EntityId').length > 0) {
+        setttings.url = '/customize/RibbonButton/index?entityid=' + $('#EntityId').val();
     }
     function getBtnId(_id) {
-        var _reg = new RegExp(_prefix,'gm');
+        var _reg = new RegExp(_prefix, 'gm');
         return _id.replace(_reg, '');
     }
     var isLoaded = false;//是否已经从服务器获取按钮信息
-    var _renderButtonList = function (datas, context,filter) {
+    var _renderButtonList = function (datas, context, filter) {
         context = context || setttings.context;
         context.empty();
         //var _html = [];
         if (setttings.isSort == true) {
-            datas = datas.sort(function (a,b) {
+            datas = datas.sort(function (a, b) {
                 return a.displayorder - b.displayorder;
             });
         }
         console.log(datas);
         var _html = $.map(datas, function (item, key) {
             var _id = (_prefix + item.ribbonbuttonid);
-            return '<div class="entitybtn-item ' + item.cssclass + '" id="' + _id + '" data-id="' + _id + '" data-solutionid="' + item.solutionid+'"><span class="' + item.icon + '"></span>' + item.label + '<span class="btn-del glyphicon glyphicon-remove" data-id="' + _id + '"></span></div>';
+            var isDels = $.queryBykeyValue(entityButtons.delbuttons, 'ribbonbuttonid', item.ribbonbuttonid).length > 0;
+            return '<div class="entitybtn-item ' + item.cssclass + '" id="' + _id + '" data-id="' + _id + '" data-solutionid="' + item.solutionid + '"><span class="entitybtn-state  ' + (isDels ? 'isdeled glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open') + '"></span> <span class="' + item.icon + '"></span>' + item.label + '<span class="btn-del glyphicon glyphicon-remove" data-id="' + _id + '"></span><span class="btn-reback glyphicon glyphicon-ok" data-id="' + _id + '"></span></div>';
         });
-        entityButtons.datas = $.map(datas, function (item,key) {
-            return item.ribbonbuttonid;
+        entityButtons.datas = $.map(datas, function (item, key) {
+            var isDels = $.queryBykeyValue(entityButtons.delbuttons, 'ribbonbuttonid', item.ribbonbuttonid).length > 0;
+            if (isDels == 0) {
+                return item.ribbonbuttonid;
+            }
         });
         if (entityButtons.datas.length == 0) {
             $('#CustomButtons').val('');
@@ -58,17 +62,24 @@
     function bindEvent(context) {
         context.find('.btn-del').off().on('click', function () {
             var id = getBtnId($(this).attr('data-id'));
-            
+
             delDatasbtn(entityButtons.buttons, id);
             $(this).off();
             _renderButtonList(entityButtons.buttons);
         });
-        context.off('dblclick.btnItemdblclick').on('dblclick.btnItemdblclick','.entitybtn-item', function (e) {
+        context.off('dblclick.btnItemdblclick').on('dblclick.btnItemdblclick', '.entitybtn-item', function (e) {
             var id = getBtnId($(this).attr('data-id'));
             var solutionid = $(this).attr('data-solutionid')
-            var url = ORG_SERVERURL + '/customize/ribbonbutton/editribbonbutton?id=' + id + '&solutionid=' + solutionid+'&othertrigger=true';
+            var url = ORG_SERVERURL + '/customize/ribbonbutton/editribbonbutton?id=' + id + '&solutionid=' + solutionid + '&othertrigger=true';
             $('body').xmsDialogContent('changeUrl', url);
             $('body').xmsDialogContent('show');
+        });
+        //
+        context.find('.btn-reback').off().on('click', function () {
+            var id = getBtnId($(this).attr('data-id'));
+            var _index = getbtnIndex(entityButtons.delbuttons, id);
+            entityButtons.delbuttons.splice(_index, 1);
+            _renderButtonList(entityButtons.buttons);
         });
     }
     function delDatasbtn(datas, id) {
@@ -76,10 +87,9 @@
         var btninfo = getBtnInfo(id)[0];
         addToDelList(btninfo);
         entityButtons.delbuttons.push(btninfo);
-        datas.splice(index, 1);
-        
+        // datas.splice(index, 1);
     }
-    function getbtnIndex(datas,id) {
+    function getbtnIndex(datas, id) {
         var index = -1;
         $.each(datas, function (key, item) {
             if (item.ribbonbuttonid == id) {
@@ -91,7 +101,7 @@
     }
     function addToDelList(btninfo) {
         var $delwrap = $('#delbtnList');
-        $delwrap.show();
+        $delwrap.hide();
         var $dellist = $delwrap.children('ul');
         var $btn = $('<li><a><span class="glyphicon glyphicon-plus"></span>' + btninfo.label + '</a></li>');
         $dellist.append($btn);
@@ -117,36 +127,34 @@
     function btnHandler(response) {
         console.log(response);
         if (response) {
-            entityButtons.allbuttons = $.extend([],response.content.items);//当前实体表单中的所有按钮
+            entityButtons.allbuttons = $.extend([], response.content.items);//当前实体表单中的所有按钮
         }
         if (setttings.isDefaultRender == true) {
             if (entityButtons.datas.length > 0) {//自定义保存过的按钮
-                var _arr = $.grep(entityButtons.allbuttons, function (item, key) {
-                    var _res =  $.inArray(item.ribbonbuttonid, entityButtons.datas);
-                        if (~_res) {
-                            return true;
-                        } else {
-                            var _index = getbtnIndex(entityButtons.delbuttons, item.ribbonbuttonid);
-                            if (!~_index) {
-                                delDatasbtn(entityButtons.buttons, item.ribbonbuttonid);
-                            }
-                        }
-                    });//返回之前保存过的按钮
+                var _arr = [];
+                $.each(entityButtons.allbuttons, function (key, item) {
+                    var _res = $.inArray(item.ribbonbuttonid, entityButtons.datas);
+                    if (~_res) {
+                        //return true;
+                    } else {
+                        entityButtons.delbuttons.push(item);
+                        //var _index = getbtnIndex(entityButtons.delbuttons, item.ribbonbuttonid);
+                        // if (!~_index) {
+                        //     delDatasbtn(entityButtons.buttons, item.ribbonbuttonid);
+                        // }
+                    }
+                    _arr.push(item);
+                });//返回之前保存过的按钮
                 entityButtons.cacheDatas = $.extend([], _arr);//把初始化时的自定义按钮缓存起来
                 entityButtons.buttons = $.extend([], _arr);
-                
-            } else if (entityButtons.cacheDatas.length>0) {
+            } else if (entityButtons.cacheDatas.length > 0) {
                 var _arr = $.extend([], entityButtons.cacheDatas);
-                
-            }else{
+            } else {
                 var _arr = $.extend([], entityButtons.allbuttons);
                 entityButtons.cacheDatas = $.extend([], entityButtons.allbuttons);//把初始化时的自定义按钮缓存起来
                 entityButtons.buttons = $.extend([], entityButtons.allbuttons);
-               
             }
             _renderButtonList(_arr);
-            
-                    
         } else if (setttings.isDefaultRender == false && typeof setttings.customRender === 'function') {
             setttings.customRender(entityButtons.allbuttons);
         }
@@ -160,7 +168,7 @@
         return setttings;
     }
     entityButtons.setSettings = function (opts) {
-        setttings = $.extend({},setttings,opts);
+        setttings = $.extend({}, setttings, opts);
     }
     entityButtons.setState = function (type) {
         isLoaded = type;
@@ -168,7 +176,7 @@
     entityButtons.loadButtons = function (callback) {
         if (setttings.type.toLowerCase() == 'get') {
             if (!isLoaded) {
-                Xms.Web.GetJson(setttings.url, { showarea: 1 }, function (a, b, c) {
+                Xms.Web.GetJson(setttings.url, { showarea: 1, loaddata: true }, function (a, b, c) {
                     btnHandler(a, b, c);
                     callback && callback(a, b, c);
                 }, null, false, null, false);
@@ -177,12 +185,9 @@
                 btnHandler();
                 callback && callback();
             }
-               
-        }else{
-        
+        } else {
         }
-        
     }
 
     root.entityButtons = entityButtons;
-})(jQuery,window);
+})(jQuery, window);

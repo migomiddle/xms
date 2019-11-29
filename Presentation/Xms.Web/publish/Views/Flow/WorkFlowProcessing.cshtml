@@ -1,0 +1,216 @@
+﻿@using Xms.Flow.Abstractions;
+
+@model Xms.Web.Models.WorkFlowProcessingModel
+@{
+    Layout = null;
+}
+
+<!-- 审批（Modal） -->
+<div class="modal fade" id="wfpModal" tabindex="-1" role="dialog"
+     aria-labelledby="wfpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="wfpModalLabel">
+                    审批处理
+                </h4>
+            </div>
+            <div class="modal-body">
+                @{
+                    var prevNodes = Model.ProcessList.Where(n => n.StepOrder < Model.ProcessInfo.StepOrder);
+                    if (prevNodes.Count() > 0)
+                    {
+                        <div class="table-responsive" style="max-height:300px;">
+                            <table class="table table-hover table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">
+                                            步骤
+                                        </th>
+                                        <th width="15%">
+                                            处理者
+                                        </th>
+                                        <th width="15%">
+                                            状态
+                                        </th>
+                                        <th>
+                                            意见/说明
+                                        </th>
+                                        <th width="15%">
+                                            附件
+                                        </th>
+                                        <th width="15%">
+                                            处理时间
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.发起申请</td>
+                                        <td>@Model.InstanceInfo.ApplicantName</td>
+                                        <td><span class="label label-success">已发起</span></td>
+                                        <td>@Model.InstanceInfo.Description</td>
+                                        <td>
+                                            @if (Model.InstanceInfo.Attachments > 0)
+                                            {
+                                                <a href="@("/"+app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@Model.InstanceInfo.WorkFlowInstanceId&preview=true">预览</a>
+                                                <a href="@("/"+app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@Model.InstanceInfo.WorkFlowInstanceId">下载</a>
+                                            }
+                                        </td>
+                                        <td>@Model.InstanceInfo.CreatedOn</td>
+                                    </tr>
+                                    @foreach (var item in prevNodes)
+                                    {
+                                        <tr>
+                                            <td>@((item.StepOrder + 1) + "." + item.Name)</td>
+                                            <td>@item.HandlerIdName</td>
+                                            <td>
+                                                @if (item.StateCode == WorkFlowProcessState.Processing)
+                                                {
+                                                    <span class="label label-info">处理中</span>
+                                                }
+                                                else if (item.StateCode == WorkFlowProcessState.Waiting)
+                                                {
+                                                    <span class="label label-default">等待中</span>
+                                                }
+                                                else if (item.StateCode == WorkFlowProcessState.Passed)
+                                                {
+                                                    <span class="label label-success"><span class="glyphicon glyphicon-ok"></span> 通过</span>
+                                                }
+                                                else if (item.StateCode == WorkFlowProcessState.UnPassed)
+                                                {
+                                                    <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span> 不通过</span>
+                                                }
+                                                else if (item.StateCode == WorkFlowProcessState.UnPassed)
+                                                {
+                                                    <span class="label label-default">作废</span>
+                                                }
+                                            </td>
+                                            <td>@item.Description</td>
+                                            <td>
+                                                @if (item.Attachments > 0)
+                                                {
+                                                    <a href="@("/"+app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@item.WorkFlowProcessId&preview=true">预览</a>
+                                                    <a href="@("/"+app.OrganizationUniqueName)/flow/WorkFlowAttachments?processid=@item.WorkFlowProcessId">下载</a>
+                                                }
+                                            </td>
+                                            <td>@(item.HandleTime.HasValue ? item.HandleTime.Value.ToString("yyyy-MM-dd hh:mm") : "")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                }
+
+                <div class="row">
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/@(app.OrganizationUniqueName)/api/workflow/execute" data-jsonajax="true" data-istip="true">
+                        <input type="hidden" name="entityid" value="@Model.EntityId" />
+                        <input type="hidden" name="recordid" value="@Model.RecordId" />
+                        <input type="hidden" name="WorkFlowProcessId" value="@Model.ProcessInfo.WorkFlowProcessId" />
+                        <input type="hidden" name="processstate" value="@((int)WorkFlowProcessState.Passed)" />
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="description">环节</label>
+                            <div class="col-sm-10">
+                                @(Model.ProcessInfo.StepOrder + "." + Model.ProcessInfo.Name)
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="description">意见</label>
+                            <div class="col-sm-10">
+                                <textarea rows="3" cols="20" class="form-control" name="description" id="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" for="description">附件</label>
+                            <div class="col-sm-10">
+                                <input class="@(Model.ProcessInfo.AttachmentRequired ? "required":"")" data-exts="@Model.ProcessInfo.AttachmentExts" type="file" name="attachments" multiple />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+                <script>
+                    var WFPModel = {
+                        dialog: $('#wfpModal'),
+                        dialogid: '#wfpModal',
+                        ajaxgrid_reset: function () {
+                            var $form = WFPModel.dialog.find('form');
+                            Xms.Web.Form($form, function (response) {
+                                console.log(response);
+                                if (response.IsSuccess) {
+                                    WFPModel.dialog_return();
+                                    location.reload(true);
+                                } else {
+                                    Xms.Web.Alert(false, response.Content);
+                                }
+                            });
+                        },
+                        submit: function () {
+                            WFPModel.disabledForm();
+                            WFPModel.dialog.find('form').submit();
+                        },
+                        disabledForm: function () {
+                            WFPModel.dialog.find('button').prop('disabled', true);
+                        },
+                        resetForm: function () {
+                            WFPModel.dialog.find('button').prop('disabled', false);
+                        },
+                        passed: function () {
+                            WFPModel.dialog.find('input[name=processstate]').val(2);
+                            WFPModel.submit();
+                        },
+                        unpassed: function () {
+                            var $desc = WFPModel.dialog.find('[name=description]');
+                            $desc.parents('.form-group').removeClass('has-error');
+                            if ($desc.val() == '') {
+                                $desc.after($('<div class="text-danger"><span class="glyphicon glyphicon-remove-sign"></span>' + LOC_WORKFLOW_UNPASSED_NEEDREASON + '</div>'));
+                                $desc.parents('.form-group').addClass('has-error');
+                                return;
+                            }
+                            WFPModel.dialog.find('input[name=processstate]').val(3);
+                            WFPModel.disabledForm();
+                            WFPModel.submit();
+                        },
+                        dialog_return: function () {
+                            WFPModel.dialog.modal('hide');
+                        }
+                    };
+
+                    $(function () {
+                        WFPModel.ajaxgrid_reset();
+                        WFPModel.dialog.modal({
+                            backdrop: 'static'
+                        })
+                        WFPModel.dialog.on('hidden.bs.modal', function () {
+                            Xms.Web.CloseDialog(WFPModel.dialogid);
+                        });
+                    });
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @app.T["dialog_close"]
+                </button>
+                <button type="button" class="btn btn-primary hide" onclick="WFPModel.submit()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @app.T["dialog_ok"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="WFPModel.passed()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    同意
+                </button>
+                <button type="button" class="btn btn-danger" onclick="WFPModel.unpassed()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                    驳回
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

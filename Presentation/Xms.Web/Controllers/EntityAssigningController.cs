@@ -19,6 +19,7 @@ namespace Xms.Web.Controllers
     {
         private readonly IEntityFinder _entityFinder;
         private readonly IDataAssigner _dataAssigner;
+
         public EntityAssigningController(IWebAppContext appContext
             , IEntityFinder entityFinder
             , IDataAssigner dataAssigner)
@@ -27,7 +28,7 @@ namespace Xms.Web.Controllers
             _entityFinder = entityFinder;
             _dataAssigner = dataAssigner;
         }
-        
+
         #region 分派
 
         [Description("分派记录")]

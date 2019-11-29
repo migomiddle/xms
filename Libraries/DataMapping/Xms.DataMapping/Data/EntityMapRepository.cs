@@ -17,11 +17,10 @@ namespace Xms.DataMapping.Data
     {
         public EntityMapRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
-        
+
         /// <summary>
         /// 删除记录
         /// </summary>
@@ -68,6 +67,7 @@ namespace Xms.DataMapping.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

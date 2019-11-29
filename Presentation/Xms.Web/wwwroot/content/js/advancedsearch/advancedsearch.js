@@ -87,7 +87,6 @@
             event = event == null ? true : event;
             if (event) this.trigger("removeItem");
             this.filterItem.remove();
-
         },
         select: function (event) {
             event = event == null ? true : event;
@@ -104,8 +103,6 @@
                     if (event) this.trigger("selectItem");
                 }
             }
-
-
         },
         unSelectControl: function (event) {
             this.selectCheckbox.prop('checked', false);
@@ -192,10 +189,8 @@
             var _item = this;
             $("option:gt(0)", _item.fieldDropdown).remove();
             $(_item.args.fields).each(function (i, e) {
-
                 _item.fieldDropdown.append('<option value="' + e.name + '" >' + e.localizedname + '</option>')
             });
-
         },
         _conditionOperatorDropdownInit: function (data) {
             var _item = this;
@@ -357,7 +352,6 @@
             event = event == null ? true : event;
             if (event) this.trigger("removeGroup");
             this.filterGroup.remove();
-
         },
         select: function (event) {
             event = event == null ? true : event;
@@ -374,7 +368,6 @@
                     if (event) this.trigger("selectGroup");
                 }
             }
-
         },
         combination: function (condition, event) {
             event = event == null ? true : event;
@@ -411,7 +404,6 @@
                     ipobj.obj.addItemEl(siobj.obj.filterItem);
                     _as.setItemParentObject(siobj.obj, ipobj.obj.id);
                     ipobj.obj.removeItemEl(this.filterGroup, siobj);
-
                 } else {
                     _as.addItemEl(siobj.obj.filterItem);
                     _as.setItemParentObject(siobj.obj, _as.id);
@@ -444,7 +436,6 @@
             }
             _group.setLineStyle();
             _group.unSelectControl(false);
-
         },
         combinationAnd: function () {
             this.combination(0);
@@ -523,7 +514,6 @@
             this.combinationOrButton = this.relation.find('a.advancedsearch-combinationor');
 
             this.filterItems = this.filterGroup.find('.advancedsearch-filteritems');
-
 
             this.selectCheckbox.click(this, this._handleSelectCheckboxClick);
             this.selectGroupButton.click(this, this._handleSelectGroupButtonClick);
@@ -650,7 +640,6 @@
                 });
             }
             delete _this.items[obj.id];
-
         },
         setItemObject: function (obj, pid) {
             this.items[obj.id] = { parent: pid, obj: obj };
@@ -767,7 +756,6 @@
                 }
             }
 
-
             return groups;
         },
         verificationCombination: function (callback) {
@@ -824,7 +812,6 @@
                             callback && callback(pobj, data);
                             return pobj
                         }
-
                     }
                 }
             }
@@ -923,7 +910,6 @@
             if (event) this.trigger("search");
         },
         on: function (name, fn) {
-
             this._events[name] = fn;
             return this;
         },
@@ -1027,13 +1013,11 @@
                     if (e.isSelect && e.filterItem.siblings(':not(.active)').length == 0) {
                         piobj.obj.selectControl(false);
                         piobj.obj.advancedSearch._recursionSelectParentControl(piobj.obj);
-
                     } else {
                         piobj.obj.unSelectControl(false);
                         $(e.getParentObjects(true)).each(function (i, iobj) {
                             iobj.obj.unSelectControl(false);
                         });
-
                     }
                 }
             });
@@ -1042,7 +1026,6 @@
                     if (e.isSelect) {
                         iobj.obj.selectControl(false);
                         iobj.obj.advancedSearch._recursionSelectParentControl(iobj.obj);
-
                     } else {
                         iobj.obj.unSelectControl(false);
                         $(e.getParentObjects(true)).each(function (i, piobj) {
@@ -1050,7 +1033,6 @@
                         });
                     }
                 });
-
             });
             this.on('removeItem', function (e) {
                 var _as = e.advancedSearch;

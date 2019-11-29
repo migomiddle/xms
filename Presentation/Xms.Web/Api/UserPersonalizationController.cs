@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Xms.Web.Framework.Context;
-using Xms.Web.Framework.Controller;
+using Xms.Infrastructure.Utility;
 using Xms.UserPersonalization;
 using Xms.Web.Api.Models;
-using Xms.Infrastructure.Utility;
+using Xms.Web.Framework.Context;
+using Xms.Web.Framework.Controller;
+
 namespace Xms.Web.Api
 {  /// <summary>
    /// 用户个性化
@@ -17,13 +15,14 @@ namespace Xms.Web.Api
     public class UserPersonalizationController : ApiControllerBase
     {
         private readonly IUserPersonalizationService _userPersonalizationService;
+
         public UserPersonalizationController(IWebAppContext appContext
             , IUserPersonalizationService userPersonalizationService)
             : base(appContext)
         {
             _userPersonalizationService = userPersonalizationService;
-           
         }
+
         [Description("获取用户个性化")]
         [HttpGet("{ownerId}")]
         public IActionResult Get(Guid ownerId)
@@ -34,8 +33,8 @@ namespace Xms.Web.Api
                 return NotFound();
             }
             return JOk(result);
-           
         }
+
         [Description("根据名称获取用户个性化")]
         [HttpGet("getByName")]
         public IActionResult GetByName(Guid ownerId, string name)
@@ -46,8 +45,8 @@ namespace Xms.Web.Api
                 return NotFound();
             }
             return JOk(result);
-
         }
+
         [Description("设置用户个性化")]
         [HttpPost("set")]
         public IActionResult Set(SetUserPersonalizationModel model)
@@ -60,20 +59,23 @@ namespace Xms.Web.Api
                 Value = model.Value
             };
 
-            return _userPersonalizationService.Set(userPersonalization) ? SaveSuccess() :SaveFailure();
+            return _userPersonalizationService.Set(userPersonalization) ? SaveSuccess() : SaveFailure();
         }
+
         [Description("设置用户个性化")]
         [HttpPost("delete")]
         public IActionResult Delete(Guid ownerId)
         {
             return _userPersonalizationService.Delete(ownerId) ? SaveSuccess() : SaveFailure();
         }
+
         [Description("设置用户个性化")]
         [HttpPost("deleteByName")]
         public IActionResult DeleteByName(Guid ownerId, string name)
         {
             return _userPersonalizationService.Delete(ownerId, name) ? SaveSuccess() : SaveFailure();
         }
+
         [Description("设置用户个性化")]
         [HttpPost("deleteById")]
         public IActionResult DeleteById(Guid id)

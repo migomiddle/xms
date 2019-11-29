@@ -20,39 +20,41 @@ namespace Xms.Business.DuplicateValidator
     public class DuplicateRuleFinder : IDuplicateRuleFinder, IDependentLookup<DuplicateRule>
     {
         private readonly IDuplicateRuleRepository _duplicateRuleRepository;
+
         //private readonly ILocalizedLabelService _localizedLabelService;
         private readonly ISolutionComponentService _solutionComponentService;
+
         private readonly Caching.CacheManager<DuplicateRule> _cacheService;
         private readonly IAppContext _appContext;
 
         public DuplicateRuleFinder(IAppContext appContext
             , IDuplicateRuleRepository duplicateRuleRepository
-            //, ILocalizedLabelService localizedLabelService
             , ISolutionComponentService solutionComponentService)
         {
             _appContext = appContext;
             _duplicateRuleRepository = duplicateRuleRepository;
-            //_localizedLabelService = localizedLabelService;
             _solutionComponentService = solutionComponentService;
-            _cacheService = new Caching.CacheManager<DuplicateRule>(DuplicateRuleCache.CacheKey(_appContext), DuplicateRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<DuplicateRule>(DuplicateRuleCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public DuplicateRule FindById(Guid id)
         {
             var dic = new Dictionary<string, string>();
             dic.Add("DuplicateRuleId", id.ToString());
-            DuplicateRule entity = _cacheService.Get(dic,() =>
-            {
-                return _duplicateRuleRepository.FindById(id);
-            });
+            DuplicateRule entity = _cacheService.Get(dic, () =>
+             {
+                 return _duplicateRuleRepository.FindById(id);
+             });
             if (entity != null)
             {
                 WrapLocalizedLabel(entity);
             }
             return entity;
         }
+
         public List<DuplicateRule> QueryByEntityId(Guid entityid, RecordState? state)
         {
-            string sindex = entityid.ToString()+"/"+(state.HasValue ? "" : state.Value.ToString());
+            string sindex = entityid.ToString() + "/" + (state.HasValue ? "" : state.Value.ToString());
             List<DuplicateRule> entities = _cacheService.GetVersionItems(sindex, () =>
             {
                 if (state.HasValue)
@@ -60,7 +62,6 @@ namespace Xms.Business.DuplicateValidator
                     return this.Query(n => n.Where(f => f.EntityId == entityid && f.StateCode == state.Value));
                 }
                 return this.Query(n => n.Where(f => f.EntityId == entityid));
-
             });
             if (entities.NotEmpty())
             {
@@ -71,6 +72,7 @@ namespace Xms.Business.DuplicateValidator
             }
             return entities;
         }
+
         public PagedList<DuplicateRule> QueryPaged(Func<QueryDescriptor<DuplicateRule>, QueryDescriptor<DuplicateRule>> container)
         {
             QueryDescriptor<DuplicateRule> q = container(QueryDescriptorBuilder.Build<DuplicateRule>());
@@ -101,10 +103,10 @@ namespace Xms.Business.DuplicateValidator
 
         public List<DuplicateRule> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -118,13 +120,16 @@ namespace Xms.Business.DuplicateValidator
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.Name } : null;
         }
-        public int ComponentType => ModuleCollection.GetIdentity(DuplicateRuleDefaults.ModuleName); 
-        #endregion
+
+        public int ComponentType => ModuleCollection.GetIdentity(DuplicateRuleDefaults.ModuleName);
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<DuplicateRule> datas)
         {

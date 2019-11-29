@@ -1,6 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.EditChartModel
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName - @Model.EntityMeta.LocalizedName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/chart/editchart" method="post" id="editform" class="form-horizontal" role="form">
@@ -11,6 +19,12 @@
                 @Html.HiddenFor(x => x.SolutionId)
                 @Html.HiddenFor(x => x.DataConfig)
                 @Html.HiddenFor(x => x.PresentationConfig)
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">实体</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-sm" value="@Model.EntityMeta.LocalizedName" disabled />
+                    </div>
+                </div>
                 <div class="form-group cc-form-ctrl">
                     <label class="col-sm-2 control-label">图表类型</label>
                     <div class="col-sm-9">
@@ -45,7 +59,7 @@
                         </select>
                     </div>
                 </div>
-               
+
                 <div class="form-group row cc-form-ctrl">
                     @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
                     <div class="col-sm-9">
@@ -61,7 +75,7 @@
                 <div class="electrldom">
                     <div class="form-group electrldomItem cc-form-ctrl yarias-item">
                         <label class="control-label col-sm-2" for="title2">合计</label>
-                        
+
                         <div class="col-sm-2">
                             <select class="form-control cc-selecter Attribute" name="Attribute">
                                 @*<option value="-1">字段</option>*@
@@ -169,7 +183,6 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">定义顶部 X 项</h4>
-
             </div>
             <div class="modal-body form-horizontal">
                 <p class="modal-tags">指定要在图表中查看的 顶部 X 项数</p>
@@ -179,7 +192,6 @@
                         <input type="text" class="form-control" id="director-count" data-dir="" value="0" />
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -196,7 +208,7 @@
     <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/chars.module.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery.tmpl.min.js?v=@app.PlatformSettings.VersionNumber"></script>
-    
+
     <script>
         var chartData = JSON.parse($('#DataConfig').val());
         var presentationData = JSON.parse($('#PresentationConfig').val());
@@ -279,11 +291,14 @@
         }
         function bindAttributes(items) {
             var _html = [];
-            for (var i = 0; i < items.length; i++) {
-                _html.push('<option data-name=' + items[i].name + ' data-type="' + items[i].attributetypename + '" value=' + items[i].attributeid + ' >' + items[i].localizedname + '</option>');
+            if (items && items.length > 0) {
+                for (var i = 0; i < items.length; i++) {
+                    _html.push('<option data-name=' + items[i].name + ' data-type="' + items[i].attributetypename + '" value=' + items[i].attributeid + ' >' + items[i].localizedname + '</option>');
+                }
+                $('select[name=Attribute]').empty().append(_html.join(''));
+                $('select[name=HAttribute]').empty().append(_html.join(''));
+                $('select[name=Attribute]').trigger('change');
             }
-            $('select[name=Attribute]').append(_html.join(''));
-            $('select[name=HAttribute]').append(_html.join(''));
         }
         function initChart() {
             $('#chartTypeSelector').children('div[value="' + chartData.Type + '"]').addClass('active');
@@ -363,7 +378,6 @@
                     inputDialog.modal("show");
                 }
             }
-
 
             function setModalInfo() {
                 inputDialog.find(".modal-title").text(modalInfo.title);
@@ -497,7 +511,6 @@
                 var $this = $(this), target = $this.siblings(".xms-dropdown-menu");
                 $this.removeClass("xms-dropdown-open");
             });
-
 
             //图表类型选择
             $("#chartTypeSelector .btn-group").on("click", function () {

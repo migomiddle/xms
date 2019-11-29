@@ -1,0 +1,121 @@
+﻿@model Xms.Web.Customize.Models.OptionSetModel
+
+<div class="panel panel-info" id="gridview">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            <div class="pull-right">
+                <a class="btn btn-info btn-xs" data-toggle="collapse"
+                   href="#collapseOne">
+                    <span class="caret"></span> 查询
+                </a>
+                <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/optionset/createoptionset?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-file"></span> 新增</a>
+            </div>
+        </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <!--in-->
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                @Html.HiddenFor(x => x.OptionSetId)
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="Name">名称</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> 查询</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th data-name="name">
+                        名称
+                    </th>
+                    <th width="15%" data-name="createdon">
+                        创建时间
+                    </th>
+                    <th width="15%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/optionset/editoptionset?solutionid=@Model.SolutionId&id=@item.OptionSetId'">
+                        <td><input type="checkbox" value="@item.OptionSetId" name="recordid" /></td>
+                        <td>@item.Name</td>
+                        <td>@item.CreatedOn</td>
+                        <td>
+                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/optionset/editoptionset?id=@item.OptionSetId&solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-edit"></span> 编辑</a>
+                            <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del('@item.OptionSetId','/customize/optionset/deleteoptionset',false,rebind,null,'确认要删除？请提前备份数据',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="active">
+                        <button type="button" class="btn btn-xs btn-primary" data-action="/customize/optionset/deleteoptionset" data-role="delete" data-tooltip="确认要删除？请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-4">@("当前" + @Model.Page + "/" + @Model.TotalPages + "页, 共" + @Model.TotalItems + "行记录")</div>
+            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+        </div>
+    </div>
+</div>
+@section Header {
+}
+@section Scripts {
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+            pageUrl = $("#datatable").attr('data-pageurl');
+            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                pageUrl = $("#datatable").attr('data-pageurl');
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+        function rebind() {
+            $('#searchForm').submit();
+        }
+    </script>
+}

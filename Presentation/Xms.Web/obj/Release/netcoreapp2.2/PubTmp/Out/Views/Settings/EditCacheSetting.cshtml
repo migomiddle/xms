@@ -1,0 +1,179 @@
+﻿@model Xms.Web.Models.CacheSettingModel
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseTwo">
+                    <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+                </a>
+            </h3>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <form id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true" action="/@(app.OrganizationUniqueName)/api/settings/cache" method="post">
+                    <input type="hidden" id="providersJson" value="@(Model.Providers.NotEmpty() ? Model.Providers.SerializeToJson().UrlEncode() : "")" />
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="Enabled">状态</label>
+                        <div class="col-sm-10">
+                            <label>@Html.RadioButtonFor(x => x.Enabled, true) 启用</label>
+                            <label>@Html.RadioButtonFor(x => x.Enabled, false) 禁用</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#addModal">添加服务</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label">服务</label>
+                        <div class="col-sm-10">
+                            <table class="table" id="providers">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-1"></th>
+                                        <th class="col-sm-3">类型</th>
+                                        <th class="col-sm-3">主机</th>
+                                        <th class="col-sm-2">超时</th>
+                                        <th class="col-sm-1">优先级</th>
+                                        <th class="col-sm-2">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Providers != null)
+                                    {
+                                        foreach (var item in Model.Providers)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning btn-xs">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    @item.Type
+                                                </td>
+                                                <td>
+                                                    @item.Host
+                                                </td>
+                                                <td>
+                                                    @item.TimeOut
+                                                </td>
+                                                <td>
+                                                    @item.Priority
+                                                </td>
+                                                <td>
+                                                    @(item.Enabled ? app.T["enabled"] : app.T["disabled"])
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 text-center" id="form-buttons">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!-- （Modal） -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+     aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    @app.T["times_sign"]
+                </button>
+                <h4 class="modal-title" id="addModalLabel">
+                    添加服务
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" class="form-horizontal">
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="type">类型</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="type" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="host">主机</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="host" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="timeout">超时</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="timeout" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="priority">排序</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="priority" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" for="Enabled">状态</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline"><input type="radio" name="enabled" value="true" /> @app.T["enabled"]</label>
+                            <label class="radio-inline"><input type="radio" name="enabled" value="false" /> @app.T["disabled"]</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> @app.T["cancel"]
+                </button>
+                <button type="button" class="btn btn-primary" onclick="addItem()">
+                    <span class="glyphicon glyphicon-ok"></span> @app.T["confirm"]
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts {
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        $(function () {
+            //表单验证
+            var $form = $("#editform");
+            Xms.Web.Form($form, function (response) {
+                console.log(response);
+                //Xms.Web.Toast(response.Content, response.IsSuccess);
+            }, null, function (obj) {
+                obj.data.providers = $('#providersJson').val() != '' ? JSON.parse($('#providersJson').val()) : [];
+            });
+        });
+        function addItem() {
+            var $form = $('#addForm');
+            var displayTarget = $('#providers tbody');
+            var $row = $('<tr></tr>');
+            $row.append('<td><button type="button" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-trash"></span></button></td>');
+            $row.append('<td>' + $form.find('input[name=type]').val() + '</td>');
+            $row.append('<td>' + $form.find('input[name=host]').val() + '</td>');
+            $row.append('<td>' + $form.find('input[name=timeout]').val() + '</td>');
+            $row.append('<td>' + $form.find('input[name=priority]').val() + '</td>');
+            $row.append('<td>' + $form.find('input[name=enabled]:checked').val() + '</td>');
+            displayTarget.append($row);
+            var providersJson = $('#providersJson').val() != '' ? JSON.parse($('#providersJson').val()) : [];
+            console.log(providersJson);
+            providersJson.push($form.serializeFormJSON());
+            $('#providersJson').val(JSON.stringify(providersJson));
+            $('#addModal').modal("hide");
+            $form.resetForm();
+        }
+    </script>
+}

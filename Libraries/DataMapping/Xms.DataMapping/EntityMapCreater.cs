@@ -24,7 +24,7 @@ namespace Xms.DataMapping
             _appContext = appContext;
             _entityMapRepository = entityMapRepository;
             _dependencyService = dependencyService;
-            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), EntityMapCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Create(EntityMap entity)

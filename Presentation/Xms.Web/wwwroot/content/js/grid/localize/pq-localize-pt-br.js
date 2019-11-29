@@ -13,7 +13,7 @@ $.paramquery.pqGrid.regional["pt-br"] = {
     strNextResult: "Próximo Resultado"
 }
 
-$.paramquery.pqPager.regional['pt-br']={
+$.paramquery.pqPager.regional['pt-br'] = {
     strPage: "Página {0} de {1}",
     strFirstPage: "Primera Página",
     strPrevPage: "Página Anterior",

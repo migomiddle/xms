@@ -53,7 +53,7 @@ namespace Xms.Flow
                 {
                     _eventPublisher.Publish(new AuthorizationStateChangedEvent
                     {
-                        ObjectId = new List<Guid> { entity.WorkFlowId}
+                        ObjectId = new List<Guid> { entity.WorkFlowId }
                         ,
                         State = false
                         ,

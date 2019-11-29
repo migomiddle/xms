@@ -18,7 +18,6 @@ namespace Xms.Solution
         private readonly ISolutionRepository _solutionRepository;
         private readonly IAppContext _appContext;
 
-
         public SolutionService(
             IAppContext appContext,
             ISolutionRepository solutionRepository
@@ -57,7 +56,7 @@ namespace Xms.Solution
 
         public bool DeleteById(Guid id)
         {
-            return _solutionRepository.DeleteMany(x=>x.SolutionId == id && x.SolutionId != SolutionDefaults.DefaultSolutionId);
+            return _solutionRepository.DeleteMany(x => x.SolutionId == id && x.SolutionId != SolutionDefaults.DefaultSolutionId);
         }
 
         public bool DeleteById(IEnumerable<Guid> ids)

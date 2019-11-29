@@ -30,6 +30,7 @@ namespace Xms.QueryView.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

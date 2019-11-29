@@ -7,6 +7,7 @@
             ReturnUrl = returnUrl;
             Message = message;
         }
+
         public string ReturnUrl { get; set; }
         public string Message { get; set; }
     }

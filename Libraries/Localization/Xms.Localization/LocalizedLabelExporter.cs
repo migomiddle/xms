@@ -10,10 +10,12 @@ namespace Xms.Localization
     public class LocalizedLabelExporter : ISolutionComponentExporter
     {
         private readonly ILocalizedLabelRepository _localizedLabelRepository;
+
         public LocalizedLabelExporter(ILocalizedLabelRepository localizedLabelRepository)
         {
             _localizedLabelRepository = localizedLabelRepository;
         }
+
         public string GetXml(Guid solutionId)
         {
             return _localizedLabelRepository.GetLocalizedLabelXml(solutionId);

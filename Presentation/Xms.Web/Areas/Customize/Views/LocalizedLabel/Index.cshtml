@@ -1,104 +1,102 @@
 ﻿@model Xms.Web.Customize.Models.LocalizationLabelsModel
 
-    <div class="panel panel-default" id="gridview">
-        <div class="panel-heading">
-            <div class="panel-title">
-                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
-                <div class="pull-right">
-                    <a class="btn btn-info btn-xs" data-toggle="collapse"
-                       href="#collapseOne">
-                        <span class="caret"></span> @app.T["search"]
-                    </a>
-                    <a class="btn btn-info btn-xs" href="javascript:;" onclick="exportLabels()"><span class="glyphicon glyphicon-export"></span> @app.T["export"]</a>
-                    <a class="btn btn-info btn-xs" href="#" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-import"></span> @app.T["import"]</a>
-                </div>
-            </div>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <!--in-->
-            @{
-                var edens = "";
-            }
-            <div class="panel-body">
-                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
-                    @Html.ValidationSummary()
-                    @Html.HiddenFor(x => x.SolutionId)
-                    <div class="form-group col-sm-6">
-                        <label class="col-sm-3 control-label" for="typecode">@app.T["typename"]</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="typecode" id="typecode">
-                                <option value="">请选择</option>
-                                @foreach (var item in Xms.Solution.Abstractions.SolutionComponentCollection.Descriptors)
-                                {
-                                    edens += item.Value.Module.Identity + ":" + @app.T[item.Key].IfEmpty(item.Key) + ",";
-                                    <option value="@item.Value.Module.Identity">@app.T[item.Key].IfEmpty(item.Key)</option>
-                                }
-
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
-                    </div>
-                </form>
-                <input id="edens" value="@edens" type="hidden" />
-            </div>
-        </div>
-        <div class="table-datagrid-view">
-            <div class="datagrid-view"></div>
-            <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-                <thead>
-                    <tr>
-                        <th width="2%"><input type="checkbox" name="checkall" /></th>
-                        <th data-name="labeltypecode">
-                            @app.T["typename"]
-                        </th>
-                        <th data-name="objectcolumnname">
-                            @app.T["name"]
-                        </th>
-                        <th width="15%" data-name="label">
-                            @app.T["label"]
-                        </th>
-                        <th width="15%" data-name="languageid">
-                            @app.T["language"]
-                        </th>
-                        <th width="15%">@app.T["operation"]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
-                        var descriptor = Xms.Solution.Abstractions.SolutionComponentCollection.Descriptors.Values.FirstOrDefault(x => x.Module.Identity == item.LabelTypeCode);
-                        if (descriptor == null)
-                        {
-                            continue;
-                        }
-                        <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/LocalizedLabel/UpdateLocalizationLabel?objectid=@item.ObjectId&columnname=@item.ObjectColumnName'">
-                            <td><input type="checkbox" value="@item.LocalizedLabelId" name="recordid" /></td>
-                            <td>
-                                @(descriptor.Module.Name)
-                            </td>
-                            <td data-name="objectcolumnname">@item.ObjectColumnName</td>
-                            <td>@item.Label</td>
-                            <td>@item.LanguageId</td>
-                            <td>
-                                <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/LocalizedLabel/UpdateLocalizationLabel?objectid=@item.ObjectId&columnname=@item.ObjectColumnName"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="panel-footer">
-            <div class="row">
-                <div class="col-sm-4">
-                    @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
-                </div>
-                <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+<div class="panel panel-default" id="gridview">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            <div class="pull-right">
+                <a class="btn btn-info btn-xs" data-toggle="collapse"
+                   href="#collapseOne">
+                    <span class="caret"></span> @app.T["search"]
+                </a>
+                <a class="btn btn-info btn-xs" href="javascript:;" onclick="exportLabels()"><span class="glyphicon glyphicon-export"></span> @app.T["export"]</a>
+                <a class="btn btn-info btn-xs" href="#" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-import"></span> @app.T["import"]</a>
             </div>
         </div>
     </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+        <!--in-->
+        @{
+            var edens = "";
+        }
+        <div class="panel-body">
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                @Html.ValidationSummary()
+                @Html.HiddenFor(x => x.SolutionId)
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="typecode">@app.T["typename"]</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="typecode" id="typecode">
+                            <option value="">请选择</option>
+                            @foreach (var item in Xms.Solution.Abstractions.SolutionComponentCollection.Descriptors)
+                            {
+                                edens += item.Value.Module.Identity + ":" + @app.T[item.Key].IfEmpty(item.Key) + ",";
+                                <option value="@item.Value.Module.Identity">@app.T[item.Key].IfEmpty(item.Key)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                </div>
+            </form>
+            <input id="edens" value="@edens" type="hidden" />
+        </div>
+    </div>
+    <div class="table-datagrid-view">
+        <div class="datagrid-view"></div>
+        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th data-name="labeltypecode">
+                        @app.T["typename"]
+                    </th>
+                    <th data-name="objectcolumnname">
+                        @app.T["name"]
+                    </th>
+                    <th width="15%" data-name="label">
+                        @app.T["label"]
+                    </th>
+                    <th width="15%" data-name="languageid">
+                        @app.T["language"]
+                    </th>
+                    <th width="15%">@app.T["operation"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    var descriptor = Xms.Solution.Abstractions.SolutionComponentCollection.Descriptors.Values.FirstOrDefault(x => x.Module.Identity == item.LabelTypeCode);
+                    if (descriptor == null)
+                    {
+                        continue;
+                    }
+                    <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/LocalizedLabel/UpdateLocalizationLabel?objectid=@item.ObjectId&columnname=@item.ObjectColumnName'">
+                        <td><input type="checkbox" value="@item.LocalizedLabelId" name="recordid" /></td>
+                        <td>
+                            @(descriptor.Module.Name)
+                        </td>
+                        <td data-name="objectcolumnname">@item.ObjectColumnName</td>
+                        <td>@item.Label</td>
+                        <td>@item.LanguageId</td>
+                        <td>
+                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/LocalizedLabel/UpdateLocalizationLabel?objectid=@item.ObjectId&columnname=@item.ObjectColumnName"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-4">
+                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+            </div>
+            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+        </div>
+    </div>
+</div>
 <!-- （Modal） -->
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog"
      aria-labelledby="importModalLabel" aria-hidden="true">

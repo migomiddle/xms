@@ -104,7 +104,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -122,7 +121,6 @@
                                         </label>
                                     </span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="clearfix  pt-5">
@@ -165,7 +163,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="clearfix mb-1 ml-3 mt-2">
                             <div class="addView btn btn-xs btn-info" style="" onclick="addView()"><span class="glyphicon glyphicon-plus"></span> 增加行事件</div>
@@ -210,7 +207,6 @@
                                         </div>
                                         <span class="addMove glyphicon glyphicon-plus" onclick="checkAdd(this)" style="cursor:pointer;"></span>
                                     </div>
-
                                 </div>
                                 <div class="rowC-item" style="padding:10px;display: inline-block;">
                                     <label class="text-muted">动作类型：</label>
@@ -228,7 +224,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <hr />
@@ -248,9 +243,6 @@
                     </div>
                 </div>
                 <div id="myTabContent" class="tab-content">
-
-
-
                 </div>
 
                 <div class="rightModal" id="existsButtons" style="" tabindex="-1">
@@ -308,7 +300,6 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 <!--排序设置-->
@@ -714,8 +705,6 @@
                 $("#views").parents('table').find('.shadow').addClass('hide').width(0);
                 saveGridConfig();
 
-
-
                // addAttributeToInput();
             });
             $("#views").on("sortremove", function (event, ui) {
@@ -808,8 +797,6 @@
                 $(this).parents('.rightModal').removeClass('in');
             })
 
-
-
             var $rowcommand = $('#rowcommand');
             var rowCommandCn = { LogicalOperat4or: { or: "或者", and: "并且" }, EventType: { onbinding: "行绑定时" }, ActionType: { SetRowBackground: "设置背景" }, Action: { color: '背景色' } }
              $("body").on("click", function (e) {
@@ -852,8 +839,6 @@
             }
             addAttributeToInput();
         });
-
-
 
         function loadextEntitys() {
             var $extEntityTabs = $('#extEntityTabs');
@@ -961,13 +946,9 @@
                                 var html = renderQueryoptions(datas, (target && target.length > 0) ? target[0].queryviewid : null);
                                 $relationquery.html(html);
 
-
                             }
                         });
                     });
-
-
-
 
                 }
                 , falseHandler: function () {
@@ -976,6 +957,5 @@
             });
         })
     </script>
-
 
 }

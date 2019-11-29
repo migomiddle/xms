@@ -22,6 +22,7 @@ namespace Xms.Business.DataAnalyse.Visualization
         {
             _chartRepository = chartRepository;
         }
+
         public Chart FindById(Guid id)
         {
             var data = _chartRepository.FindById(id);
@@ -68,14 +69,18 @@ namespace Xms.Business.DataAnalyse.Visualization
             WrapLocalizedLabel(datas);
             return datas;
         }
+
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.Name } : null;
         }
+
         public int ComponentType => ModuleCollection.GetIdentity(ChartDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<Chart> datas)
         {

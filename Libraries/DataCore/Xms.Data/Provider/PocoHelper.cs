@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using Xms.Core;
 using Xms.Core.Context;
-using Xms.Infrastructure;
 using Xms.Infrastructure.Utility;
 
 namespace Xms.Data.Provider
@@ -113,9 +112,9 @@ namespace Xms.Data.Provider
                 //如果LinkFromFieldName、LinkToFieldName为空，则查找实体中是否存在字段与被连接实体的主键名称匹配
                 if (leAttr.LinkFromFieldName.IsEmpty())
                 {
-                    if (poco.Columns.Count(n => n.Key.IsCaseInsensitiveEqual(linkTableName+"id")) > 0)
+                    if (poco.Columns.Count(n => n.Key.IsCaseInsensitiveEqual(linkTableName + "id")) > 0)
                     {
-                        var linkField = poco.Columns.First(n => n.Key.IsCaseInsensitiveEqual(linkTableName+"id"));
+                        var linkField = poco.Columns.First(n => n.Key.IsCaseInsensitiveEqual(linkTableName + "id"));
                         leAttr.LinkFromFieldName = linkField.Key;
                         leAttr.LinkToFieldName = linkTableName + "id";
                     }
@@ -345,7 +344,7 @@ namespace Xms.Data.Provider
 
             return ctx;
         }
-        
+
         /// <summary>
         /// 生成更新语句
         /// </summary>

@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=common/formular.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -23,7 +22,7 @@
     }
 }(function ($) {
     "use strict"
-    //deps 
+    //deps
 
     //page init
     var page_common_formular = {
@@ -34,7 +33,6 @@
         setSubGridFormular: setSubGridFormular
     }
     function getFormularResult(leftArr, leftStr, rights, context) {//左边的字段，左边的等式
-
         $.each(leftArr, function (key, item) {
             var itemname = item;
             var itemObj = $("input[data-name='" + itemname.toLowerCase() + "'][data-isrelated='False']", context);
@@ -129,7 +127,6 @@
                     $.each(leftArr, function (ii, nn) {
                         if (!checkFormularRuler(nn)) {
                             if (theme == 'jqgrid') {
-
                             } else {
                                 var input = $this.find('input[data-name="' + nn.toLowerCase() + '"][data-isrelated="False"]');
                                 input.each(function () {
@@ -155,7 +152,6 @@
                                         setSubGridFormular($this)
                                     });
                                 });
-
                             }
                         }
                     });
@@ -174,7 +170,6 @@
                             var that = $(this);
                             //console.log('hiddenDom',hiddenDom)
                             setlabelsToTarget(changeEntityid, changeValue, function (data) {
-
                                 $.each(itemArr, function (ii, nn) {
                                     if (!nn) return true;
                                     var ntemp = nn.split('§');

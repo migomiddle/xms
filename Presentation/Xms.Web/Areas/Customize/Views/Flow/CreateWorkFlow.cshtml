@@ -1,76 +1,76 @@
 ﻿@model Xms.Web.Customize.Models.CreateWorkFlowModel
 
 <div class="panel panel-default">
-    @*<div class="panel-heading">
+    <div class="panel-heading">
         <h3 class="panel-title">
             <a data-toggle="collapse"
                href="#collapseTwo">
                 <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
             </a>
         </h3>
-    </div>*@
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
-                <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true" >
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary()
-                    <ul id="myTab" class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#infoPane" data-toggle="tab">
-                                基本信息
-                            </a>
-                        </li>
-                        <li><a href="#designPane" data-toggle="tab">流程设计</a></li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane in active" id="infoPane">
-                            <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
-                                <input type="hidden" id="workflowData" name="stepdata" value="" />
-                                <div class="form-group col-sm-12">
-                                    @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
-                                    <div class="col-sm-10">
-                                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label class="col-sm-2 control-label">实体</label>
-                                    <div class="col-sm-10">
-                                        @Html.HiddenFor(x => x.EntityId)
-                                        <select class="form-control" id="EntitySel" onchange="$('#EntityId').val($(this).val())"></select>
-                                        <span class="help-block">@app.T["workflow_enabled_entities"]</span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    @Html.LabelFor(x => x.Description, "描述", new { @class = "col-sm-2 control-label" })
-                                    <div class="col-sm-10">
-                                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12 text-center" id="form-buttons">
-                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
-                                    <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
+            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="post" id="editform" class="form-horizontal" data-jsonajax="true" data-istip="true">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#infoPane" data-toggle="tab">
+                            基本信息
+                        </a>
+                    </li>
+                    <li><a href="#designPane" data-toggle="tab">流程设计</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane in active" id="infoPane">
+                        <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
+                            <input type="hidden" id="workflowData" name="stepdata" value="" />
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.Name, "名称", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control required" })
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane active" id="designPane" style="visibility:hidden;">
-                            <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
-                                <div class="col-sm-2" style="height:350px; background:#eee;padding-top:5px;border:1px solid #ddd;">
-                                    @*<button type="button" class="btn btn-default btn-block"><span class="glyphicon glyphicon-hand-right"></span> 选择</button>
-                                <button type="button" class="btn btn-default btn-block"><span class="glyphicon glyphicon-resize-horizontal"></span> 连线</button>*@
-                                    @*<button type="button" class="btn btn-success btn-block" onclick="addPoint({type:'start'},true)"><span class="glyphicon glyphicon-play"></span> 开始</button>*@
-                                    <button type="button" class="btn btn-info btn-block" onclick="addPointFun()"><span class="glyphicon glyphicon-retweet"></span> 普通节点</button>
-                                    <button type="button" class="btn btn-info btn-block" onclick="addPointFun({ nodetype: '3' })"><span class="glyphicon glyphicon-random"></span> 分流节点</button>
-                                    @*<button type="button" class="btn btn-danger btn-block" onclick="addPoint({  type: 'end' }, true)"><span class="glyphicon glyphicon-stop"></span> 结束</button>*@
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-2 control-label">实体</label>
+                                <div class="col-sm-10">
+                                    @Html.HiddenFor(x => x.EntityId)
+                                    <select class="form-control" id="EntitySel" onchange="$('#EntityId').val($(this).val())"></select>
+                                    <span class="help-block">@app.T["workflow_enabled_entities"]</span>
                                 </div>
-                                <div class="col-sm-10" id="workflowWrap" style="height:1200px; background:#f5f5f5; padding:5px;position:relative;border:1px solid #ddd;border-left:0px;background-image:url(/content/customize/imgs/wallbg.png);position:relative;overflow:hidden;">
-                                    @*<div class="btn btn-success" style="position:absolute;top:10px;left:10px;"><span class="glyphicon glyphicon-play"></span> 开始</div>
-                                <div class="btn btn-info node" style="position:absolute;top:100px;left:200px;"><span class="glyphicon glyphicon-retweet"></span> 部门经理审批</div>
-                                <div class="btn btn-danger" style="position:absolute;bottom:10px;right:10px;"><span class="glyphicon glyphicon-stop"></span> 结束</div>*@
+                            </div>
+                            <div class="form-group col-sm-12">
+                                @Html.LabelFor(x => x.Description, "描述", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
                                 </div>
+                            </div>
+                            <div class="form-group col-sm-12 text-center" id="form-buttons">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> @app.T["save"]</button>
+                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> @app.T["reset"]</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="tab-pane active" id="designPane" style="visibility:hidden;">
+                        <div class="container-fluid" style="margin-top:10px;margin-bottom:10px;">
+                            <div class="col-sm-2" style="height:350px; background:#eee;padding-top:5px;border:1px solid #ddd;">
+                                @*<button type="button" class="btn btn-default btn-block"><span class="glyphicon glyphicon-hand-right"></span> 选择</button>
+                                    <button type="button" class="btn btn-default btn-block"><span class="glyphicon glyphicon-resize-horizontal"></span> 连线</button>*@
+                                @*<button type="button" class="btn btn-success btn-block" onclick="addPoint({type:'start'},true)"><span class="glyphicon glyphicon-play"></span> 开始</button>*@
+                                <button type="button" class="btn btn-info btn-block" onclick="addPointFun()"><span class="glyphicon glyphicon-retweet"></span> 普通节点</button>
+                                <button type="button" class="btn btn-info btn-block" onclick="addPointFun({ nodetype: '3' })"><span class="glyphicon glyphicon-random"></span> 分流节点</button>
+                                @*<button type="button" class="btn btn-danger btn-block" onclick="addPoint({  type: 'end' }, true)"><span class="glyphicon glyphicon-stop"></span> 结束</button>*@
+                            </div>
+                            <div class="col-sm-10" id="workflowWrap" style="height:1200px; background:#f5f5f5; padding:5px;position:relative;border:1px solid #ddd;border-left:0px;background-image:url(/content/customize/imgs/wallbg.png);position:relative;overflow:hidden;">
+                                @*<div class="btn btn-success" style="position:absolute;top:10px;left:10px;"><span class="glyphicon glyphicon-play"></span> 开始</div>
+                                    <div class="btn btn-info node" style="position:absolute;top:100px;left:200px;"><span class="glyphicon glyphicon-retweet"></span> 部门经理审批</div>
+                                    <div class="btn btn-danger" style="position:absolute;bottom:10px;right:10px;"><span class="glyphicon glyphicon-stop"></span> 结束</div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div><!-- （Modal） -->
@@ -143,11 +143,9 @@
                     </div>
 
                     <div class="tab-pane fade" id="nodehandler" style="padding:5px;">
-
                     </div>
 
                     <div class="tab-pane fade" id="nodepermission" style="padding:5px;">
-
                     </div>
                 </div>
             </div>
@@ -190,7 +188,7 @@
                         </a>
                     </li>
 
-                    <li>
+                    <li class="hide">
                         <a href="#tab-tab3" data-toggle="tab">
                             权限分配
                         </a>
@@ -226,7 +224,6 @@
                             </div>
                             <div class="col-sm-2"><label for="point-name">节点名称</label></div>
                             <div class="col-sm-4"><input id="point-name" name="point-name" type="text" class="form-control input-sm" /></div>
-
                         </div>
 
                         <div class="form-group row">
@@ -420,7 +417,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 <div class="modal fade" id="addPointCount" tabindex="-1" role="dialog"
      aria-labelledby="addPointCount" aria-hidden="true">
@@ -639,6 +635,5 @@
             }
 
         }
-
     </script>
 }

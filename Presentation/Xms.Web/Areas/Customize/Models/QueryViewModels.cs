@@ -63,12 +63,14 @@ namespace Xms.Web.Customize.Models
 
         public List<WebResource.Domain.WebResource> WebResources;
     }
+
     public class SetQueryViewDefaultModel
     {
         public List<Guid> RecordId { get; set; }
         public Guid EntityId { get; set; }
         public bool IsDefault { get; set; }
     }
+
     public class SetViewAuthorizationStateModel
     {
         public Guid[] RecordId { get; set; }

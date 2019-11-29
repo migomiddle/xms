@@ -3,6 +3,7 @@
     public static class FilterRuleDefaults
     {
         public const string ModuleName = "FilterRule";
+
         public static string AssemblyName
         {
             get

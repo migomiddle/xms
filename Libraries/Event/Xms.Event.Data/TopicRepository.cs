@@ -11,7 +11,6 @@ namespace Xms.Event.Data
     {
         public TopicRepository(IDbContext dbContext) : base(dbContext)
         {
-
         }
     }
 }

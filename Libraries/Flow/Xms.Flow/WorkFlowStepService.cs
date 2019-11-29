@@ -72,7 +72,7 @@ namespace Xms.Flow
         public bool Update(WorkFlowStep entity)
         {
             var original = _workFlowStepRepository.FindById(entity.WorkFlowStepId);
-            if(original == null)
+            if (original == null)
             {
                 return false;
             }
@@ -112,7 +112,7 @@ namespace Xms.Flow
             {
                 return false;
             }
-            var deleteds = _workFlowStepRepository.Query(x=>x.WorkFlowStepId.In(id));
+            var deleteds = _workFlowStepRepository.Query(x => x.WorkFlowStepId.In(id));
             if (deleteds.IsEmpty())
             {
                 return false;
@@ -121,7 +121,7 @@ namespace Xms.Flow
             using (UnitOfWork.Build(_workFlowStepRepository.DbContext))
             {
                 result = _workFlowStepRepository.DeleteMany(id);
-                _dependencyService.DeleteByDependentId(WorkFlowDefaults.ModuleName, deleteds.Select(x=>x.WorkFlowId).ToArray());
+                _dependencyService.DeleteByDependentId(WorkFlowDefaults.ModuleName, deleteds.Select(x => x.WorkFlowId).ToArray());
             }
             return result;
         }
@@ -162,7 +162,7 @@ namespace Xms.Flow
                 using (UnitOfWork.Build(_workFlowStepRepository.DbContext))
                 {
                     _workFlowStepRepository.DeleteMany(x => x.WorkFlowId.In(parent.Select(f => f.WorkFlowId)));
-                    _dependencyService.DeleteByDependentId(WorkFlowDefaults.ModuleName, parent.Select(x=>x.WorkFlowId).ToArray());
+                    _dependencyService.DeleteByDependentId(WorkFlowDefaults.ModuleName, parent.Select(x => x.WorkFlowId).ToArray());
                 }
             }
         }

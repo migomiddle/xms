@@ -1,7 +1,6 @@
 ﻿//@ sourceURL=common/dirtychecker.js
 //闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -12,7 +11,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -24,8 +23,7 @@
 }(function ($) {
     "use strict"
     //deps xms.jquery.js  xmsDirtyChecker
-    
-    
+
     function setFormDirtyValue() {
         var $attributechanged = $('#attributechanged');
         //console.log(dirtyChecker.dirtyList);
@@ -48,7 +46,6 @@
     }
 
     function bindCheckerEvent(datas) {
-       
         $.each(["keyup", "blur", "change"], function (i, event) {
             event = event || window.event;
             $.each(datas, function (key, item) {
@@ -64,7 +61,7 @@
                     } else {
                         var tarSel = tar.next();
                     }
-                    
+
                     tarSel.bind(event, function () {
                         var id = tar.attr("id");
                         var value = tar.val();
@@ -93,7 +90,6 @@
                         });
                     });
                 }
-
             });
         });
     }

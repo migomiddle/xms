@@ -266,10 +266,12 @@ namespace Xms.Flow
             _eventPublisher.Publish(new WorkFlowStartedEvent { Context = context, Result = result });
             return result;
         }
+
         public virtual WorkFlowExecutionResult OnStarting(WorkFlowStartUpContext context, WorkFlowExecutionResult result)
         {
             return result;
         }
+
         public virtual WorkFlowExecutionResult OnStarted(WorkFlowStartUpContext context, WorkFlowExecutionResult result)
         {
             return result;

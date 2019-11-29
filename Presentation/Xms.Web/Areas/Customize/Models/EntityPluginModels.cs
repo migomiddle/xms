@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Xms.Form.Domain;
 using Xms.Plugin.Domain;
-using Xms.QueryView.Domain;
 using Xms.Web.Framework.Paging;
 
 namespace Xms.Web.Customize.Models
@@ -19,6 +18,7 @@ namespace Xms.Web.Customize.Models
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
     }
+
     public class EditEntityPluginModel
     {
         public Guid? EntityPluginId { get; set; }
@@ -32,13 +32,14 @@ namespace Xms.Web.Customize.Models
 
         public IFormFile PluginFile { get; set; }
     }
+
     public class EditEntityPluginListModel
     {
         public List<EntityPlugin> EntityPlugins { get; set; }
         public List<Guid> DeleteEntityPluginIds { get; set; }
         //public IFormFile PluginFile { get; set; }
-
     }
+
     public class EditPluginListModel
     {
         public Guid SolutionId { get; set; }
@@ -47,15 +48,15 @@ namespace Xms.Web.Customize.Models
         public Dictionary<Guid, List<QueryView.Domain.QueryView>> QueryViews { get; set; }
         public Dictionary<Guid, List<SystemForm>> SystemForms { get; set; }
     }
+
     public class BeforehandLoadPluginModel
     {
         public IFormFile PluginFile { get; set; }
     }
+
     public class WizardEntityPluginModel
     {
         public Guid EntityId { get; set; }
         public string EntityName { get; set; }
-
-
     }
 }

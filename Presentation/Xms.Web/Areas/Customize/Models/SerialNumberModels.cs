@@ -12,6 +12,7 @@ namespace Xms.Web.Customize.Models
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
     }
+
     public class CreateSerialNumberModel
     {
         public string Name { get; set; }
@@ -28,6 +29,7 @@ namespace Xms.Web.Customize.Models
         public int Increment { get; set; }
         public Guid AttributeId { get; set; }
     }
+
     public class EditSerialNumberModel
     {
         public Guid SerialNumberRuleId { get; set; }

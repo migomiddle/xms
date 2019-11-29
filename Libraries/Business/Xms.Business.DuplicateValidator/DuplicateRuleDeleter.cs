@@ -39,8 +39,9 @@ namespace Xms.Business.DuplicateValidator
             _dependencyService = dependencyService;
             _entityPluginDeleter = entityPluginDeleter;
             _cascadeDeletes = cascadeDeletes;
-            _cacheService = new Caching.CacheManager<DuplicateRule>(_appContext.OrganizationUniqueName + ":duplicaterules", DuplicateRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<DuplicateRule>(_appContext.OrganizationUniqueName + ":duplicaterules", _appContext.PlatformSettings.CacheEnabled);
         }
+
         /// <summary>
         /// 级联删除
         /// </summary>

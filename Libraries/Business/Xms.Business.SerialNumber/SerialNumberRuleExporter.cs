@@ -11,6 +11,7 @@ namespace Xms.Business.SerialNumber
     public class SerialNumberRuleExporter : ISolutionComponentExporter
     {
         private readonly ISerialNumberRuleFinder _serialNumberRuleFinder;
+
         public SerialNumberRuleExporter(ISerialNumberRuleFinder serialNumberRuleFinder)
         {
             _serialNumberRuleFinder = serialNumberRuleFinder;

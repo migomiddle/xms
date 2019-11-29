@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Xms.Infrastructure;
-using Xms.Module.Abstractions;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using Xms.Infrastructure;
 
 namespace Xms.Solution.Abstractions
 {
     public class SolutionComponentCollection
     {
         public static readonly ConcurrentDictionary<string, SolutionComponentDescriptor> Descriptors = new ConcurrentDictionary<string, SolutionComponentDescriptor>(StringComparer.InvariantCultureIgnoreCase);
+
         public static void Configure(Action<SolutionComponentDescriptor> setupAction)
         {
             if (setupAction != null)

@@ -12,15 +12,18 @@ namespace Xms.Business.DuplicateValidator
     public class DuplicateRuleDependency : IDuplicateRuleDependency
     {
         private readonly IDependencyService _dependencyService;
+
         public DuplicateRuleDependency(IDependencyService dependencyService)
         {
             _dependencyService = dependencyService;
         }
+
         public bool Create(DuplicateRule entity)
         {
             //依赖于字段
             return _dependencyService.Create(DuplicateRuleDefaults.ModuleName, entity.DuplicateRuleId, AttributeDefaults.ModuleName, entity.Conditions.Select(x => x.AttributeId).ToArray());
         }
+
         public bool Update(DuplicateRule entity)
         {
             //依赖于字段

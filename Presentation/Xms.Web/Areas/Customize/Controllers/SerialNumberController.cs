@@ -23,6 +23,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly ISerialNumberRuleUpdater _serialNumberRuleUpdater;
         private readonly ISerialNumberRuleFinder _serialNumberRuleFinder;
         private readonly ISerialNumberRuleDeleter _serialNumberRuleDeleter;
+
         public SerialNumberController(IWebAppContext appContext
             , ISerialNumberRuleCreater serialNumberRuleCreater
             , ISerialNumberRuleUpdater serialNumberRuleUpdater
@@ -35,6 +36,7 @@ namespace Xms.Web.Customize.Controllers
             _serialNumberRuleFinder = serialNumberRuleFinder;
             _serialNumberRuleDeleter = serialNumberRuleDeleter;
         }
+
         [Description("编号规则列表")]
         public IActionResult Index(SerialNumberModel model)
         {
@@ -43,6 +45,10 @@ namespace Xms.Web.Customize.Controllers
                 return DynamicResult(model);
             }
             FilterContainer<SerialNumberRule> filter = FilterContainerBuilder.Build<SerialNumberRule>();
+            if (!model.EntityId.Equals(Guid.Empty))
+            {
+                filter.And(n => n.EntityId == model.EntityId);
+            }
             if (model.Name.IsNotEmpty())
             {
                 filter.And(n => n.Name == model.Name);
@@ -147,6 +153,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return _serialNumberRuleDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置编号规则可用状态")]
         [HttpPost]
         public IActionResult SetSerialNumberRuleState([FromBody]SetRecordStateModel model)

@@ -19,7 +19,7 @@ namespace Xms.Web.Controllers
 
         public SettingsController(IWebAppContext appContext
             , ISettingService settingService
-            , ISettingFinder settingFinder) 
+            , ISettingFinder settingFinder)
             : base(appContext)
         {
             _settingService = settingService;
@@ -27,6 +27,7 @@ namespace Xms.Web.Controllers
         }
 
         #region 系统参数
+
         [HttpGet]
         [Description("编辑系统参数")]
         public IActionResult EditPlatformSetting()
@@ -40,12 +41,14 @@ namespace Xms.Web.Controllers
                 LogEnabled = settings.LogEnabled,
                 LogLevel = (int)settings.LogLevel,
                 ShowMenuInUserPrivileges = settings.ShowMenuInUserPrivileges,
-                MaxFetchRecords = settings.MaxFetchRecords
+                MaxFetchRecords = settings.MaxFetchRecords,
+                CacheEnabled = settings.CacheEnabled
             };
 
             return View(model);
-        } 
-        #endregion
+        }
+
+        #endregion 系统参数
 
         #region 短信
 
@@ -129,6 +132,6 @@ namespace Xms.Web.Controllers
             return View(model);
         }
 
-        #endregion 上传
+        #endregion 缓存
     }
 }

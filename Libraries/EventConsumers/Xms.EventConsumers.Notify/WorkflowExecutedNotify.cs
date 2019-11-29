@@ -31,6 +31,7 @@ namespace Xms.EventConsumers.Notify
             _dataFinder = dataFinder;
             _notifies = notifies;
         }
+
         public void HandleEvent(WorkFlowExecutedEvent eventMessage)
         {
             Entity user;

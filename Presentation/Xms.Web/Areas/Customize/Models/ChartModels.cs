@@ -9,7 +9,6 @@ namespace Xms.Web.Customize.Models
     {
         public Guid EntityId { get; set; }
         public string Name { get; set; }
-        public Schema.Domain.Entity Entity { get; set; }
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
     }
@@ -22,7 +21,9 @@ namespace Xms.Web.Customize.Models
         public string DataConfig { get; set; }
         public string PresentationConfig { get; set; }
         public Guid ChartId { get; set; }
+        public Schema.Domain.Entity EntityMeta { get; set; }
     }
+
     public class SetChartStateModel : SetRecordStateModel
     {
         public Guid EntityId { get; set; }

@@ -1,11 +1,9 @@
 ﻿using PetaPoco;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xms.Core;
 using Xms.Core.Data;
 using Xms.Data;
-using Xms.Infrastructure.Utility;
 using Xms.Security.Domain;
 
 namespace Xms.Security.DataAuthorization.Data

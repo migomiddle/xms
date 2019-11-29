@@ -41,7 +41,6 @@ namespace Xms.Sdk.Client.AggRoot
             , IEventPublisher eventPublisher
             , IBusinessUnitService businessUnitService
 
-
             , IAttributeFinder attributeFinder
             , IRelationShipFinder relationShipFinder
             , IDataCreater dataCreater
@@ -148,7 +147,9 @@ namespace Xms.Sdk.Client.AggRoot
             return result;
         }
 
-        public virtual void OnUpdate(AggregateRoot existsData, AggregateRoot newData, OperationStage stage, AggregateRootMetaData AggRootMetaDatas) { }
+        public virtual void OnUpdate(AggregateRoot existsData, AggregateRoot newData, OperationStage stage, AggregateRootMetaData AggRootMetaDatas)
+        {
+        }
 
         private void InternalOnUpdate(AggregateRoot originData, AggregateRoot newData, OperationStage stage, AggregateRootMetaData aggRootMetaDatas)
         {
@@ -167,6 +168,5 @@ namespace Xms.Sdk.Client.AggRoot
             }
             OnUpdate(originData, newData, stage, aggRootMetaDatas);
         }
-
     }
 }

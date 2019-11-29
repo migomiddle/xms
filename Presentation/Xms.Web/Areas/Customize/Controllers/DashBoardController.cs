@@ -25,6 +25,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly ISystemFormUpdater _systemFormUpdater;
         private readonly ISystemFormFinder _systemFormFinder;
         private readonly ISystemFormDeleter _systemFormDeleter;
+
         public DashBoardController(IWebAppContext appContext
             , ISolutionService solutionService
             , ISystemFormCreater systemFormCreater
@@ -38,6 +39,7 @@ namespace Xms.Web.Customize.Controllers
             _systemFormFinder = systemFormFinder;
             _systemFormDeleter = systemFormDeleter;
         }
+
         [Description("仪表板列表")]
         public IActionResult Index(DashBoardModel model)
         {
@@ -61,10 +63,10 @@ namespace Xms.Web.Customize.Controllers
                 model.PageSize = CurrentUser.UserSettings.PagingLimit;
             }
             model.PageSize = model.PageSize > WebContext.PlatformSettings.MaxFetchRecords ? WebContext.PlatformSettings.MaxFetchRecords : model.PageSize;
-            PagedList <SystemForm> result = _systemFormFinder.QueryPaged(x => x
-                .Page(model.Page, model.PageSize)
-                .Where(filter)
-                .Sort(n => n.OnFile(model.SortBy).ByDirection(model.SortDirection))
+            PagedList<SystemForm> result = _systemFormFinder.QueryPaged(x => x
+               .Page(model.Page, model.PageSize)
+               .Where(filter)
+               .Sort(n => n.OnFile(model.SortBy).ByDirection(model.SortDirection))
                 , SolutionId.Value, true, FormType.Dashboard);
 
             model.Items = result.Items;
@@ -141,13 +143,14 @@ namespace Xms.Web.Customize.Controllers
         {
             return _systemFormDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置仪表板可用状态")]
         [HttpPost]
         public IActionResult SetDashBoardState([FromBody]SetDashBoardStateModel model)
         {
             return _systemFormUpdater.UpdateState(model.IsEnabled, model.RecordId).UpdateResult(T);
         }
-        
+
         [Description("仪表板复制")]
         public IActionResult CopyDashboard(Guid systemFormId, string name)
         {

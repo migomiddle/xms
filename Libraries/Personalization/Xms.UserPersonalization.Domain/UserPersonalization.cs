@@ -8,7 +8,5 @@ namespace Xms.UserPersonalization.Domain
         public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-       
-
     }
 }

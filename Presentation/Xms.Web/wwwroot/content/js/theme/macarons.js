@@ -21,12 +21,11 @@
     }
 
     var colorPalette = [
-        '#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80',
-        '#8d98b3','#e5cf0d','#97b552','#95706d','#dc69aa',
-        '#07a2a4','#9a7fd1','#588dd5','#f5994e','#c05050',
-        '#59678c','#c9ab00','#7eb00a','#6f5553','#c14089'
+        '#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80',
+        '#8d98b3', '#e5cf0d', '#97b552', '#95706d', '#dc69aa',
+        '#07a2a4', '#9a7fd1', '#588dd5', '#f5994e', '#c05050',
+        '#59678c', '#c9ab00', '#7eb00a', '#6f5553', '#c14089'
     ];
-
 
     var theme = {
         color: colorPalette,
@@ -40,7 +39,7 @@
 
         visualMap: {
             itemWidth: 15,
-            color: ['#5ab1ef','#e0ffff']
+            color: ['#5ab1ef', '#e0ffff']
         },
 
         toolbox: {
@@ -53,15 +52,15 @@
 
         tooltip: {
             backgroundColor: 'rgba(50,50,50,0.5)',
-            axisPointer : {
-                type : 'line',
-                lineStyle : {
+            axisPointer: {
+                type: 'line',
+                lineStyle: {
                     color: '#008acd'
                 },
                 crossStyle: {
                     color: '#008acd'
                 },
-                shadowStyle : {
+                shadowStyle: {
                     color: 'rgba(200,200,200,0.2)'
                 }
             }
@@ -96,10 +95,10 @@
                     color: '#008acd'
                 }
             },
-            splitArea : {
-                show : true,
-                areaStyle : {
-                    color: ['rgba(250,250,250,0.1)','rgba(200,200,200,0.1)']
+            splitArea: {
+                show: true,
+                areaStyle: {
+                    color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
                 }
             },
             splitLine: {
@@ -109,20 +108,20 @@
             }
         },
 
-        timeline : {
-            lineStyle : {
-                color : '#008acd'
+        timeline: {
+            lineStyle: {
+                color: '#008acd'
             },
-            controlStyle : {
-                normal : { color : '#008acd'},
-                emphasis : { color : '#008acd'}
+            controlStyle: {
+                normal: { color: '#008acd' },
+                emphasis: { color: '#008acd' }
             },
-            symbol : 'emptyCircle',
-            symbolSize : 3
+            symbol: 'emptyCircle',
+            symbolSize: 3
         },
 
         line: {
-            smooth : true,
+            smooth: true,
             symbol: 'emptyCircle',
             symbolSize: 3
         },
@@ -168,28 +167,28 @@
             color: colorPalette
         },
 
-        gauge : {
+        gauge: {
             axisLine: {
                 lineStyle: {
-                    color: [[0.2, '#2ec7c9'],[0.8, '#5ab1ef'],[1, '#d87a80']],
+                    color: [[0.2, '#2ec7c9'], [0.8, '#5ab1ef'], [1, '#d87a80']],
                     width: 10
                 }
             },
             axisTick: {
                 splitNumber: 10,
-                length :15,
+                length: 15,
                 lineStyle: {
                     color: 'auto'
                 }
             },
             splitLine: {
-                length :22,
+                length: 22,
                 lineStyle: {
                     color: 'auto'
                 }
             },
-            pointer : {
-                width : 5
+            pointer: {
+                width: 5
             }
         }
     };

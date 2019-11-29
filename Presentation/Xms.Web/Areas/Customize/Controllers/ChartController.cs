@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Xms.Business.DataAnalyse.Domain;
 using Xms.Business.DataAnalyse.Visualization;
 using Xms.Core;
@@ -29,13 +28,14 @@ namespace Xms.Web.Customize.Controllers
         private readonly IChartUpdater _chartUpdater;
         private readonly IChartFinder _chartFinder;
         private readonly IChartDeleter _chartDeleter;
+
         public ChartController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
             , IChartCreater chartCreater
             , IChartUpdater chartUpdater
             , IChartFinder chartFinder
-            , IChartDeleter chartDeleter) 
+            , IChartDeleter chartDeleter)
             : base(appContext, solutionService)
         {
             _entityFinder = entityFinder;
@@ -44,29 +44,23 @@ namespace Xms.Web.Customize.Controllers
             _chartFinder = chartFinder;
             _chartDeleter = chartDeleter;
         }
+
         [Description("图表列表")]
         public IActionResult Index(ChartModel model)
         {
-            if (model.EntityId.Equals(Guid.Empty))
-            {
-                return NotFound();
-            }
-            var entity = _entityFinder.FindById(model.EntityId);
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            model.Entity = entity;
             if (!model.LoadData)
             {
                 return DynamicResult(model);
             }
 
             FilterContainer<Chart> filter = FilterContainerBuilder.Build<Chart>();
-            filter.And(n => n.EntityId == model.EntityId);
             if (model.Name.IsNotEmpty())
             {
                 filter.And(n => n.Name.Like(model.Name));
+            }
+            if (!model.EntityId.Equals(Guid.Empty))
+            {
+                filter.And(n => n.EntityId == model.EntityId);
             }
             if (model.GetAll)
             {
@@ -142,6 +136,7 @@ namespace Xms.Web.Customize.Controllers
                 {
                     entity.CopyTo(model);
                     model.ChartId = id;
+                    model.EntityMeta = _entityFinder.FindById(entity.EntityId);
                     return View(model);
                 }
             }
@@ -171,6 +166,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return _chartDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置图表可用状态")]
         [HttpPost]
         public IActionResult SetChartState([FromBody]SetChartStateModel model)

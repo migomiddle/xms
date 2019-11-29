@@ -27,7 +27,6 @@ namespace Xms.Data.Import
 
         public void OnStarting()
         {
-
         }
     }
 }

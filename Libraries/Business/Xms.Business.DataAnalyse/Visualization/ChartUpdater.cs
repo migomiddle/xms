@@ -32,6 +32,7 @@ namespace Xms.Business.DataAnalyse.Visualization
             _localizedLabelService = localizedLabelService;
             _dependencyService = dependencyService;
         }
+
         public bool Update(Chart entity)
         {
             entity.ModifiedBy = _appContext.GetFeature<ICurrentUser>().SystemUserId;

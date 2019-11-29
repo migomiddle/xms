@@ -1,22 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Xms.Core.Context;
 using Xms.Data.Provider;
 using Xms.Flow;
-using Xms.Flow.Domain;
 using Xms.Plugin;
-using Xms.Plugin.Domain;
 using Xms.Schema.Entity;
 using Xms.Schema.OptionSet;
 using Xms.Solution;
 using Xms.Solution.Abstractions;
-using Xms.Web.Framework.Context;
-using Xms.Infrastructure.Utility;
-using Xms.Schema.Abstractions;
-using System.Collections.Generic;
-using Xms.Plugin.Abstractions;
 using Xms.Web.Customize.Models;
+using Xms.Web.Framework.Context;
 
 namespace Xms.Web.Customize.Controllers
 {
@@ -27,6 +22,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IEntityPluginFinder _entityPluginFinder;
         private readonly IWorkFlowFinder _workFlowFinder;
         private readonly ISolutionComponentService _solutionComponentService;
+
         public HomeController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -46,6 +42,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return View();
         }
+
         [HttpGet]
         [Description("自定义首页")]
         public IActionResult HomePage()
@@ -71,7 +68,5 @@ namespace Xms.Web.Customize.Controllers
             model.SolutionId = SolutionId;
             return View(model);
         }
-        
-
     }
 }

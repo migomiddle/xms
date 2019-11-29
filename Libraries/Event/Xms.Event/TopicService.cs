@@ -15,6 +15,7 @@ namespace Xms.Event
     public class TopicService : ITopicService
     {
         private readonly ITopicRepository _topicRepository;
+
         public TopicService(ITopicRepository topicRepository)
         {
             _topicRepository = topicRepository;

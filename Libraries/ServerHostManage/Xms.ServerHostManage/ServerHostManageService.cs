@@ -1,5 +1,4 @@
-﻿using System;
-using Xms.ServerHostManage.Domain;
+﻿using Xms.ServerHostManage.Domain;
 
 namespace Xms.ServerHostManage
 {

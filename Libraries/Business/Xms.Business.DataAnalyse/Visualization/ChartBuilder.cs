@@ -38,6 +38,7 @@ namespace Xms.Business.DataAnalyse.Visualization
             _stringMapFinder = stringMapFinder;
             _fetchDataService = fetchDataService;
         }
+
         /// <summary>
         /// 生成图表
         /// </summary>

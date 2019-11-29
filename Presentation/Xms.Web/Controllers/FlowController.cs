@@ -27,6 +27,7 @@ namespace Xms.Web.Controllers
         private readonly IWorkFlowProcessLogService _workFlowProcessLogService;
         private readonly IDataFinder _dataFinder;
         private readonly IWorkFlowStepService _workFlowStepService;
+
         public FlowController(IWebAppContext appContext
             , IEntityFinder entityFinder
             , IWorkFlowFinder workFlowFinder
@@ -114,14 +115,13 @@ namespace Xms.Web.Controllers
                 .Where(f => f.WorkFlowInstanceId == instance.WorkFlowInstanceId && f.StateCode != WorkFlowProcessState.Disabled)
                 .Sort(s => s.SortAscending(f => f.StepOrder)).Sort(s => s.SortAscending(f => f.StateCode)));
                 instance.Steps = steps;
-
             }
             WorkFlowInstanceDetailModel model = new WorkFlowInstanceDetailModel();
             model.Items = instances;
             var workFlowId = instances.First().WorkFlowId;
             model.FlowInfo = _workFlowFinder.FindById(workFlowId);
-            
-           var allSteps = _workFlowStepService.Query(n => n.Where(f => f.WorkFlowId == workFlowId).Sort(s => s.SortAscending(f => f.StepOrder)));
+
+            var allSteps = _workFlowStepService.Query(n => n.Where(f => f.WorkFlowId == workFlowId).Sort(s => s.SortAscending(f => f.StepOrder)));
 
             model.Steps = allSteps;
             return View(model);

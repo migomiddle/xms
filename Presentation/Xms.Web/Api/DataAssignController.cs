@@ -16,6 +16,7 @@ namespace Xms.Web.Api
     public class DataAssignController : ApiControllerBase
     {
         private readonly IDataAssigner _dataAssigner;
+
         public DataAssignController(IWebAppContext appContext
             , IDataAssigner dataAssigner)
             : base(appContext)

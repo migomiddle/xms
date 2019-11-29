@@ -68,7 +68,7 @@ namespace Xms.Business.DuplicateValidator
 
         public bool DeleteByParentId(Guid parentid)
         {
-            return _duplicateRuleConditionRepository.DeleteMany(x=>x.DuplicateRuleId == parentid);
+            return _duplicateRuleConditionRepository.DeleteMany(x => x.DuplicateRuleId == parentid);
         }
 
         public PagedList<DuplicateRuleCondition> QueryPaged(Func<QueryDescriptor<DuplicateRuleCondition>, QueryDescriptor<DuplicateRuleCondition>> container)
@@ -84,6 +84,7 @@ namespace Xms.Business.DuplicateValidator
 
             return _duplicateRuleConditionRepository.Query(q)?.ToList();
         }
+
         /// <summary>
         /// 级联删除
         /// </summary>
@@ -95,7 +96,7 @@ namespace Xms.Business.DuplicateValidator
                 return;
             }
             var ids = parent.Select(x => x.DuplicateRuleId).ToArray();
-            _duplicateRuleConditionRepository.DeleteMany(x=>x.DuplicateRuleId.In(ids));
+            _duplicateRuleConditionRepository.DeleteMany(x => x.DuplicateRuleId.In(ids));
         }
     }
 }

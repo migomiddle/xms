@@ -17,7 +17,9 @@ namespace Xms.Caching
 
         private Func<List<T>> _preCache;
 
-        private bool _cacheEnabled => _cache != null;
+        private bool _cacheEnabled => _cache != null && _platformSettingCacheEnabled;
+
+        private bool _platformSettingCacheEnabled;
 
         private readonly string _cacheKey;
 
@@ -27,9 +29,7 @@ namespace Xms.Caching
 
         private readonly string _cacheIndex;
 
-
-
-        public CacheManager(string cacheKey, Func<T, string> buildKey, Func<List<T>> preCache = null)
+        public CacheManager(string cacheKey, Func<T, string> buildKey, bool platformSettingCacheEnabled = true, Func<List<T>> preCache = null)
         {
             _cacheKey = cacheKey;
             _buildKey = buildKey;
@@ -37,10 +37,11 @@ namespace Xms.Caching
             _cacheVersion = _cacheKey + ".version";
             _cacheIndex = _cacheKey + ".index";
             _preCache = preCache;
+            _platformSettingCacheEnabled = platformSettingCacheEnabled;
             EnsurePreCached();
         }
 
-        public CacheManager(string cacheKey)
+        public CacheManager(string cacheKey, bool platformSettingCacheEnabled = true)
         {
             _cacheKey = cacheKey;
             _buildKey = DefaultBuildKey;
@@ -48,6 +49,7 @@ namespace Xms.Caching
             _cacheVersion = _cacheKey + ".version";
             _cacheIndex = _cacheKey + ".index";
             _preCache = null;
+            _platformSettingCacheEnabled = platformSettingCacheEnabled;
             EnsurePreCached();
         }
 
@@ -60,8 +62,6 @@ namespace Xms.Caching
         {
             if (_cacheEnabled && _preCache != null && !_cache.Contains(_preCacheKey))
             {
-                //lock (string.Intern(_preCacheKey))//(string.Intern(_cacheKey))
-                //{
                 _cache.Set(_preCacheKey, true);
                 var data = _preCache();
                 if (data.NotEmpty())
@@ -72,7 +72,6 @@ namespace Xms.Caching
                 {
                     SetNullValue(_cacheKey);
                 }
-                //}
             }
             return this;
         }
@@ -123,17 +122,9 @@ namespace Xms.Caching
             {
                 return value;
             }
-            //lock (string.Intern(_cacheKey))
-            //{
-            //    if (!TryGet(_cacheKey, out value))
-            //    {
             value = acquirer();
             Set(value);
             return value;
-            //    }
-            //}
-
-            //return value;
         }
 
         public T GetItem(Func<T> acquirer, string itemKey)
@@ -150,11 +141,6 @@ namespace Xms.Caching
             {
                 return result;
             }
-            //lock (string.Intern(itemKey))
-            //{
-            //    result = _cache.GetListItem<T>(_cacheKey, itemKey);
-            //    if (result == null)
-            //    {
             result = acquirer();
             if (result != null)
             {
@@ -164,8 +150,6 @@ namespace Xms.Caching
             {
                 SetNullValue(_cacheKey);
             }
-            //    }
-            //}
             return result;
         }
 
@@ -183,11 +167,6 @@ namespace Xms.Caching
             {
                 return matches.First();
             }
-            //lock (string.Intern(_cacheKey))
-            //{
-            //    matches = _cache.GetListItemsByPattern<T>(_cacheKey, keyPattern);
-            //    if (matches.IsEmpty())
-            //    {
             var value = acquirer();
             if (value != null)
             {
@@ -198,12 +177,6 @@ namespace Xms.Caching
             {
                 SetNullValue(_cacheKey);
             }
-            //    }
-            //    else
-            //    {
-            //        return matches.First();
-            //    }
-            //}
             return null;
         }
 
@@ -219,11 +192,6 @@ namespace Xms.Caching
             var result = _cache.GetListAll<T>(_cacheKey);
             if (result.IsEmpty())
             {
-                //lock (string.Intern(_cacheKey))
-                //{
-                //    result = _cache.GetListAll<T>(_cacheKey);
-                //    if (result.IsEmpty())
-                //    {
                 result = acquirer();
                 if (result.NotEmpty())
                 {
@@ -234,8 +202,6 @@ namespace Xms.Caching
                 {
                     SetNullValue(_cacheKey);
                 }
-                //    }
-                //}
             }
             return result;
         }
@@ -253,13 +219,6 @@ namespace Xms.Caching
             {
                 return result;
             }
-            //if (result.IsEmpty())
-            //{
-            //    lock (string.Intern(_cacheKey))
-            //    {
-            //        result = _cache.GetListItemsByPattern<T>(_cacheKey, keyPattern);
-            //        if (result.IsEmpty())
-            //        {
             result = acquirer();
             if (result.NotEmpty())
             {
@@ -273,9 +232,6 @@ namespace Xms.Caching
                     SetNullValue(k.Replace("*", ""));
                 }
             }
-            //        }
-            //    }
-            //}
             return result;
         }
 
@@ -444,7 +400,7 @@ namespace Xms.Caching
             if (dicIndex == null)
             {
                 dicIndex = new Dictionary<string, List<string>>();
-                _cache.SetTObject<Dictionary<string, List<string>>>(_cacheIndex, dicIndex);
+                _cache.SetTObject(_cacheIndex, dicIndex);
             }
             return dicIndex;
         }
@@ -454,8 +410,7 @@ namespace Xms.Caching
             lock (string.Intern(_cacheKey))
             {
                 var dicIndex = GetIndex();
-                List<string> result;
-                if (!dicIndex.TryGetValue(key, out result))
+                if (!dicIndex.TryGetValue(key, out List<string> result))
                 {
                     dicIndex.Add(key, list);
                 }
@@ -515,7 +470,7 @@ namespace Xms.Caching
                     listname.Add(sname);
                 }
             }
-            return String.Join("/", listname);
+            return string.Join("/", listname);
         }
 
         public T Get(Dictionary<string, string> dic, Func<T> acquirer)
@@ -533,9 +488,9 @@ namespace Xms.Caching
             }
             keys.Sort();
             keysvalue.Sort();
-            var keyIndex = String.Join("/", keys);
+            var keyIndex = string.Join("/", keys);
             //字段+值为索引
-            var keyValue =  keyIndex + "/" + String.Join("/", keysvalue);
+            var keyValue = keyIndex + "/" + string.Join("/", keysvalue);
             var realkey = GetRealKey(keyValue);
             if (TryGetTObject(realkey, out T value))
             {
@@ -550,7 +505,6 @@ namespace Xms.Caching
 
         private bool TryGetTObject(string key, out T value)
         {
-
             value = default(T);
 
             object obj = _cache.GetTObject<object>(key);
@@ -579,14 +533,15 @@ namespace Xms.Caching
             _cache.SetTObject(key, entity);
             return this;
         }
+
         public T Clone(T item)
         {
-            var newItem = System.Activator.CreateInstance<T>();
+            var newItem = Activator.CreateInstance<T>();
             item.CopyTo(newItem);
             return newItem;
         }
 
-        public List<T> Clone(List<T> items) 
+        public List<T> Clone(List<T> items)
         {
             var itemsClone = new List<T>();
             foreach (var item in items)
@@ -596,6 +551,6 @@ namespace Xms.Caching
             return itemsClone;
         }
 
-        #endregion
+        #endregion 缓存版本管理
     }
 }

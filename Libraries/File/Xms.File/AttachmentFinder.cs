@@ -2,8 +2,8 @@
 using Xms.Context;
 using Xms.Core.Context;
 using Xms.Core.Data;
-using Xms.Sdk.Abstractions.Query;
 using Xms.Identity;
+using Xms.Sdk.Abstractions.Query;
 using Xms.Sdk.Client;
 
 namespace Xms.File
@@ -15,6 +15,7 @@ namespace Xms.File
     {
         private readonly IAppContext _appContext;
         private readonly IDataFinder _dataFinder;
+
         public AttachmentFinder(IAppContext appContext
             , IDataFinder dataFinder) : base(appContext)
         {

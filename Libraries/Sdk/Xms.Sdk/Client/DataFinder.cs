@@ -20,6 +20,7 @@ namespace Xms.Sdk.Client
     public class DataFinder : DataProviderBase, IDataFinder
     {
         private readonly IOrganizationDataRetriever _organizationDataRetriever;
+
         public DataFinder(
             IAppContext appContext
             , IEntityFinder entityFinder

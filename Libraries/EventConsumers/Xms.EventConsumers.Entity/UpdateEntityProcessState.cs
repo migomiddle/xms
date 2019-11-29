@@ -13,6 +13,7 @@ namespace Xms.EventConsumers.Entity
     public class UpdateEntityProcessState : IConsumer<WorkFlowExecutedEvent>, IConsumer<WorkFlowCancelledEvent>, IConsumer<WorkFlowStartedEvent>
     {
         private readonly IDataUpdater _dataUpdater;
+
         public UpdateEntityProcessState(IDataUpdater dataUpdater)
         {
             _dataUpdater = dataUpdater;

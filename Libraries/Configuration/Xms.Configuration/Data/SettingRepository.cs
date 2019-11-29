@@ -1,5 +1,5 @@
-﻿using Xms.Core.Data;
-using Xms.Configuration.Domain;
+﻿using Xms.Configuration.Domain;
+using Xms.Core.Data;
 using Xms.Data;
 
 namespace Xms.Configuration.Data

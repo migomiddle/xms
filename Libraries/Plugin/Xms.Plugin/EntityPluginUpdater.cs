@@ -29,7 +29,7 @@ namespace Xms.Plugin
             _appContext = appContext;
             _entityPluginRepository = entityPluginRepository;
             _entityPluginFileProvider = entityPluginFileProvider;
-            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), EntityPluginCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityPlugin>(EntityPluginCache.GetCacheKey(appContext), _appContext.PlatformSettings.CacheEnabled);
         }
 
         public async Task<bool> Update(EntityPlugin entity, IFormFile file)
@@ -52,6 +52,7 @@ namespace Xms.Plugin
             }
             return result;
         }
+
         public bool UpdateState(IEnumerable<Guid> ids, bool isEnabled)
         {
             var context = UpdateContextBuilder.Build<EntityPlugin>();
@@ -63,9 +64,10 @@ namespace Xms.Plugin
                 result = _entityPluginRepository.Update(context);
                 //set to cache
                 var items = _entityPluginRepository.Query(x => x.EntityPluginId.In(ids));
-                foreach (var item in items) {
+                foreach (var item in items)
+                {
                     _cacheService.SetEntity(item);
-                }                
+                }
             }
             return result;
         }

@@ -46,7 +46,7 @@ namespace Xms.Web.Api
             {
                 entityMetadata = _entityFinder.FindById(model.EntityId);
             }
-            if(entityMetadata == null)
+            if (entityMetadata == null)
             {
                 return NotFound();
             }

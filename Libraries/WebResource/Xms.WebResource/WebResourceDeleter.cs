@@ -35,7 +35,7 @@ namespace Xms.WebResource
             _solutionComponentService = solutionComponentService;
             _dependencyService = dependencyService;
             _dependencyChecker = dependencyChecker;
-            _cacheService = new Caching.CacheManager<Domain.WebResource>(_appContext.OrganizationUniqueName + "webresource");
+            _cacheService = new Caching.CacheManager<Domain.WebResource>(_appContext.OrganizationUniqueName + "webresource", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool DeleteById(params Guid[] id)

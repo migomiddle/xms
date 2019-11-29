@@ -36,6 +36,7 @@ namespace Xms.Data.Export
         private readonly IRelationShipFinder _relationShipFinder;
         private readonly IGridService _gridService;
         private readonly IWebHelper _webHelper;
+
         public DataExporter(IAppContext appContext
             , ISystemUserPermissionService systemUserPermissionService
             , IFetchDataService fetchDataService
@@ -194,7 +195,6 @@ namespace Xms.Data.Export
 
         private void ResolveDynamicData(ISheet sheet, int rowIndex, IList<dynamic> datas, Dictionary<string, string> columnNames = null, IList<string> hideColumns = null, IList<Schema.Domain.Attribute> attributeList = null)
         {
-
             IRow headerRow = sheet.CreateRow(rowIndex);
             var keys = new List<string>();
             if (columnNames.NotEmpty())
@@ -314,7 +314,7 @@ namespace Xms.Data.Export
             var webPath = "/excel/" + fileName + "_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".xls";
             var filePath = _webHelper.MapPath(webPath);
             //SaveToExcel(list, fileName, filePath, columnNames, hideColumns, title, _fetchDataService.QueryResolver.AttributeList);
-            using (var ms = ToExcelStream(queryView, filter,order, fileName, includePrimaryKey, includeIndex, title))
+            using (var ms = ToExcelStream(queryView, filter, order, fileName, includePrimaryKey, includeIndex, title))
             {
                 using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {
@@ -466,7 +466,6 @@ namespace Xms.Data.Export
 
         //private void ToExcel(QueryView.Domain.QueryView queryView, FilterExpression filter, OrderExpression order, string fileName, bool includePrimaryKey = false, bool includeIndex = false, string title = "")
         //{
-
         //}
 
         private void SetCellValue(ICell cell, object value, Schema.Domain.Attribute attr)

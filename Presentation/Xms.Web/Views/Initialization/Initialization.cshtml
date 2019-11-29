@@ -1,0 +1,259 @@
+﻿@model Xms.Web.Models.DbConfigurationModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="xms">
+    <meta name="author" content="xms">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>初始化</title>
+    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css?v=1.0.0" rel="stylesheet">
+    <link href="/content/css/init.css" rel="stylesheet" />
+    <link href="/content/js/jquery-toast/jquery.toast.min.css" rel="stylesheet">
+    <link href="~/content/customize/layui/css/layui.css" rel="stylesheet" />
+    <link href="/content/css/loaders.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="center-wrap">
+        <form id="initForm" action="/xms/api/initialization" method="post" data-jsonajax="true">
+            <div class="init-check-step" id="init_step1">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">服务器地址：</span>
+                        <input type="text" name="DataServerName" id="host" autocomplete="off" class="form-text loginname" placeholder="服务器地址" required value="@Model.DataServerName" autofocus />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">用户名：</span>
+                        <input type="text" name="DataAccountName" id="LoginName" autocomplete="off" class="form-text loginname" placeholder="用户名" required value="@Model.DataAccountName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">密码：</span>
+                        <input type="text" name="DataPassword" id="password" autocomplete="off" class="form-text loginpwd" placeholder="密码" required value="@Model.DataPassword" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">数据库名：</span>
+                        <input type="text" name="DatabaseName" id="databasename" autocomplete="off" class="form-text loginpwd" placeholder="数据库名" required value="@Model.DatabaseName" />
+                    </div>
+                </div>
+                <div class="form-group hide">
+                    <div class="input-group">
+                        <span class="input-group-addon">连接超时设置：</span>
+                        <input type="text" name="CommandTimeOut" id="databasetimeout" autocomplete="off" class="form-text loginpwd" placeholder="连接超时设置" required value="@Model.CommandTimeOut" />
+                    </div>
+                </div>
+                <div class="init-check-step hide" id="init_step2">
+                    <table class="table text-white">
+                        <thead>
+                            <tr>
+                                <th>组织名</th>
+                                <th>数据库名</th>
+                                <th>数据库用户名</th>
+                                <th>数据库密码</th>
+                                <th>数据库地址</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orginfolist">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button class="btn login-submit login check-btn" id="checkbtn" type="button">测试</button><span class="checklink-state glyphicon glyphicon-ok text-success hide"></span>
+                <button class="btn login-submit login check-btn" style="display:none;" id="submitbtn" type="button">提交</button><span class="checklink-state glyphicon glyphicon-ok text-success hide"></span>
+            </div>
+        </form>
+    </div>
+
+    <div class='authent'>
+        <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
+            <div class="loader-inner ball-clip-rotate-multiple">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <p>检测中...</p>
+    </div>
+    <script type="text/html" id="edittmpl">
+        <tr>
+            <td>
+                <input type="text" readonly name="item_orgname" autocomplete="off" class="form-text " placeholder="组织名" required value="{item_orgname}" />
+                <input type="hidden" name="organizationbaseid" value="{organizationbaseid}" />
+                <input type="hidden" name="databasename" value="{databasename}" />
+                <input type="hidden" name="name" value="{name}" />
+                <input type="hidden" name="uniquename" value="{uniquename}" />
+                <input type="hidden" name="state" value="{state}" />
+            </td>
+            <td><input type="text" readonly name="item_databasename" autocomplete="off" class="form-text " placeholder="数据库名" required value="{item_databasename}" /></td>
+            <td><input type="text" name="item_databaseusername" autocomplete="off" class="form-text edit-item" placeholder="数据库用户名" required value="{item_databaseusername}" /></td>
+            <td><input type="text" name="item_databasepassword" autocomplete="off" class="form-text edit-item" placeholder="数据库密码" required value="{item_databasepassword}" /></td>
+            <td><input type="text" name="item_databaseip" autocomplete="off" class="form-text edit-item" placeholder="数据库地址" required value="{item_databaseip}" /></td>
+        </tr>
+    </script>
+    <script src="/content/js/jquery.min.js"></script>
+    <script src="/content/js/bootstrap.min.js"></script>
+    <script src="/content/js/jquery.form.js"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js"></script>
+    <script src="/content/js/jquery-toast/jquery.toast.min.js"></script>
+    <script src="/content/js/xms.web.js"></script>
+    <script src="/content/js/xms.jquery.js"></script>
+    <script src="~/content/js/jquery-ui-1.10.3/ui/jquery.ui.effect.js"></script>
+    <script>
+
+        var $orginfolist = $('#orginfolist');
+
+        function addInfoItems(datas) {
+            var htmls = [];
+            $.each(datas, function (i, n) {
+                var tmpl = $('#edittmpl').html();
+                tmpl = tmpl.replace(/{item_orgname}/g, n.name);
+                tmpl = tmpl.replace(/{item_databasename}/g, n.databasename);
+                tmpl = tmpl.replace(/{item_databaseusername}/g, n.dataaccountname);
+                tmpl = tmpl.replace(/{item_databasepassword}/g, n.datapassword);
+                tmpl = tmpl.replace(/{item_databaseip}/g, n.dataservername);
+                tmpl = tmpl.replace(/{organizationbaseid}/g, n.organizationbaseid);
+                tmpl = tmpl.replace(/{name}/g, n.name);
+                tmpl = tmpl.replace(/{uniquename}/g, n.uniquename);
+                tmpl = tmpl.replace(/{state}/g, n.state);
+                tmpl = tmpl.replace(/{databasename}/g, n.databasename);
+                tmpl = tmpl.replace(/{key}/g, '');
+                tmpl = tmpl.replace(/{other}/g, '');
+                htmls.push(tmpl);
+            });
+            $orginfolist.append(htmls.join(''));
+        }
+
+        function showAuther() {
+            setTimeout(function () {
+                $('.authent').show().animate({ right: -320 }, {
+                    easing: 'easeOutQuint',
+                    duration: 200,
+                    queue: false
+                });
+                $('.authent').animate({ opacity: 1 }, {
+                    duration: 200,
+                    queue: false
+                }).addClass('visible');
+            }, 0);
+        }
+        function hideAuther() {
+            setTimeout(function () {
+                $('.authent').show().animate({ right: 90 }, {
+                    easing: 'easeOutQuint',
+                    duration: 600,
+                    queue: false
+                });
+                $('.authent').animate({ opacity: 0 }, {
+                    duration: 200,
+                    queue: false
+                }).addClass('visible');
+                $('.login-wrap').removeClass('testtwo'); //平移特效
+            }, 1500);
+        }
+
+        var ORG_SERVERURL = "";
+        var checkurl = ORG_SERVERURL + '/Initialization/ConnectionTest';
+        var submiturl = ORG_SERVERURL + '/Initialization/Save';
+        var debound = $.deboundsEvent(3000, true);
+        $('#checkbtn').click(function (e) {
+            var that = this;
+            showAuther();
+            debound(function () {
+                $('#init_step2').show();
+                var postdata = $('form').serializeFormJSON();
+                console.log(postdata);
+
+                Xms.Web.Post(checkurl, postdata, false, function (res) {
+                    hideAuther();
+                    res = Xms.Web.GetAjaxResult(res);
+                    if (res.IsSuccess == false) {
+                        Xms.Web.Toast('数据库连接失败', false);
+                    } else {
+
+                        addInfoItems(res.content);
+                        $('#init_step2').removeClass('hide');
+                        $('.center-wrap').css('width', 500);
+                        $('#checkbtn').hide();
+                        $('#submitbtn').show();
+                        $('#databasename').prop('readonly', true);
+                        $('#host').prop('readonly', true);
+                        $('#LoginName').prop('readonly', true);
+                        $('#password').prop('readonly', true);
+                        $('#databasetimeout').prop('readonly', true);
+                    }
+                    console.log(res);
+                }, false, false, false);
+            });
+        });
+        $('#submitbtn').click(function (e) {
+            var that = this;
+            debound(function () {
+                var postdata = $('form').serializeFormJSON();
+                console.log(postdata);
+                // var postdata = getPostInfos(postdata);
+                if (postdata) {
+                    postdata.OrganizationBases = getPostInfos();
+                }
+                delete postdata.name;
+                delete postdata.organizationbaseid;
+                delete postdata.state;
+                delete postdata.uniquename;
+                delete postdata.databasename;
+                Xms.Web.Post(submiturl, postdata, false, function (res) {
+
+                    res = Xms.Web.GetAjaxResult(res);
+                    if (res.IsSuccess == false) {
+                        Xms.Web.Toast('提交失败', false);
+                    } else {
+                        Xms.Web.Toast('提交成功', true);
+                        setTimeout(function () {
+                            location.href = '/account/signin';
+                        }, 3000);
+                    }
+                    console.log(res);
+                }, false, false, false);
+            });
+            //console.log(response);
+            return false;
+        });
+
+        $('#clearCacheBtn').on('click', function () {
+            clearAllCookie();
+        });
+
+        function getPostInfos() {
+            var datas = [];
+            $orginfolist.find('tr').each(function (i, n) {
+                var $this = $(n);
+
+                datas.push({
+                    DataAccountName: $this.find('[name="item_databaseusername"]').val(),
+                    DataPassword: $this.find('[name="item_databasepassword"]').val(),
+                    DataServerName: $this.find('[name="item_databaseip"]').val(),
+                    organizationbaseid: $this.find('[name="organizationbaseid"]').val(),
+                    databasename: $this.find('[name="databasename"]').val(),
+                    name: $this.find('[name="name"]').val(),
+                    uniquename: $this.find('[name="uniquename"]').val(),
+                    state: $this.find('[name="state"]').val()
+                });
+            });
+            return datas;
+        }
+    </script>
+</body>
+</html>

@@ -21,6 +21,7 @@ namespace Xms.Form
         List<Domain.SystemForm> FindByEntityName(string entityName);
 
         List<Domain.SystemForm> FindAll();
+
         List<Domain.SystemForm> Query(Func<QueryDescriptor<Domain.SystemForm>, QueryDescriptor<Domain.SystemForm>> container);
 
         PagedList<Domain.SystemForm> QueryPaged(Func<QueryDescriptor<Domain.SystemForm>, QueryDescriptor<Domain.SystemForm>> container);

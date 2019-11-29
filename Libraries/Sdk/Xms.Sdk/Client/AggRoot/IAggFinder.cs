@@ -3,9 +3,8 @@ using Xms.Sdk.Abstractions.Query;
 
 namespace Xms.Sdk.Client.AggRoot
 {
-    public interface IAggFinder 
+    public interface IAggFinder
     {
         AggregateRoot Retrieve(QueryBase request, bool ignorePermissions = false);
-
     }
 }

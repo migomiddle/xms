@@ -12,7 +12,7 @@ namespace Xms.Web.Framework.Infrastructure
     /// </summary>
     public static class XmsStaticFileExtensions
     {
-        public static IApplicationBuilder UseXmsStaticFiles(this IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)
+        public static IApplicationBuilder UseXmsStaticFiles(this IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
             app.UseStaticFiles();
             var staticFiles = configuration.GetSection("webconfig:staticfiles").Get<List<StaticFileItem>>();

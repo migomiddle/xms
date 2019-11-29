@@ -53,6 +53,7 @@ namespace Xms.Form
             }
             return true;
         }
+
         public bool Update(Domain.SystemForm entity)
         {
             if (entity.FormType == (int)FormType.Main)

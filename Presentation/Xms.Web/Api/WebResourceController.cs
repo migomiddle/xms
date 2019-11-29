@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Xms.Core.Context;
-using Xms.Core.Data;
 using Xms.Infrastructure.Utility;
 using Xms.Solution.Abstractions;
 using Xms.Web.Api.Models;
@@ -59,7 +58,7 @@ namespace Xms.Web.Api
                         idList.Add(id);
                     }
                 }
-                StringBuilder content = new StringBuilder();                
+                StringBuilder content = new StringBuilder();
                 var result = _webResourceFinder.FindByIds(idList.ToArray());
                 foreach (var item in result)
                 {
@@ -89,13 +88,18 @@ namespace Xms.Web.Api
             var data = _webResourceFinder.QueryPaged(x => x.Page(model.Page, model.PageSize), model.SolutionId, model.InSolution);
             if (data.Items.NotEmpty())
             {
-                var result = data.Items.Select(x=> (new SolutionComponentItem { ObjectId = x.WebResourceId, Name = x.Name, LocalizedName = x.Name, ComponentTypeName = WebResourceDefaults.ModuleName, CreatedOn = x.CreatedOn })).ToList();
-                return JOk(new PagedList<SolutionComponentItem>() {
+                var result = data.Items.Select(x => (new SolutionComponentItem { ObjectId = x.WebResourceId, Name = x.Name, LocalizedName = x.Name, ComponentTypeName = WebResourceDefaults.ModuleName, CreatedOn = x.CreatedOn })).ToList();
+                return JOk(new PagedList<SolutionComponentItem>()
+                {
                     CurrentPage = model.Page
-                    , ItemsPerPage = model.PageSize
-                    , Items = result
-                    , TotalItems = data.TotalItems
-                    , TotalPages = data.TotalPages
+                    ,
+                    ItemsPerPage = model.PageSize
+                    ,
+                    Items = result
+                    ,
+                    TotalItems = data.TotalItems
+                    ,
+                    TotalPages = data.TotalPages
                 });
             }
             return JOk(data);

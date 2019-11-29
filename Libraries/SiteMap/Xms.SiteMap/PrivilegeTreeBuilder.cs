@@ -48,7 +48,7 @@ namespace Xms.SiteMap
         {
             List<Privilege> result = new List<Privilege>();
             var all = _privilegeService.AllPrivileges;
-            if(all == null)
+            if (all == null)
             {
                 return result;
             }

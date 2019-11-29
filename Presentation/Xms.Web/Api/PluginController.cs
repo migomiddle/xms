@@ -18,7 +18,6 @@ namespace Xms.Web.Api
     [Route("{org}/api/[controller]")]
     public class PluginController : ApiControllerBase
     {
-
         private readonly IEntityPluginFinder _entityPluginFinder;
 
         public PluginController(IWebAppContext appContext

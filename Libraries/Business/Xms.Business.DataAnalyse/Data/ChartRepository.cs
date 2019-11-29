@@ -78,7 +78,7 @@ namespace Xms.Business.DataAnalyse.Data
             //系列（多条）、数据
             //获取生成的sqlstring，select count(@field),avg(@field),max(@field),min(@field) from (@sqlstring)
             var attrbuteNames = chartData.Fetch.Select(f => f.Attribute);
-            var attributes = _attributeRepository.Query(x=>x.EntityName == query.EntityName && x.Name.In(attrbuteNames)).ToList();
+            var attributes = _attributeRepository.Query(x => x.EntityName == query.EntityName && x.Name.In(attrbuteNames)).ToList();
             var selectString = new List<string>();
             var groupbyString = new List<string>();
             var orderbyString = new List<string>();
@@ -175,6 +175,7 @@ namespace Xms.Business.DataAnalyse.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

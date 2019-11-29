@@ -33,12 +33,14 @@ namespace Xms.Web
             services.AddSession();
             services.RegisterModules();
         }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)//, IModuleRegistrar moduleRegistrar)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)//, IModuleRegistrar moduleRegistrar)
         {
             loggerFactory.AddLog4Net("log4net.config", true);
             //moduleRegistrar.RegisterAll();
             //if (env.IsDevelopment())
+
             //{
             //    app.UseDeveloperExceptionPage();
             //}

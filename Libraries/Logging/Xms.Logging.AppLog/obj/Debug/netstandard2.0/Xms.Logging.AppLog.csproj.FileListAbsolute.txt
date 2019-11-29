@@ -35,3 +35,5 @@ G:\projects\Xms_V2\Libraries\Logging\Xms.Logging.AppLog\bin\Debug\netstandard2.0
 G:\projects\Xms_V2\Libraries\Logging\Xms.Logging.AppLog\bin\Debug\netstandard2.0\Xms.Data.Abstractions.pdb
 G:\projects\xms_v2\Libraries\Logging\Xms.Logging.AppLog\bin\Debug\netstandard2.0\Xms.Module.Abstractions.dll
 G:\projects\xms_v2\Libraries\Logging\Xms.Logging.AppLog\bin\Debug\netstandard2.0\Xms.Module.Abstractions.pdb
+G:\projects\xms_v2\Libraries\Logging\Xms.Logging.AppLog\bin\Debug\netstandard2.0\Xms.Configuration.Domain.dll
+G:\projects\xms_v2\Libraries\Logging\Xms.Logging.AppLog\bin\Debug\netstandard2.0\Xms.Configuration.Domain.pdb

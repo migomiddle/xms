@@ -18,6 +18,7 @@ namespace Xms.RibbonButton.Abstractions
 
         public FormState[] States { get; set; }
     }
+
     public class ValueRules
     {
         public bool Enabled { get; set; }

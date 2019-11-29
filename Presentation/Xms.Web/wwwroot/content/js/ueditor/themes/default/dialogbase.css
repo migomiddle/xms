@@ -57,23 +57,23 @@ body {
     z-index: 10;
 }
 
-.tabhead span {
-    display: inline-block;
-    padding: 0 5px;
-    height: 30px;
-    border: 1px solid #ccc;
-    background: url("images/dialog-title-bg.png") repeat-x;
-    text-align: center;
-    line-height: 30px;
-    cursor: pointer;
-    *margin-right: 5px;
-}
+    .tabhead span {
+        display: inline-block;
+        padding: 0 5px;
+        height: 30px;
+        border: 1px solid #ccc;
+        background: url("images/dialog-title-bg.png") repeat-x;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        *margin-right: 5px;
+    }
 
-.tabhead span.focus {
-    height: 31px;
-    border-bottom: none;
-    background: #fff;
-}
+        .tabhead span.focus {
+            height: 31px;
+            border-bottom: none;
+            background: #fff;
+        }
 
 .tabbody {
     position: relative;
@@ -95,6 +95,6 @@ a.button {
     background: url(../../themes/default/images/icons-all.gif) no-repeat;
 }
 
-a.button:hover {
-    background-position: 0 -30px;
-}
+    a.button:hover {
+        background-position: 0 -30px;
+    }

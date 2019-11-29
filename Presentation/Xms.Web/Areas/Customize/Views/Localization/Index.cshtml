@@ -1,5 +1,4 @@
-﻿
-<form id="editform" action="/@(app.OrganizationUniqueName)/api/localization" method="post" data-jsonajax="true">
+﻿<form id="editform" action="/@(app.OrganizationUniqueName)/api/localization" method="post" data-jsonajax="true">
     <div class="form-group">
         <select id="languages" name="language" class="form-control"></select>
     </div>
@@ -18,13 +17,13 @@
     </div>
 </form>
 @section Header {
-<link href="/content/js/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker3.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="/content/js/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker3.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
 }
 @section Scripts {
-<script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
-<script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-validate/localization/messages_zh.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
     $(function () {
         //表单验证
         var $form = $("#editform");
@@ -86,5 +85,5 @@
     function removeLabel(e) {
         $(e).parents('.row').remove();
     }
-</script>
+    </script>
 }

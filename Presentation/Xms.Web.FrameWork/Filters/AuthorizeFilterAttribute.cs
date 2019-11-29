@@ -5,7 +5,6 @@ using Xms.Infrastructure.Utility;
 using Xms.Security.Principal;
 using Xms.Web.Framework.Context;
 
-
 namespace Xms.Web.Framework.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
@@ -13,11 +12,13 @@ namespace Xms.Web.Framework.Filters
     {
         private readonly IWebAppContext _appContext;
         private readonly IPermissionService _permissionService;
+
         public AuthorizeFilterAttribute(IWebAppContext appContext, IPermissionService permissionService)
         {
             _appContext = appContext;
             _permissionService = permissionService;
         }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (_appContext.CurrentUser.IsSuperAdmin)//超级管理员不验证权限
@@ -35,6 +36,7 @@ namespace Xms.Web.Framework.Filters
                 }
             }
         }
+
         /// <summary>
         /// 菜单权限判断
         /// </summary>
@@ -47,7 +49,7 @@ namespace Xms.Web.Framework.Filters
             {
                 throw new ArgumentNullException("httpContext");
             }
-            
+
             var url = filterContext.HttpContext.GetThisPageUrl(false).Replace("/" + _appContext.OrganizationUniqueName, "");
 
             return _permissionService.HasPermission(url);

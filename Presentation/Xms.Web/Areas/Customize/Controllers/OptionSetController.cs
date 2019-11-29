@@ -29,6 +29,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IOptionSetDetailDeleter _optionSetDetailDeleter;
         private readonly IOptionSetDetailFinder _optionSetDetailFinder;
         private readonly IOptionSetDetailUpdater _optionSetDetailUpdater;
+
         public OptionSetController(IWebAppContext appContext
             , ISolutionService solutionService
             , IOptionSetCreater optionSetCreater
@@ -50,6 +51,7 @@ namespace Xms.Web.Customize.Controllers
             _optionSetDetailFinder = optionSetDetailFinder;
             _optionSetDetailUpdater = optionSetDetailUpdater;
         }
+
         [Description("选项集列表")]
         public IActionResult Index(OptionSetModel model)
         {

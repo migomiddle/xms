@@ -30,7 +30,8 @@ namespace Xms.Form
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 9);
             //Solution.Abstractions.SolutionComponentTypes.Add(this.Name, 9);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/schema/form/solutioncomponents";
             });
@@ -64,7 +65,8 @@ namespace Xms.Form
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 3);
             //Solution.Abstractions.SolutionComponentTypes.Add(this.Name, 9);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/dashboard/solutioncomponents";
             });

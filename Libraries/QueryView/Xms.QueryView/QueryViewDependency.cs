@@ -43,6 +43,7 @@ namespace Xms.QueryView
             }
             return true;
         }
+
         public bool Update(Domain.QueryView entity)
         {
             //依赖于字段

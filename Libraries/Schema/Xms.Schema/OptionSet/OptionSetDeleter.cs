@@ -50,7 +50,7 @@ namespace Xms.Schema.OptionSet
             _dependencyService = dependencyService;
             _dependencyChecker = dependencyChecker;
             _cascadeDeletes = cascadeDeletes;
-            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", OptionSetCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", _appContext.PlatformSettings.CacheEnabled);
         }
 
         /// <summary>

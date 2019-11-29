@@ -1,6 +1,5 @@
 ﻿//闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -11,7 +10,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -21,7 +20,6 @@
         factory(window['jQuery']);
     }
 }(function ($) {
-
     if (typeof Xms === 'undefined') {
         throw Error('Xms不能为空， 请先引用xms.js文件 ');
     }
@@ -40,7 +38,6 @@
             console.log('response', response);
             callback && callback(response, parent);
         }, null, null, 'post');
-
     }
 
     function handlerTreeData(response, entityname, parent) {
@@ -53,7 +50,6 @@
         entityname = entityname.toLowerCase();
         parent = parent.toLowerCase();
         $.each(datas, function (key, item) {
-
             var itemdata = {
                 "id": item[entityname + 'id'],
                 "text": item['name'],
@@ -83,7 +79,7 @@
      @opts  { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
      @loadTreeAfter
     */
-    function _renderTree(opts, loadTreeAfter, preRender, rendered,setPostOpts){
+    function _renderTree(opts, loadTreeAfter, preRender, rendered, setPostOpts) {
         var url = '/api/data/Retrieve/Multiple';
         preRender && preRender();
         if (!opts.entityname || !opts.parent || !opts.attrname) {
@@ -183,7 +179,6 @@
             $('#gridview').css('z-index', 0);//防止树被遮挡,无法点击
             $('#xms-gridview-section').addClass('xms-table-showtree');
         }, function () {
-
         });
     }
 
@@ -258,7 +253,6 @@
             //  pageUrl = $.setUrlParam(pageUrl, 'sortdirection', 0);
         }
         pageFilter.submitFilter();
-
     }
     window.renderLeftTree = renderLeftTree;
     window.common_navtree = common_navtree;

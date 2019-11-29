@@ -27,7 +27,6 @@ namespace Xms.Data.Export
 
         public void OnStarting()
         {
-
         }
     }
 }

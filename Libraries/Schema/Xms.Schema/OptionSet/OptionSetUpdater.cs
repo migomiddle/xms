@@ -26,7 +26,7 @@ namespace Xms.Schema.OptionSet
             _appContext = appContext;
             _optionSetRepository = optionSetRepository;
             _localizedLabelService = localizedLabelService;
-            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", OptionSetCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.OptionSet>(_appContext.OrganizationUniqueName + ":optionsets", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Update(Domain.OptionSet entity)

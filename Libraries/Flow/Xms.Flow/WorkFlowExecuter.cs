@@ -40,7 +40,7 @@ namespace Xms.Flow
             _attachmentCreater = attachmentCreater;
             _logService = logService;
         }
-                
+
         /// <summary>
         /// 执行工作流
         /// </summary>
@@ -254,16 +254,19 @@ namespace Xms.Flow
             _eventPublisher.Publish(new WorkFlowExecutedEvent { Context = context, Result = result });
             return result;
         }
-        
+
         #region 事件
+
         public virtual WorkFlowExecutionResult OnExecuting(WorkFlowExecutionContext context, WorkFlowExecutionResult result)
         {
             return result;
         }
+
         public virtual WorkFlowExecutionResult OnExecuted(WorkFlowExecutionContext context, WorkFlowExecutionResult result)
         {
             return result;
         }
-        #endregion
+
+        #endregion 事件
     }
 }

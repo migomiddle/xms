@@ -11,10 +11,12 @@ namespace Xms.DataMapping
     public class EntityMapExporter : ISolutionComponentExporter
     {
         private readonly IEntityMapFinder _entityMapFinder;
+
         public EntityMapExporter(IEntityMapFinder entityMapFinder)
         {
             _entityMapFinder = entityMapFinder;
         }
+
         public string GetXml(Guid solutionId)
         {
             StringBuilder result = new StringBuilder();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Xms.Core.Data
 {
@@ -18,16 +17,12 @@ namespace Xms.Core.Data
         }
     }
 
-
-
     public class RefEntity
     {
-
         public Core.Data.Entity Entity { get; set; }
         public Guid Entityid { get; set; }
         public string Name { get; set; }
         public string Relationshipname { get; set; }
         public OperationTypeEnum? Entitystatus { get; set; }
     }
-
 }

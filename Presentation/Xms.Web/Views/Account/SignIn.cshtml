@@ -23,11 +23,11 @@
     <link rel="icon" href="/favicon.ico">
     <title></title>
 
-    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css?v=1" rel="stylesheet">
-    <link href="/content/js/jquery-toast/jquery.toast.min.css?v=1" rel="stylesheet">
-    <link href="/content/customize/layui/css/layui.css?v=1" rel="stylesheet" />
-    <link href="/content/css/loaders.css?v=1" rel="stylesheet" />
-    <link href="/content/css/signin.css?v=1" rel="stylesheet" />
+    <link href="/content/css/bootstrap3.3.5/bootstrap.min.css" rel="stylesheet">
+    <link href="/content/js/jquery-toast/jquery.toast.min.css" rel="stylesheet">
+    <link href="/content/customize/layui/css/layui.css" rel="stylesheet" />
+    <link href="/content/css/loaders.css" rel="stylesheet" />
+    <link href="/content/css/signin.css" rel="stylesheet" />
 </head>
 <body class="bg-info login-bg">
     <div class="login-wrap" data-VerifyCodeEnabled="false">
@@ -38,7 +38,6 @@
             <div class="login-success-text">
                 <p>===欢迎&nbsp;<span><i class="layui-icon layui-icon-username"></i><span class="login-user-name">张三</span></span>&nbsp;登录===</p>
                 <p class="masked">正在进入</p>
-
             </div>
         </div>
         <div class="text-left login-title">
@@ -56,14 +55,14 @@
                                 <span class="input-group-addon"><i class="layui-icon layui-icon-group"></i></span>
                                 @*<input type="text" name="OrgUniqueName" class="form-text" placeholder="组织代码" />*@
                                 @Html.ValidationMessageFor(x => x.OrgUniqueName)
-                                <select class="form-control" name="OrgUniqueName" id="OrgUniqueName">
-                                    @{ 
-                                        foreach (var org in orglist) { 
+                                <select class="form-control pl-0" name="OrgUniqueName" id="OrgUniqueName">
+                                    @{
+                                        foreach (var org in orglist)
+                                        {
                                             <option value="@org.UniqueName">@org.Name</option>
                                         }
 
                                     }
-                                    
                                 </select>
                             </div>
 
@@ -82,7 +81,6 @@
                             <span class="input-group-addon"><i class="layui-icon layui-icon-username"></i></span>
                             <input type="text" name="loginname" id="LoginName" autocomplete="off" class="form-text loginname" placeholder="帐号" required value="@Model.LoginName" autofocus />
                         </div>
-
                     </div>
                     <div class="form-group">
                         <div class="input-group">
@@ -98,7 +96,6 @@
                                 <input type="text" name="verifycode" id="verifycode" class="form-text" autocomplete="off" placeholder="验证码" required />
                                 <span class="input-group-addon">    <img id="verifyImage" style="cursor:pointer;" title="点击刷新验证码" onclick="this.src='@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage?time=' + new Date()" src="@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage" height="30" class="left" /></span>
                             </div>
-
                         </div>
                     }
                     <div class="form-group checkbox">
@@ -112,9 +109,10 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm-12 col-xs-12 col-lg-12 text-center versionnumber-text">版本：1</div>
+            <div class="col-sm-12 col-xs-12 col-lg-12 text-center versionnumber-text">版本：1.0</div>
         </div>
     </div>
+    <div class="clearCacheBtn" id="clearCacheBtn">清除缓存</div>
     <div class='authent'>
         <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
             <div class="loader-inner ball-clip-rotate-multiple">
@@ -125,15 +123,13 @@
         </div>
         <p>认证中...</p>
     </div>
-    @*<div class="page-footer">
-            <div class="copyright">版权所有：<a href="http://www.juyunzh.net" target="_blank">广东云聚天下科技有限公司</a></div>
-        </div>*@
     <script src="/content/js/jquery.min.js"></script>
-    <script src="/content/js/jquery-validate/jquery.validate.min.js?v=1"></script>
-    <script src="/content/js/jquery.form.js?v=1"></script>
-    <script src="/content/js/jquery-toast/jquery.toast.min.js?v=1"></script>
+    <script src="/content/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="/content/js/jquery.form.js"></script>
+    <script src="/content/js/jquery-toast/jquery.toast.min.js"></script>
     <script src="/content/js/xms.web.js"></script>
     <script src="/content/js/xms.jquery.js"></script>
+    <script src="~/content/js/jquery.cookie.js"></script>
     <script src="~/content/js/jquery-ui-1.10.3/ui/jquery.ui.effect.js"></script>
 
     <script>
@@ -142,6 +138,14 @@
             if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0" || navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
                 alert("为了您的更好体验，请使用IE9及以上版本浏览网页");
             }
+        }
+        function clearAllCookie() {
+            var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+            if (keys) {
+                for (var i = keys.length; i--;)
+                    document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+            }
+            localStorage.clear();
         }
         $(function () {
             if (top.location != location) {
@@ -152,7 +156,7 @@
             var $OrgUniqueName = $('#OrgUniqueName');
             $OrgUniqueName.on('change', function (e) {
                 var val = $(this).val();
-                ORG_SERVERURL = val;
+                ORG_SERVERURL = '/' + val;
                 var action = '/' + val + actionPre;
                 $('form').attr('action', action);
             }).trigger('change');
@@ -212,13 +216,15 @@
                             }
                         }, 2400);
 
-
                     });
                 })
                 //console.log(response);
                 return false;
             });
 
+            $('#clearCacheBtn').on('click', function () {
+                clearAllCookie();
+            })
         });
     </script>
 </body>

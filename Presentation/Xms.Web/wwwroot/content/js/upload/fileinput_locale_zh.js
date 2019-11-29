@@ -47,7 +47,7 @@
         msgImageResizeError: '无法获取的图像尺寸调整。',
         msgImageResizeException: '错误而调整图像大小。<pre>{errors}</pre>',
         dropZoneTitle: '拖拽文件到这里 &hellip;',
-        slugCallback: function(text) {
+        slugCallback: function (text) {
             return text ? text.split(/(\\|\/)/g).pop().replace(/[^\w\u4e00-\u9fa5\-.\\\/ ]+/g, '') : '';
         },
         fileActionSettings: {

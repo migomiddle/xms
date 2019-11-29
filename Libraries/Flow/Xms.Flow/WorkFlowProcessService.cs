@@ -28,7 +28,7 @@ namespace Xms.Flow
         {
             if (parent.NotEmpty())
             {
-                _workFlowProcessRepository.DeleteMany(x=>x.WorkFlowInstanceId.In(parent.Select(f=>f.WorkFlowInstanceId)));
+                _workFlowProcessRepository.DeleteMany(x => x.WorkFlowInstanceId.In(parent.Select(f => f.WorkFlowInstanceId)));
             }
         }
 

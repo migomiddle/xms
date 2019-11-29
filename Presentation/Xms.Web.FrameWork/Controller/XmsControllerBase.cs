@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using System.Linq;
 using System.Text;
-using Xms.Localization.Abstractions;
 using Xms.Identity;
 using Xms.Infrastructure.Utility;
+using Xms.Localization.Abstractions;
 using Xms.Web.Framework.Context;
 
 namespace Xms.Web.Framework.Controller
@@ -14,6 +14,7 @@ namespace Xms.Web.Framework.Controller
     public class XmsControllerBase : Microsoft.AspNetCore.Mvc.Controller
     {
         #region fields
+
         //上下文
         public IWebAppContext WebContext;
 
@@ -24,6 +25,7 @@ namespace Xms.Web.Framework.Controller
                 return HttpContext.IsAjaxRequest();
             }
         }
+
         public bool IsRequestJson
         {
             get
@@ -31,6 +33,7 @@ namespace Xms.Web.Framework.Controller
                 return HttpContext.IsRequestJson();
             }
         }
+
         public ICurrentUser CurrentUser
         {
             get
@@ -42,6 +45,7 @@ namespace Xms.Web.Framework.Controller
                 return null;
             }
         }
+
         protected ILocalizedTextProvider T
         {
             get
@@ -49,12 +53,14 @@ namespace Xms.Web.Framework.Controller
                 return WebContext.T;
             }
         }
-        #endregion
+
+        #endregion fields
 
         protected XmsControllerBase(IWebAppContext appContext)
         {
             WebContext = appContext;
         }
+
         public override void OnActionExecuting(ActionExecutingContext executingContext)
         {
             base.OnActionExecuting(executingContext);

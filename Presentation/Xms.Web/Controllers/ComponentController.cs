@@ -90,7 +90,6 @@ namespace Xms.Web.Controllers
             _chartFinder = chartFinder;
         }
 
-
         [Description("图表展示")]
         [HttpPost]
         public IActionResult RenderChart([FromBody]RenderChartModel model)
@@ -108,7 +107,7 @@ namespace Xms.Web.Controllers
             {
                 view = _queryViewFinder.FindById(model.QueryId);
             }
-            if(view == null)
+            if (view == null)
             {
                 return NotFound();
             }

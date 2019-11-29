@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using System.Linq;
+using Xms.Infrastructure.Utility;
 using Xms.Localization;
 using Xms.Localization.Abstractions;
 using Xms.Web.Api.Models;
 using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Controller;
-using Xms.Infrastructure.Utility;
-using System.Linq;
 
 namespace Xms.Web.Api
 {
@@ -18,6 +18,7 @@ namespace Xms.Web.Api
     {
         private readonly ILocalizedTextProvider _localizedTextProvider;
         private readonly ILanguageService _languageService;
+
         public LocalizationController(IWebAppContext appContext
             , ILanguageService languageService
             , ILocalizedTextProvider localizedTextProvider)

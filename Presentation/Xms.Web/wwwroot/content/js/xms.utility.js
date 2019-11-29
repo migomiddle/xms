@@ -1,6 +1,5 @@
 ﻿//Type.registerNamespace("Xms");
-if (typeof (Xms) == "undefined")
-{ Xms = { __namespace: true }; }
+if (typeof (Xms) == "undefined") { Xms = { __namespace: true }; }
 Xms.Utility = function () { };
 
 //表示全局唯一标识符 (GUID)。
@@ -150,8 +149,7 @@ Xms.Utility.GetFunction = function (code, argNames) {
     argNames.push(code);
     return Function.constructor.apply(null, argNames);
 }
-Xms.Utility.IsArray = function (value)
-{
+Xms.Utility.IsArray = function (value) {
     if (typeof Array.isArray === "function") {
         return Array.isArray(value);
     } else {

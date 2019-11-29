@@ -8,7 +8,6 @@ namespace Xms.Localization.Data
     {
         public LocalizedTextRepository(IDbContext dbContext) : base(dbContext)
         {
-
         }
     }
 }

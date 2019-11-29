@@ -14,6 +14,7 @@ namespace Xms.Web.Api
     public class SecurityController : ApiControllerBase
     {
         private readonly IResourceOwnerService _resourceOwnerService;
+
         public SecurityController(IWebAppContext appContext
             , IResourceOwnerService resourceOwnerService)
             : base(appContext)
@@ -30,7 +31,7 @@ namespace Xms.Web.Api
             {
                 item.ModuleLocalizedName = Module.Core.ModuleCollection.GetDescriptor(item.ModuleName).LocalizedName;
             }
-            return JOk(resourceOwners.OrderBy(x=>x.ModuleName).ToList());
+            return JOk(resourceOwners.OrderBy(x => x.ModuleName).ToList());
         }
     }
 }

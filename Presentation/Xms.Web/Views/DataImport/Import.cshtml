@@ -39,7 +39,6 @@
                                 </select>
                             </div>
                         </p>
-
                     </div>
                 </li>
                 <li class="layui-timeline-item">
@@ -61,28 +60,23 @@
                                     </button>
                                 </span>
                                 <input type="text" class="form-control" placeholder="文件类型：.xls,.xlsx" value="@Model.DataFileName" readonly="readonly" id="text-datafile" style="cursor:pointer;" onclick="$('#btn-datafile').trigger('click')">
-
                             </div><!-- /input-group -->
                             <input id="datafile" name="datafile" type="file" class="form-control input-sm hide" accept=".xls,.xlsx" />
                         </p>
                     </div>
                 </li>
-
             </ul>
-
         </form>
     </div>
 
     <div class="wizard-card" data-cardname="card2" style="padding-right: 0px;">
         <h3>映射配置</h3>
         <div id="mappingContainer" style="overflow-x:hidden;overflow-y:auto;padding: 0 20px 0 15px;">
-
         </div>
     </div>
     <div class="wizard-card" data-cardname="card3">
         <h3>提交数据</h3>
         <div id="importConfirmContainer">
-
         </div>
     </div>
     <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>

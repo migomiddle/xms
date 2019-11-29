@@ -24,8 +24,9 @@ namespace Xms.DataMapping
         {
             _appContext = appContext;
             _entityMapRepository = entityMapRepository;
-            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), EntityMapCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public bool Update(EntityMap entity)
         {
             bool result = true;
@@ -49,10 +50,10 @@ namespace Xms.DataMapping
                 result = _entityMapRepository.Update(context);
                 //set to cache
                 var items = _entityMapRepository.Query(x => x.EntityMapId.In(ids));
-                foreach(var item in items) {
+                foreach (var item in items)
+                {
                     _cacheService.SetListItem(item);
                 }
-                
             }
             return result;
         }

@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<div class="container-fluid filterSection">
+<div class="container-fluid filterSection" style="max-height:400px; overflow-y:auto; width:100%;">
     <input type="hidden" class="filtersectionData" value="" />
     <table class="table">
         <thead><tr><th>字段</th><th>运算符</th><th>类型/字段</th><th>值</th><th class="col-sm-3"></th></tr></thead>
@@ -26,6 +26,9 @@
                 <td>
                     <button type="button" class="btn btn-xs btn-warning" onclick="SimpleFilter.removeCondition(this)">
                         <span class="glyphicon glyphicon-minus-sign"></span>
+                    </button>
+                    <button type="button" class="btn btn-xs btn-info" onclick="SimpleFilter.addCondition(this)">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
                     </button>
                 </td>
             </tr>
@@ -54,7 +57,6 @@
                     </button>
                 </td>
             </tr>
-
         </tbody>
     </table>
 </div>
@@ -98,7 +100,6 @@
         function loadFilterData(callback) {
             ScrloadFilterAttributes(entityId, 'filter-filed-name', null, function () {
 
-
                 $('.condition-item .filter-filed-name').off('change').on('change', function () {
                     filterAttrNameChange.call(this);
                 });
@@ -127,7 +128,7 @@
             }
               console.log('datatype',datatype)
             var operators = Xms.Fetch.ConditionOperators[datatype];
-          
+
             if(context && context.length>0){
               //  console.log(context.find('select.filter-filed-name option:selected'))
                 var reentityName = context.find('select.filter-filed-name option:selected').attr('data-referencedentityname');
@@ -269,7 +270,6 @@
                                 },0)
 
                             });
-
 
                         } else {
                             var conditionf = addCondition();

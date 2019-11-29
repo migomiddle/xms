@@ -106,6 +106,7 @@ namespace Xms.Web.Models
 
         public List<Guid> SelectedRoles { get; set; }
     }
+
     public class RoleDialogModel : BasePaged<Role>
     {
         public List<Guid> UserId { get; set; }
@@ -201,12 +202,13 @@ namespace Xms.Web.Models
 
         public List<RoleObjectAccess> RoleObjectAccess { get; set; }
         public List<int> Mask { get; set; }
-
     }
+
     public class UsersInRoleModel : BasePaged<SystemUserRoles>
     {
         public Guid RoleId { get; set; }
     }
+
     public class RoleObjectAccessListModel : DialogModel
     {
         public bool EnabledAuthorization { get; set; }
@@ -215,6 +217,7 @@ namespace Xms.Web.Models
         public List<Role> Roles { get; set; }
         public List<RoleObjectAccess> Accesses { get; set; }
     }
+
     public class RoleObjectAccessModel
     {
         public bool EnabledAuthorization { get; set; }
@@ -223,6 +226,7 @@ namespace Xms.Web.Models
         public Guid ObjectId { get; set; }
         public List<Guid> AssignRoleId { get; set; }
     }
+
     public class EditUserPasswordModel
     {
         public Guid SystemUserId { get; set; }
@@ -250,15 +254,18 @@ namespace Xms.Web.Models
 
         public Core.Data.Entity EntityDatas { get; set; }
     }
+
     public class ResetMyPasswordModel
     {
         public string Name { get; set; }
+
         [Required]
         public string OriginalPassword { get; set; }
+
         [Required]
         public string NewPassword { get; set; }
-        [Required]
 
+        [Required]
         public string ConfirmPassword { get; set; }
     }
 

@@ -17,7 +17,6 @@ namespace Xms.Localization.Data
     {
         public LocalizedLabelRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -79,6 +78,7 @@ namespace Xms.Localization.Data
             }
             return string.Empty;
         }
+
         #endregion implements
     }
 }

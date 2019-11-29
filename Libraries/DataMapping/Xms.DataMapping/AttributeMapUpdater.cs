@@ -1,9 +1,9 @@
 ﻿using System;
-using Xms.DataMapping.Data;
-using Xms.Core.Context;
-using Xms.DataMapping.Domain;
-using Xms.Data.Provider;
 using Xms.Context;
+using Xms.Core.Context;
+using Xms.Data.Provider;
+using Xms.DataMapping.Data;
+using Xms.DataMapping.Domain;
 
 namespace Xms.DataMapping
 {
@@ -19,6 +19,7 @@ namespace Xms.DataMapping
         {
             _attributeMapRepository = attributeMapRepository;
         }
+
         public bool Update(AttributeMap entity)
         {
             var flag = _attributeMapRepository.Update(entity);

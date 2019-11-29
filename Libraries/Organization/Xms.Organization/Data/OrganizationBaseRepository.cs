@@ -21,6 +21,11 @@ namespace Xms.Organization.Data
             _repository = new DataRepositoryBase<OrganizationBase>(options.CurrentValue);
         }
 
+        public OrganizationBaseRepository(DataBaseOptions options)
+        {
+            _repository = new DataRepositoryBase<OrganizationBase>(options);
+        }
+
         #region implements
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿
-using Xms.Core.Data;
+﻿using Xms.Core.Data;
 using Xms.Data;
 using Xms.Localization.Domain;
 
@@ -12,11 +11,6 @@ namespace Xms.Localization.Data
     {
         public LanguageRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

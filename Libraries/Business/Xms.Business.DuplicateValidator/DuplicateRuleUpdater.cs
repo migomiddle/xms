@@ -32,7 +32,7 @@ namespace Xms.Business.DuplicateValidator
             _duplicateRuleRepository = duplicateRuleRepository;
             _localizedLabelService = localizedLabelService;
             _dependencyService = dependencyService;
-            _cacheService = new Caching.CacheManager<DuplicateRule>(_appContext.OrganizationUniqueName + ":duplicaterules", DuplicateRuleCache.BuildKey);
+            _cacheService = new Caching.CacheManager<DuplicateRule>(_appContext.OrganizationUniqueName + ":duplicaterules", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool Update(DuplicateRule entity)

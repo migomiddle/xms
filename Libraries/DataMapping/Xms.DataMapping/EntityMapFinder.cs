@@ -26,16 +26,17 @@ namespace Xms.DataMapping
         {
             _appContext = appContext;
             _entityMapRepository = entityMapRepository;
-            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), EntityMapCache.BuildKey);
+            _cacheService = new Caching.CacheManager<EntityMap>(EntityMapCache.CacheKey(_appContext), _appContext.PlatformSettings.CacheEnabled);
         }
+
         public EntityMap FindById(Guid id)
         {
             var dic = new Dictionary<string, string>();
             dic.Add("EntityMapId", id.ToString());
-            EntityMap entity = _cacheService.Get(dic,() =>
-            {
-                return _entityMapRepository.FindById(id);
-            });
+            EntityMap entity = _cacheService.Get(dic, () =>
+             {
+                 return _entityMapRepository.FindById(id);
+             });
             return entity;
         }
 
@@ -43,10 +44,10 @@ namespace Xms.DataMapping
         {
             var dic = new Dictionary<string, string>();
             dic.Add("ParentEntityMapId", parentid.ToString());
-            EntityMap entity = _cacheService.Get(dic,() =>
-            {
-                return _entityMapRepository.Find(n => n.ParentEntityMapId == parentid);
-            });
+            EntityMap entity = _cacheService.Get(dic, () =>
+             {
+                 return _entityMapRepository.Find(n => n.ParentEntityMapId == parentid);
+             });
             return entity;
         }
 
@@ -55,18 +56,20 @@ namespace Xms.DataMapping
             var dic = new Dictionary<string, string>();
             dic.Add("sourceEntityId", sourceEntityId.ToString());
             dic.Add("targetEntityId", targetEntityId.ToString());
-            EntityMap entity = _cacheService.Get(dic,() =>
-            {
-                return _entityMapRepository.Find(n => n.SourceEntityId == sourceEntityId && n.TargetEntityId == targetEntityId);
-            });
+            EntityMap entity = _cacheService.Get(dic, () =>
+             {
+                 return _entityMapRepository.Find(n => n.SourceEntityId == sourceEntityId && n.TargetEntityId == targetEntityId);
+             });
             return entity;
         }
+
         public PagedList<EntityMap> QueryPaged(Func<QueryDescriptor<EntityMap>, QueryDescriptor<EntityMap>> container)
         {
             QueryDescriptor<EntityMap> q = container(QueryDescriptorBuilder.Build<EntityMap>());
             var datas = _entityMapRepository.QueryPaged(q);
             return datas;
         }
+
         public PagedList<EntityMap> QueryPaged(Func<QueryDescriptor<EntityMap>, QueryDescriptor<EntityMap>> container, Guid solutionId, bool existInSolution)
         {
             QueryDescriptor<EntityMap> q = container(QueryDescriptorBuilder.Build<EntityMap>());
@@ -84,10 +87,10 @@ namespace Xms.DataMapping
 
         public List<EntityMap> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             return entities;
         }
 
@@ -97,12 +100,15 @@ namespace Xms.DataMapping
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
             return result != null ? new DependentDescriptor() { Name = result.SourceEnttiyName } : null;
         }
+
         public int ComponentType => ModuleCollection.GetIdentity(DataMappingDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
     }
 }

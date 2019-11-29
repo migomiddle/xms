@@ -11,11 +11,6 @@ namespace Xms.Flow.Data
     {
         public WorkFlowStepRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
-
-        #region implements
-
-        #endregion implements
     }
 }

@@ -1,6 +1,5 @@
 ﻿//闭包执行一个立即定义的匿名函数
 !function (factory) {
-
     //factory是一个函数，下面的koExports就是他的参数
 
     // Support three module loading scenarios
@@ -11,7 +10,7 @@
         factory(target);
     } else if (typeof define === 'function' && define['amd']) {
         // [2] AMD anonymous module
-        // [2] AMD 规范 
+        // [2] AMD 规范
         //define(['exports'],function(exports){
         //    exports.abc = function(){}
         //});
@@ -24,8 +23,8 @@
     function XmsFilter(filter) {
         filter = filter || {};
         this.FilterOperator = filter.operator || 0;
-        this.Conditions = filter.Conditions|| [];
-        this.Filters = filter.Filters ||[];
+        this.Conditions = filter.Conditions || [];
+        this.Filters = filter.Filters || [];
     }
     XmsFilter.prototype.setOperator = function (operator) {
         this.FilterOperator = operator;
@@ -37,7 +36,7 @@
     }
     //只能检查第一层，没做递归检测
     XmsFilter.prototype._checkByConditions = function (objdata) {
-        var self=this,flag = false;
+        var self = this, flag = false;
         if (this.FilterOperator == 0) {//如果是并
             flag = true;
             if (this.Conditions.length > 0) {
@@ -45,7 +44,7 @@
                     var operator = n.operator;//操作符
                     var operatorname = Xms.Fetch.getFilterName(operator);//获取操作符名字
                     var operatorFunc = Xms.ExtFilter.FilterHandler[operatorname];//获取操作符对比函数;
-                    
+
                     if (typeof operatorFunc === 'function') {
                         var res = operatorFunc(n.values, objdata[n.attributename]);
                         if (!res) {
@@ -93,7 +92,7 @@
             }
         }
     }
-    
+
     XmsFilter.prototype.indexOfCondition = function (AttributeName) {
         var index = -1;
         $.each(this.Conditions, function (i, n) {
@@ -149,7 +148,7 @@
         });
         self.Filters = $.grep(self.Filters, function (i, n) {
             var flag = true;
-            $.each(removeFiltersIndex, function (key,item) {
+            $.each(removeFiltersIndex, function (key, item) {
                 if (item == n) {
                     flag = false;
                     return false;
@@ -203,12 +202,11 @@
         this.Filters = [];
     }
     function XmsCondition(AttributeName, Operator, Values) {
-        this.AttributeName = AttributeName||'';
-        this.Operator = Operator||0;
-        this.Values = Values||[];
+        this.AttributeName = AttributeName || '';
+        this.Operator = Operator || 0;
+        this.Values = Values || [];
     }
 
-   
     XmsFilter.changeFiltersToXmsFilter = function (filters) {
         var xmsfilter = new XmsFilter();
         if (filters.Conditions && filters.Conditions.length > 0) {
@@ -216,10 +214,9 @@
         }
         xmsfilter.FilterOperator = filters.FilterOperator;
         if (filters.Filters && filters.Filters.length > 0) {
-            $.each(filters.Filters, function (i,n) {
+            $.each(filters.Filters, function (i, n) {
                 xmsfilter.Filters.push(XmsFilter.changeFiltersToXmsFilter(n));
             });
-            
         }
         return xmsfilter;
     }
@@ -231,21 +228,20 @@
     }
 });
 
-
 (function () {
     if (typeof (Xms) == "undefined") { Xms = { __namespace: true }; }
     Xms.ExtFilter = function () { };
-   
+
     Xms.ExtFilter.FilterHandlerLabel = {}
     //val1是过滤条件里的值，val2是传进来需要对比的值
     Xms.ExtFilter.FilterHandler = {
-        Equal: function (val1,val2) {
+        Equal: function (val1, val2) {
             return val1[0] == val2;
         },
         NotEqual: function (val1, val2) {
             return val1[0] != val2;
         },
-        GreaterThan: function(val1, val2) {
+        GreaterThan: function (val1, val2) {
             return val1[0] < val2;
         },
         LessThan: function (val1, val2) {
@@ -257,11 +253,11 @@
         LessEqual: function (val1, val2) {
             return val1[0] >= val2;
         },
-        Like:function(val1, val2) {
-            return val2.indexOf(val1[0])!=-1;
+        Like: function (val1, val2) {
+            return val2.indexOf(val1[0]) != -1;
         },
         NotLike: function (val1, val2) {
-            return val2.indexOf(val1[0])==-1;
+            return val2.indexOf(val1[0]) == -1;
         },
         In: function (val1, val2) {
             return val2.indexOf(val1[0]) != -1;
@@ -272,7 +268,7 @@
         Between: function (val1, val2) {
             return val2 < val1[1] && val2 > val1[0];
         },
-        NotBetween: function(val1, val2) {
+        NotBetween: function (val1, val2) {
             return val2 > val1[1] || val2 < val1[0];
         },
         Null: function (val1, val2) {
@@ -285,7 +281,7 @@
             if (val2 && val2 != "") {
                 var val2time = new Date(val2);
                 var checkday = new Date().DateAdd('d', -1)
-                return val2time.DateDiff('d', checkday)==0;
+                return val2time.DateDiff('d', checkday) == 0;
             }
         },
         Today: function (val1, val2) {
@@ -319,7 +315,7 @@
         LastWeek: function (val1, val2) {
             if (val2 && val2 != "") {
                 var val2time = new Date(val2);
-                var checkday = new Date().DateAdd('w',-1)
+                var checkday = new Date().DateAdd('w', -1)
                 return val2time.DateDiff('w', checkday) < 0;
             }
         },
@@ -414,7 +410,7 @@
                 return val2time.DateDiff('y', checkday) > 0;
             }
         },
-        LastXHours: function(val1, val2) {
+        LastXHours: function (val1, val2) {
             if (val2 && val2 != "") {
                 var val2time = new Date(val2);
                 var checkday = new Date().DateAdd('h', 0)
@@ -654,8 +650,6 @@
     //Xms.ExtFilter.FilterHandler.PickListOperators.push(["In", Xms.ExtFilter.FilterHandler.In, Xms.ExtFilter.FilterHandlerLabel.In]);
     //Xms.ExtFilter.FilterHandler.PickListOperators.push(["NotIn", Xms.ExtFilter.FilterHandler.NotIn, Xms.ExtFilter.FilterHandlerLabel.NotIn]);
 
-
-
     //Xms.ExtFilter.FilterHandlers = [];
     //Xms.ExtFilter.FilterHandlers["nvarchar"] = Xms.ExtFilter.FilterHandler.StringOperators.concat();
     //Xms.ExtFilter.FilterHandlers["datetime"] = Xms.ExtFilter.FilterHandler.DateTimeOperators.concat();
@@ -671,8 +665,4 @@
     //Xms.ExtFilter.FilterHandlers["businessunit"] = Xms.ExtFilter.FilterHandler.OwnerOperators.concat();
     //Xms.ExtFilter.FilterHandlers["systemuser"] = Xms.ExtFilter.FilterHandler.SystemUserOperators.concat();
     //Xms.ExtFilter.FilterHandlers["organization"] = Xms.ExtFilter.FilterHandler.OrganizationOperators.concat();
-
-
-   
 })();
-

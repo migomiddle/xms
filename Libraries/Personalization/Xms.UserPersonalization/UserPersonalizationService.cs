@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Xms.UserPersonalization
 {
     /// <summary>
@@ -10,16 +9,15 @@ namespace Xms.UserPersonalization
     public class UserPersonalizationService : IUserPersonalizationService
     {
         private readonly Data.IUserPersonalizationRepository _userPersonalizationRepository;
+
         public UserPersonalizationService(Data.IUserPersonalizationRepository userPersonalizationRepository)
         {
             _userPersonalizationRepository = userPersonalizationRepository;
         }
 
-       
-
         public List<Domain.UserPersonalization> Get(Guid ownerId)
         {
-         return   _userPersonalizationRepository.Get(ownerId);
+            return _userPersonalizationRepository.Get(ownerId);
         }
 
         public Domain.UserPersonalization GetByName(Guid ownerId, string name)
@@ -31,6 +29,7 @@ namespace Xms.UserPersonalization
         {
             return _userPersonalizationRepository.Set(userPersonalization);
         }
+
         public bool Delete(Guid ownerId)
         {
             return _userPersonalizationRepository.Delete(ownerId);

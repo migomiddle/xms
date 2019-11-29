@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xms.Sdk.Abstractions.Query;
 
 namespace Xms.Web.Api.Models
@@ -12,6 +11,7 @@ namespace Xms.Web.Api.Models
 
         public string Data { get; set; }
     }
+
     public class CreateFromMapModel
     {
         public Guid? SourceEntityId { get; set; }
@@ -20,6 +20,7 @@ namespace Xms.Web.Api.Models
         public string TargetEntityName { get; set; }
         public Guid SourceRecordId { get; set; }
     }
+
     public class DataUpdateModel
     {
         public Guid? EntityId { get; set; }
@@ -42,12 +43,14 @@ namespace Xms.Web.Api.Models
         public string Data { get; set; }
         public string Child { get; set; }
     }
+
     public class SaveChildDataModel
     {
         public string EntityName { get; set; }
         public string Child { get; set; }
         public Guid ParentId { get; set; }
     }
+
     public class DeleteEntityRecordModel
     {
         public Guid EntityId { get; set; }
@@ -75,7 +78,7 @@ namespace Xms.Web.Api.Models
         public string Value { get; set; }
         public bool AllColumns { get; set; } = false;
     }
-    
+
     public class AssignedModel
     {
         public Guid EntityId { get; set; }

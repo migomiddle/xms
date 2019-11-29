@@ -32,6 +32,19 @@
                     <div class="btn-group btn-group-sm">
                         <button type="button" class="btn btn-default dropdown-toggle"
                                 data-toggle="dropdown">
+                            @app.T["tab_control"] <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:;" onclick="insertTab(1)"><img src="~/content/customize/imgs/formeditorribbon/Tab_1col_32.png" />1@(app.T["line"])</a></li>
+
+                            <li><a href="javascript:;" onclick="insertTab(2)"><img src="~/content/customize/imgs/formeditorribbon/Tab_2cols_32.png" />2@(app.T["line"])</a></li>
+
+                            <li><a href="javascript:;" onclick="insertTab(3)"><img src="~/content/customize/imgs/formeditorribbon/Tab_3colsNNN_32.png" />3@(app.T["line"])</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown">
                             表格 <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
@@ -41,25 +54,7 @@
                             <li><a href="javascript:;" onclick="insertSection(4)"><img src="~/content/customize/imgs/formeditorribbon/Section_4cols_32.png" />4@(app.T["line"])</a></li>
                         </ul>
                     </div>
-                    <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-default dropdown-toggle"
-                                data-toggle="dropdown">
-                            @app.T["tab_control"] <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="javascript:;" onclick="insertTab(1)"><img src="~/content/customize/imgs/formeditorribbon/Tab_1col_32.png" />1@(app.T["line"])</a></li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">2@(app.T["line"])</li>
-                            <li><a href="javascript:;" onclick="insertTab(2)"><img src="~/content/customize/imgs/formeditorribbon/Tab_2cols_32.png" />@app.T["form_width_fit"]</a></li>
-                            <li><a href="javascript:;" onclick="insertTab(2,[30,70])"><img src="~/content/customize/imgs/formeditorribbon/Tab_2colsNW_32.png" />@app.T["form_wide_left_narrow_right"]</a></li>
-                            <li><a href="javascript:;" onclick="insertTab(2, [70, 30])"><img src="~/content/customize/imgs/formeditorribbon/Tab_2colsWN_32.png" />@app.T["form_narrow_right_wide_left"]</a></li>
-                            @*<li><a href="javascript:;" onclick="insertTab(2, [30, 70])"><img src="~/content/customize/imgs/formeditorribbon/Tab_2colsWW_32.png" />中间分隔</a></li>*@
-                            <li class="divider"></li>
-                            <li class="dropdown-header">3@(app.T["line"])</li>
-                            <li><a href="javascript:;" onclick="insertTab(3)"><img src="~/content/customize/imgs/formeditorribbon/Tab_3colsNNN_32.png" />@app.T["form_width_fit"]</a></li>
-                            <li><a href="javascript:;" onclick="insertTab(3, [30, 40, 30])"><img src="~/content/customize/imgs/formeditorribbon/Tab_3colsNWN_32.png" />@app.T["form_center_hoodwidth_"]</a></li>
-                        </ul>
-                    </div>
+
                     <div class="clearfix"></div>
                     <div class="text-center text-muted">@app.T["layout"]</div>
                 </div>
@@ -287,7 +282,6 @@
                             <div class="col-sm-3 text-right"><label class="" for="table-labelfontsize" style="margin-bottom:20px;">字体大小：</label></div>
                             <div class="col-sm-6" style="padding-top:8px;">
                                 <input id="table-labelfontsize" name="table-labelfontsize" type="hidden" class="form-control input-sm fontsize-picker" />
-
                             </div>
                             <div class="col-sm-2"><label for=""><input type="checkbox" name="table-islabelfontsize" /></label></div>
                         </div>
@@ -305,7 +299,6 @@
                             </div>
                             <div class="col-sm-2"><label for=""><input type="checkbox" name="table-islabeltextalign" /></label></div>
                         </div>
-
 
                         <h4 class="text-primary"><span class="glyphicon glyphicon-text-size"></span> 输入框 <span class="text-danger">请勾选后启用</span></h4>
                         <div class="form-group clearfix">
@@ -444,7 +437,7 @@
                             信息
                         </a>
                     </li>
-                    <li><a href="#tab-tab2" data-toggle="tab">布局</a></li>
+                    <li class="hide"><a href="#tab-tab2" data-toggle="tab">布局</a></li>
                     <li><a href="#tab-tab3" data-toggle="tab">事件</a></li>
                 </ul>
                 <div id="tabTabContent" class="tab-content">
@@ -454,38 +447,37 @@
                             <input id="tab-name" name="tab-name" type="text" class="form-control input-sm" />
                         </div>
                         <div class="form-group">
-                            <label for="tab-label">标签</label>
-                            <input id="tab-label" name="tab-label" type="text" class="form-control input-sm" />
-                        </div>
-                        <div class="form-group">
                             <label for="tab-isshowlabel">
                                 显示标签
                                 <input id="tab-isshowlabel" name="tab-isshowlabel" type="checkbox" />
                             </label>
+                            <input id="tab-label" name="tab-label" type="text" class="form-control input-sm" />
                         </div>
-                        <div class="form-group">
-                            <label for="tab-isexpanded">
-                                默认展开
-                                <input id="tab-isexpanded" name="tab-isexpanded" type="checkbox" />
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="tab-isvisible">
-                                可见
-                                <input id="tab-isvisible" name="tab-isvisible" value="true" type="checkbox" />
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="tab-DisplayStyle">
-                                以页签显示
-                                <input id="tab-DisplayStyle" name="tab-DisplayStyle" value="true" type="checkbox" />
-                            </label>
-                        </div>
-                        <div class="form-group" id="isAsync">
-                            <label for="tab-isAsync">
-                                异步加载
-                                <input id="tab-isAsync" name="tab-isAsync" value="true" type="checkbox" />
-                            </label>
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="tab-isexpanded">
+                                    默认展开
+                                    <input id="tab-isexpanded" name="tab-isexpanded" type="checkbox" />
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="tab-isvisible">
+                                    可见
+                                    <input id="tab-isvisible" name="tab-isvisible" value="true" type="checkbox" />
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="tab-DisplayStyle">
+                                    以页签显示
+                                    <input id="tab-DisplayStyle" name="tab-DisplayStyle" value="true" type="checkbox" />
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-3" id="isAsync">
+                                <label for="tab-isAsync">
+                                    异步加载
+                                    <input id="tab-isAsync" name="tab-isAsync" value="true" type="checkbox" />
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-tab2" style="padding:5px;">
@@ -599,9 +591,9 @@
                             信息
                         </a>
                     </li>
-                    <li><a href="#section-tab2" data-toggle="tab">布局</a></li>
+                    <li class="hide"><a href="#section-tab2" data-toggle="tab">布局</a></li>
                     <li><a href="#section-tab3" data-toggle="tab">事件</a></li>
-                    <li><a href="#section-tab4" data-toggle="tab">标签样式</a></li>
+                    <li><a href="#section-tab4" data-toggle="tab">样式</a></li>
                 </ul>
                 <div id="sectionTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="section-tab1" style="padding:5px;">
@@ -621,7 +613,6 @@
                             <label for="section-isvisible">可见</label>
                             <input id="section-isvisible" name="section-isvisible" type="checkbox" />
                         </div>
-
                     </div>
                     <div class="tab-pane fade" id="section-tab2" style="padding:5px;">
                         <label>一列</label>
@@ -769,31 +760,33 @@
                             <label for="field-name">名称</label>
                             <input id="field-name" name="field-name" type="text" class="form-control input-sm" maxlength="20" readonly />
                         </div>
-                        <div class="form-group">
-                            <label for="field-label">标签</label>
-                            <input id="field-label" name="field-label" type="text" class="form-control input-sm" maxlength="20" />
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="field-isshowlabel">
+                                    显示标签
+                                    <input id="field-isshowlabel" name="field-isshowlabel" type="checkbox" />
+                                </label>
+                                <input id="field-label" name="field-label" type="text" class="form-control input-sm" maxlength="20" />
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="field-colspan">所占列数</label>
+                                <input id="field-colspan" name="field-colspan" type="text" class="form-control input-sm" data-type="int" />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="field-colspan">所占列数</label>
-                            <input id="field-colspan" name="field-colspan" type="text" class="form-control input-sm" data-type="int" />
-                        </div>
-                        <div class="form-group">
-                            <label for="field-isshowlabel">
-                                显示标签
-                                <input id="field-isshowlabel" name="field-isshowlabel" type="checkbox" />
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="field-isvisible">
-                                可见
-                                <input id="field-isvisible" name="field-isvisible" value="true" type="checkbox" />
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="field-isreadonly">
-                                只读
-                                <input id="field-isreadonly" name="field-isreadonly" value="true" type="checkbox" />
-                            </label>
+                        <div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <label for="field-isvisible">
+                                    可见
+                                    <input id="field-isvisible" name="field-isvisible" value="true" type="checkbox" />
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="field-isreadonly">
+                                    只读
+                                    <input id="field-isreadonly" name="field-isreadonly" data-islookup="false" value="true" type="checkbox" />
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group field-IsFilterRelationctrl">
                             <label for="field-IsFilterRelation">
@@ -815,12 +808,18 @@
                             <select size="3" id="field-viewid" class="form-control" name="field-viewid"></select>
                         </div>
                         <div class="form-group">
-                            <label for="field-EntityName">扩展属性</label>
-                            <select id="field-EntityName" class="form-control input-sm" name="field-EntityName"></select>
+                            <h4>自动带出 <span class="text-warning">(当前字段的值会根据关联实体字段的值带出)</span></h4>
                         </div>
-                        <div class="form-group">
-                            <label for="field-AttributeName">扩展属性值</label>
-                            <select id="field-AttributeName" class="form-control input-sm" name="field-AttributeName"></select>
+                        <div class="row">
+                            <div class="form-group col-sm-6 p-0">
+
+                                <label for="field-EntityName">关联实体</label>
+                                <select id="field-EntityName" class="form-control input-sm" name="field-EntityName"></select>
+                            </div>
+                            <div class="form-group  col-sm-6">
+                                <label for="field-AttributeName">关联字段</label>
+                                <select id="field-AttributeName" class="form-control input-sm" name="field-AttributeName"></select>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="attribute-tab2" style="padding:5px;">
@@ -908,23 +907,23 @@
                         </div>
                     </div>
                     <div class="tab-pane  fade " id="attribute-tab4" style="padding:10px;">
-                        <h4 class="text-primary"><span class="glyphicon glyphicon-tags"></span> 标签 <span class="text-danger">请勾选后启用</span></h4>
+                        <h4 class="text-primary"><span class="glyphicon glyphicon-tags"></span> 标签 <span class="text-danger">请勾选后启用</span> <span id="previewshowLabel" style="width:100px; display:inline-block;">预览</span></h4>
                         <div class="form-group clearfix" style="">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-labelfontcolor">字体颜色：</label></div>
                             <div class="col-sm-6"><input id="table-fontcolor" name="tableattribute-labelfontcolor" type="text" class="form-control input-sm colorpicker" /></div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabelfontcolor" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-islabelfontcolor" /></label></div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-labelfontsize" style="margin-bottom:20px;">字体大小：</label></div>
                             <div class="col-sm-6" style="padding-top:8px;">
                                 <input id="tableattribute-labelfontsize" name="tableattribute-labelfontsize" type="hidden" class="form-control input-sm fontsize-picker" />
                             </div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabelfontsize" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-islabelfontsize" /></label></div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-labelbackgroundcolor">背景颜色：</label></div>
                             <div class="col-sm-6"> <input id="tableattribute-labelbackgroundcolor" name="tableattribute-labelbackgroundcolor" type="text" class="form-control input-sm colorpicker" /></div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabelbackgroundcolor" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-islabelbackgroundcolor" /></label></div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-labeltextalign">对齐：</label></div>
@@ -933,25 +932,24 @@
                                 <label><input type="radio" value="center" name="tableattribute-labeltextalign" />中间</label>
                                 <label><input type="radio" value="right" name="tableattribute-labeltextalign" />右边</label>
                             </div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-islabeltextalign" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-islabeltextalign" /></label></div>
                         </div>
 
-
-                        <h4 class="text-primary"><span class="glyphicon glyphicon-text-size"></span> 输入框 <span class="text-danger">请勾选后启用</span> </h4>
+                        <h4 class="text-primary"><span class="glyphicon glyphicon-text-size"></span> 输入框 <span class="text-danger">请勾选后启用</span>  <input id="previewshowInput" placeholder="预览" class="form-control" style="width:70px; display:inline-block;" /></h4>
                         <div class="form-group clearfix">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputbordercolor">边框颜色：</label></div>
                             <div class="col-sm-6"><input id="tableattribute-inputbordercolor" name="tableattribute-inputbordercolor" type="hidden" class="form-control input-sm colorpicker" /></div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputbordercolor" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-isinputbordercolor" /></label></div>
                         </div>
                         <div class="form-group clearfix" style="height:50px;">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputbordersize" style="margin-bottom:20px;">边框大小：</label></div>
                             <div class="col-sm-6" style="padding-top:8px;"><input id="tableattribute-inputbordersize" name="tableattribute-inputbordersize" type="text" class="form-control input-sm borderwidth-picker" /></div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputbordersize" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-isinputbordersize" /></label></div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputbackgroundcolor">背景颜色：</label></div>
                             <div class="col-sm-6"><input id="tableattribute-inputbackgroundcolor" name="tableattribute-inputbackgroundcolor" type="text" class="form-control input-sm colorpicker" /></div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputbackgroundcolor" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-isinputbackgroundcolor" /></label></div>
                         </div>
                         <div class="form-group clearfix">
                             <div class="col-sm-3 text-right"><label class="" for="tableattribute-inputtextalign">对齐：</label></div>
@@ -960,7 +958,7 @@
                                 <label><input type="radio" value="center" name="tableattribute-inputtextalign" />中间</label>
                                 <label><input type="radio" value="right" name="tableattribute-inputtextalign" />右边</label>
                             </div>
-                            <div class="col-sm-2"><label for=""><input type="checkbox" name="tableattribute-isinputtextalign" /></label></div>
+                            <div class="col-sm-2"><label for=""><input type="checkbox" class="changestylecheckbox" name="tableattribute-isinputtextalign" /></label></div>
                         </div>
                     </div>
                 </div>
@@ -1007,14 +1005,9 @@
                             <input id="subgrid-name" name="subgrid-name" type="text" class="form-control input-sm" />
                         </div>
                         <div class="form-group">
-                            <label for="subgrid-label">标签*</label>
-                            <input id="subgrid-label" name="subgrid-label" type="text" class="form-control input-sm" />
-                        </div>
-
-
-                        <div class="form-group">
                             <label for="subgrid-isshowlabel">显示标签</label>
                             <input id="subgrid-isshowlabel" name="subgrid-isshowlabel" type="checkbox" />
+                            <input id="subgrid-label" name="subgrid-label" type="text" class="form-control input-sm" />
                         </div>
                         <div class="form-group">
                             <label for="subgrid-isvisible">可见</label>
@@ -1038,18 +1031,19 @@
                         </div>
                         <div class="form-group">
                             <label for="subgrid-record">记录</label>
-                            <select id="subgrid-record" class="form-control input-sm" name="subgrid-record" onchange="getEntity(this)">
-                                <option value="related">仅相关记录</option>
-                                <option value="entity">所有记录</option>
-                            </select>
+                            <label for="subgrid-record1" class="ml-3"><input type="radio" id="subgrid-record1" checked value="related" name="subgrid-record" /> 仅相关记录</label>
+                            <label for="subgrid-record2" class="ml-3"><input type="radio" id="subgrid-record2" value="entity" name="subgrid-record" /> 所有记录</label>
                         </div>
-                        <div class="form-group">
-                            <label for="subgrid-entity">实体</label>
-                            <select id="subgrid-entity" class="form-control input-sm" name="subgrid-entity" onchange="getViewid(this, null, 'edit')"></select>
-                        </div>
-                        <div class="form-group">
-                            <label for="subgrid-viewid">视图</label>
-                            <select id="subgrid-viewid" class="form-control input-sm" name="subgrid-viewid"></select>
+                        <div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <label for="subgrid-entity">实体</label>
+                                <select id="subgrid-entity" class="form-control input-sm" name="subgrid-entity" onchange="getViewid(this,null,'edit')"></select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="subgrid-viewid">视图</label>
+                                <select id="subgrid-viewid" class="form-control input-sm" name="subgrid-viewid"></select>
+                            </div>
                         </div>
                     </div>
 
@@ -1091,7 +1085,6 @@
                                         <span class="btn btn-default formula-type-item" data-key="=">=</span>
                                     </div>
                                     <div class="col-sm-12 formula-show-rule" id="formula-show-rule" style="min-height:60px; border:1px solid #ddd;">
-
                                     </div>
                                 </div>
                                 <input type="hidden" id="subgrid-formulaedit" name="subgrid-formulaedit" />
@@ -1481,7 +1474,6 @@
                             </script>
                             <textarea id="freetext_value" class="freetext hide"></textarea>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -1515,7 +1507,6 @@
                 <iframe name="bodyframe" id="newAttributframe" frameborder="0" src="" width="100%" height="620"></iframe>
             </div>
             <div class="modal-footer">
-
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -1619,12 +1610,11 @@
         }
 
         #subGridModal .modal-body {
-            max-height: 400px;
-            overflow-y: scroll;
+            max-height: 406px;
         }
 
         .btn-toolbar-group {
-                     padding:5px;
+            padding: 5px;
             border-right: 1px #ccc solid;
         }
 
@@ -1716,9 +1706,13 @@
             padding: 3px;
         }
 
-            #attributes li:hover {
-                background: #B1D6F0 !important;
-            }
+        #attribute-tab1, #subgrid-tab1 {
+            overflow-x: hidden;
+        }
+
+        #attributes li:hover {
+            background: #B1D6F0 !important;
+        }
 
         .drag-placeholder {
             border-bottom: 5px solid red !important;
@@ -1779,7 +1773,8 @@
     var eventlist = [];
     var scriptlist = [];
     var formEditType = 'create';
-    $(function () {
+        $(function () {
+        Xms.Web._callParentMethod('changeLeftWrapState');
         //表单验证
         //Xms.Web.Form($("#editform"));
         $(".modal").draggable({
@@ -1906,7 +1901,7 @@
 
         var $CustomButtons = $('#CustomButtons');
         var $IsCustomButton = $('#IsCustomButton');
-        
+
         var setttings = entityButtons.getSettings();
 
         $('#buttonSetallbtn').on('click', function (e) {
@@ -1919,9 +1914,10 @@
         $('#buttonSetcusbtn').on('click', function (e) {
             entityButtons.loadButtons(function () {
                  $IsCustomButton.val(true);
-                $('#delbtnList,#formButtons').show();
+                 $('#formButtons').show();
+                    $('#delbtnList').hide();
             });
-           
+
         });
 
         initFieldEvent();
@@ -1939,7 +1935,18 @@
             flat: false,
             preferredFormat: 'rgb'
         });
-
+        $('input[name="tableattribute-labeltextalign"]').on('click', function () {
+            changeStylePreviewTarget()
+        });
+        $('input[name="tableattribute-inputtextalign"]').on('click', function () {
+            changeStylePreviewTarget()
+        });
+        $(".colorpicker").on('hide.spectrum', function (e, tinycolor) {
+            changeStylePreviewTarget()
+        });
+             $('input[name="subgrid-record"]').on('change', function () {
+                getEntity($(this));
+            })
         $('.borderwidth-picker').jRange({
             from: 0,
             to: 5,
@@ -1948,7 +1955,10 @@
             format: '%s',
             width: 150,
             showLabels: true,
-            snap: true
+            snap: true,
+            onstatechange: function () {
+                changeStylePreviewTarget()
+            }
         });
         $('.fontsize-picker').jRange({
             from: 12,
@@ -1958,12 +1968,14 @@
             format: '%s',
             width: 150,
             showLabels: true,
-            snap: true
+            snap: true,
+            onstatechange: function () {
+                changeStylePreviewTarget()
+            }
         });
         if (FormConfig.CustomCss) {
             $('#CustomCss').val(FormConfig.CustomCss);
         }
     });
-
     </script>
 }

@@ -65,6 +65,7 @@ namespace Xms.Web.Customize.Models
 
         [Range(10, 4000)]
         public int? MaxLength { get; set; }
+
         //ntext setting
         public string NTextFormat { get; set; }
 
@@ -109,6 +110,7 @@ namespace Xms.Web.Customize.Models
 
         //lookup setting
         public Guid? LookupEntity { get; set; }
+
         public string LookupType { get; set; }
 
         //part list setting
@@ -159,6 +161,7 @@ namespace Xms.Web.Customize.Models
 
         [Range(10, 4000)]
         public int? MaxLength { get; set; }
+
         //ntext setting
         public string NTextFormat { get; set; }
 
@@ -203,6 +206,7 @@ namespace Xms.Web.Customize.Models
 
         //lookup setting
         public Guid? LookupEntity { get; set; }
+
         public string LookupType { get; set; }
 
         //part list setting

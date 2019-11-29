@@ -49,6 +49,7 @@
         clip: rect(0px, 220.0px, 220.0px, 218.0px);
     }
 }
+
 .masked {
     text-align: center;
     background-image: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
@@ -67,9 +68,11 @@
         background-position: -100% 0;
     }
 }
-.verifycode-group .input-group-addon:last-child{
-    padding:0;
+
+.verifycode-group .input-group-addon:last-child {
+    padding: 0;
 }
+
 html, body {
     height: 100%;
     width: 100%;
@@ -121,7 +124,7 @@ label {
     right: 0;
     margin: auto;
     top: 50%;
-   transform:translateY(-50%);
+    transform: translateY(-50%);
     padding: 80px 40px 40px 40px;
     background: #35394a;
     background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, rgb(0, 0, 0)));
@@ -258,8 +261,20 @@ input:-webkit-autofill {
     padding-right: 6.5px;
 }
 
+.pl-0 {
+    padding-left: 0;
+}
+
 .input-group > .input-group-addon {
     padding-left: 2px;
+}
+
+select.form-control {
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent;
+    -webkit-text-fill-color: #999999 !important;
+    border: 1px solid rgba(255,255,255,.05);
+    outline: none;
 }
 
 #RememberMe {
@@ -283,7 +298,7 @@ input:-webkit-autofill {
     text-align: center;
     padding: 20px 70px;
     top: 50%;
-    transform:translateY(-50%);
+    transform: translateY(-50%);
     height: 110px;
     opacity: 0;
 }
@@ -341,3 +356,28 @@ input:-webkit-autofill {
     left: 0;
     right: 0;
 }
+
+.clearCacheBtn {
+    border-radius: 50px;
+    background: 0 0;
+    padding: 3px 15px;
+    border: 1px solid #4fa1d9;
+    color: #4fa1d9;
+    text-transform: uppercase;
+    font-size: 12px;
+    -webkit-transition-property: background,color;
+    transition-property: background,color;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+    margin-top: 15px;
+    cursor: pointer;
+    display: inline-block;
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+}
+
+    .clearCacheBtn:hover {
+        background-color: #4fa1d9;
+        color: #fff;
+    }

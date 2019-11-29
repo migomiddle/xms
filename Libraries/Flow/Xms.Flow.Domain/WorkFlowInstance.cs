@@ -35,6 +35,5 @@ namespace Xms.Flow.Domain
 
         [Ignore]
         public List<WorkFlowProcess> Steps { get; set; }
-       
     }
 }

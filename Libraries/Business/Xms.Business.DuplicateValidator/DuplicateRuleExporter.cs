@@ -11,6 +11,7 @@ namespace Xms.Business.DuplicateValidator
     public class DuplicateRuleExporter : ISolutionComponentExporter
     {
         private readonly IDuplicateRuleFinder _duplicateRuleFinder;
+
         public DuplicateRuleExporter(IDuplicateRuleFinder duplicateRuleFinder)
         {
             _duplicateRuleFinder = duplicateRuleFinder;

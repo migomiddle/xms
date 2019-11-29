@@ -12,8 +12,8 @@ using Xms.Schema.Attribute;
 using Xms.Schema.Entity;
 using Xms.Sdk.Client;
 using Xms.Sdk.Extensions;
-using Xms.SiteMap;
 using Xms.Security.Principal;
+using Xms.SiteMap;
 using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Controller;
 using Xms.Web.Framework.Mvc;
@@ -69,7 +69,7 @@ namespace Xms.Web.Controllers
                 return JsonResult(result);
             }
         }
-        
+
         [Description("更改个人密码")]
         public IActionResult ResetMyPassword()
         {

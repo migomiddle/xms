@@ -1,0 +1,281 @@
+﻿@model RenderDashBoardModel
+
+@using (Html.BeginForm("RenderDashBoard", "Business", FormMethod.Post, new { @id = "editform", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.FormEntity.FormConfig, new { @id = "FormConfig" })
+    <div class="container-fluid">
+        <div class="form-group col-md-6">
+            <div class="input-group">
+                <select id="SystemFormId" name="SystemFormId" class="form-control input-sm" onchange="location.href = '@("/"+app.OrganizationUniqueName)/component/renderdashboard?id=' + $(this).val()">
+                    @foreach (var item in Model.FormList)
+                    {
+                        <option value="@item.SystemFormId" @(item.SystemFormId.Equals(Model.Id) ? "selected" : "" )>@item.Name</option>
+                    }
+                </select>
+                <span class="input-group-btn">
+                    <button class="btn btn-info btn-sm" onclick="setDefaultDashboard(CURRENT_USER.systemuserid, $('#SystemFormId').val())" type="button"><span class="glyphicon glyphicon-ok"></span> @app.T["dashboard_setdefault"]</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="dashrow page-renderdashboard">
+
+    </div>
+}
+<div class="tools-modal" id="groupsInserModal">
+    <div class="tools-modal-dialog">
+        <div class="tools-modal-content">
+            <div class="tools-modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="m-close-btn" aria-hidden="true" onclick="$(this).parents('.tools-modal').removeClass('active')">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="tools-modal-title"><span class="glyphicon glyphicon-th"></span> 向下钻取</h4>
+            </div>
+            <div class="tools-modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4"><label>字段</label></div>
+                        <div class="col-sm-8"><select class="groups-attributes tools-modal-control" id="groupsAttributes"></select></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tools-modal-footer">
+                <button type="button" class="btn btn-primary m-accept-btn btn-xs" id="groupsAttributesBtn">钻取</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Header {
+    <link href="/content/css/dashboard.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <style>
+        .componentbox {
+            padding: 5px;
+            float: left;
+        }
+
+        .component-title {
+            padding-bottom: 8px;
+        }
+    </style>
+}
+@section Scripts {
+    <script src="/content/js/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/locales/bootstrap-datepicker.zh-CN.min.js?v=@app.PlatformSettings.VersionNumber" charset="UTF-8"></script>
+    <script src="/content/jsresource/user.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script type="text/javascript">
+        var groupsCtrl = [];
+        var groups = [];
+        var panelConfig = JSON.parse($('#FormConfig').val());
+        var layoutList = [
+            { colspan: 24, rowspan: 1, html: '<div class="custom-item custom-item-24"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="3" data-rowspan="1"></div></div>' },//1/4
+            { colspan: 49, rowspan: 1, html: '<div class="custom-item custom-item-49"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="6" data-rowspan="1"></div></div>' },//1/3
+            { colspan: 33, rowspan: 1, html: '<div class="custom-item custom-item-33"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="4" data-rowspan="1"></div></div>' },//1/2
+            { colspan: 99, rowspan: 1, html: '<div class="custom-item custom-item-99"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box" data-cellspan="12" data-rowspan="1"></div></div>' },//1/1
+            { colspan: 49, rowspan: 2, html: '<div class="custom-item custom-item-49"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box custom-insert-dbox" data-cellspan="6" data-rowspan="2"></div></div>' },//2,2
+            { colspan: 49, rowspan: 2, html: '<div class="custom-item custom-item-49 custom-item-right"><div class="custom-item-remove"><span class="glyphicon glyphicon-remove"></span></div><div class="custom-insert-box custom-insert-dbox" data-cellspan="6" data-rowspan="3"></div></div>' }
+        ];
+        //布局配置
+        var typelist = [[2, 2, 2, 2, 2, 2], [0, 1, 0, 1, 1], [0, 0, 0, 0, 3], [1, 1, 1, 1], [2, 2, 2, 3], [4, 0, 0, 0, 0]];
+        //兼容旧数据配置
+        var fixedLayerType = [{ 'colspan': '3', 'rowspan': '1' }, { 'colspan': '6', 'rowspan': '1' }, { 'colspan': '4', 'rowspan': '1' }, { 'colspan': '12', 'rowspan': '1' }, { 'colspan': '6', 'rowspan': '2' }, { 'colspan': '6', 'rowspan': '3' }];
+        $(function () {
+            $('.breadcrumb > .pull-right').remove();
+            $('.breadcrumb').append('<li>' + $('#SystemFormId').find('option:selected').text() + '</li>');
+            initBox();
+        });
+        function getLayoutCellType(col, row) {
+            var res = -1;
+            $.each(fixedLayerType, function (i, n) {
+                // console.log(n);
+                if (n.colspan == col && n.rowspan == row) {
+                    res = i;
+                    return false;
+                }
+            });
+            return res;
+        }
+        function initBox() {
+            $('.dashrow').html('');
+            var panelCell = panelConfig.cell;
+            for (var i = 0; i < panelCell.length; i++) {
+                var _divhtml = [];
+                var css = '';
+                if (panelCell[i].type == 'grids') {
+                    //css = 'overflow:auto;';
+                }
+                else if (panelCell[i].type == 'charts') {
+                    //css = 'border:1px #efefef solid;';
+                }
+                var _type = getLayoutCellType(panelCell[i].colspan, panelCell[i].rowspan);
+                if (parseInt(panelCell[i].rowspan) == 2 || parseInt(panelCell[i].rowspan) == 3) {
+                    var addCl = '';
+                    if (parseInt(panelCell[i].rowspan) == 3) {
+                        addCl = 'pull-right';
+                    }
+                    _divhtml.push('<div class="componentbox ' + addCl + ' custom-item-' + layoutList[_type].colspan + '" style="height:868px;' + css + '">');
+                    //_divhtml.push('<div class="change' + '" style="height:80px;width:80px;background:red"' + css + '">');
+                    //_divhtml.push('</div>');
+                    _divhtml.push('</div>');
+                }
+                else {
+                    _divhtml.push('<div class="componentbox  custom-item-' + layoutList[_type].colspan + '" style="height:434px;' + css + '">');
+                    //_divhtml.push('<div class="change' +  '" style="height:40px;width:40px;background:red"' + css + '">');
+                    //_divhtml.push('</div>');
+                    _divhtml.push('</div>');
+                }
+                $('.dashrow').append(_divhtml.join(''));
+            }
+            //for (var i = 0; i < panelCell.length; i++) {
+            //    var css = '';
+            //    if('.change').pa
+            //    if (parseInt(panelCell[i].rowspan) == 2) {
+            //        _divhtml.push('<div class="change' + '" style="height:80px;width:80px;background:red;float:right;"' + css + '">');
+            //        _divhtml.push('</div>');
+            //    }
+            //    else {
+            //        _divhtml.push('<div class="change' + '" style="height:40px;width:40px;background:red;float:right;"' + css + '">');
+            //        _divhtml.push('</div>');
+            //    }
+            //    $('.col-sm-4').append(_divhtml.join(''));
+            //}
+            for (var i = 0; i < panelCell.length; i++) {
+                loadComInfo(i, panelCell, css);
+            }
+        }
+
+        function getInserComponent(j, panelCell, opts, postData) {
+            console.log('renderdashboard.getin', j, panelCell, opts, postData)
+            var target = $('.componentbox:eq(' + j + ')');
+            if (panelCell[j].type == 'charts') {
+                var _html = [];
+                var $component = target;
+                if (!postData) {
+                    postData = {};
+                }
+                postData.QueryId = panelCell[j].control.viewid;
+                postData.ChartId = panelCell[j].control.chartid;
+                postData.enableviewpicker = panelCell[j].control.enableviewpicker;
+                postData.enablechartpicker = panelCell[j].control.enablechartpicker;
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(postData),
+                    url: ORG_SERVERURL + '/component/RenderChart',
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    success: function (data) {
+                        try { if (typeof data != "string") { return false; } data = data.replace(/chart1/g, 'chart' + j); }
+                        catch (e) { }
+                        var dHtml = $(data);
+                        dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': $component.innerHeight() });
+                        console.log(dHtml.find('.chartA:last'));
+                        var labelHtml = [];
+                        if (panelCell[j].control.isshowlabel == true) {
+                            labelHtml.push('<div class="component-title">');
+                            labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                            labelHtml.push('</div>');
+                            dHtml.find('.chartA:last').css({ 'height': $component.innerHeight() - 26 });
+                        }
+                        $component.html('');
+                        $component.append(labelHtml.join(''));
+                        $component.append(dHtml);
+                    }
+                });
+
+            }
+        }
+
+        function loadComInfo(j, panelCell, css) {
+            var target = $('.componentbox:eq(' + j + ')');
+            if (panelCell[j].type == 'charts') {
+                var _html = [];
+                var $component = target;
+                var data = { "queryid": panelCell[j].control.viewid, "chartid": panelCell[j].control.chartid, "enableviewpicker": panelCell[j].control.enableviewpicker, "enablechartpicker": panelCell[j].control.enablechartpicker};
+                Xms.Web.LoadPage(ORG_SERVERURL + '/component/RenderChart', data, function (data) {
+                    try { if (typeof data != "string") { return false; } data = data.replace(/chart1/g, 'chart' + j); }
+                    catch (e) { }
+                    var dHtml = $(data);
+                    dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': $component.innerHeight() });
+                    console.log(dHtml.find('.chartA:last'));
+                    var labelHtml = [];
+                    if (panelCell[j].control.isshowlabel == true) {
+                        labelHtml.push('<div class="component-title">');
+                        labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                        labelHtml.push('</div>');
+                        dHtml.find('.chartA:last').css({ 'height': $component.innerHeight() - 26 });
+                    }
+                    $component.html('');
+                    $component.append(labelHtml.join(''));
+                    $component.append(dHtml);
+                });
+            } else if (panelCell[j].type == 'grids') {
+                var _html = [];
+                var $component = target;
+                Xms.Web.Load(ORG_SERVERURL + '/entity/rendergridview?queryid=' + panelCell[j].control.viewid + '&enablequickfind=' + panelCell[j].control.enablequickfind + '&enableviewpicker=' + panelCell[j].control.enableviewpicker + '&recordsperpage=' + panelCell[j].control.recordsperpage + '&IsShowButtons=false&IsEnabledFilter=false&IsEnabledFastSearch=false&IsEnabledViewSelector=false&iseditable=false&pagesize=6', function (data) {
+                    if (typeof data != "string") { return false; }
+                    var dHtml = $(data);
+                    var labelHtml = [];
+                    if (panelCell[j].control.isshowlabel == true) {
+                        labelHtml.push('<div class="">');
+                        labelHtml.push('<div class="change' + '"style="height:26px;width:80px;"' + css + '">');
+                        labelHtml.push('</div>');
+                        labelHtml.push('<div class="component-title">');
+                        labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                        labelHtml.push('</div>');
+                        labelHtml.push('</div>');
+                    } else {
+                        labelHtml.push('<div class="change' + '"style="height:52px;width:80px;"' + css + '">');
+                    }
+                    $component.html('');
+                    $component.append(labelHtml.join(''));
+                    $component.append(dHtml);
+                });
+            }
+            else if (panelCell[j].type == 'iframe') {
+                var $component = target;
+                var labelHtml = [];
+                if (panelCell[j].control.isshowlabel == true) {
+                    labelHtml.push('<div class="">');
+                    labelHtml.push('<div class="change' + '"style="height:0px;width:80px;"' + css + '">');
+                    labelHtml.push('</div>');
+                    labelHtml.push('<div class="component-title">');
+                    labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                    labelHtml.push('</div>');
+                    labelHtml.push('</div>');
+                }
+                $component.html('');
+                $component.append(labelHtml.join(''));
+                var iframeurl = panelCell[j].control.url;
+                iframeurl = panelCell[j].control.url.indexOf('http:') == 0 || panelCell[j].control.url.indexOf('https:') == 0 ? iframeurl : ORG_SERVERURL + iframeurl;
+                $component.append('<iframe src="' + iframeurl + '" frameborder="0" width="100%" height="100%"></iframe>');
+            }
+            else if (panelCell[j].type == 'webresource') {
+                var _html = [];
+                var $component = target;
+                $.get(ORG_SERVERURL + '/api/webresource?ids=' + panelCell[j].control.webresource, function (data) {
+                    var dHtml = $(data);
+                    var labelHtml = [];
+                    if (panelCell[j].control.isshowlabel == true) {
+                        labelHtml.push('<div class="">');
+                        labelHtml.push('<div class="change' + '" style="height:80px;width:80px;background:red"' + css + '">');
+                        labelHtml.push('</div>');
+                        labelHtml.push('<div class="component-title">');
+                        labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                        labelHtml.push('</div>');
+                        labelHtml.push('</div>');
+                    }
+                    $component.html('');
+                    $component.append(labelHtml.join(''));
+                    $component.append(dHtml);
+                });
+            }
+            else {
+                //target.html(JSON.stringify(panelCell[j].control));
+            }
+        };
+    </script>
+}
+

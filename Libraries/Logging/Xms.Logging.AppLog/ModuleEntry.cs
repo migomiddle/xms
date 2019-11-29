@@ -1,5 +1,5 @@
-﻿using Xms.Module.Abstractions;
-using System;
+﻿using System;
+using Xms.Module.Abstractions;
 
 namespace Xms.Logging.AppLog
 {

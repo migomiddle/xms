@@ -1,6 +1,5 @@
 ﻿//@ sourceURL=cdatagrid.js
 ; (function () {
-
     function getLeftFormular(items, isLeft) {//isLeft   需计算的字段是否在字段左边
         var arr = [];
         $.each(items, function (i, n) {
@@ -24,7 +23,6 @@
     }
 
     function getFormularResult(leftArr, leftStr, rights, context, dataIndx, newVal, colModel, callback) {//左边的字段，左边的等式
-
         $.each(leftArr, function (key, item) {
             if (dataIndx == item) {
                 var itemname = dataIndx;
@@ -55,7 +53,7 @@
             }
 
             context[rights.toLowerCase()] = res;
-          //  console.log(context);
+            //  console.log(context);
             callback && callback(rightobj);
         } catch (e) {
             // console.log(e);
@@ -77,7 +75,7 @@
         var dataIndx = ui.dataIndx, rowData = ui.rowData, rowIndx = ui.rowIndx, newVal = ui.newVal, $editor = ui.$editor;
         if (formularlist.length > 0) {
             $.each(formularlist, function (key, item) {
-                if (type =='formular' && item.type == 'formular') {
+                if (type == 'formular' && item.type == 'formular') {
                     var isLeft = false;
                     if (item.expression.indexOf('$$$') > -1) {
                         var itemArr = item.expression.split('$$$');
@@ -93,8 +91,7 @@
                     var leftArr = getLeftFormular(itemArr, isLeft);//获取等号左边的等式
                     var rightRuler = itemArr[itemArr.length - 1];//等式右边的字段名
                     callback && callback(itemArr, tempArr, itemRuler, leftArr, rightRuler);
-                    
-                } else if (type == 'append' && item.type == 'append'){//关联字段
+                } else if (type == 'append' && item.type == 'append') {//关联字段
                     //$('input.lookup[data-name="grid_edit_' + item.Name.toLowerCase() + '_text"][data-isrelated="False"]');
                     var input = $('input[name="grid_edit_' + item.name + '_text"]');
                     if (input.length == 0) return false;
@@ -120,24 +117,22 @@
 
                                     var field = sourv.toLowerCase();
                                     if (!data || !data[field]) return true;
-                                            var colModel = ui.column;
-                                            var reattrnamedata = data[field];
-                                                var type = colModel.edittype;
-                                                if ((reattrnamedata !== '' && reattrnamedata !== null && reattrnamedata !== undefined)) {
-                                                    if (type == 'nvarchar' || type == 'money' || type == 'int') {
-                                                        rowData[field] = reattrnamedata;
-                                                    }
-                                                    else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
-                                                        rowData[field] = reattrnamedata;
-                                                        rowData[field + 'name'] = data[field + 'name'];
-                                                        
-                                                    } else {
-                                                        rowData[field] = reattrnamedata;
-                                                    }
-                                                    $(event.target).pqGrid("refresh");
-                                                   
+                                    var colModel = ui.column;
+                                    var reattrnamedata = data[field];
+
+                                    var type = 'lookup';//colModel.edittype;
+                                    if ((reattrnamedata !== '' && reattrnamedata !== null && reattrnamedata !== undefined)) {
+                                        if (type == 'nvarchar' || type == 'money' || type == 'int') {
+                                            rowData[tarv] = reattrnamedata;
+                                        }
+                                        else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
+                                            rowData[tarv] = reattrnamedata;
+                                            rowData[tarv + 'name'] = data[field + 'name'];
+                                        } else {
+                                            rowData[tarv] = reattrnamedata;
+                                        }
+                                        $(event.target).pqGrid("refresh");
                                     }
-                                   
                                 })
                             });
                         });
@@ -147,7 +142,6 @@
         }
     }
 
-
     function getAndBindFormularInfo(grid, theme) {
         var $this = $(grid).parents('.subgrid:first');
         var ruler = $this.attr("data-formular");
@@ -155,7 +149,6 @@
         var rulerObj = JSON.parse(decodeURIComponent(ruler).toLowerCase());
         var formularlist = rulerObj;
         return formularlist;
-
     }
     window.gridFormular = {
         getFormularResult: getFormularResult,
@@ -163,8 +156,6 @@
         setFormularAndRelation: setFormularAndRelation
     }
 })();
-
-
 
 ; (function () {
     var utils = {
@@ -225,7 +216,6 @@
                 self.html(controls.join('\n'));
             }
         });
-
     }
 
     var defaults = {
@@ -234,7 +224,7 @@
         headerFilter: false,
         height: '300',
         width: "auto",
-       // scrollModel: { autoFit: true },
+        // scrollModel: { autoFit: true },
         showTop: false,
         showBottom: true,
         //selectionModel: { type: 'row', mode: 'single' },
@@ -244,10 +234,10 @@
         autoRow: false,
         wrap: false,
         hwrap: false,
-        isSingle:false,
-       // resizable: true,
+        isSingle: false,
+        // resizable: true,
         columnBorders: false,
-        trackModel: { on: true }, //to turn on the track changes. 
+        trackModel: { on: true }, //to turn on the track changes.
         pageModel: { type: "remote", rPP: 20, page: 1, strRpp: "{0}" },
         showHeader: true,
         roundCorners: true,
@@ -255,11 +245,11 @@
         columnBorders: true,
         selectionModel: { type: 'row' },
         numberCell: { show: false },
-        beforeTableView:null,
+        beforeTableView: null,
         //theme: true,
         // filterModel:{ on: false, mode: "OR" },
         postRenderInterval: -1, //synchronous post rendering.
-        refreshDataAndView:null,
+        refreshDataAndView: null,
         //toolbar: {
         //    items: bottomsInfo
         //},
@@ -271,9 +261,8 @@
             var fozeninput = $(event.target).find('input[value="' + checkedval + '"]:first');
             var hiddeninput = $(event.target).find('input[value="' + checkedval + '"]:last');
             var curInput = $(event.toElement).closest('input[type="checkbox"]');
-            
+
             if (curInput.length > 0) {
-                
             } else {
                 fozeninput.trigger('click')
             }
@@ -300,8 +289,8 @@
                 $grid.find('tbody:first>tr').find('td:eq(0)').find('input').prop('checked', true);
                 $grid.find('tbody>tr').addClass(highline);
 
-                $('body').trigger('datatable.headerCheckboxCheck', { type: true,event: event, ui: ui })
-                $(event.target).trigger('datatable.headerCheckboxCheck', {type:true, event: event, ui: ui })
+                $('body').trigger('datatable.headerCheckboxCheck', { type: true, event: event, ui: ui })
+                $(event.target).trigger('datatable.headerCheckboxCheck', { type: true, event: event, ui: ui })
             } else {
                 var highline1 = 'pg-grid-cell-highlight';
                 var highline = 'ui-state-highlight';
@@ -321,35 +310,28 @@
                             var _rowdata = $(event.target).cDatagrid('getRowData', index);
                             _rowdata[dataIndx] = false;
                             $(this).find('td:eq(0)').find('input').prop('checked', false);
-                            
                         });
                         $grid.find('tbody>tr').each(function () {
                             if (this == hiddeninput.parents('tr:first').eq(0) || this == fozeninput.parents('tr:first').eq(0)) return true;
                             $(this).removeClass(highline).removeClass('pq-row-select');
-
                         });
                     }
-                   
+
                     fozeninput.prop('checked', true);
-                
+
                     hiddeninput.parents('tr:first').addClass(highline);
                     fozeninput.parents('tr:first').addClass(highline);
                     $('body').trigger('queryview.rowCheck', { type: true, row: fozeninput.parents('tr:first'), recordid: checkedval, event: event, ui: ui })
                     $(event.target).trigger('datatable.rowCheck', { type: true, row: fozeninput.parents('tr:first'), recordid: checkedval, event: event, ui: ui })
-                   
                 }
                 check()
-               
-               
             }
-           
         },
         beforeunCheck: function (event, ui) {
-                   
-                },
+        },
         unCheck: function (event, ui) {
             event.stopPropagation();
-           
+
             var source = ui.source;
             var highline = 'ui-state-highlight';
             var $input = $(event.toElement);
@@ -369,42 +351,34 @@
 
                 var checked = curInput.prop('checked');
                 function uncheck() {
-                   
-                 
                     fozeninput.prop('checked', false);
-                
+
                     fozeninput.parents('tr:first').removeClass(highline);
                     hiddeninput.parents('tr:first').removeClass(highline);
                     $('body').trigger('queryview.rowUnCheck', { type: false, row: fozeninput.parents('tr:first'), recordid: checkedval, event: event, ui: ui })
                     $(event.target).trigger('datatable.rowUnCheck', { type: false, row: fozeninput.parents('tr:first'), recordid: checkedval, event: event, ui: ui })
-                 
                 }
                 uncheck()
             }
-            
         }
     }
     defaults.initAfter = function ($grid) {
-
         $grid.$plugGrid.pqGrid("option", "freezeCols", 1);
         $grid.$plugGrid.pqGrid("refresh");
-
     }
-  
+
     defaults.dataModel = {
         location: "remote",
         sorting: "remote",
         dataType: "JSON",
         method: "POST",
-        
+
         filterSendData: function (postData, objP) {
-          
-            $.extend(postData, {  sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1' });
+            $.extend(postData, { sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1' });
             return postData;
         },
         contentType: 'application/json; charset=utf-8',
         getUrl: function (opts) {
-           
             var _url = urlConfig.getData(obj);
             if (opts) {
                 var pagemodel = opts.pageModel;
@@ -415,7 +389,7 @@
             return { url: _url };
         },
         postData: { pagesize: 20, page: 1 },
-        
+
         getData: function (dataJSON, textStatus, jqXHR) {
             var data = dataJSON.items;
             var res = { curPage: dataJSON.currentpage || 1, totalRecords: dataJSON.totalitems, data: data }
@@ -424,7 +398,6 @@
         }
     }
 
-  
     function getPrimaryKey(grid) {
         var primarykey = '';
         return function () {
@@ -440,7 +413,6 @@
             } else {
                 return primarykey.toLowerCase();
             }
-
         }
     }
 
@@ -452,7 +424,7 @@
 
     function filterColumns(columnconfigs) {
         var res = [];
-        
+
         $.each(columnconfigs, function (key, item) {
             if (item) {
                 var obj = getColumnInfo(item, columnconfigs);
@@ -518,7 +490,7 @@
                 var column = ui.column;
                 var record = datas[dataIndx];
                 if (item && item.precision != "" && !isNaN(item.precision) && record != "" && !isNaN(record)) {
-                    record = (record*1).toFixed(item.precision)
+                    record = (record * 1).toFixed(item.precision)
                 }
                 return record;
             }
@@ -535,26 +507,25 @@
                     var entityid = column.entityid;
                     var formid = column.formid ? column.formid : '';
                     var _entityname = getColumnEntityName(columninfos);
-                    if (_entityname && dataIndx.indexOf('.')==-1) {
+                    if (_entityname && dataIndx.indexOf('.') == -1) {
                         _entityname = _entityname.toLowerCase();
-                        var recordid = datas[_entityname+'id'];
+                        var recordid = datas[_entityname + 'id'];
 
                         if (datas[dataIndx]) {
-                            if (typeof entityIframe=='function') {
-                                return '<a class="text-primary" title="' + (datas['name'] || '')+'" href="javascript: entityIframe(\'show\', \'' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '\');"  >' + (datas['name'] || '') + '</a>';
+                            if (typeof entityIframe == 'function') {
+                                return '<a class="text-primary" title="' + (datas['name'] || '') + '" href="javascript: entityIframe(\'show\', \'' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '\');"  >' + (datas['name'] || '') + '</a>';
                             } else {
-                                return '<a class="text-primary" title="' + (datas['name'] || '') +'" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas['name'] || '') + '</a>';
+                                return '<a class="text-primary" title="' + (datas['name'] || '') + '" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas['name'] || '') + '</a>';
                             }
                         } else {
                             return '';
                         }
                     } else {
-                        return '<span title="' + datas[dataIndx] + '">' + datas[dataIndx]+'<span>'
+                        return '<span title="' + datas[dataIndx] + '">' + datas[dataIndx] + '<span>'
                     }
                 }
             }
-        } else if (item && (item.attributetypename == "picklist"  || item.attributetypename == "status")) {
-            
+        } else if (item && (item.attributetypename == "picklist" || item.attributetypename == "status")) {
             edittype = 'picklist';
             obj.editModel = { saveKey: item.name.replace(/name$/, 'id'), keyUpDown: false }
             obj.edittype = edittype;
@@ -564,11 +535,14 @@
                 var column = ui.column;
                 var entityid = column.referencedentityid;
                 var formid = column.formid ? column.formid : '';
-               
+
                 var recordid = datas[dataIndx];
+                if (typeof recordid === 'undefined') {
+                    return '';
+                }
                 if (item && item.optionset) {
                     var res = queryListByKey(item.optionset.items, 'value', recordid);
-                   
+
                     if (res.length > 0) {
                         return res[0].name;
                     } else {
@@ -577,10 +551,9 @@
                 } else {
                     return '';
                 }
-
             }
             setEditorInfo(obj, item);
-        } else if (item && (item.attributetypename == "state" || item.attributetypename =="bit")) {
+        } else if (item && (item.attributetypename == "state" || item.attributetypename == "bit")) {
             edittype = 'picklist';
             obj.editModel = { saveKey: item.name.replace(/name$/, 'id'), keyUpDown: false }
             obj.edittype = edittype;
@@ -590,11 +563,14 @@
                 var column = ui.column;
                 var entityid = column.referencedentityid;
                 var formid = column.formid ? column.formid : '';
-                
+
                 var recordid = datas[dataIndx];
                 if (item && item.picklists) {
+                    if (typeof recordid === 'undefined') {
+                        return '';
+                    }
                     var res = queryListByKey(item.picklists, 'value', recordid);
-                   
+
                     if (dataIndx != 'statecode') {
                         if (res.length > 0) {
                             return res[0].name;
@@ -608,11 +584,9 @@
                             return '<span class="label label-default">禁用</span>'
                         }
                     }
-                   
                 } else {
                     return '';
                 }
-
             }
             setEditorInfo(obj, item);
         } else if (item && (item.attributetypename == "lookup" || item.attributetypename == "owner" || item.attributetypename == "customer")) {
@@ -628,7 +602,7 @@
                     var recordid = datas[dataIndx];
                     //console.log(ui, a, b);
                     if (datas[dataIndx]) {
-                        return '<a class="text-primary" title="' + (datas[dataIndx + 'name'] || '') +'" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas[dataIndx+'name'] || '') + '</a>';
+                        return '<a class="text-primary" title="' + (datas[dataIndx + 'name'] || '') + '" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas[dataIndx + 'name'] || '') + '</a>';
                     } else {
                         return '';
                     }
@@ -643,7 +617,7 @@
                     var recordid = datas[dataIndx];
                     //console.log(ui, a, b);
                     if (datas[dataIndx]) {
-                        return '<span title="' + (datas[dataIndx + 'name'] || '') +'">'+(datas[dataIndx + 'name'] || '')+'</span>';
+                        return '<span title="' + (datas[dataIndx + 'name'] || '') + '">' + (datas[dataIndx + 'name'] || '') + '</span>';
                     } else {
                         return '';
                     }
@@ -666,7 +640,7 @@
                 var recordid = datas[dataIndx];
                 //console.log(ui, a, b);
                 if (datas[dataIndx]) {
-                    return '<a class="text-primary" title="' + (datas['name'] || '') +'" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas['name']||'') + '</a>';
+                    return '<a class="text-primary" title="' + (datas['name'] || '') + '" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas['name'] || '') + '</a>';
                 } else {
                     return '';
                 }
@@ -682,16 +656,16 @@
             obj.hidden = true;
             obj.key = true;
         }
-       
+
         return obj;
     }
     function setEditorInfo(obj, item) {
-        if (item.editable == false) { return false;}
+        if (item.editable == false) { return false; }
         var isrelate = obj.name.indexOf('.') != -1;
         if (obj.editable && obj.edittype == 'picklist') {
             if (item.isrequired == true && !isrelate) {
                 obj._validations = [
-                    //validation    
+                    //validation
                     { type: 'minLen', value: '1', msg: '这是必填项' }
                 ]
             }
@@ -711,7 +685,6 @@
             obj.editor = {
                 type: //'select'
                     function (ui) {
-                        
                         var $cell = ui.$cell,
                             rowData = ui.rowData,
                             dataIndx = ui.dataIndx,
@@ -728,7 +701,6 @@
                             items: item.optionset.items,
                             isDefault: true,
                             changeHandler: function (e, obj) {
-
                             }
                         });
 
@@ -744,14 +716,13 @@
                 valueIndx: 'value',
 
                 prepend: {
-
                 },
                 getData: function (ui) {
                     var clave = ui.$cell.find("select").val();
                     var rowData = ui.that.getRowData({ rowIndx: ui.rowIndx });
                     rowData[item.name.replace(/name$/, 'id')] = clave;
                     rowData[item.name + 'name'] = ui.$cell.find("select option[value='" + clave + "']").text();
-                   
+
                     var text = ui.$cell.find("select option[value='" + clave + "']").text();
                     return clave
                 }
@@ -759,14 +730,13 @@
         } else if (obj.edittype == 'lookup') {
             if (item.isrequired == true && !isrelate) {
                 obj._validations = [
-                   
+
                     { type: 'minLen', value: '1', msg: '这是必填项' }
                 ]
             }
             obj.editor = {
                 type: //'select'
                     function (ui, even) {
-                       
                         var $cell = ui.$cell,
                             rowData = ui.rowData,
                             dataIndx = ui.dataIndx,
@@ -788,7 +758,7 @@
 
                         var $input = $('<input type="text" class="form-control input-sm" id="grid_edit_' + fieldname + '_text" name="grid_edit_' + fieldname + '_text" class="" />');
                         var $value = $('<input type="hidden" class="form-control " id="grid_edit_' + fieldname + '" name="grid_edit_' + fieldname + '" class=""  />');
-                        
+
                         $input.appendTo($cell);
                         $value.appendTo($cell);
 
@@ -797,13 +767,13 @@
                         if (!self.prop('id')) {
                             self.prop('id', self.prop('name') + Xms.Utility.Guid.NewGuid().ToString('N'));
                         }
-                       
+
                         self.attr('data-lookup', item.referencedentityid)
                         self.attr('data-reentityname', item.referencedentityname);
                         var lookupid = item.referencedentityid;
                         var inputid = self.prop('id');
                         var valueid = dataIndx;
-                       
+
                         var valueid = inputid.replace(/_text/, '');
                         if (!$input.attr('id')) {
                             $input.attr('id', valueid);
@@ -814,10 +784,10 @@
                         }
 
                         var _isRelative = false;
-                       
+
                         var value = self.val() || '';
-                       
-                        var lookupurl = ORG_SERVERURL+'/entity/RecordsDialog?inputid=' + inputid + '&sortby=CreatedOn&singlemode=true';
+
+                        var lookupurl = ORG_SERVERURL + '/entity/RecordsDialog?inputid=' + inputid + '&sortby=CreatedOn&singlemode=true';
                         self.lookup({
                             dialog: function () {
                                 var f = rowData['__xms_' + fieldname + '_filter'] //$('#' + inputid).parents('td:first').attr("data-filter");
@@ -825,7 +795,6 @@
                                 else f = null;
                                 if (self.attr('data-defaultviewid') && self.attr('data-defaultviewid') != '') {
                                     lookupurl = $.setUrlParam(lookupurl, 'queryid', self.attr('data-defaultviewid'));
-                                   
                                 }
                                 else {
                                     lookupurl = $.setUrlParam(lookupurl, 'entityid', self.attr('data-lookup'));
@@ -839,7 +808,7 @@
                             , clear: function () {
                                 $('#' + inputid).val('');
                                 $('#' + valueid).val('');
-                                $('#' + valueid+'_hidden').val('');
+                                $('#' + valueid + '_hidden').val('');
                                 rowData[item.name.replace(/name$/, '')] = '';
                                 rowData[item.name + 'name'] = '';
                                 if (self.attr('data-_isRelative') && self.attr('data-_isRelative') == "true") {
@@ -847,7 +816,7 @@
                                     if (relationData && relationData.length > 0) {
                                         $.each(relationData, function (key, item) {
                                             var type = item.td.attr('data-type');
-                                           
+
                                             if (type == 'nvarchar' || type == 'money' || type == 'int') {
                                                 item.td.find('input[name=' + GridViewModel.nameprefix + item.attrname + ']').val('');
                                             }
@@ -869,7 +838,6 @@
                             searchOpts: {
                                 id: lookupid
                                 , addHandler: function (tar, obj, par) {
-                                    
                                 }
                                 , delHandler: function (input) {
                                     var tarid = input.attr("id").replace("_text", "");
@@ -881,7 +849,6 @@
                         });
                         $('#' + inputid).focus();
                         $('#' + inputid).on('dialog.return', function (e, obj) {
-
                             $in.attr('data-value', obj.id);
                             $in.next().find('input:first').val(obj.name);
                             $.fn.xmsSelecteDown.setLookUpState($in.next().find('input:first'));
@@ -913,16 +880,14 @@
                             if (ui.column.isrelation == true) {
                                 _isRelative = true;
                             }
-                           
+
                             if (v && v != '') {
-                               
                                 var params = {
                                     type: entityid + v + 'true',
                                     data: { entityid: entityid, value: v, allcolumns: true }
                                 }
-                                
+
                                 if (_isRelative == true) {
-                                  
                                     var url = '/api/data/retrieve/' + entityname + '/' + v;//'GetReferenced';
                                     Xms.Web.PageCache('renderGridView', url, params, function (response) {
                                         var data = response.content;
@@ -935,34 +900,25 @@
                                                 if (~i.indexOf(ifield) && ~i.indexOf('.')) {
                                                     var attrs = i.split('.');
                                                     var reattrnamedata = data[attrs[1]];
-                                                 
+
                                                     var type = colModel.edittype;
                                                     if ((reattrnamedata !== '' && reattrnamedata !== null && reattrnamedata !== undefined)) {
-                                                          
-                                                            if (type == 'nvarchar' || type == 'money' || type == 'int') {
-                                                                rowData[i] = data[attrs[1]];
-                                                                
-                                                            }
-                                                            else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
-                                                               
-                                                                rowData[i] = data[attrs[1]];
-                                                                rowData[i+'name'] = data[attrs[1]+'name'];
-                                                               
-                                                            } else {
-                                                                rowData[i] = data[attrs[1]];
-                                                               
+                                                        if (type == 'nvarchar' || type == 'money' || type == 'int') {
+                                                            rowData[i] = data[attrs[1]];
+                                                        }
+                                                        else if (type == 'owner' || type == 'lookup' || type == 'customer' || type == 'picklist' || type == 'state' || type == 'bit' || type == 'status') {
+                                                            rowData[i] = data[attrs[1]];
+                                                            rowData[i + 'name'] = data[attrs[1] + 'name'];
+                                                        } else {
+                                                            rowData[i] = data[attrs[1]];
                                                         }
                                                         ui.that.refresh();
-                                                           
-                                                        }
-                                                  
+                                                    }
                                                 }
                                             }
                                         }
-                                       
                                     });
                                 }
-                                
                             }
                         });
 
@@ -973,7 +929,6 @@
                 valueIndx: 'value',
 
                 prepend: {
-
                 },
                 getData: function (ui) {
                     var clave = ui.$cell.find("input.pq-ac-editor").attr('data-value');
@@ -982,17 +937,14 @@
                     if (clave) {
                         rowData[item.name.replace(/name$/, '')] = clave;
                         rowData[item.name + 'name'] = text;
-                        
-
                     }
                     return clave;
                 }
             }
-
         } else if (obj.edittype == 'money') {
             if (item.isrequired == true && !isrelate) {
                 obj._validations = [
-                    //validation    
+                    //validation
                     { type: 'minLen', value: '1', msg: '这是必填项' }
                 ]
             }
@@ -1022,11 +974,10 @@
                     return clave
                 }
             }
-
         } else if (obj.edittype == 'datetime') {
             if (item.isrequired == true && !isrelate) {
                 obj._validations = [
-                    //validation    
+                    //validation
                     { type: 'minLen', value: '1', msg: '这是必填项' }
                 ]
             }
@@ -1053,11 +1004,10 @@
                         if (value != '') {
                             $(this).val(new Date(value).format(format))
                         }
-                       
+
                         format = format.replace("yyyy", "Y").replace("dd", "d").replace("hh", "h").replace("mm", "i").replace('MM', "m").replace('ss', "s").replace('HH', "H").replace('h', "H");
 
                         if (tempformat.indexOf("hh:mm") > -1) {
-
                             $inp.datetimepicker({
                                 language: "en"
                                 , step: 15
@@ -1065,11 +1015,8 @@
                                 , scrollInput: !1
                                 , scrollMonth: false
                             }).on('change', function (e, obj) {
-                                
                             })
-
                         } else {
-
                             $inp.datetimepicker({
                                 language: "en"
                                 , timepicker: false
@@ -1077,7 +1024,6 @@
                                 , scrollInput: !1
                                 , scrollMonth: false
                             }).on('change', function (e, obj) {
-                               
                             })
                         }
                         $inp.focus();
@@ -1092,11 +1038,10 @@
                     return clave
                 }
             }
-
         } else if (obj.edittype == 'nvachart') {
             if (item.isrequired == true && !isrelate) {
                 obj._validations = [
-                    //validation    
+                    //validation
                     { type: 'minLen', value: '1', msg: '这是必填项' }
                 ]
             }
@@ -1126,7 +1071,6 @@
                     return clave
                 }
             }
-
         } else if (obj.edittype == 'cdatagrid_editer') {
             obj.editor = {
                 type: //'select'
@@ -1139,7 +1083,6 @@
                 valueIndx: 'value',
 
                 getData: function (ui) {
-                   
                 }
             }
         }
@@ -1148,7 +1091,7 @@
     }
 
     window.dataGridselectRecordCallback = function (res, input) {
-       console.log(res,input)
+        console.log(res, input)
     }
 
     function connectFormularConfig(config, formularlist) {
@@ -1169,7 +1112,6 @@
                     var tempArr = itemRuler.split('=');
                     var leftArr = getLeftFormular(itemArr, isLeft);//获取等号左边的等式
                     var rightRuler = itemArr[itemArr.length - 1];
-
                 }
             });
         }
@@ -1184,7 +1126,7 @@
         this.$grid = null;
         this.$plugGrid = null;
         this.id = "contextmenu" + this._id
-        this.$rightClick = $('<div id="' + this.id+'" style="display:none;"></div>');
+        this.$rightClick = $('<div id="' + this.id + '" style="display:none;"></div>');
         $('body').append(this.$rightClick);
         this.init();
     }
@@ -1194,16 +1136,15 @@
         var self = this;
         contexts.push('<li class="grid-contextmenu-fieldname"></li>');
         contexts.push('<li class="grid-contextmenu-copy" id="grid_menu_copy' + this._id + '"><span class="glyphicon glyphicon-copy"></span> 复制单元格</li>');
-       // contexts.push('<li class="grid-contextmenu-row" id="grid_menu_row' + this._id + '"><span class="glyphicon glyphicon-ok"></span> 选中行</li>');
-       
+        // contexts.push('<li class="grid-contextmenu-row" id="grid_menu_row' + this._id + '"><span class="glyphicon glyphicon-ok"></span> 选中行</li>');
+
         if (self.opts.itemsBtnTmpl) {
             var $items = $('<div></div>');
             $items.html(self.opts.itemsBtnTmpl);
             $items.find('li').each(function (i, n) {
                 eventCount++;
                 var $this = $(this).children('a');
-               
-                
+
                 var icon = $this.children('span').attr('class');
                 var text = $this.get(0).text;
                 var event = $this.attr('onclick');
@@ -1217,15 +1158,13 @@
                     $this.data().rowData = _rowData;
                     $this.trigger('click');
                 }
-                contexts.push('<li class="grid-contextmenu-edit" onclick="' + preEvent+'()" id="grid_menu_edit_customer' + i + '"><span class="' + icon+'"></span> ' + text+'</li>');
+                contexts.push('<li class="grid-contextmenu-edit" onclick="' + preEvent + '()" id="grid_menu_edit_customer' + i + '"><span class="' + icon + '"></span> ' + text + '</li>');
             });
-           
         }
-        if (contextMenu && contextMenu.length>0) {
+        if (contextMenu && contextMenu.length > 0) {
             $.each(contextMenu, function () {
-                contexts.push('<li class="' + this.classname + '" id="' + self._id +this.id +'"><span class="'+(this.icon || '')+'"></span> '+this.name+'</li>');
+                contexts.push('<li class="' + this.classname + '" id="' + self._id + this.id + '"><span class="' + (this.icon || '') + '"></span> ' + this.name + '</li>');
             });
-            
         }
         contexts.push('</ul>');
         this.$rightClick.html(contexts.join(''));
@@ -1243,9 +1182,7 @@
                         if (!$(e.target).parents('.pq-grid-cont-outer:first').find('input[value="' + val + '"]:first').prop('checked')) {
                             $(e.target).parents('tr:first').trigger('click')
                         }
-
                     }
-                   
                 }
                 if ($(e.target).parents('tr:first').find('.glyphicon-edit').length == 0) {
                     self.$rightClick.find('.grid-contextmenu-edit').hide();
@@ -1266,7 +1203,6 @@
                 return true;
             },
             bindings: {
-               
             }
         }
         events.bindings["grid_menu_copy" + this._id] = function (e, b, c, that, relaevent) {
@@ -1285,20 +1221,17 @@
             $('body').append($btn);
             var clipboard = new ClipboardJS("#clipboard_" + self._id);
             clipboard.on('success', function (e) {
-               
             });
 
             clipboard.on('error', function (e) {
-                
             });
             $btn.trigger('click');
             $btn.remove();
         }
-      
+
         this.box.find('.pq-grid-cont').contextMenu(this.id, events);
     }
     cDatagrid.prototype.renderRightClick = function (contexts, grid) {
-       
     }
     cDatagrid.prototype._getTdText = function (relaevent) {
         var text = '';
@@ -1314,10 +1247,9 @@
     cDatagrid.prototype.isValid = function (index) {
         return this.$grid.pqGrid("isValid", { rowIndx: index });
     }
-    
+
     cDatagrid.prototype.bindRightClickEvent = function () {
         var self = this;
-        
     }
     cDatagrid.prototype.init = function () {
         var self = this;
@@ -1343,35 +1275,35 @@
         })();
         if (this.opts.getColModels) {
             var colmodels = this.opts.getColModels(self, this.opts);
-                console.log('attributes info', colmodels);
-                if (!colmodels || colmodels.length == 0) return false;
-                self.opts.colModel = colmodels
-                var tempconfig = self.opts.filterColModel && self.opts.filterColModel(self.opts.colModel, self);
-                // tempconfig = $.extend(true, self.opts.colModel, tempconfig)
-                self.opts.colModel = tempconfig;
-                var config = getDataGridConfig(self.opts);
+            console.log('attributes info', colmodels);
+            if (!colmodels || colmodels.length == 0) return false;
+            self.opts.colModel = colmodels
+            var tempconfig = self.opts.filterColModel && self.opts.filterColModel(self.opts.colModel, self);
+            // tempconfig = $.extend(true, self.opts.colModel, tempconfig)
+            self.opts.colModel = tempconfig;
+            var config = getDataGridConfig(self.opts);
             var _entityname = getColumnEntityName(self.opts.colModel);
             if (_entityname) {
-                _entityname=_entityname.toLowerCase();
+                _entityname = _entityname.toLowerCase();
             }
-                //添加复选框列
-                if (self.opts.itemsBtnTmpl) {
-                    config.colModel.unshift(
-                        {
-                            title: "操作", dataIndx: 'cdatagrid_editer', editable: false, minWidth: 80, notHeaderFilter: true, sortable: false, render: function (ui) {
-                                var datas = ui.rowData;
-                                var dataIndx = ui.dataIndx;
-                                var column = ui.column;
-                                var recordid = datas[dataIndx];
-                                if (recordid == 'noshow') {
-                                    return '';
-                                } else {
-                                    return self.opts.itemsBtnTmpl || '';
-                                }
+            //添加复选框列
+            if (self.opts.itemsBtnTmpl) {
+                config.colModel.unshift(
+                    {
+                        title: "操作", dataIndx: 'cdatagrid_editer', editable: false, minWidth: 80, notHeaderFilter: true, sortable: false, render: function (ui) {
+                            var datas = ui.rowData;
+                            var dataIndx = ui.dataIndx;
+                            var column = ui.column;
+                            var recordid = datas[dataIndx];
+                            if (recordid == 'noshow') {
+                                return '';
+                            } else {
+                                return self.opts.itemsBtnTmpl || '';
                             }
-                        });
-                }
-                //添加操作列
+                        }
+                    });
+            }
+            //添加操作列
             if (self.opts.addCheckbox) {
                 self.opts.checkboxinfo ? config.colModel.unshift(self.opts.checkboxinfo) : config.colModel.unshift({
                     title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
@@ -1391,19 +1323,19 @@
                 }
                 );
             }
-                self.opts.colModel = self.opts.columnFilter ? self.opts.columnFilter(config.colModel) : config.colModel;
-                
-                self.$grid = self.box;
-                if (self.opts.isFormular) {
-                    var formular = gridFormular.formularInit(self.$grid);
-                    connectFormularConfig(config, formular);
-                }
-                console.log('gridconfig', config);
-                self.$plugGrid = self.$grid.pqGrid(config);
-                self.bindEvent();
-                self.opts.initAfter && self.opts.initAfter(self);
-                self.$grid.trigger('xmsDatagrid.initAfter', { grid: self, $grid: self.$grid });
-                //self.$plugGrid.find('td').enableSelection();
+            self.opts.colModel = self.opts.columnFilter ? self.opts.columnFilter(config.colModel) : config.colModel;
+
+            self.$grid = self.box;
+            if (self.opts.isFormular) {
+                var formular = gridFormular.formularInit(self.$grid);
+                connectFormularConfig(config, formular);
+            }
+            console.log('gridconfig', config);
+            self.$plugGrid = self.$grid.pqGrid(config);
+            self.bindEvent();
+            self.opts.initAfter && self.opts.initAfter(self);
+            self.$grid.trigger('xmsDatagrid.initAfter', { grid: self, $grid: self.$grid });
+            //self.$plugGrid.find('td').enableSelection();
         } else {
             var tempconfig = self.opts.filterColModel && self.opts.filterColModel(self.opts, self);
             tempconfig = $.extend(true, self.opts, tempconfig)
@@ -1414,7 +1346,7 @@
                 var formular = gridFormular.formularInit(self.$grid);
                 connectFormularConfig(config, formular);
             }
-           console.log('gridconfig', config);
+            console.log('gridconfig', config);
             self.$plugGrid = self.$grid.pqGrid(config);
             self.bindEvent();
             self.opts.initAfter && self.opts.initAfter(self);
@@ -1435,7 +1367,7 @@
         this.$grid.pqGrid("deleteRow", { rowIndx: index });
     }
     //
-    cDatagrid.prototype.triggerGridMethod = function (method,opts) {
+    cDatagrid.prototype.triggerGridMethod = function (method, opts) {
         this.$grid.pqGrid(method, opts)
     }
     cDatagrid.prototype.setOpts = function (opts) {
@@ -1453,7 +1385,7 @@
     cDatagrid.prototype.refreshColumn = function (opts) {
         return this.$grid.pqGrid("refreshColumn");
     }
-    
+
     cDatagrid.prototype.refresh = function () {
         this.$grid.pqGrid("refresh")
     }
@@ -1469,14 +1401,13 @@
         var rowdata = { rowData: $.extend({}, data) };
         var _guid = Xms.Utility.Guid.NewGuid().ToString();
         rowdata.rowData[key] = _guid;
-        rowdata.rowData[primarykey+'id'] = _guid;
-      //  console.log(self.opts.colModel)
-        $.each(self.opts.colModel, function (i,n) {
+        rowdata.rowData[primarykey + 'id'] = _guid;
+        //  console.log(self.opts.colModel)
+        $.each(self.opts.colModel, function (i, n) {
             if (n.dataIndx == 'cdatagrid_editer' || n.dataIndx == key) return true;
-            var isrelate = n.dataIndx.indexOf('.')!=-1;
+            var isrelate = n.dataIndx.indexOf('.') != -1;
             if (n.attributetypename == 'datetime') {
                 if (n.dataIndx == 'createdon' || n.dataIndx == 'modifiedon') {
-
                     rowdata.rowData[n.dataIndx] = new Date().format('yyyy-MM-dd hh:mm:ss');
                 }
             } else if (n.attributetypename == 'owner' || n.dataIndx == 'modifiedby' || n.dataIndx == 'createdby') {
@@ -1484,14 +1415,12 @@
                     rowdata.rowData[n.dataIndx + 'name'] = CURRENT_USER.username;
                     rowdata.rowData[n.dataIndx] = CURRENT_USER.systemuserid;
                 }
-
-            } else if (n.attributetypename == 'lookup' && Xms.Page.PageContext.RecordId!="" && _record  && (Xms.Page.PageContext.EntityName && Xms.Page.PageContext.EntityName.toLowerCase() == n.dataIndx.replace(/id$/, ''))) {
+            } else if (n.attributetypename == 'lookup' && Xms.Page.PageContext.RecordId != "" && _record && (Xms.Page.PageContext.EntityName && Xms.Page.PageContext.EntityName.toLowerCase() == n.dataIndx.replace(/id$/, ''))) {
                 rowdata.rowData[n.dataIndx + 'name'] = _record['name'];
                 rowdata.rowData[n.dataIndx] = Xms.Page.PageContext.RecordId;
             }
         });
         grid.pqGrid('addRow', rowdata);
-
     }
     cDatagrid.prototype.disable = function () {
         this.$grid.pqGrid("disable")
@@ -1511,29 +1440,26 @@
         this.opts.refreshDataAndViewed && this.opts.refreshDataAndViewed(self);
     }
     cDatagrid.prototype.getRowData = function (index) {
-        
-        return this.$grid.pqGrid("getRowData", { rowIndxPage:index});
+        return this.$grid.pqGrid("getRowData", { rowIndxPage: index });
     }
-    cDatagrid.prototype.setData = function (rowIndex,data) {
-
-        return this.$grid.pqGrid("data", { rowIndxPage: rowIndex,data:data });
+    cDatagrid.prototype.setData = function (rowIndex, data) {
+        return this.$grid.pqGrid("data", { rowIndxPage: rowIndex, data: data });
     }
     //type 'undo'|| 'redo';
     cDatagrid.prototype.history = function (type) {
         return this.$grid.pqGrid("history", type);
     }
-   
+
     cDatagrid.prototype.bindEvent = function () {
         var self = this;
         this.$plugGrid.on('pqgridrefresh pqgridrefreshrow', function () {
             var $grid = $(this);
             if (self.opts.headerFilter) {
-               // setTableFilter(self.$grid);
+                // setTableFilter(self.$grid);
             }
             if (self.opts.gridrefresh) {
-                self.opts.gridrefresh(self.$grid, self,this);
+                self.opts.gridrefresh(self.$grid, self, this);
             }
-           
 
             //rows which were in edit mode before refresh, put them in edit mode again.
             var rows = $grid.pqGrid("getRowsByClass", { cls: 'pq-row-edit' });
@@ -1542,7 +1468,7 @@
                 editRow(rowIndx, $grid);
             }
         });
-        this.$plugGrid.on('pqgridrefresh', function (event,ui) {
+        this.$plugGrid.on('pqgridrefresh', function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData, rowIndx = ui.rowIndx, newVal = ui.newVal, $editor = ui.$editor, colModel = self.$grid.pqGrid("getColModel");
             if (self.opts.gridrefreshed) {
                 self.opts.gridrefreshed(self.$grid, self, this, event);
@@ -1560,17 +1486,17 @@
             self.$grid.trigger('datagrid.cellsave', { event: event, ui: ui, dataIndx: dataIndx, rowData: rowData, colModel, colModel, grid: self });
             $('.inputErrorMsgBox').remove();
         });
-       
+
         this.$plugGrid.on("headerCellClick", function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData, rowIndx = ui.rowIndx, newVal = ui.newVal, $editor = ui.$editor, colModel = self.$grid.pqGrid("getColModel");
             self.$grid.trigger('datagrid.cellsave', { event: event, ui: ui, dataIndx: dataIndx, rowData: rowData, colModel, colModel, grid: self });
-            self.opts.headerCellClick && self.opts.headerCellClick.call(this, event, ui,self);
+            self.opts.headerCellClick && self.opts.headerCellClick.call(this, event, ui, self);
         });
         this.$plugGrid.on("pqgrideditorbegin", function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData, rowIndx = ui.rowIndx, newVal = ui.newVal, $editor = ui.$editor, colModel = self.$grid.pqGrid("getColModel");
             rowData.isEdited = true;
             var itemArr = gridFormular.formularInit(self.$grid)();
-            gridFormular.setFormularAndRelation(itemArr,'append', function (itemArr, tempArr, itemRuler, leftArr, rightRuler) {
+            gridFormular.setFormularAndRelation(itemArr, 'append', function (itemArr, tempArr, itemRuler, leftArr, rightRuler) {
                 if (~itemArr.indexOf(dataIndx)) {
                     gridFormular.getFormularResult(leftArr, tempArr[0], rightRuler, rowData, dataIndx, newVal, colModel, function (res) {
                         self.$grid.pqGrid("refresh", { rowIndx: rowIndx });
@@ -1580,28 +1506,25 @@
             }, event, ui);
             self.$grid.trigger('datagrid.editorbegin', { event: event, ui: ui, dataIndx: dataIndx, rowData: rowData, colModel, colModel, grid: self });
             if (typeof dirtyChecker !== 'undefined') {
-              
-                    dirtyChecker.isDirty = true;
+                dirtyChecker.isDirty = true;
             }
         });
         this.$plugGrid.on("pqgridcellbeforesave", function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData, rowIndx = ui.rowIndx, newVal = ui.newVal, oldVal = ui.oldVal, $editor = ui.$editor, colModel = self.$grid.pqGrid("getColModel");
             rowData.isEdited = true;
             var itemArr = gridFormular.formularInit(self.$grid)();
-            gridFormular.setFormularAndRelation(itemArr,'formular', function (itemArr, tempArr, itemRuler, leftArr, rightRuler) {
+            gridFormular.setFormularAndRelation(itemArr, 'formular', function (itemArr, tempArr, itemRuler, leftArr, rightRuler) {
                 if (~itemArr.indexOf(dataIndx)) {
                     gridFormular.getFormularResult(leftArr, tempArr[0], rightRuler, rowData, dataIndx, newVal, colModel, function (res) {
                         self.$grid.pqGrid("refresh", { rowIndx: rowIndx });
                     });
                 }
-               // console.log(itemArr, tempArr, itemRuler, leftArr, rightRuler);
+                // console.log(itemArr, tempArr, itemRuler, leftArr, rightRuler);
             }, event, ui);
             self.$grid.trigger('datagrid.cellbeforesave', { event: event, ui: ui, dataIndx: dataIndx, rowData: rowData, colModel, colModel, grid: self });
             rowData['datagrid_isEdit'] = true;
-           
-           
         });
-       
+
         this.$plugGrid.on("pqgridbeforevalidate", function (event, ui) {
             console.log(event, ui);
             return true;
@@ -1609,7 +1532,7 @@
         this.$plugGrid.on("pqgrideditorEnd", function (event, ui) {
             var dataIndx = ui.dataIndx, rowData = ui.rowData;
             console.log(event, ui);
-           // console.log(dataIndx, rowData);
+            // console.log(dataIndx, rowData);
         });
         this.opts.afterBindEvnet && this.opts.afterBindEvnet(this);
     }
@@ -1633,6 +1556,5 @@
             });
             return res;
         }
-
     }
 })();

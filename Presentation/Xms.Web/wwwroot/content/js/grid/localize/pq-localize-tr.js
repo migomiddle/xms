@@ -1,7 +1,7 @@
 /*
  * @author Brkhn
  */
-$.paramquery.pqGrid.regional['tr'] = { 
+$.paramquery.pqGrid.regional['tr'] = {
     strLoading: "Yükleniyor",
     strNoRows: "Gösterilecek Satır Yok.",
     strAdd: "Ekle",
@@ -11,9 +11,9 @@ $.paramquery.pqGrid.regional['tr'] = {
     strNothingFound: "Sonuç Bunulamadı",
     strSelectedmatches: "{0} seçilen arasında {1} eşleşen",
     strPrevResult: "Önceki Kayıt",
-    strNextResult: "Sonraki Kayıt"    
-}; 
-$.paramquery.pqPager.regional['tr'] = { 
+    strNextResult: "Sonraki Kayıt"
+};
+$.paramquery.pqPager.regional['tr'] = {
     strPage: "{1} Sayfadan {0} gösteriliyor",
     strFirstPage: "İlk Sayfa",
     strPrevPage: "Önceki Sayfa",

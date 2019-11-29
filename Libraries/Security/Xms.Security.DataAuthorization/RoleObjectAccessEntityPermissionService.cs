@@ -14,7 +14,7 @@ namespace Xms.Security.DataAuthorization
     /// 角色实体权限服务
     /// </summary>
     public class RoleObjectAccessEntityPermissionService : IRoleObjectAccessEntityPermissionService
-    {        
+    {
         private readonly IRoleObjectAccessEntityPermissionRepository _roleObjectAccessEntityPermissionRepository;
 
         public PagedList<RoleObjectAccessEntityPermission> QueryPaged(Func<QueryDescriptor<RoleObjectAccessEntityPermission>, QueryDescriptor<RoleObjectAccessEntityPermission>> container)
@@ -44,6 +44,6 @@ namespace Xms.Security.DataAuthorization
         public List<RoleObjectAccessEntityPermission> GetPermissions(IEnumerable<Guid> entityIds, IEnumerable<Guid> roleIds, AccessRightValue access)
         {
             return _roleObjectAccessEntityPermissionRepository.GetPermissions(entityIds, roleIds, access);
-        }        
+        }
     }
 }

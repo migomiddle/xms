@@ -2,7 +2,6 @@
 
 namespace Xms.Web.Api.Models
 {
-
     public class UpdateLocalizedTextModel
     {
         public LanguageCode Language { get; set; }

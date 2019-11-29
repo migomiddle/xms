@@ -13,7 +13,6 @@ namespace Xms.Web.Customize.Models
         public RecordState? StateCode { get; set; }
 
         public Guid EntityId { get; set; }
-        public Schema.Domain.Entity Entity { get; set; }
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
     }
@@ -37,7 +36,9 @@ namespace Xms.Web.Customize.Models
 
         public List<DuplicateRuleCondition> Conditions { get; set; }
         public Guid SolutionId { get; set; }
+        public Schema.Domain.Entity EntityMeta { get; set; }
     }
+
     public class SetDuplicateRuleStateModel : SetRecordStateModel
     {
         public Guid EntityId { get; set; }

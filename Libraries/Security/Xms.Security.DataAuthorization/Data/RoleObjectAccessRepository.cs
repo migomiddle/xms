@@ -12,9 +12,5 @@ namespace Xms.Security.DataAuthorization.Data
         public RoleObjectAccessRepository(IDbContext dbContext) : base(dbContext)
         {
         }
-
-        #region Implements
-
-        #endregion Implements
     }
 }

@@ -243,11 +243,11 @@ function addPoint(eleparam, nodetype) {
         AttachmentExts: '',
         FormId: null
     }, {
-            x: 0,
-            y: 0,
-            title: '测试',
-            nodetype: TYPE_NARMAL
-        }, eleparam);
+        x: 0,
+        y: 0,
+        title: '测试',
+        nodetype: TYPE_NARMAL
+    }, eleparam);
 
     var ele = new elePoint(null, eleparam).init().render('#workflowWrap');
     if (ele.param.nodetype == TYPE_SHUNT) {
@@ -992,7 +992,7 @@ function connectPoint(sourceId, targetId, box) {
                 var attrobj = getAttributeobj(data, attrname);
                 //console.log('attributeobj', attrobj);
                 if ((attrobj.attributetypename == 'lookup' || attrobj.attributetypename == 'owner' || attrobj.attributetypename == 'customer') && filtertype == "value") {
-                    Xms.Web.PageCache('workflow', '/api/data/Retrieve/ReferencedRecord/' + param.data.entityid + '/' + param.data.value, null, function (response) {
+                    Xms.Web.PageCache('workflow', '/api/data/Retrieve/ReferencedRecord/' + param.data.entityid + '/' + param.data.value, param, function (response) {
                         if (response.content && response.content['name']) {
                             labels.push(
                                 getAttributeName(data, attrname) + " " +

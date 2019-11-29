@@ -45,6 +45,7 @@ namespace Xms.Web.Customize.Models
         public bool IsAuthorization { get; set; }
         public IFormFile ReportFile { get; set; }
     }
+
     public class SetReportAuthorizationStateModel
     {
         public Guid[] RecordId { get; set; }

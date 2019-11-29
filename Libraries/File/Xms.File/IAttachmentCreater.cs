@@ -9,6 +9,7 @@ namespace Xms.File
     public interface IAttachmentCreater
     {
         Task<Entity> CreateAsync(Guid entityId, Guid objectId, IFormFile file);
+
         Task<List<Entity>> CreateManyAsync(Guid entityId, Guid objectId, List<IFormFile> files);
     }
 }

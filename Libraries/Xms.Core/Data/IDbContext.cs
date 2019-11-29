@@ -3,6 +3,7 @@
     public interface IDbContext
     {
         bool TransactionCancelled { get; set; }
+
         void BeginTransaction();
 
         void CompleteTransaction();

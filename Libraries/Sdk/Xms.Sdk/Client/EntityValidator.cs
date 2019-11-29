@@ -14,6 +14,7 @@ namespace Xms.Sdk.Client
     public class EntityValidator : IEntityValidator
     {
         private readonly IEntityFinder _entityFinder;
+
         public EntityValidator(IEntityFinder entityFinder)
         {
             _entityFinder = entityFinder;

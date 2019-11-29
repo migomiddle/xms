@@ -3,7 +3,6 @@ using Xms.Sdk.Abstractions.Query;
 
 namespace Xms.QueryView.Abstractions.Component
 {
-
     public class RowCommand
     {
         public LogicalOperator LogicalOperator { get; set; }

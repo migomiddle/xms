@@ -23,16 +23,19 @@ namespace Xms.Web.Customize.Controllers
     public class ReportController : CustomizeBaseController
     {
         private readonly IReportService _reportService;
+
         public ReportController(IWebAppContext appContext
             , IReportService reportService
-            , ISolutionService solutionService) 
+            , ISolutionService solutionService)
             : base(appContext, solutionService)
         {
             _reportService = reportService;
         }
+
         [Description("报表列表")]
         public IActionResult Index(ReportModel model)
         {
+            return ToBePerfected();
             FilterContainer<Report> filter = FilterContainerBuilder.Build<Report>();
             filter.And(n => n.SolutionId == SolutionId.Value);
             if (model.Name.IsNotEmpty())
@@ -164,11 +167,12 @@ namespace Xms.Web.Customize.Controllers
         {
             return _reportService.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置报表权限启用状态")]
         [HttpPost]
         public IActionResult SetReportAuthorizationState(SetReportAuthorizationStateModel model)
         {
-            return  _reportService.UpdateAuthorization(model.RecordId, model.IsAuthorization).UpdateResult(T);
+            return _reportService.UpdateAuthorization(model.RecordId, model.IsAuthorization).UpdateResult(T);
         }
     }
 }

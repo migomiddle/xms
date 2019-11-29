@@ -165,6 +165,7 @@ namespace Xms.Core.Context
         }
 
         private FilterContainer<T> _critiria;
+
         public FilterContainer<T> Critiria
         {
             get
@@ -180,6 +181,7 @@ namespace Xms.Core.Context
                 _critiria = value;
             }
         }
+
         /// <summary>
         /// 生成的sql语句
         /// </summary>
@@ -204,12 +206,16 @@ namespace Xms.Core.Context
         }
 
         private List<string> _columns;
+
         /// <summary>
         /// 查询字段
         /// </summary>
-        public List<string> Columns {
-            get {
-                if (_columns == null) {
+        public List<string> Columns
+        {
+            get
+            {
+                if (_columns == null)
+                {
                     _columns = new List<string>();
                 }
                 return _columns;

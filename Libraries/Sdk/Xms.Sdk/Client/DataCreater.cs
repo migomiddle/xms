@@ -18,7 +18,6 @@ using Xms.Sdk.Abstractions;
 using Xms.Sdk.Data;
 using Xms.Sdk.Event;
 using Xms.Sdk.Extensions;
-using Xms.Security.DataAuthorization;
 
 namespace Xms.Sdk.Client
 {
@@ -146,7 +145,8 @@ namespace Xms.Sdk.Client
         /// <param name="attributeMetadatas"></param>
         private void VerifyCreate(Entity entity, Schema.Domain.Entity entityMetadata, List<Schema.Domain.Attribute> attributeMetadatas, bool ignorePermissions = false)
         {
-            _entityValidator.VerifyValues(entity, entityMetadata, attributeMetadatas, (e) => {
+            _entityValidator.VerifyValues(entity, entityMetadata, attributeMetadatas, (e) =>
+            {
                 OnException(string.Join("\n", e));
             });
             if (attributeMetadatas.Exists(n => n.Name.IsCaseInsensitiveEqual("createdby")))

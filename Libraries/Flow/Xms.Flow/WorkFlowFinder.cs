@@ -22,8 +22,10 @@ namespace Xms.Flow
     public class WorkFlowFinder : IWorkFlowFinder
     {
         private readonly IWorkFlowRepository _workFlowRepository;
+
         //private readonly ILocalizedLabelService _localizedLabelService;
         private readonly IRoleObjectAccessService _roleObjectAccessService;
+
         private readonly IAppContext _appContext;
         private readonly ICurrentUser _currentUser;
 

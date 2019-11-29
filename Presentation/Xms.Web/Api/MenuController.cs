@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Linq;
+using Xms.Infrastructure.Utility;
 using Xms.SiteMap;
 using Xms.Web.Api.Models;
 using Xms.Web.Framework.Context;
 using Xms.Web.Framework.Controller;
 using Xms.Web.Framework.Infrastructure;
-using Xms.Infrastructure.Utility;
 
 namespace Xms.Web.Api
 {
@@ -18,6 +18,7 @@ namespace Xms.Web.Api
     {
         private readonly IPrivilegeService _privilegeService;
         private readonly IPrivilegeTreeBuilder _privilegeTreeBuilder;
+
         public MenuController(IWebAppContext appContext
             , IPrivilegeService privilegeService
             , IPrivilegeTreeBuilder privilegeTreeBuilder)

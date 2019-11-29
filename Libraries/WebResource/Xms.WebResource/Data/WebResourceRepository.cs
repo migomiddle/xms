@@ -13,7 +13,6 @@ namespace Xms.WebResource.Data
     {
         public WebResourceRepository(IDbContext dbContext) : base(dbContext)
         {
-            
         }
 
         #region implements
@@ -31,6 +30,7 @@ namespace Xms.WebResource.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }

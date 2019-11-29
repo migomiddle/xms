@@ -1,5 +1,4 @@
-﻿if (typeof (Xms) == "undefined")
-{ Xms = { __namespace: true }; }
+﻿if (typeof (Xms) == "undefined") { Xms = { __namespace: true }; }
 Xms.Fetch = function () { };
 //Xms.Fetch.LogicalOperator = function () { };
 Xms.Fetch.LogicalOperator = {
@@ -332,7 +331,7 @@ Xms.Fetch.ConditionOperators["organization"] = Xms.Fetch.ConditionOperator.Organ
 //根据数字获取操作符名字
 Xms.Fetch.getFilterName = function (number) {
     var res = '';
-    for (var i in Xms.Fetch.ConditionOperator) { 
+    for (var i in Xms.Fetch.ConditionOperator) {
         if (Xms.Fetch.ConditionOperator.hasOwnProperty(i)) {
             if (number == Xms.Fetch.ConditionOperator[i]) {
                 res = i;

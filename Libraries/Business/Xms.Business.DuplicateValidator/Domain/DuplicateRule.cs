@@ -23,6 +23,7 @@ namespace Xms.Business.DuplicateValidator.Domain
 
         public Guid SolutionId { get; set; }
         public int ComponentState { get; set; }
+
         [Ignore]
         [ResultColumn]
         public List<DuplicateRuleCondition> Conditions { get; set; }

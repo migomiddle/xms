@@ -38,7 +38,7 @@ namespace Xms.Solution
                 {
                     services.AddScoped(i, importer);
                     var nodeAttributes = importer.GetCustomAttributes(typeof(SolutionImportNodeAttribute), true);
-                    if(nodeAttributes != null && nodeAttributes.Length > 0)
+                    if (nodeAttributes != null && nodeAttributes.Length > 0)
                     {
                         ImporterNodeTypeMapper.Add(((SolutionImportNodeAttribute)nodeAttributes[0]).Name, importer);
                     }
@@ -49,6 +49,7 @@ namespace Xms.Solution
                 }
             }
         }
+
         public int Order => 1;
     }
 }

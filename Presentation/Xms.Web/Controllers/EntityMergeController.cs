@@ -19,6 +19,7 @@ namespace Xms.Web.Controllers
         private readonly IEntityFinder _entityFinder;
         private readonly IAttributeFinder _attributeFinder;
         private readonly IDataFinder _dataFinder;
+
         public EntityMergeController(IWebAppContext appContext
             , IEntityFinder entityFinder
             , IAttributeFinder attributeFinder
@@ -50,6 +51,7 @@ namespace Xms.Web.Controllers
             model.RecordId2 = recordid2;
             return View($"~/Views/Entity/{WebContext.ActionName}.cshtml", model);
         }
+
         #endregion 合并
     }
 }

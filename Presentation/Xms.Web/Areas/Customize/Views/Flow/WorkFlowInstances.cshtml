@@ -1,93 +1,29 @@
-﻿@using Xms.Flow.Abstractions;
-@model Xms.Web.Customize.Models.WorkFlowInstanceModel
+﻿@model Xms.Web.Customize.Models.WorkFlowInstanceModel
 
-<div class="mb-2 toolbar">
-    
-    <div class="">
-        <form id="searchForm" class="hide">
-            <input type="hidden" name="workflowid" value="@Model.WorkFlowId" />
-        </form>
-        <div class="" id="gridview">
-            <div class="datagrid-view"></div>
-            <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-                @*<thead>
-                    <tr>
-                        <th width="2%"><input type="checkbox" name="checkall" /></th>
-                        <th width="15%" data-name="applicantid">
-                            提交者
-                        </th>
-                        <th width="15%" data-name="statecode">
-                            状态
-                        </th>
-                        <th>
-                            说明
-                        </th>
-                        <th width="15%" data-name="createdon">
-                            开始时间
-                        </th>
-                        <th width="15%" data-name="completedon">
-                            结束时间
-                        </th>
-                        <th width="15%">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
-                        <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/flow/WorkFlowProcess?WorkFlowInstanceId=@item.WorkFlowInstanceId'">
-                            <td><input type="checkbox" value="@item.WorkFlowInstanceId" name="recordid" /></td>
-                            <td>@item.ApplicantName</td>
-                            <td>
-                                @if (item.StateCode == WorkFlowProcessState.Processing)
-                                {
-                                    <span class="label label-info">处理中</span>
-                                }
-                                else if (item.StateCode == WorkFlowProcessState.Waiting)
-                                {
-                                    <span class="label label-default">等待中</span>
-                                }
-                                else if (item.StateCode == WorkFlowProcessState.Passed)
-                                {
-                                    <p class="label label-success"><span class="glyphicon glyphicon-ok"></span> 通过</p>
-                                }
-                                else if (item.StateCode == WorkFlowProcessState.UnPassed)
-                                {
-                                    <p class="label label-danger"><span class="glyphicon glyphicon-remove"></span> 不通过</p>
-                                }
-                                else if (item.StateCode == WorkFlowProcessState.Disabled)
-                                {
-                                    <span class="label label-default">作废</span>
-                                }
-                                else if (item.StateCode == WorkFlowProcessState.Canceled)
-                                {
-                                    <span class="label label-default">已撤消</span>
-                                }
-                            </td>
-                            <td>@item.Description</td>
-                            <td>@item.CreatedOn</td>
-                            <td>@item.CompletedOn</td>
-                            <td>
-                                <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/WorkFlowProcess?WorkFlowInstanceId=@item.WorkFlowInstanceId">
-                                    <span class="glyphicon glyphicon-th"></span> 详情
-                                </a>
-                                <a class="btn btn-warning btn-xs@(item.StateCode == WorkFlowProcessState.Processing ? "":" hide")" href="javascript:Cancel('@item.WorkFlowInstanceId')"><span class="glyphicon glyphicon-refresh"></span> 撤消</a>
-                                <a class="btn btn-info btn-xs hide"><span class="glyphicon glyphicon-share-alt"></span> 指派</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>*@
-            </table>
-            @*<div class="panel-footer">
-                <div class="row">
-                    <div class="col-sm-4">
-                        @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName - @Model.FlowInfo.Name</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="mb-2 toolbar">
+
+                <div class="">
+                    <form id="searchForm" class="hide">
+                        <input type="hidden" name="workflowid" value="@Model.WorkFlowId" />
+                    </form>
+                    <div class="" id="gridview">
+                        <div class="datagrid-view"></div>
                     </div>
-                    <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
-                </div>*@
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 @section Header {
     <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
@@ -116,10 +52,6 @@
         var solutionid = '';
         var statelist = ['<span class="label label-default">等待中</span>','<span class="label label-info">处理中</span>','<p class="label label-success"><span class="glyphicon glyphicon-ok"></span> 通过</p>','<p class="label label-danger"><span class="glyphicon glyphicon-remove"></span> 不通过</p>',' <span class="label label-default">作废</span>','<span class="label label-default">已撤消</span>','','','','']
         $(function () {
-            //pageUrl = $("#datatable").attr('data-pageurl');
-            //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            //$("#datatable").ajaxTable();
-            //ajaxgrid_reset();
             var theaders = {
                 'name': '提交者',
                 'statecode': '状态',
@@ -165,7 +97,6 @@
                     } },
                 { "dataIndx": "description", "title": theaders.descript, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
 
-
                 { "dataIndx": "createdon", "title": theaders.createdon, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
                  { "dataIndx": "completedon", "title": theaders.enddon, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
                 {
@@ -175,7 +106,7 @@
                         var column = ui.column;
                         var recordid = datas[dataIndx];
                         var html = ''
-                        html = '<a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/WorkFlowProcess?workflowinstanceid=' + datas.workflowinstanceid + '" ><span class="glyphicon glyphicon-th"></span> 详情</a>'
+                        html = '<a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/WorkFlowProcess?workflowinstanceid=' + datas.workflowinstanceid + '" ><span class="glyphicon glyphicon-edit glyphicon-link"></span> 详情</a>'
                             + ' <a class="btn btn-warning btn-xs ' + (datas.statecode == 1 ? '' : 'hide') + '" href="javascript:Cancel(\'' + datas.workflowinstanceid + '\')"><span class="glyphicon glyphicon-refresh"></span> 撤消</a>'
                             + '<a class="btn btn-info btn-xs hide"><span class="glyphicon glyphicon-share-alt"></span> 指派</a>';
                         return html
@@ -194,43 +125,8 @@
                 searchForm: $form//GET提交时查询的数据
             };
             $('.datagrid-view').xmsDataTable(datagridconfig);
-            //pageUrl = $("#datatable").attr('data-pageurl');
-
-            //$('#ShowArea').picklist({
-            //    items: [{ label: 'Form', value: 'Form' }, { label: 'ListHead', value: 'ListHead' }, { label: 'ListRow', value: 'ListRow' }, { label: 'SubGrid', value: 'SubGrid' }]
-            //});
-
-            //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            //$("#datatable").ajaxTable();
-            //ajaxgrid_reset();
         });
-        function ajaxgrid_reset() {
-            pag_init();
-            Xms.Web.DataTable($("#datatable"));
-        }
-        function pag_init() {
-            $('#page-selection').bootpag({
-                total: $('#page-selection').attr('data-total')
-                , maxVisible: 10
-                , page: $('#page-selection').attr('data-page')
-                , leaps: false
-                , prev: '&lsaquo;'
-                , next: '&rsaquo;'
-                , firstLastUse: true
-                , first: '&laquo;'
-                , last: '&raquo;'
-            }).on("page", function (event, /* page number here */ num) {
-                event.preventDefault();
-                pageUrl = $("#datatable").attr('data-pageurl');
-                var url = $.setUrlParam(pageUrl, 'page', num);
-                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
-                    ajaxgrid_reset();
-                });
-                return false;
-            });
-        }
         function rebind() {
-            //$('#searchForm').submit();
              $('.datagrid-view').cDatagrid('refreshDataAndView')
         }
         function Cancel(id) {

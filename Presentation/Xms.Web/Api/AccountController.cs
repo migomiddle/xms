@@ -21,7 +21,7 @@ namespace Xms.Web.Api
         private readonly IAuthenticationService _authenticationService;
         private readonly ISystemUserService _systemUserService;
         private readonly IVerifyProvider _verifyProvider;
-     
+
         public AccountController(IWebAppContext appContext
             , IAuthenticationService authenticationService
             , ISystemUserService systemUserService
@@ -32,7 +32,6 @@ namespace Xms.Web.Api
             _authenticationService = authenticationService;
             _systemUserService = systemUserService;
             _verifyProvider = verifyProvider;
-            
         }
 
         [HttpPost]
@@ -71,7 +70,7 @@ namespace Xms.Web.Api
                             //登录状态记录
                             _authenticationService.SignIn(u, true);
                             //获取用户个性化信息
-                          
+
                             //更新最后登录时间
                             _systemUserService.Update(n => n.Set(f => f.LastLoginTime, DateTime.Now)//.Set(f => f.IsLogin, true)
                             .Where(f => f.SystemUserId == u.SystemUserId));

@@ -43,7 +43,7 @@ namespace Xms.QueryView
             _dependencyChecker = dependencyChecker;
             _eventPublisher = eventPublisher;
             _cascadeDeletes = cascadeDeletes;
-            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", QueryViewCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public bool DeleteById(params Guid[] id)

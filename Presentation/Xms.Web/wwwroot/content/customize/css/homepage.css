@@ -2,6 +2,13 @@
     background-color: #f2f2f2;
 }
 
+#renderBody {
+    border-radius: 0;
+    background-color: transparent !important;
+    box-shadow: none;
+    padding: 0 !important;
+}
+
 li {
     list-style: none;
 }
@@ -9,7 +16,7 @@ li {
 a, a:hover {
     text-decoration: none;
     cursor: pointer;
-    outline:none;
+    outline: none;
 }
 
 .panel {
@@ -28,23 +35,24 @@ a, a:hover {
         border-radius: 2px 2px 0 0;
         font-size: 14px;
     }
-    .panel > .panel-body{
-        min-height:185px;
+
+    .panel > .panel-body {
+        min-height: 185px;
     }
 
-    #shortcutContainer ul li .item-icon {
-        display: inline-block;
-        width: 100%;
-        height: 60px;
-        line-height: 60px;
-        text-align: center;
-        border-radius: 2px;
-        font-size: 30px !important;
-        background-color: #F8F8F8;
-        color: #333;
-        transition: all .3s;
-        -webkit-transition: all .3s;
-    }
+#shortcutContainer ul li .item-icon {
+    display: inline-block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 30px !important;
+    background-color: #F8F8F8;
+    color: #333;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+}
 
     #shortcutContainer ul li .item-icon span, #shortcutContainer ul li .item-icon i {
         font-size: 20px !important;
@@ -232,23 +240,33 @@ a, a:hover {
         width: 10px;
         height: 10px;
     }
+
 .panel-title {
-    padding-left:0;
-    font-size:14px;
+    padding-left: 0;
+    font-size: 14px;
 }
+
 .panel-top-tool-group {
     padding-top: 5px;
-   
 }
-.pq-pager  .pq-page-placeholder {
+
+.pq-pager .pq-page-placeholder {
     vertical-align: middle;
 }
+
 #logModal .modal-content {
     border-radius: 2px;
 }
+
 #logModal .modal-body {
     padding: 0;
 }
+
 #logModal .modal-header {
     border-bottom: none;
+}
+
+.panel-one {
+    max-height: 250px;
+    min-height: 250px;
 }

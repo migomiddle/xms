@@ -18,6 +18,7 @@ namespace Xms.Web.Areas.Customize.Controllers
     {
         //private readonly IDependencyService _dependencyService;
         private readonly IDependencyLookupFactory _dependencyLookupFactory;
+
         public DependencyController(IWebAppContext appContext
             , ISolutionService solutionService
             , IDependencyLookupFactory dependencyLookupFactory
@@ -25,6 +26,7 @@ namespace Xms.Web.Areas.Customize.Controllers
         {
             _dependencyLookupFactory = dependencyLookupFactory;
         }
+
         [Route("/error/dependentexception")]
         public IActionResult DependentComponents([FromBody]List<DependentDescriptor> dependents)
         {

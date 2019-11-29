@@ -27,7 +27,6 @@ namespace Xms.File
 
         public void OnStarting()
         {
-
         }
     }
 }

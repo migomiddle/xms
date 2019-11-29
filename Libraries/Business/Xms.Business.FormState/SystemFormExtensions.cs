@@ -21,7 +21,7 @@ namespace Xms.Business.FormStateRule
                     {
                         var flag = (item.Value.IsCaseInsensitiveEqual("null") && record[item.Field] == null)
                             || (item.Value.IsCaseInsensitiveEqual(record.GetStringValue(item.Field)));
-                            if (flag && !rules.Enabled)//符合条件并且规则为禁用
+                        if (flag && !rules.Enabled)//符合条件并且规则为禁用
                         {
                             disabled = true;
                         }

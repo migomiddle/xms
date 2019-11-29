@@ -15,8 +15,6 @@
         this.mychar = echart.init(target);
         myChart.setOption(new ChartsOpts(this.title, this.xAris, this.yAxis, this.series, this.tooltips, this.legend.data));
     }
-
-
 })(jQuery, window);
 
 (function ($, root, un) {
@@ -27,11 +25,11 @@
         removeBtn: null,
         ctrlClass: "",
         itemClass: ".electrldomItem",
-        addHandler:null,
-        ctrlHandler:null
+        addHandler: null,
+        ctrlHandler: null
     }
     function ElementCtrl(target, opts) {
-        opts = $.extend({},defaults,opts);
+        opts = $.extend({}, defaults, opts);
         if (!this instanceof ElementCtrl) {
             return new ElementCtrl(target, opts);
         }
@@ -51,7 +49,6 @@
             this.checkShow();
             this.bindEvent();
         }
-
     }
     ElementCtrl.prototype.checkShow = function () {
         if (this.length >= this.maxLength) {
@@ -77,13 +74,13 @@
                 '</div>');
             clone.append(ctrlItem);
         }
-        
+
         this.list.push(clone);
         //if (this.list.length > 1) {
-            //this.list[this.list.length - 1].append(clone);
-       // } else {
-            this.target.append(clone);
-       // }
+        //this.list[this.list.length - 1].append(clone);
+        // } else {
+        this.target.append(clone);
+        // }
         this.length++;
         var curent = this.length, self = this;
         this.bindEvent();
@@ -191,7 +188,6 @@
     }
 
     root.createChartMethod = createChartMethod;
-
 })(jQuery, window);
 
 (function ($, root) {
@@ -206,12 +202,10 @@
         $this.each(function () {
             var that = this, $that = $(that);
             $(that).find("input").each(function () {
-
             });
         });
     }
     method_public["init"] = function (opts) {
-
     }
     $.fn.ccFormSeries = function () {
         var args = slice.call(arguments), argsLen = args.length;
@@ -220,10 +214,8 @@
         } else if (argsLen === 2) {
             return method_public["get"](this, opts);
         }
-
     }
 })(jQuery, window);
-
 
 (function ($, root) {
     "use strict"
@@ -250,11 +242,7 @@
         return JSON.stringify(this);
     }
     ChartData.prototype.filter = function (objs) {
-
     }
-
-
-
 
     function chartsDataHandle(data, callback) {
         var temp = data;
@@ -277,16 +265,15 @@
                 //    }
                 //    callback && callback(chartData)
                 //}, function (data) {
-                    //测试
-                    if (item.type === "series") {
-                        chartData.yAxis.data = {};
-
-                    } else if (item.type === "category") {
-                        chartData.xAxis.data =  ["05-01", "05-02", "05-03", "05-04", "05-05", "05-06"];
-                    }
-                    if (i === len-1) {
-                        callback && callback(chartData);
-                    }
+                //测试
+                if (item.type === "series") {
+                    chartData.yAxis.data = {};
+                } else if (item.type === "category") {
+                    chartData.xAxis.data = ["05-01", "05-02", "05-03", "05-04", "05-05", "05-06"];
+                }
+                if (i === len - 1) {
+                    callback && callback(chartData);
+                }
                 //});
             })(i);
         }
@@ -321,7 +308,7 @@
         mychart.setOption(data);
     }
 
-    function ChartSeries(name, type, data,opts) {
+    function ChartSeries(name, type, data, opts) {
         var self = this;
         this.name = name || "SeriesName";
         this.type = type || "bar";
@@ -369,9 +356,8 @@
                     }
                 }
             }
-           $.extend(self, tempObj);
+            $.extend(self, tempObj);
         }
-
     }
 
     root.ChartData = ChartData;
@@ -388,7 +374,6 @@
             $("body").append(backCover);
             $(this).show().addClass("in");
             tempList.push($(this));
-
         } else if (type === "hide") {
             $(this).hide().removeClass("in");
             tempList.pop();
@@ -412,4 +397,3 @@
         }
     });
 })(jQuery);
-

@@ -1,5 +1,5 @@
 function loadEntities(callback) {
-    Xms.Schema.GetEntities({getall: true}, function (data) {
+    Xms.Schema.GetEntities({ getall: true }, function (data) {
         if (!data || data.content.items.length == 0) return;
         console.log(data.content.items)
         $(data.content.items).each(function (i, n) {

@@ -5,10 +5,8 @@ using System.Linq.Expressions;
 using Xms.Authorization.Abstractions;
 using Xms.Context;
 using Xms.Core.Context;
-using Xms.Core.Data;
 using Xms.Data.Provider;
 using Xms.Dependency.Abstractions;
-using Xms.Identity;
 using Xms.Infrastructure.Utility;
 using Xms.Module.Core;
 using Xms.QueryView.Abstractions;
@@ -22,32 +20,29 @@ namespace Xms.QueryView
     public class QueryViewFinder : IQueryViewFinder, IDependentLookup<Domain.QueryView>
     {
         private readonly IQueryViewRepository _queryViewRepository;
-        //private readonly ILocalizedLabelService _localizedLabelService;
         private readonly IRoleObjectAccessService _roleObjectAccessService;
         private readonly Caching.CacheManager<Domain.QueryView> _cacheService;
         private readonly IAppContext _appContext;
 
         public QueryViewFinder(IAppContext appContext
             , IQueryViewRepository queryViewRepository
-            //, ILocalizedLabelService localizedLabelService
             , IRoleObjectAccessService roleObjectAccessService
             )
         {
             _appContext = appContext;
             _queryViewRepository = queryViewRepository;
-            //_localizedLabelService = localizedLabelService;
             _roleObjectAccessService = roleObjectAccessService;
-            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", QueryViewCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public Domain.QueryView FindById(Guid id)
-        {            
+        {
             var dic = new Dictionary<string, string>();
             dic.Add("QueryViewId", id.ToString());
-            Domain.QueryView entity = _cacheService.Get(dic,() =>
-            {
-                return _queryViewRepository.FindById(id);
-            });
+            Domain.QueryView entity = _cacheService.Get(dic, () =>
+             {
+                 return _queryViewRepository.FindById(id);
+             });
             if (entity != null)
             {
                 WrapLocalizedLabel(entity);
@@ -57,10 +52,10 @@ namespace Xms.QueryView
 
         public Domain.QueryView FindEntityDefaultView(Guid entityId)
         {
-            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityId.ToString(),() =>
-            {
-                return this.QueryAuthorized(n => n.Where(f => f.EntityId == entityId));
-            });
+            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityId.ToString(), () =>
+             {
+                 return this.QueryAuthorized(n => n.Where(f => f.EntityId == entityId));
+             });
             Domain.QueryView defaultView = null;
             if (views.NotEmpty())
             {
@@ -75,10 +70,10 @@ namespace Xms.QueryView
 
         public Domain.QueryView FindEntityDefaultView(string entityName)
         {
-            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityName,() =>
-            {
-                return this.QueryAuthorized(n => n.Where(f => f.EntityName == entityName));
-            });
+            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityName, () =>
+             {
+                 return this.QueryAuthorized(n => n.Where(f => f.EntityName == entityName));
+             });
             Domain.QueryView defaultView = null;
             if (views.NotEmpty())
             {
@@ -103,10 +98,10 @@ namespace Xms.QueryView
 
         public List<Domain.QueryView> FindByEntityId(Guid entityId)
         {
-            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityId.ToString(),() =>
-            {
-                return this.QueryAuthorized(n => n.Where(f => f.EntityId == entityId));
-            });
+            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityId.ToString(), () =>
+             {
+                 return this.QueryAuthorized(n => n.Where(f => f.EntityId == entityId));
+             });
             if (views != null)
             {
                 WrapLocalizedLabel(views);
@@ -116,10 +111,10 @@ namespace Xms.QueryView
 
         public List<Domain.QueryView> FindByEntityName(string entityName)
         {
-            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityName,() =>
-            {
-                return this.QueryAuthorized(n => n.Where(f => f.EntityName == entityName));
-            });
+            List<Domain.QueryView> views = _cacheService.GetVersionItems(entityName, () =>
+             {
+                 return this.QueryAuthorized(n => n.Where(f => f.EntityName == entityName));
+             });
             if (views != null)
             {
                 WrapLocalizedLabel(views);
@@ -174,10 +169,10 @@ namespace Xms.QueryView
 
         public List<Domain.QueryView> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -191,6 +186,7 @@ namespace Xms.QueryView
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
@@ -198,7 +194,8 @@ namespace Xms.QueryView
         }
 
         public int ComponentType => ModuleCollection.GetIdentity(QueryViewDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<Domain.QueryView> datas)
         {

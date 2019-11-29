@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using Xms.Core.Context;
 using Xms.Flow.Domain;
-using SchemaEntity = Xms.Schema.Domain;
 using CoreData = Xms.Core.Data;
+using SchemaEntity = Xms.Schema.Domain;
 
 namespace Xms.Flow.Core
 {

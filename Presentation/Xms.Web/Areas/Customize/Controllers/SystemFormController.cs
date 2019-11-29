@@ -32,6 +32,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly ISystemFormDeleter _systemFormDeleter;
         private readonly ISystemFormFinder _systemFormFinder;
         private readonly ISystemFormUpdater _systemFormUpdater;
+
         public SystemFormController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -49,6 +50,7 @@ namespace Xms.Web.Customize.Controllers
             _systemFormFinder = systemFormFinder;
             _systemFormUpdater = systemFormUpdater;
         }
+
         [Description("表单列表")]
         public IActionResult Index(FormModel model)
         {
@@ -184,7 +186,7 @@ namespace Xms.Web.Customize.Controllers
                         var assignRoles = _roleObjectAccessService.Query(entity.SystemFormId, FormDefaults.ModuleName);
                         if (assignRoles.NotEmpty())
                         {
-                            assignRolesId = assignRoles.Select(x=>x.RoleId).ToList();
+                            assignRolesId = assignRoles.Select(x => x.RoleId).ToList();
                         }
                     }
                     _systemFormCreater.Create(newForm);
@@ -200,24 +202,28 @@ namespace Xms.Web.Customize.Controllers
         {
             return _systemFormDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置表单默认状态")]
         [HttpPost]
         public IActionResult SetFormDefault([FromBody]SetFormDefaultModel model)
         {
             return _systemFormUpdater.UpdateDefault(model.EntityId, model.RecordId.First()).UpdateResult(T);
         }
+
         [Description("设置表单可用状态")]
         [HttpPost]
         public IActionResult SetFormState([FromBody]SetRecordStateModel model)
         {
             return _systemFormUpdater.UpdateState(model.IsEnabled, model.RecordId).UpdateResult(T);
         }
+
         [Description("设置表单权限启用状态")]
         [HttpPost]
         public IActionResult SetFormAuthorizationState([FromBody]SetFormAuthorizationStateModel model)
         {
             return _systemFormUpdater.UpdateAuthorization(model.IsAuthorization, model.RecordId).UpdateResult(T);
         }
+
         [Description("设置表单按钮")]
         [HttpPost]
         public IActionResult SetFormButtons([FromBody]SetFormButtonsModel model)

@@ -8,6 +8,6 @@ namespace Xms.Sdk.Client.AggRoot
     /// </summary>
     public interface IAggCreater
     {
-        Guid Create(AggregateRoot aggregateRoot, Guid? SystemFormId, bool ignorePermissions = false);
+        Guid Create(AggregateRoot aggregateRoot, Guid ObjectId, Guid? SystemFormId, bool ignorePermissions = false);
     }
 }

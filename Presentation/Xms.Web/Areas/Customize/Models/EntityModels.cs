@@ -20,7 +20,7 @@ namespace Xms.Web.Customize.Models
         public Guid SolutionId { get; set; }
         public bool LoadData { get; set; }
         public Guid EntityGroupId { get; set; }
-}
+    }
 
     public class CreateEntityModel
     {

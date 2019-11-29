@@ -3,7 +3,6 @@ using System;
 
 namespace Xms.UserPersonalization.Domain
 {
-
     [TableName("UserCustomization")]
     [PrimaryKey("UserCustomizationId", AutoIncrement = false)]
     public class UserCustomization
@@ -13,6 +12,5 @@ namespace Xms.UserPersonalization.Domain
         public string Value { get; set; }
         public Guid OwnerId { get; set; }
         public int OwnerIdType { get; set; } = 1;
-
     }
 }

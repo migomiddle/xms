@@ -31,7 +31,7 @@ namespace Xms.Form
             _appContext = appContext;
             _systemFormRepository = systemFormRepository;
             _roleObjectAccessService = roleObjectAccessService;
-            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", SystemFormCache.BuildKey);
+            _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", _appContext.PlatformSettings.CacheEnabled);
         }
 
         public Domain.SystemForm FindById(Guid id)
@@ -39,10 +39,10 @@ namespace Xms.Form
             var dic = new Dictionary<string, string>();
             dic.Add("SystemFormId", id.ToString());
 
-            Domain.SystemForm entity = _cacheService.Get(dic,() =>
-            {
-                return _systemFormRepository.FindById(id);
-            });
+            Domain.SystemForm entity = _cacheService.Get(dic, () =>
+             {
+                 return _systemFormRepository.FindById(id);
+             });
             if (entity != null)
             {
                 WrapLocalizedLabel(entity);
@@ -52,10 +52,10 @@ namespace Xms.Form
 
         public Domain.SystemForm FindEntityDefaultForm(Guid entityId)
         {
-            List<Domain.SystemForm> items = _cacheService.GetVersionItems(entityId.ToString(),() =>
-            {
-                return _systemFormRepository.Query(f => f.EntityId == entityId)?.ToList();
-            });
+            List<Domain.SystemForm> items = _cacheService.GetVersionItems(entityId.ToString(), () =>
+             {
+                 return _systemFormRepository.Query(f => f.EntityId == entityId)?.ToList();
+             });
             Domain.SystemForm defaultForm = null;
             if (items.NotEmpty())
             {
@@ -70,7 +70,7 @@ namespace Xms.Form
 
         public Domain.SystemForm FindEntityDefaultForm(string entityName)
         {
-            List<Domain.SystemForm> items = _cacheService.GetVersionItems(entityName ,() =>
+            List<Domain.SystemForm> items = _cacheService.GetVersionItems(entityName, () =>
             {
                 return _systemFormRepository.Query(f => f.EntityName == entityName)?.ToList();
             });
@@ -111,10 +111,10 @@ namespace Xms.Form
 
         public List<Domain.SystemForm> FindByEntityName(string entityName)
         {
-            List<Domain.SystemForm> result = _cacheService.GetVersionItems(entityName,() =>
-            {
-                return _systemFormRepository.Query(f => f.EntityName == entityName)?.ToList();
-            });
+            List<Domain.SystemForm> result = _cacheService.GetVersionItems(entityName, () =>
+             {
+                 return _systemFormRepository.Query(f => f.EntityName == entityName)?.ToList();
+             });
             if (result != null)
             {
                 WrapLocalizedLabel(result);
@@ -170,10 +170,10 @@ namespace Xms.Form
 
         public List<Domain.SystemForm> FindAll()
         {
-            var entities = _cacheService.GetVersionItems("all",() =>
-            {
-                return PreCacheAll();
-            });
+            var entities = _cacheService.GetVersionItems("all", () =>
+             {
+                 return PreCacheAll();
+             });
             if (entities != null)
             {
                 WrapLocalizedLabel(entities);
@@ -187,6 +187,7 @@ namespace Xms.Form
         }
 
         #region dependency
+
         public DependentDescriptor GetDependent(Guid dependentId)
         {
             var result = FindById(dependentId);
@@ -194,7 +195,8 @@ namespace Xms.Form
         }
 
         public int ComponentType => ModuleCollection.GetIdentity(FormDefaults.ModuleName);
-        #endregion
+
+        #endregion dependency
 
         private void WrapLocalizedLabel(IEnumerable<Domain.SystemForm> datas)
         {

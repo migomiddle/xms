@@ -30,6 +30,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IDuplicateRuleFinder _duplicateRuleFinder;
         private readonly IDuplicateRuleDeleter _duplicateRuleDeleter;
         private readonly IDuplicateRuleConditionService _duplicateRuleConditionService;
+
         public DuplicateRuleController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -37,7 +38,7 @@ namespace Xms.Web.Customize.Controllers
             , IDuplicateRuleUpdater duplicateRuleUpdater
             , IDuplicateRuleFinder duplicateRuleFinder
             , IDuplicateRuleDeleter duplicateRuleDeleter
-            , IDuplicateRuleConditionService duplicateRuleConditionService) 
+            , IDuplicateRuleConditionService duplicateRuleConditionService)
             : base(appContext, solutionService)
         {
             _entityFinder = entityFinder;
@@ -51,23 +52,16 @@ namespace Xms.Web.Customize.Controllers
         [Description("数据重复检测规则列表")]
         public IActionResult Index(DuplicateRuleModel model)
         {
-            if (model.EntityId.Equals(Guid.Empty))
-            {
-                return NotFound();
-            }
-            var entity = _entityFinder.FindById(model.EntityId);
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            model.Entity = entity;
             if (!model.LoadData)
             {
                 return DynamicResult(model);
             }
 
             FilterContainer<DuplicateRule> filter = FilterContainerBuilder.Build<DuplicateRule>();
-            filter.And(n => n.EntityId == model.EntityId);
+            if (!model.EntityId.Equals(Guid.Empty))
+            {
+                filter.And(n => n.EntityId == model.EntityId);
+            }
             if (model.Name.IsNotEmpty())
             {
                 filter.And(n => n.Name.Like(model.Name));
@@ -163,6 +157,7 @@ namespace Xms.Web.Customize.Controllers
                 {
                     entity.CopyTo(model);
                     model.Conditions = _duplicateRuleConditionService.Query(n => n.Where(w => w.DuplicateRuleId == entity.DuplicateRuleId));
+                    model.EntityMeta = _entityFinder.FindById(entity.EntityId);
                     return View(model);
                 }
             }
@@ -227,6 +222,7 @@ namespace Xms.Web.Customize.Controllers
         {
             return _duplicateRuleDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("设置重复规则可用状态")]
         [HttpPost]
         public IActionResult SetDuplicateRuleState([FromBody]SetDuplicateRuleStateModel model)

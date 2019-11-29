@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Xms.Core;
 using Xms.Infrastructure.Inject;
 using Xms.Infrastructure.Utility;

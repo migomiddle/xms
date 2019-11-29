@@ -1,6 +1,14 @@
 ﻿@model Xms.Web.Customize.Models.CreateAttributeModel
 
 <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
     <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
             <form action="/@app.OrganizationUniqueName/customize/attribute/createattribute" method="post" id="createattributeForm" class="form-horizontal" role="form" data-autoreset="true">
@@ -80,8 +88,8 @@
                             <option value="lookup">@app.T["entity_quote"]</option>
                             <option value="uniqueidentifier">全局唯一码</option>
                             @*<option value="partylist">多选</option>
-        <option value="summary">汇总</option>
-            <option value="formula">公式</option>*@
+                                <option value="summary">汇总</option>
+                                    <option value="formula">公式</option>*@
                         </select>
                     </div>
                 </div>
@@ -308,7 +316,7 @@
                         </div>
                     </div>
                 </div>
-                <fieldset class="col-sm-12" id="valueSetting">
+                <fieldset class="col-sm-12 hide" id="valueSetting">
                     <legend>值设置</legend>
                     <div class="form-group col-sm-12">
                         <label class="col-sm-2 control-label" for="valuetype">来源</label>
@@ -394,7 +402,6 @@
                                                     </button>
                                                 </td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -462,10 +469,10 @@
                 var type = $(this).val();
                 if (type != '') {
                     $(this).next('label[name="errorTip"]').remove();
-                    //$('#valueSetting').removeClass('hide');
+                    $('#valueSetting').removeClass('hide');
                 }
                 else {
-                    //$('#valueSetting').addClass('hide');
+                    $('#valueSetting').addClass('hide');
                     return;
                 }
                 $('#' + type + 'Setting').removeClass('hide');
@@ -506,7 +513,7 @@
                     }
                     Xms.Web.Post('/filter/simplefiltersection', postData, false, function (res) {
                         $('#filterSection').html(res);
-                    });
+                    },false,false,false);
                 } else {
                     $('#filterSection').addClass('hide');
                 }
@@ -583,7 +590,6 @@
             }
             return flag;
         }
-
 
         //选项集-增加选项
         function addOption(id) {
@@ -757,6 +763,5 @@
 
             filterConditions.val(encodeURIComponent(JSON.stringify(filters)));
         }
-
     </script>
 }

@@ -1,0 +1,237 @@
+﻿@model Xms.Web.Models.EntityLogsModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            <div class="pull-right">
+                <a class="btn btn-info btn-xs" data-toggle="collapse"
+                   href="#collapseOne">
+                    <span class="caret"></span> @app.T["search"]
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <!--in-->
+        <div class="panel-body">
+            @using (Html.BeginForm("entitylogs", "entity", FormMethod.Get, new { @id = "searchForm", @class = "form-horizontal", @role = "form" }))
+            {
+                @Html.HiddenFor(x => x.EntityId)
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="Name">@app.T["entity"]</label>
+                    <div class="col-sm-9">
+                        <select class="form-control input-sm" id="viewSelector"></select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-3 control-label" for="Name">@app.T["entitylog_optype"]</label>
+                    <div class="col-sm-9">
+                        <select class="form-control input-sm" name="OperationType">
+                            <option></option>
+                            <option value="create">@app.T["security_create"]</option>
+                            <option value="update">@app.T["security_update"]</option>
+                            <option value="delete">@app.T["security_delete"]</option>
+                            <option value="share">@app.T["security_share"]</option>
+                            <option value="assign">@app.T["security_assign"]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                </div>
+            }
+            @using (Html.BeginForm("clearentitylogs", "entity", FormMethod.Get, new { @class = "form-horizontal", @role = "form" }))
+            {
+                @Html.HiddenFor(x => x.EntityId)
+                <div class="form-group col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["clear"]</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="table-responsive" id="gridview">
+        <table class="table table-striped table-hover table-condensed" id="datatable" data-pageurl="@app.Url" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-dbclick="rebind()">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" name="checkall" /></th>
+                    <th width="10%" data-name="url">
+                        @app.T["entitylog_optype"]
+                    </th>
+                    <th>
+                        @app.T["entitylog_updating"]
+                    </th>
+                    <th>@app.T["entitylog_updated"]</th>
+                    <th width="20%">@app.T["entitylog_updatedby"]</th>
+                    <th width="15%" data-name="createdon">
+                        @app.T["operation_time"]
+                    </th>
+                    <th width="10%">@app.T["operation"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    var datas = new List<Xms.Logging.DataLog.Domain.EntityLogChangeData>();
+                    datas = datas.DeserializeFromJson(item.ChangeData);
+                    <tr class="dataList">
+                        <td><input type="checkbox" value="@item.EntityLogId" name="recordid" /></td>
+                        <td>
+                            @{
+                                if (item.OperationType == OperationTypeEnum.Create)
+                                {
+                                    @app.T["security_create"]
+                                }
+                                else if (item.OperationType == OperationTypeEnum.Update)
+                                {
+                                    @app.T["security_update"]
+                                }
+                                else if (item.OperationType == OperationTypeEnum.Delete)
+                                {
+                                    @app.T["security_delete"]
+                                }
+                                else if (item.OperationType == OperationTypeEnum.Assign)
+                                {
+                                    @app.T["security_assign"]
+                                }
+                                else if (item.OperationType == OperationTypeEnum.Share)
+                                {
+                                    @app.T["security_share"]
+                                }
+                            }
+                        </td>
+                        <td class="ChangeKey" data-json="@item.ChangeData.HtmlEncode()">
+                            @if (item.OperationType == OperationTypeEnum.Update
+                             || item.OperationType == OperationTypeEnum.Assign)
+                            {
+                                <table class="table table-condensed">
+                                    @foreach (var d in datas)
+                                    {
+                                        var attr = Model.Attributes.Find(n => n.Name.IsCaseInsensitiveEqual(d.Name));
+                                        <tr><td>@(attr != null ? attr.LocalizedName : d.Name)</td><td>@d.Original</td></tr>
+                                    }
+                                </table>
+                            }
+                        </td>
+                        <td class="ChangeValue">
+                            <table class="table table-condensed">
+                                @foreach (var d in datas)
+                                {
+                                    var attr = Model.Attributes.Find(n => n.Name.IsCaseInsensitiveEqual(d.Name));
+                                    <tr><td>@(attr != null ? attr.LocalizedName : d.Name)</td><td>@d.Value</td></tr>
+                                }
+                            </table>
+                        </td>
+                        <td class="UserName">@item.UserIdName</td>
+                        <td>@item.CreatedOn</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-4">
+                    @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
+                </div>
+                <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Header {
+    <link href="/content/js/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker3.min.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+}
+@section Scripts {
+    <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/bootstrap-datepicker-1.5.0/locales/bootstrap-datepicker.zh-CN.min.js?v=@app.PlatformSettings.VersionNumber" charset="UTF-8"></script>
+    <script src="~/content/js/xms.metadata.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script>
+        var pageUrl = '';
+        $(function () {
+            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+            loadEntities();
+            $('body').on('change', '#viewSelector', function () {
+                $('#EntityId').val(Xms.Web.SelectedValue($(this)));
+                //rebind();
+                //$('.collapse').removeClass('in');
+            });
+            pageUrl = $("#datatable").attr('data-pageurl');
+            $('.datepicker').datepicker({
+                autoclose: true
+                , clearBtn: true
+                , format: "yyyy-mm-dd"
+                , language: "zh-CN"
+            });
+
+            $("#datatable").ajaxTable();
+            ajaxgrid_reset();
+        });
+        function ajaxgrid_reset() {
+            pag_init();
+            Xms.Web.DataTable($("#datatable"));
+        }
+        function pag_init() {
+            $('#page-selection').bootpag({
+                total: $('#page-selection').attr('data-total')
+                , maxVisible: 10
+                , page: $('#page-selection').attr('data-page')
+                , leaps: false
+                , prev: '&lsaquo;'
+                , next: '&rsaquo;'
+                , firstLastUse: true
+                , first: '&laquo;'
+                , last: '&raquo;'
+            }).on("page", function (event, /* page number here */ num) {
+                event.preventDefault();
+                var entityid = $('#viewSelector').val();
+                var url = $.setUrlParam(pageUrl, 'page', num);
+                url = $.setUrlParam(url, 'entityid', entityid);
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    ajaxgrid_reset();
+                });
+                return false;
+            });
+        }
+        function rebind() {
+            $('#searchForm').submit();
+        }
+        function loadEntities() {
+            Xms.Schema.GetEntities({ 'GetAll': true }, function (data) {
+                if (!data || data.length == 0) return;
+                $(data).each(function (i, n) {
+                    $('#viewSelector').append('<option data-relationship="' + n.name + '"  value="' + n.entityid + '">' + n.localizedname + '</option>');
+                });
+                var url = ORG_SERVERURL + '/entity/EntityLogs?EntityId=' + $(this).find('option:eq(0)').val();
+                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
+                    ajaxgrid_reset();
+                });
+            });
+        }
+        function getKeyValue() {
+            $('.dataList').each(function (i, n) {
+                $(n).each(function (ii, nn) {
+                    var KeyTarget = $(nn).find('.ChangeKey');
+                    var ValTarget = $(nn).find('.ChangeValue');
+                    var data = JSON.parse(decodeURI(KeyTarget.attr('data-json')));
+                    for (var j = 0; j < data.length; j++) {
+                        var key = data[j].key;
+                        var val = data[j].value;
+                        KeyTarget.append('<span>' + key + '</span><br/>');
+                        ValTarget.append('<span>' + val + '</span><br/>');
+
+                    }
+                    var userid = $(n).find('.UserName').attr('data-id');
+                    Xms.Web.GetJson(ORG_SERVERURL + '/api/data/Retrieve/ReferencedRecord/' + lookupid + '/' + value, null, function (response) {
+
+                    });
+                });
+            });
+        }
+        function getUser() {
+        }
+    </script>
+}

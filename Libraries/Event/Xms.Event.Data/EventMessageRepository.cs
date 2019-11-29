@@ -11,7 +11,6 @@ namespace Xms.Event.Data
     {
         public EventMessageRepository(IDbContext dbContext) : base(dbContext)
         {
-
         }
     }
 }

@@ -1,40 +1,48 @@
 ﻿@model Xms.Web.Customize.Models.AttributeModel
 
-<div class="" id="gridview">
-    <div class="mb-2 toolbar">
-        
-        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
-            @Html.ValidationSummary()
-            @Html.HiddenFor(x => x.EntityId)
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="btn-group btn-group-sm">
-                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/attribute/createattribute?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
-                                <span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]
-                            </a>
-                            <button type="button" class="btn btn-info" data-action="/customize/attribute/deleteattribute" data-role="delete" data-tooltip="@app.T["attribute_delete_confirm"]"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
-                    </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="" id="gridview">
+                <div class="mb-2 toolbar">
+                    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
+                        @Html.ValidationSummary()
+                        @Html.HiddenFor(x => x.EntityId)
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/attribute/createattribute?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
+                                        <span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]
+                                    </a>
+                                    <button type="button" class="btn btn-warning" data-action="/customize/attribute/deleteattribute" data-role="delete" data-tooltip="@app.T["attribute_delete_confirm"]"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-sm">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-sm-4">
-                    <div class="input-group input-group-sm">
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
-                        </span>
-                    </div>
 
+                <div class="table-datagrid-view">
+                    <div class="datagrid-view"></div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-   
-    <div class="table-datagrid-view">
-        <div class="datagrid-view"></div>
-        <table class="table table-hover table-striped table-condensed datatable" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-         
-        </table>
-    </div>
-  
 </div>
 @section Header {
     <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
@@ -60,10 +68,6 @@
         var pageUrl = '';
         var solutionid = '@Model.SolutionId';
         $(function () {
-            //pageUrl = $("#datatable").attr('data-pageurl');
-            //$('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            //$("#datatable").ajaxTable();
-            //ajaxgrid_reset();
             var theaders = {
                 'attribute_name': '@app.T["attribute_name"]',
                 'attribute_displayname': '@app.T["attribute_displayname"]',
@@ -86,7 +90,7 @@
                     cb: { all: true, header: true }
                 },
                 {
-                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                    title: "", dataIndx: "hidden", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
                      cls: 'ui-state-default', sortable: false, editable: false,
                     hidden:true,
                     render: function (ui) {
@@ -95,7 +99,7 @@
                     },
                     cb: { all: true, header: true }
                 },
-                { "dataIndx": "name", "title": theaders.attribute_name, editable: false, "dataType": "string", "width": 250, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "name", "title": theaders.attribute_name, editable: false, "dataType": "string", "width": 200, "isprimaryfield": false, "attributetypename": "string" },
                 { "dataIndx": "localizedname", "title": theaders.attribute_displayname, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
                 { "dataIndx": "attributetypename", "title": theaders.attribute_typename, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string" },
                 {
@@ -133,7 +137,7 @@
                         var recordid = datas[dataIndx];
                         var html = ''
                             html = '<a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/attribute/editattribute?id=' + datas.attributeid + '&solutionid='+solutionid+'"><span class="glyphicon glyphicon-edit"></span> 编辑</a> <a class="btn btn-warning btn-xs" href=\'javascript:Xms.Web.Del("' + datas.attributeid + '","/customize/attribute/deleteattribute",false,rebind,null,"@app.T["attribute_delete_confirm"]",true)\'><span class="glyphicon glyphicon-trash"></span> 删除</a>';
-                       
+
                         return html
                     }
                 }
@@ -156,35 +160,8 @@
                 },100)
             });
         });
-        function ajaxgrid_reset() {
-            pag_init();
-            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            Xms.Web.DataTable($("#datatable"));
-        }
-        function pag_init() {
-            $('#page-selection').bootpag({
-                total: $('#page-selection').attr('data-total')
-                , maxVisible: 10
-                , page: $('#page-selection').attr('data-page')
-                , leaps: false
-                , prev: '&lsaquo;'
-                , next: '&rsaquo;'
-                , firstLastUse: true
-                , first: '&laquo;'
-                , last: '&raquo;'
-            }).on("page", function (event, /* page number here */ num) {
-                event.preventDefault();
-                pageUrl = $("#datatable").attr('data-pageurl');
-                var url = $.setUrlParam(pageUrl, 'page', num);
-                $("#gridview").ajaxLoad(url, "#gridview", function (response) {
-                    ajaxgrid_reset();
-                });
-                return false;
-            });
-        }
         function rebind() {
             $('.datagrid-view').cDatagrid('refreshDataAndView')
-            //$('#searchForm').submit();
         }
     </script>
 }

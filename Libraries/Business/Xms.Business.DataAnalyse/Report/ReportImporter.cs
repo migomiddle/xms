@@ -15,6 +15,7 @@ namespace Xms.Business.DataAnalyse.Report
     {
         private readonly IReportService _reportService;
         private readonly IAppContext _appContext;
+
         public ReportImporter(IAppContext appContext
             , IReportService reportService)
         {

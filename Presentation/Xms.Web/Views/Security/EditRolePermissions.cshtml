@@ -82,10 +82,10 @@
             $("#toggleChecked").click(function () {
                 var state = $(this).attr("data-state");
                 if (state == 1) {
-                    $tree.find("input[name=permissionsid]").prop("checked", true);
+                    $tree.find("input[type=checkbox]").prop("checked", true);
                     $(this).attr("data-state", 0).removeClass("active");
                 } else {
-                    $tree.find("input[name=permissionsid]").prop("checked", false);
+                    $tree.find("input[type=checkbox]").prop("checked", false);
                     $(this).attr("data-state", 1).addClass("active");
                 }
             });
@@ -108,6 +108,7 @@
                     return true;
                 },
                 dataFilter: function (data) {
+                    if (data.Content == 'null') { return false;}
                     var roleid = $("#RoleId").val();
                     var ResourceName = $("#ResourceName").val();
                     if (roleid != '') {

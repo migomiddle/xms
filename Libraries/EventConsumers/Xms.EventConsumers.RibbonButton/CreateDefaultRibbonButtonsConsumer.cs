@@ -29,7 +29,8 @@ namespace Xms.EventConsumers.RibbonButton
                 var buttons = _defaultButtonProvider.Get(EntityMaskEnum.User)?.Where(x => eventMessage.DefaultButtons.Contains(x.RibbonButtonId)).ToList();
                 if (buttons.NotEmpty())
                 {
-                    buttons.ForEach((b)=> {
+                    buttons.ForEach((b) =>
+                    {
                         b.RibbonButtonId = Guid.NewGuid();
                         b.CreatedBy = eventMessage.Object.CreatedBy;
                         b.EntityId = eventMessage.Object.EntityId;

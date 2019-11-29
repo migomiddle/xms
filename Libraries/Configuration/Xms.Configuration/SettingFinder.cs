@@ -24,7 +24,7 @@ namespace Xms.Configuration
         {
             _settingRepository = settingRepository;
             _orgDataServer = orgDataServer;
-            _cache = new CacheManager<Setting>($"{_orgDataServer.UniqueName}:settings", SettingCache.BuildKey);
+            _cache = new CacheManager<Setting>($"{_orgDataServer.UniqueName}:settings", SettingCache.BuildKey, true);
         }
 
         public virtual T Get<T>(string nameSpace = "") where T : new()

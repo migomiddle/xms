@@ -1,40 +1,49 @@
-﻿@using Xms.Solution.Abstractions;
-@model Xms.Web.Customize.Models.WorkFlowModel
+﻿@model Xms.Web.Customize.Models.WorkFlowModel
 
-<div class="" id="gridview">
-    
-    <div class="mb-2 toolbar">
-       
-        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
-            @Html.HiddenFor(x => x.SolutionId)
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="btn-group btn-group-sm">
-                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/flow/createworkflow?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增审批流程</a>
-                            <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/flow/createbusinessflow?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增业务流程</a>
-                            <button type="button" class="btn btn-primary" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/deleteworkflow" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
-                            <button type="button" class="btn btn-primary" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/SetWorkFlowState?isenabled=true&solutionid=@Model.SolutionId" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
-                            <button type="button" class="btn btn-primary" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/SetWorkFlowState?isenabled=false&solutionid=@Model.SolutionId" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
-                    </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="" id="gridview">
+                <div class="mb-2 toolbar">
+                    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
+                        @Html.HiddenFor(x => x.SolutionId)
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="btn-group btn-group-sm">
+                                    <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/flow/createworkflow?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增审批流程</a>
+                                    <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/flow/createbusinessflow?solutionid=@Model.SolutionId"><span class="glyphicon glyphicon-plus-sign"></span> 新增业务流程</a>
+                                    <button type="button" class="btn btn-info" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/SetWorkFlowState?isenabled=true&solutionid=@Model.SolutionId" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
+                                    <button type="button" class="btn btn-info" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/SetWorkFlowState?isenabled=false&solutionid=@Model.SolutionId" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+                                    <button type="button" class="btn btn-warning" data-action="@("/"+app.OrganizationUniqueName)/customize/flow/deleteworkflow" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-sm">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-sm-4">
-                    <div class="input-group input-group-sm">
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
-                        </span>
-                    </div>
+
+                <div class="" id="gridview">
+                    <div class="datagrid-view"></div>
+                    <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
+                    </table>
                 </div>
             </div>
-        </form>
-    </div>
-   
-    <div class="" id="gridview">
-        <div class="datagrid-view"></div>
-        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-           
-        </table>
-       
+        </div>
     </div>
 </div>
 @section Header {
@@ -62,7 +71,7 @@
         var pageUrl = '';
         var solutionid = '@Model.SolutionId';
         $(function () {
-           
+
             var theaders = {
                 'name': '名称',
                 'category': '类型',
@@ -84,7 +93,7 @@
                     cb: { all: true, header: true }
                 },
                 {
-                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                    title: "", dataIndx: "hidden", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
                      cls: 'ui-state-default', sortable: false, editable: false,
                     hidden:true,
                     render: function (ui) {
@@ -124,16 +133,15 @@
                         var recordid = datas[dataIndx];
                         var html = ''
                         var catype = datas.category == 1 ? "editworkflow" : "editbusinessflow";
-                       
+
                         html = ' <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/' + catype + '?id=' + datas.workflowid + '&solutionid=' + solutionid + '" ><span class="glyphicon glyphicon-edit"></span> 编辑</a>';
                         if (datas.category == 1) {
-                            html += '<a class="btn btn-info btn-xs hide" href="@("/"+app.OrganizationUniqueName)/customize/flow/flowdesign?id=' + datas.workflowid + '"><span class="glyphicon glyphicon-edit"></span> 设计</a>' +
+                            html +=
+                               // '<a class="btn btn-info btn-xs hide" href="@("/"+app.OrganizationUniqueName)/customize/flow/flowdesign?id=' + datas.workflowid + '"><span class="glyphicon glyphicon-edit"></span> 设计</a>' +
                                 ' <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/flow/WorkFlowInstances?workflowid=' + datas.workflowid + '"><span class="glyphicon glyphicon-play"></span> 实例</a>';
                         }
                         html += '<a class="btn btn-default btn-xs" href="javascript:setPermissions(\'' + (datas.authorizationenabled ? true : false) + '\',\'' + datas.workflowid + '\',\'@(Xms.Flow.Core.WorkFlowDefaults.ModuleName)\')"><span class="glyphicon glyphicon-lock"></span> 权限</a>';
                         html += ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\'' + datas.workflowid + '\',\'/customize/flow/deleteworkflow\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>';
-                                
-
 
                         return html
                     }
@@ -159,7 +167,7 @@
                     location.reload();
                 },100)
             });
-          
+
         });
         function ajaxgrid_reset() {
             pag_init();

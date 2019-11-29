@@ -30,7 +30,8 @@ namespace Xms.Plugin
         {
             //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 15);
             //Solution.Abstractions.SolutionComponentTypes.Add(this.Name, 6);
-            Solution.Abstractions.SolutionComponentCollection.Configure((o) => {
+            Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
+            {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);
                 o.ComponentsEndpoint = "/api/plugin/solutioncomponents";
             });

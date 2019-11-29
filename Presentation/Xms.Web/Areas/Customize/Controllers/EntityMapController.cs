@@ -35,6 +35,7 @@ namespace Xms.Web.Customize.Controllers
         private readonly IEntityMapDeleter _entityMapDeleter;
         private readonly IAttributeMapCreater _attributeMapCreater;
         private readonly IAttributeMapFinder _attributeMapFinder;
+
         public EntityMapController(IWebAppContext appContext
             , ISolutionService solutionService
             , IEntityFinder entityFinder
@@ -58,26 +59,20 @@ namespace Xms.Web.Customize.Controllers
             _attributeMapCreater = attributeMapCreater;
             _attributeMapFinder = attributeMapFinder;
         }
+
         [Description("实体转换关系")]
         public IActionResult Index(EntityMapModel model)
         {
-            if (model.EntityId.Equals(Guid.Empty))
-            {
-                return NotFound();
-            }
-            var entity = _entityFinder.FindById(model.EntityId);
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            model.Entity = entity;
             if (!model.LoadData)
             {
                 return DynamicResult(model);
             }
             FilterContainer<EntityMap> filter = FilterContainerBuilder.Build<EntityMap>();
-            filter.And(n => n.TargetEntityId == model.EntityId);
-
+            filter.And(x => x.ParentEntityMapId == Guid.Empty);
+            if (!model.EntityId.Equals(Guid.Empty))
+            {
+                filter.And(n => n.TargetEntityId == model.EntityId);
+            }
             if (model.GetAll)
             {
                 model.Page = 1;
@@ -99,15 +94,16 @@ namespace Xms.Web.Customize.Controllers
             model.SolutionId = SolutionId.Value;
             return DynamicResult(model);
         }
+
         [Description("创建实体转换关系")]
-        public IActionResult CreateEntityMap(Guid entityid)
+        public IActionResult CreateEntityMap(Guid entityid = default(Guid))
         {
             EditEntityMapModel model = new EditEntityMapModel
             {
                 SolutionId = SolutionId.Value,
                 EntityId = entityid,
-                TargetEntityMetaData = _entityFinder.FindById(entityid),
-                Attributes = _attributeFinder.Query(n => n
+                TargetEntityMetaData = entityid == default(Guid) ? null : _entityFinder.FindById(entityid),
+                Attributes = entityid == default(Guid) ? null : _attributeFinder.Query(n => n
                 .Where(f => f.EntityId == entityid && f.Name.NotIn(AttributeDefaults.SystemAttributes)
                 && f.AttributeTypeName != AttributeTypeIds.PRIMARYKEY
                 ).Sort(s => s.SortAscending(f => f.Name)))
@@ -126,7 +122,7 @@ namespace Xms.Web.Customize.Controllers
                 var headEntityMap = _entityMapFinder.Find(model.SourceEntityId, model.EntityId);
                 if (headEntityMap != null)
                 {
-                    return JError(T["entitymap_duplicated"]); ;
+                    return JError(T["entitymap_duplicated"]);
                 }
                 //已存在的单据体映射
                 if (model.ChildAttributeMap.NotEmpty() && !model.ChildSourceEntityId.Equals(Guid.Empty) && !model.ChildTargetEntityId.Equals(Guid.Empty))
@@ -134,7 +130,7 @@ namespace Xms.Web.Customize.Controllers
                     var childEntityMap = _entityMapFinder.Find(model.ChildSourceEntityId, model.ChildTargetEntityId);
                     if (childEntityMap != null)
                     {
-                        return JError(T["entitymap_duplicated"]); ;
+                        return JError(T["entitymap_duplicated"]);
                     }
                 }
                 var id = Guid.NewGuid();
@@ -278,6 +274,7 @@ namespace Xms.Web.Customize.Controllers
             }
             return View(model);
         }
+
         [Description("编辑实体转换关系")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -366,18 +363,21 @@ namespace Xms.Web.Customize.Controllers
             }
             return UpdateFailure(GetModelErrors());
         }
+
         [Description("删除实体转换关系")]
         [HttpPost]
         public IActionResult DeleteEntityMap([FromBody]DeleteManyModel model)
         {
             return _entityMapDeleter.DeleteById(model.RecordId).DeleteResult(T);
         }
+
         [Description("清除实体转换关系")]
         public IActionResult ClearEntityMap(Guid entitymapid)
         {
             _entityMapDeleter.DeleteById(entitymapid);
             return JOk(T["clear_success"]);
         }
+
         [Description("设置实体转换关系可用状态")]
         [HttpPost]
         public IActionResult SetEntityMapState([FromBody]SetRecordStateModel model)

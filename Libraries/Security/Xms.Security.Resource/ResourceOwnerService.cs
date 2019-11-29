@@ -43,7 +43,7 @@ namespace Xms.Security.Resource
 
         public ResourceOwner FindByName(string name)
         {
-            return _resourceOwnerRepository.Find(x=>x.ModuleName == name);
+            return _resourceOwnerRepository.Find(x => x.ModuleName == name);
         }
 
         public List<Domain.ResourceOwner> FindAll()

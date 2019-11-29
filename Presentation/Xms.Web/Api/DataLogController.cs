@@ -23,6 +23,7 @@ namespace Xms.Web.Api
         private readonly IEntityFinder _entityFinder;
         private readonly IAttributeFinder _attributeFinder;
         private readonly IEntityLogService _entityLogService;
+
         public DataLogController(IWebAppContext appContext
             , IEntityFinder entityFinder
             , IAttributeFinder attributeFinder
@@ -33,7 +34,7 @@ namespace Xms.Web.Api
             _attributeFinder = attributeFinder;
             _entityLogService = entityLogService;
         }
-        
+
         [Description("实体日志列表")]
         public IActionResult EntityLogs(EntityLogsModel model)
         {

@@ -11,11 +11,12 @@ namespace Xms.Flow
     public class WorkFlowExporter : ISolutionComponentExporter
     {
         private readonly IWorkFlowFinder _workFlowFinder;
-        
+
         public WorkFlowExporter(IWorkFlowFinder workFlowFinder)
         {
             _workFlowFinder = workFlowFinder;
         }
+
         public string GetXml(Guid solutionId)
         {
             StringBuilder result = new StringBuilder();

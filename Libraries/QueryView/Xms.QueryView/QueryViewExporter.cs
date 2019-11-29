@@ -11,6 +11,7 @@ namespace Xms.QueryView
     public class QueryViewExporter : ISolutionComponentExporter
     {
         private readonly IQueryViewFinder _queryViewFinder;
+
         public QueryViewExporter(IQueryViewFinder queryViewFinder)
         {
             _queryViewFinder = queryViewFinder;

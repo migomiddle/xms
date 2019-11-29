@@ -21,6 +21,7 @@ namespace Xms.DataMapping
         private readonly IAttributeMapCreater _attributeMapCreater;
         private readonly IAttributeMapDeleter _attributeMapDeleter;
         private readonly IAppContext _appContext;
+
         public EntityMapImporter(IAppContext appContext
             , IEntityMapCreater entityMapCreater
             , IEntityMapUpdater entityMapUpdater
@@ -65,6 +66,7 @@ namespace Xms.DataMapping
             return true;
         }
     }
+
     public class EntityMapXmlInfo : Domain.EntityMap
     {
         [XmlIgnore]

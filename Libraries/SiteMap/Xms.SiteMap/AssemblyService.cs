@@ -15,7 +15,7 @@ namespace Xms.SiteMap
         {
             var result = new List<Privilege>();
 
-            var types = Assembly.Load("Xms.Web").GetTypes().Where(t => !t.IsAbstract && !t.IsInterface && !t.Name.IsCaseInsensitiveEqual("Controller") 
+            var types = Assembly.Load("Xms.Web").GetTypes().Where(t => !t.IsAbstract && !t.IsInterface && !t.Name.IsCaseInsensitiveEqual("Controller")
             && !t.Name.IsCaseInsensitiveEqual("ControllerBase") && t.Name.EndsWith("Controller")).ToList();
 
             foreach (var type in types)

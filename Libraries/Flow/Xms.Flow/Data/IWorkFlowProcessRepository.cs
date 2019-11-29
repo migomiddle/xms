@@ -9,11 +9,12 @@ namespace Xms.Flow.Data
     {
         long QueryHandledCount(Guid handlerId, Guid? entityid);
 
-        long QueryHandlingCount(Guid handlerId,  Guid? entityid);
+        long QueryHandlingCount(Guid handlerId, Guid? entityid);
 
         long QueryApplyHandledCount(Guid applierId, Guid? entityid);
 
         long QueryApplyHandlingCount(Guid applierId, Guid? entityid);
+
         PagedList<dynamic> QueryHandledList(Guid handlerId, int page, int pageSize, Guid? entityid);
 
         PagedList<dynamic> QueryHandlingList(Guid handlerId, int page, int pageSize, Guid? entityid);

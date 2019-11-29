@@ -1,34 +1,52 @@
 ﻿@model Xms.Web.Customize.Models.EntityMapModel
 
-
-<div class="" id="gridview">
-    <div class="mb-2 toolbar">
-      
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="btn-group btn-group-sm">
-                    <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/entitymap/createentitymap?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
-                        <span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]
-                    </a>
-                    <button type="button" class="btn btn-info" data-action="/customize/entitymap/deleteentitymap" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
-                    <button type="button" class="btn btn-info" data-action="/customize/entitymap/SetEntityMapState?isenabled=true&entityid=@Model.EntityId" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
-                    <button type="button" class="btn btn-info" data-action="/customize/entitymap/SetEntityMapState?isenabled=false&entityid=@Model.EntityId" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+               href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="" id="gridview">
+                <div class="mb-2 toolbar">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-info" href="@("/"+app.OrganizationUniqueName)/customize/entitymap/createentitymap?solutionid=@Model.SolutionId&entityid=@Model.EntityId">
+                                    <span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]
+                                </a>
+                                <button type="button" class="btn btn-info" data-action="/customize/entitymap/SetEntityMapState?isenabled=true&entityid=@Model.EntityId" data-actiondata='{"isenabled":true}' data-role="update"><span class="glyphicon glyphicon-ok-circle"></span> 启用</button>
+                                <button type="button" class="btn btn-info" data-action="/customize/entitymap/SetEntityMapState?isenabled=false&entityid=@Model.EntityId" data-actiondata='{"isenabled":false}' data-role="update"><span class="glyphicon glyphicon-ban-circle"></span> 禁用</button>
+                                <button type="button" class="btn btn-warning" data-action="/customize/entitymap/deleteentitymap" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group input-group-sm pull-right">
+                                <span class="input-group-addon">
+                                    <em class="glyphicon glyphicon-filter"></em>
+                                </span>
+                                <span class="input-group-btn entity-selecter-wrap">
+                                    <input type="text" class="form-control input-sm hide" id="entityselecter" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal hide" role="form">
+                        <input type="checkbox" name="LoadData" value="true" checked />
+                        <input type="hidden" name="entityid" id="EntityId" value="@Model.EntityId" />
+                    </form>
+                </div>
+                <div class="table-datagrid-view">
+                    <div class="datagrid-view"></div>
                 </div>
             </div>
         </div>
-        <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal hide" role="form">
-            <input type="checkbox" name="LoadData" value="true" checked />
-            <input type="hidden" name="entityid" value="@Model.EntityId" />
-        </form>
     </div>
-    <div class="table-datagrid-view">
-        <div class="datagrid-view"></div>
-        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-          
-            </table>
-        </div>
-       
-    </div>
+</div>
 @section Header {
     <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
     <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
@@ -53,7 +71,7 @@
     <script>
         var solutionid = '@Model.SolutionId';
         $(function () {
-           
+
             var maptypes = ['允许复制一次', '允许复制多次', '钩稽', '强制钩稽'];
             var theaders = {
                 'targetentityname': '目标',
@@ -76,7 +94,7 @@
                     cb: { all: true, header: true }
                 },
                 {
-                    title: "", dataIndx: "name", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                    title: "", dataIndx: "hidden", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
                      cls: 'ui-state-default', sortable: false, editable: false,
                     hidden:true,
                     render: function (ui) {
@@ -117,8 +135,6 @@
                         var html = ''
                         html = ' <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/entitymap/editentitymap?entitymapid=' + datas.entitymapid + '&solutionid=' + solutionid + '" ><span class="glyphicon glyphicon-edit"></span> 编辑</a>' +
                             ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\'' + datas.entitymapid + '\',\'/customize/entitymap/deleteentitymap\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>'
-                                
-
 
                         return html
                     }
@@ -141,9 +157,37 @@
                     location.reload();
                 },100)
             });
-           
+            loadEntitys($('#entityselecter'));
         });
-        
+        function loadEntitys($context,callback) {
+            var entitySelect = $context;
+            entitySelect.entitySelector({
+                rendered: function (self) {
+                    var _entityid = $('#EntityId').val();
+                    if (_entityid) {
+                        var acli = self.listWrap.find('.xms-autoc-item[value="' + _entityid + '"]');
+                        if (acli.length > 0) {
+                            self.box.val(_entityid);
+                            self.listWrap.hide();
+                            self.vInput.val(acli.text());
+                            self.value = acli.attr('value');
+                            self.wrap.attr('data-isactive', false);
+                            self.filterData();
+                        }
+                    }
+                },
+                submithandler: function (self, $this) {
+                    $('#EntityId').val(self.value);
+                    rebind();
+                },
+                removehandler: function () {
+                    $('#EntityId').val(self.value);
+                    rebind();
+                },
+                inputPlaceHolder:'选择实体'
+            });
+
+        }
          function rebind() {
             //$('#searchForm').submit();
              $('.datagrid-view').cDatagrid('refreshDataAndView')

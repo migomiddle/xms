@@ -1,17 +1,57 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+          "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title></title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <script type="text/javascript" src="../internal.js"></script>
     <style type="text/css">
-        .wrapper{width: 600px;padding: 10px;height: 352px;overflow: hidden;position: relative;border-bottom: 1px solid #d7d7d7}
-        .localPath input{float: left;width: 350px;line-height: 20px;height: 20px;}
-        #clipboard{float:left;width: 70px;height: 30px; }
-        .description{ color: #0066cc; margin-top: 2px; width: 450px; height: 45px;float: left;line-height: 22px}
-        #upload{width: 100px;height: 30px;float: right; margin:10px 2px 0 0;cursor: pointer;}
-        #msg{ width: 140px; height: 30px; line-height:25px;float: left;color: red}
+        .wrapper {
+            width: 600px;
+            padding: 10px;
+            height: 352px;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid #d7d7d7
+        }
+
+        .localPath input {
+            float: left;
+            width: 350px;
+            line-height: 20px;
+            height: 20px;
+        }
+
+        #clipboard {
+            float: left;
+            width: 70px;
+            height: 30px;
+        }
+
+        .description {
+            color: #0066cc;
+            margin-top: 2px;
+            width: 450px;
+            height: 45px;
+            float: left;
+            line-height: 22px
+        }
+
+        #upload {
+            width: 100px;
+            height: 30px;
+            float: right;
+            margin: 10px 2px 0 0;
+            cursor: pointer;
+        }
+
+        #msg {
+            width: 140px;
+            height: 30px;
+            line-height: 25px;
+            float: left;
+            color: red
+        }
     </style>
 </head>
 <body>
@@ -23,11 +63,11 @@
         </div>
         <div id="flashContainer"></div>
         <div>
-            <div id="upload" style="display: none" ><img id="uploadBtn"></div>
+            <div id="upload" style="display: none"><img id="uploadBtn"></div>
             <div class="description">
                 <span style="color: red"><var id="lang_resave"></var>: </span><var id="lang_step"></var>
             </div>
-          </div>
+        </div>
     </div>
     <script type="text/javascript" src="tangram.js"></script>
     <script type="text/javascript" src="wordimage.js"></script>
@@ -104,8 +144,6 @@
             };
             wordImage.init(flashOptions,callbacks);
         });
-
     </script>
-
 </body>
 </html>

@@ -14,7 +14,6 @@ namespace Xms.Business.FormStateRule.Data
     {
         public SystemFormStateRuleRepository(IDbContext dbContext) : base(dbContext)
         {
-
         }
 
         #region implements
@@ -32,6 +31,7 @@ namespace Xms.Business.FormStateRule.Data
             q.QueryText += ")";
             return base.QueryPaged(q);
         }
+
         #endregion implements
     }
 }
