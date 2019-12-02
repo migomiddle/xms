@@ -1,9 +1,11 @@
+要求.net core sdk 3，数据库2008 r2以上
+
 第一步把db文件夹中的数据库附加上去
 XMS_CONFIG是数据中心库
 XSM_Empty是无演示数据的业务库
 XMS_Standar是有演示数据的业务库
 
-初始运行会进入初始化配置界面
+首次运行会进入初始化配置界面
 1、配置数据中心库
 2、配置业务数据库
 3、前面两步成功后，需要手工把appsettings.json中的IsInitialization参数改为true
