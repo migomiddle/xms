@@ -2097,11 +2097,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj",
       "projectName": "Xms.UserPersonalization.Domain",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2120,8 +2120,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
             }
           }
         }

@@ -2242,11 +2242,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj",
       "projectName": "Xms.Organization.Domain",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Organization\\Xms.Organization.Domain\\Xms.Organization.Domain.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization.Domain\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Organization\\Xms.Organization.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2265,11 +2265,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
             }
           }
         }

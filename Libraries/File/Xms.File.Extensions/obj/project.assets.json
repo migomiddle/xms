@@ -3167,11 +3167,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj",
       "projectName": "Xms.File.Extensions",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\File\\Xms.File.Extensions\\Xms.File.Extensions.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\File\\Xms.File.Extensions\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\File\\Xms.File.Extensions\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3190,11 +3190,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
             }
           }
         }

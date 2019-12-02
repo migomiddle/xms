@@ -2049,11 +2049,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
       "projectName": "Xms.ServerHostManage",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2072,11 +2072,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
             }
           }
         }

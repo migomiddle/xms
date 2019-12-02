@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
       "projectName": "Xms.ServerHostManage.Domain",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

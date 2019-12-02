@@ -3674,11 +3674,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj",
       "projectName": "Xms.QueryView",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3697,50 +3697,50 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency\\Xms.Dependency.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView.Abstractions\\Xms.QueryView.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView.Domain\\Xms.QueryView.Domain.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema\\Xms.Schema.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Authrization.Abstractions\\Xms.Authrization.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Caching\\Xms.Caching.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Caching\\Xms.Caching.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\Xms.Context.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
             }
           }
         }

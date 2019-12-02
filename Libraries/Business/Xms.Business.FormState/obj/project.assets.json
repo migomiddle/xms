@@ -3772,11 +3772,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Business\\Xms.Business.FormState\\Xms.Business.FormStateRule.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Business\\Xms.Business.FormState\\Xms.Business.FormStateRule.csproj",
       "projectName": "Xms.Business.FormStateRule",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Business\\Xms.Business.FormState\\Xms.Business.FormStateRule.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Business\\Xms.Business.FormState\\Xms.Business.FormStateRule.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Business\\Xms.Business.FormState\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Business\\Xms.Business.FormState\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3795,23 +3795,23 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Core\\Xms.Module.Core.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk.Extensions\\Xms.Sdk.Extensions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj"
             }
           }
         }

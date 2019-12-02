@@ -3055,11 +3055,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\Xms.Context.csproj",
       "projectName": "Xms.Context",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\Xms.Context.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3078,17 +3078,17 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Configuration\\Xms.Configuration.Domain\\Xms.Configuration.Domain.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Localization\\Xms.Localization.Abstractions\\Xms.Localization.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Identity\\Xms.Identity.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Identity\\Xms.Identity.csproj"
             }
           }
         }

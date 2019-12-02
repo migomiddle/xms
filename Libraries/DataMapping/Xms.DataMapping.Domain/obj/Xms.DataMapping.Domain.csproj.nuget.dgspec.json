@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj": {}
+    "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj": {}
   },
   "projects": {
-    "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
         "projectName": "Xms.DataMapping.Abstractions",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,17 +30,17 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
               }
             }
           }
@@ -75,14 +75,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj",
         "projectName": "Xms.DataMapping.Domain",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\Xms.DataMapping.Domain.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -101,14 +101,14 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
               }
             }
           }
@@ -143,14 +143,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj",
         "projectName": "Xms.Dependency.Abstractions",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -169,11 +169,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
               }
             }
           }
@@ -208,14 +208,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj",
         "projectName": "Xms.Module.Abstractions",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -266,14 +266,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj",
         "projectName": "Xms.Schema.Abstractions",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Abstractions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -324,14 +324,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj",
         "projectName": "Xms.Schema.Domain",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\Xms.Schema.Domain.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Domain\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -350,11 +350,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Schema\\Xms.Schema.Abstractions\\Xms.Schema.Abstractions.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
               }
             }
           }
@@ -389,14 +389,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj",
         "projectName": "Xms.Solution.Abstractions",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -415,11 +415,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
               }
             }
           }
@@ -454,14 +454,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj",
         "projectName": "Xms.Core",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -480,8 +480,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
               }
             }
           }
@@ -516,14 +516,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj",
         "projectName": "Xms.Domain",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -542,8 +542,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
               }
             }
           }
@@ -582,14 +582,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
         "projectName": "Xms.Infrastructure",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

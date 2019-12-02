@@ -1934,11 +1934,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj",
       "projectName": "Xms.WebResource.Abstractions",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1957,8 +1957,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
             }
           }
         }

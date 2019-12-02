@@ -3153,11 +3153,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event\\Xms.Event.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event\\Xms.Event.csproj",
       "projectName": "Xms.Event",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event\\Xms.Event.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event\\Xms.Event.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3176,17 +3176,17 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Data\\Xms.Event.Data.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Data\\Xms.Event.Data.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Data\\Xms.Event.Data.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Data\\Xms.Event.Data.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
             }
           }
         }

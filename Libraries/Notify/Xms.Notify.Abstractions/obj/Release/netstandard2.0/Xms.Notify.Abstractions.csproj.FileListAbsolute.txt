@@ -7,3 +7,11 @@ G:\projects\xms_v2\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstand
 G:\projects\xms_v2\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.dll
 G:\projects\xms_v2\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.pdb
 G:\projects\xms_v2\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\bin\Release\netstandard2.0\Xms.Notify.Abstractions.deps.json
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\bin\Release\netstandard2.0\Xms.Notify.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\bin\Release\netstandard2.0\Xms.Notify.Abstractions.pdb
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.AssemblyInfoInputs.cache
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.AssemblyInfo.cs
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Notify\Xms.Notify.Abstractions\obj\Release\netstandard2.0\Xms.Notify.Abstractions.pdb

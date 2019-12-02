@@ -2264,11 +2264,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Domain\\Xms.RibbonButton.Domain.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Domain\\Xms.RibbonButton.Domain.csproj",
       "projectName": "Xms.RibbonButton.Domain",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Domain\\Xms.RibbonButton.Domain.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Domain\\Xms.RibbonButton.Domain.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Domain\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2287,11 +2287,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton.Abstractions\\Xms.RibbonButton.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
             }
           }
         }

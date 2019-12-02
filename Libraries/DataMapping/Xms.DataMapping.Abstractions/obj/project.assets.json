@@ -1990,11 +1990,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
       "projectName": "Xms.DataMapping.Abstractions",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\Xms.DataMapping.Abstractions.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\DataMapping\\Xms.DataMapping.Abstractions\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2013,17 +2013,17 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Dependency\\Xms.Dependency.Abstractions\\Xms.Dependency.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Solution\\Xms.Solution.Abstractions\\Xms.Solution.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
             }
           }
         }

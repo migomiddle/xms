@@ -2098,11 +2098,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj",
       "projectName": "Xms.SiteMap.Domain",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\Xms.SiteMap.Domain.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\SiteMap\\Xms.SiteMap.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2121,8 +2121,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
             }
           }
         }

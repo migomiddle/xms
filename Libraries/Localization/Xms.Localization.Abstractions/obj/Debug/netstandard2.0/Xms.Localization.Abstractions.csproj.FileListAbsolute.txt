@@ -11,3 +11,16 @@ G:\projects\xms_v2\Libraries\Localization\Xms.Localization.Abstractions\bin\Debu
 G:\projects\xms_v2\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Infrastructure.pdb
 G:\projects\xms_v2\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.csproj.CopyComplete
 G:\projects\xms_v2\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Localization.Abstractions.deps.json
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Localization.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Localization.Abstractions.pdb
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Core.dll
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Core.pdb
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\bin\Debug\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.AssemblyInfoInputs.cache
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.AssemblyInfo.cs
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.csproj.CopyComplete
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Localization\Xms.Localization.Abstractions\obj\Debug\netstandard2.0\Xms.Localization.Abstractions.pdb

@@ -11,3 +11,16 @@ G:\projects\xms_v2\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\net
 G:\projects\xms_v2\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.csproj.CopyComplete
 G:\projects\xms_v2\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.dll
 G:\projects\xms_v2\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.pdb
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.ServerHostManage.deps.json
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.ServerHostManage.dll
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.ServerHostManage.pdb
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.ServerHostManage.Domain.dll
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\bin\Debug\netstandard2.0\Xms.ServerHostManage.Domain.pdb
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.AssemblyInfoInputs.cache
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.AssemblyInfo.cs
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.csproj.CopyComplete
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.dll
+G:\projects\xms_git\online\Libraries\ServerHostManage\Xms.ServerHostManage\obj\Debug\netstandard2.0\Xms.ServerHostManage.pdb

@@ -1965,11 +1965,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Email\\Xms.Notify.Email.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Email\\Xms.Notify.Email.csproj",
       "projectName": "Xms.Notify.Email",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Email\\Xms.Notify.Email.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Email\\Xms.Notify.Email.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Email\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Email\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1988,17 +1988,17 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Module\\Xms.Module.Abstractions\\Xms.Module.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
             }
           }
         }

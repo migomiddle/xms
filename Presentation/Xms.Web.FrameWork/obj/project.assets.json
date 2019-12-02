@@ -3213,11 +3213,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Presentation\\Xms.Web.FrameWork\\Xms.Web.Framework.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Presentation\\Xms.Web.FrameWork\\Xms.Web.Framework.csproj",
       "projectName": "Xms.Web.Framework",
-      "projectPath": "G:\\projects\\xms_v2\\Presentation\\Xms.Web.FrameWork\\Xms.Web.Framework.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Presentation\\Xms.Web.FrameWork\\Xms.Web.Framework.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Presentation\\Xms.Web.FrameWork\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Presentation\\Xms.Web.FrameWork\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3236,29 +3236,29 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Configuration\\Xms.Configuration\\Xms.Configuration.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Logging\\Xms.Logging.AppLog\\Xms.Logging.AppLog.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Organization\\Xms.Organization\\Xms.Organization.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Security.Principal\\Xms.Security.Principal.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\SiteMap\\Xms.SiteMap\\Xms.SiteMap.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Context\\Xms.Context.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\Xms.Context.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Context\\Xms.Context.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Core\\Xms.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Core\\Xms.Core.csproj"
             }
           }
         }
@@ -3296,9 +3296,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

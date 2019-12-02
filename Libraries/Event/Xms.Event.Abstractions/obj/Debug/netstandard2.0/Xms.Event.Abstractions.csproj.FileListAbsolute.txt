@@ -6,3 +6,11 @@ G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2
 G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.dll
 G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.pdb
 G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\bin\Debug\netstandard2.0\Xms.Event.Abstractions.deps.json
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\bin\Debug\netstandard2.0\Xms.Event.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\bin\Debug\netstandard2.0\Xms.Event.Abstractions.pdb
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.AssemblyInfoInputs.cache
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.AssemblyInfo.cs
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Debug\netstandard2.0\Xms.Event.Abstractions.pdb

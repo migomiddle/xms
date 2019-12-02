@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj": {}
+    "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj": {}
   },
   "projects": {
-    "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
         "projectName": "Xms.ServerHostManage.Domain",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
         "projectName": "Xms.ServerHostManage",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\Xms.ServerHostManage.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -88,11 +88,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\ServerHostManage\\Xms.ServerHostManage.Domain\\Xms.ServerHostManage.Domain.csproj"
               },
-              "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
-                "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
+              "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+                "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj"
               }
             }
           }
@@ -135,14 +135,14 @@
         }
       }
     },
-    "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
+    "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
+        "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
         "projectName": "Xms.Infrastructure",
-        "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
+        "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\Xms.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-        "outputPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Infrastructure\\obj\\",
+        "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

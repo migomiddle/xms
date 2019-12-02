@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj",
       "projectName": "Xms.Notify.Abstractions",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -2116,11 +2116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Domain\\Xms.WebResource.Domain.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Domain\\Xms.WebResource.Domain.csproj",
       "projectName": "Xms.WebResource.Domain",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Domain\\Xms.WebResource.Domain.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Domain\\Xms.WebResource.Domain.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Domain\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2139,11 +2139,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\WebResource\\Xms.WebResource.Abstractions\\Xms.WebResource.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Xms.Domain\\Xms.Domain.csproj"
             }
           }
         }

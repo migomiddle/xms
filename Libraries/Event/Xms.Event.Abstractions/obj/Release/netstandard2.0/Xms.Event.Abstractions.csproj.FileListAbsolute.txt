@@ -6,3 +6,10 @@ G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandar
 G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.AssemblyInfo.cs
 G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.dll
 G:\projects\xms_v2\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.pdb
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\bin\Release\netstandard2.0\Xms.Event.Abstractions.deps.json
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\bin\Release\netstandard2.0\Xms.Event.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\bin\Release\netstandard2.0\Xms.Event.Abstractions.pdb
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.AssemblyInfoInputs.cache
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.AssemblyInfo.cs
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.dll
+G:\projects\xms_git\online\Libraries\Event\Xms.Event.Abstractions\obj\Release\netstandard2.0\Xms.Event.Abstractions.pdb

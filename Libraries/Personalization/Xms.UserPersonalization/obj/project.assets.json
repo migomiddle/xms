@@ -2459,11 +2459,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj",
       "projectName": "Xms.UserPersonalization",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization\\Xms.UserPersonalization.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -2482,11 +2482,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\DataCore\\Xms.Data\\Xms.Data.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Personalization\\Xms.UserPersonalization.Domain\\Xms.UserPersonalization.Domain.csproj"
             }
           }
         }

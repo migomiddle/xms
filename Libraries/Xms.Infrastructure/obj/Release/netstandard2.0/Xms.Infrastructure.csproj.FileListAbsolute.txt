@@ -7,3 +7,11 @@ G:\projects\Xms_V2\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.I
 G:\projects\Xms_V2\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.AssemblyInfo.cs
 G:\projects\Xms_V2\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.dll
 G:\projects\Xms_V2\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\bin\Release\netstandard2.0\Xms.Infrastructure.deps.json
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\bin\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\bin\Release\netstandard2.0\Xms.Infrastructure.pdb
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.csprojAssemblyReference.cache
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.AssemblyInfoInputs.cache
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.AssemblyInfo.cs
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.dll
+G:\projects\xms_git\online\Libraries\Xms.Infrastructure\obj\Release\netstandard2.0\Xms.Infrastructure.pdb
