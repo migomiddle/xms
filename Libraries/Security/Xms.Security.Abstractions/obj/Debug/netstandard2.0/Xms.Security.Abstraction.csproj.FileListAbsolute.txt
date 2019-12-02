@@ -1,8 +1,0 @@
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\bin\Debug\netstandard2.0\Xms.Security.Abstraction.deps.json
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\bin\Debug\netstandard2.0\Xms.Security.Abstraction.dll
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\bin\Debug\netstandard2.0\Xms.Security.Abstraction.pdb
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\obj\Debug\netstandard2.0\Xms.Security.Abstraction.csproj.CoreCompileInputs.cache
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\obj\Debug\netstandard2.0\Xms.Security.Abstraction.AssemblyInfoInputs.cache
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\obj\Debug\netstandard2.0\Xms.Security.Abstraction.AssemblyInfo.cs
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\obj\Debug\netstandard2.0\Xms.Security.Abstraction.dll
-G:\projects\xms_v2\Libraries\Security\Xms.Security.Abstraction\obj\Debug\netstandard2.0\Xms.Security.Abstraction.pdb
