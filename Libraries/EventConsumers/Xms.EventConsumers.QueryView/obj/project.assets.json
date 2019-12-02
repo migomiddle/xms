@@ -3694,11 +3694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.QueryView\\Xms.EventConsumers.QueryView.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.QueryView\\Xms.EventConsumers.QueryView.csproj",
       "projectName": "Xms.EventConsumers.QueryView",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.QueryView\\Xms.EventConsumers.QueryView.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.QueryView\\Xms.EventConsumers.QueryView.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.QueryView\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.QueryView\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3717,11 +3717,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\QueryView\\Xms.QueryView\\Xms.QueryView.csproj"
             }
           }
         }

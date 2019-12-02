@@ -4197,11 +4197,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Entity\\Xms.EventConsumers.Entity.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Entity\\Xms.EventConsumers.Entity.csproj",
       "projectName": "Xms.EventConsumers.Entity",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Entity\\Xms.EventConsumers.Entity.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Entity\\Xms.EventConsumers.Entity.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Entity\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Entity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4220,26 +4220,26 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow.Abstractions\\Xms.Flow.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow.Abstractions\\Xms.Flow.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow.Abstractions\\Xms.Flow.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow.Abstractions\\Xms.Flow.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow\\Xms.Flow.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow\\Xms.Flow.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow\\Xms.Flow.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow\\Xms.Flow.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk.Abstractions\\Xms.Sdk.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Sdk\\Xms.Sdk\\Xms.Sdk.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Security\\Xms.Security.DataAuthorization\\Xms.Security.DataAuthorization.csproj"
             }
           }
         }

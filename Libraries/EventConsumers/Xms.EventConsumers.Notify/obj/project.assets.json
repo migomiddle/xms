@@ -4180,11 +4180,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Notify\\Xms.EventConsumers.Notify.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Notify\\Xms.EventConsumers.Notify.csproj",
       "projectName": "Xms.EventConsumers.Notify",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Notify\\Xms.EventConsumers.Notify.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Notify\\Xms.EventConsumers.Notify.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Notify\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Notify\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4203,17 +4203,17 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Flow\\Xms.Flow.Core\\Xms.Flow.Core.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Abstractions\\Xms.Notify.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Internal\\Xms.Notify.Internal.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Notify\\Xms.Notify.Internal\\Xms.Notify.Internal.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Internal\\Xms.Notify.Internal.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Notify\\Xms.Notify.Internal\\Xms.Notify.Internal.csproj"
             }
           }
         }

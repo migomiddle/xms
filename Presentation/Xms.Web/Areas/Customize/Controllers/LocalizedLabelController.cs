@@ -47,35 +47,35 @@ namespace Xms.Web.Customize.Controllers
         public IActionResult Index(LocalizationLabelsModel model)
         {
             return ToBePerfected();
-            if (!model.IsSortBySeted)
-            {
-                model.SortBy = "ObjectColumnName";
-            }
+            //if (!model.IsSortBySeted)
+            //{
+            //    model.SortBy = "ObjectColumnName";
+            //}
 
-            if (model.GetAll)
-            {
-                model.Page = 1;
-                model.PageSize = WebContext.PlatformSettings.MaxFetchRecords;
-            }
-            else if (!model.PageSizeBySeted && CurrentUser.UserSettings.PagingLimit > 0)
-            {
-                model.PageSize = CurrentUser.UserSettings.PagingLimit;
-            }
-            model.PageSize = model.PageSize > WebContext.PlatformSettings.MaxFetchRecords ? WebContext.PlatformSettings.MaxFetchRecords : model.PageSize;
-            FilterContainer<LocalizedLabel> filter = FilterContainerBuilder.Build<LocalizedLabel>();
-            if (model.TypeCode.HasValue)
-            {
-                filter.And(n => n.LabelTypeCode == model.TypeCode.Value);
-            }
+            //if (model.GetAll)
+            //{
+            //    model.Page = 1;
+            //    model.PageSize = WebContext.PlatformSettings.MaxFetchRecords;
+            //}
+            //else if (!model.PageSizeBySeted && CurrentUser.UserSettings.PagingLimit > 0)
+            //{
+            //    model.PageSize = CurrentUser.UserSettings.PagingLimit;
+            //}
+            //model.PageSize = model.PageSize > WebContext.PlatformSettings.MaxFetchRecords ? WebContext.PlatformSettings.MaxFetchRecords : model.PageSize;
+            //FilterContainer<LocalizedLabel> filter = FilterContainerBuilder.Build<LocalizedLabel>();
+            //if (model.TypeCode.HasValue)
+            //{
+            //    filter.And(n => n.LabelTypeCode == model.TypeCode.Value);
+            //}
 
-            var result = _localizedLabelService.QueryPaged(n => n.Page(model.Page, model.PageSize)
-            .Where(filter)
-            .Sort(s => s.OnFile(model.SortBy).ByDirection(model.SortDirection)));
+            //var result = _localizedLabelService.QueryPaged(n => n.Page(model.Page, model.PageSize)
+            //.Where(filter)
+            //.Sort(s => s.OnFile(model.SortBy).ByDirection(model.SortDirection)));
 
-            model.Items = result.Items;
-            model.TotalItems = result.TotalItems;
-            model.SolutionId = SolutionId.Value;
-            return DynamicResult(model);
+            //model.Items = result.Items;
+            //model.TotalItems = result.TotalItems;
+            //model.SolutionId = SolutionId.Value;
+            //return DynamicResult(model);
         }
 
         [Description("更新多语言显示标签")]

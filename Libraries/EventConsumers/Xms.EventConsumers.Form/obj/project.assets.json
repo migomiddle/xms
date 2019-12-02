@@ -3696,11 +3696,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Form\\Xms.EventConsumers.Form.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Form\\Xms.EventConsumers.Form.csproj",
       "projectName": "Xms.EventConsumers.Form",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Form\\Xms.EventConsumers.Form.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Form\\Xms.EventConsumers.Form.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.Form\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.Form\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3719,11 +3719,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Form\\Xms.Form\\Xms.Form.csproj"
             }
           }
         }

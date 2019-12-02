@@ -36,33 +36,33 @@ namespace Xms.Web.Customize.Controllers
         public IActionResult Index(ReportModel model)
         {
             return ToBePerfected();
-            FilterContainer<Report> filter = FilterContainerBuilder.Build<Report>();
-            filter.And(n => n.SolutionId == SolutionId.Value);
-            if (model.Name.IsNotEmpty())
-            {
-                filter.And(n => n.Name.Like(model.Name));
-            }
+            //FilterContainer<Report> filter = FilterContainerBuilder.Build<Report>();
+            //filter.And(n => n.SolutionId == SolutionId.Value);
+            //if (model.Name.IsNotEmpty())
+            //{
+            //    filter.And(n => n.Name.Like(model.Name));
+            //}
 
-            if (model.GetAll)
-            {
-                model.Page = 1;
-                model.PageSize = WebContext.PlatformSettings.MaxFetchRecords;
-            }
-            else if (!model.PageSizeBySeted && CurrentUser.UserSettings.PagingLimit > 0)
-            {
-                model.PageSize = CurrentUser.UserSettings.PagingLimit;
-            }
-            model.PageSize = model.PageSize > WebContext.PlatformSettings.MaxFetchRecords ? WebContext.PlatformSettings.MaxFetchRecords : model.PageSize;
-            PagedList<Report> result = _reportService.QueryPaged(x => x
-                .Page(model.Page, model.PageSize)
-                .Where(filter)
-                .Sort(n => n.OnFile(model.SortBy).ByDirection(model.SortDirection))
-                , SolutionId.Value, true);
-            model.Items = result.Items;
-            model.TotalItems = result.TotalItems;
-            model.SolutionId = SolutionId.Value;
+            //if (model.GetAll)
+            //{
+            //    model.Page = 1;
+            //    model.PageSize = WebContext.PlatformSettings.MaxFetchRecords;
+            //}
+            //else if (!model.PageSizeBySeted && CurrentUser.UserSettings.PagingLimit > 0)
+            //{
+            //    model.PageSize = CurrentUser.UserSettings.PagingLimit;
+            //}
+            //model.PageSize = model.PageSize > WebContext.PlatformSettings.MaxFetchRecords ? WebContext.PlatformSettings.MaxFetchRecords : model.PageSize;
+            //PagedList<Report> result = _reportService.QueryPaged(x => x
+            //    .Page(model.Page, model.PageSize)
+            //    .Where(filter)
+            //    .Sort(n => n.OnFile(model.SortBy).ByDirection(model.SortDirection))
+            //    , SolutionId.Value, true);
+            //model.Items = result.Items;
+            //model.TotalItems = result.TotalItems;
+            //model.SolutionId = SolutionId.Value;
 
-            return DynamicResult(model);
+            //return DynamicResult(model);
         }
 
         [Description("新建报表")]

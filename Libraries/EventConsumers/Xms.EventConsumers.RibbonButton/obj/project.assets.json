@@ -3782,11 +3782,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.RibbonButton\\Xms.EventConsumers.RibbonButton.csproj",
+      "projectUniqueName": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.RibbonButton\\Xms.EventConsumers.RibbonButton.csproj",
       "projectName": "Xms.EventConsumers.RibbonButton",
-      "projectPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.RibbonButton\\Xms.EventConsumers.RibbonButton.csproj",
+      "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.RibbonButton\\Xms.EventConsumers.RibbonButton.csproj",
       "packagesPath": "C:\\Users\\feiling\\.nuget\\packages\\",
-      "outputPath": "G:\\projects\\xms_v2\\Libraries\\EventConsumers\\Xms.EventConsumers.RibbonButton\\obj\\",
+      "outputPath": "G:\\projects\\xms_git\\online\\Libraries\\EventConsumers\\Xms.EventConsumers.RibbonButton\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3805,11 +3805,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\Event\\Xms.Event.Abstractions\\Xms.Event.Abstractions.csproj"
             },
-            "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton\\Xms.RibbonButton.csproj": {
-              "projectPath": "G:\\projects\\xms_v2\\Libraries\\RibbonButton\\Xms.RibbonButton\\Xms.RibbonButton.csproj"
+            "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton\\Xms.RibbonButton.csproj": {
+              "projectPath": "G:\\projects\\xms_git\\online\\Libraries\\RibbonButton\\Xms.RibbonButton\\Xms.RibbonButton.csproj"
             }
           }
         }
