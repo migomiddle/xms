@@ -475,9 +475,9 @@
                 ,itemTmpl: '<li class="{{itemClass}}" value="{{itemValue}}" data-name="{{entityname}}">{{itemOther}}{{itemTitle}}</li>'
                 , defaultSubmit: false
                 , submithandler: function (obj,$target) {
-                    obj.box.val(ORG_SERVERURL + '/entity/list?entityname=' + $(this).attr('data-name'));
+                    obj.box.val( '/entity/list?entityname=' + $(this).attr('data-name'));
                     obj.ul.hide();
-                    obj.vInput.val(ORG_SERVERURL + '/entity/list?entityname=' + $(this).attr('data-name'));
+                    obj.vInput.val( '/entity/list?entityname=' + $(this).attr('data-name'));
                     obj.value = $(this).attr('value');
                     obj.wrap.attr('data-isactive', false);
                     obj.box.trigger('xmsAutoItem.click');

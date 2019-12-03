@@ -73,16 +73,16 @@
             }
         }
         this.filterparentData = function (datas) {
-            if (datas && datas.length > 1) {
-                var res = $.extend([], datas[2]);
+            if (datas && datas.length >0) {
+                var res = $.extend([], datas[0]);
                 if (this.solutionid) {
-                    $.each(res.datas, function (i, n) {
+                    $.each(res.children, function (i, n) {
                         n.solutionid = self.solutionid;
                         n.remove = true;
                     })
                 }
                 console.log(datas);
-                return res.datas;
+                return res.children;
             }
         }
         this.loadpage = function (datas) {

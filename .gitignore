@@ -8,6 +8,7 @@ _ReSharper.*/
 packages/
 artifacts/
 PublishProfiles/
+[Ll]ogs/
 .vs/
 bower_components/
 node_modules/
