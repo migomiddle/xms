@@ -33,8 +33,7 @@
 >> 首次运行会进入初始化配置界面  
 >> 1、配置数据中心库  
 >> 2、配置业务数据库  
->> 3、前面两步成功后，需要手工把appsettings.json中的IsInitialization参数改为true  
->> 4、登录系统帐号：admin，密码：888888  
+>> 3、登录系统帐号：admin，密码：888888  
 
 ### QQ群：686391265  一起玩耍口令：xms
 ![xms](https://github.com/migomiddle/xms/blob/master/xms%E5%BC%80%E6%BA%90%E5%B9%B3%E5%8F%B0%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.png?raw=true "xms官方交流群")
