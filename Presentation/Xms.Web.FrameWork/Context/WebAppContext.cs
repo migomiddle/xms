@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Xms.Configuration;
 using Xms.Configuration.Domain;
@@ -337,7 +339,31 @@ namespace Xms.Web.Framework.Context
                 return XmsAuthenticationDefaults.InitializationPath;
             }
         }
-
+        private string _isInitialization;
+        public bool IsInitialization
+        {
+            get
+            {
+                if (_isInitialization == null)
+                {
+                    var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                    var config = builder.Build();
+                    _isInitialization = config["Initialization:IsInitialization"] == "true" ? "true" : null;
+                }
+                return _isInitialization == "true";
+            }
+            set
+            {
+                if (value)
+                {
+                    _isInitialization = "true";
+                }
+                else
+                {
+                    _isInitialization = "false";
+                }
+            }
+        }
         public LanguageCode BaseLanguage
         {
             get

@@ -833,10 +833,12 @@
     *       @param ordertype:  排序方式，正序/倒序"Ascending/Descending"
     *       如果只传一个参数是会当做一个对象 ：
             { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
+            example :
+            Xms.Page.loadFlowLine('BusinessUnit','ParentBusinessUnitId','name',null,'name')
     */
     Xms.Page.loadFlowLine = function (entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback, treesort, ordertype) {
-        if (typeof renderLeftTree === 'function') {
-            console.log('Xms.Page.loadGridViewTree', callback);
+        if (typeof Xms_FlowLine !== 'undefined') {
+            
             var _args;
             if (arguments.length == 1) {
                 _args = arguments[0];
@@ -844,26 +846,12 @@
             } else {
                 _args = { entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
             }
-            renderLeftTree(_args, callback);
+            Xms_FlowLine.loadInitFlowLine($('body'),entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback, treesort, ordertype);
         } else {
             throw new Error("只能在列表页面中使用该方法");
         }
     }
-    Xms.Page.loadFlowLineTotarget = function ($context, entityname, parentname, attrname, itemClick, sortby, isDefaultClick, callback, treesort, ordertype) {
-        if (typeof renderLeftTree === 'function') {
-            console.log('Xms.Page.loadGridViewTree', callback);
-            var _args;
-            if (arguments.length == 1) {
-                _args = arguments[0];
-                callback = _args.callback;
-            } else {
-                _args = { $context: $context, entityname: entityname, parent: parentname, attrname: attrname, itemClick: itemClick, sortby: sortby, isDefaultClick: isDefaultClick, treesort: treesort, ordertype: ordertype };
-            }
-            renderLeftTree(_args, callback);
-        } else {
-            throw new Error("只能在列表页面中使用该方法");
-        }
-    }
+    
 })(window);
 
 ; (function (root) {

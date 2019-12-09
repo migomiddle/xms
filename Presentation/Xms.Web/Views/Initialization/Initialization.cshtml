@@ -200,9 +200,10 @@
                 }, false, false, false);
             });
         });
+        var debound1 = $.deboundsEvent(3000, true);
         $('#submitbtn').click(function (e) {
             var that = this;
-            debound(function () {
+            debound1(function () {
                 var postdata = $('form').serializeFormJSON();
                 console.log(postdata);
                 // var postdata = getPostInfos(postdata);

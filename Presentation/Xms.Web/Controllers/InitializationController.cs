@@ -21,9 +21,7 @@ namespace Xms.Web.Controllers
     {
         public readonly IServiceCollection _services;
 
-        public InitializationController(
-
-          )
+        public InitializationController()
         {
         }
 
@@ -74,7 +72,7 @@ namespace Xms.Web.Controllers
                 var config = builder.Build();
                 config["DataBase:ConnectionString"] = DataBaseHelper.GetDbConfiguration(model.DataServerName, model.DataAccountName, model.DataPassword, model.DatabaseName, model.CommandTimeOut);
                 config["Initialization:IsInitialization"] = "true";
-                WriteJson("DataBase:ConnectionString", config["DataBase:ConnectionString"], config["Initialization:IsInitialization"]);
+                WriteJson( config["DataBase:ConnectionString"], config["Initialization:IsInitialization"]);
                 if (model.OrganizationBases != null)
                 {
                     DataBaseOptions options = new DataBaseOptions()
@@ -100,12 +98,13 @@ namespace Xms.Web.Controllers
         /// <summary>
         /// 写入指定section文件
         /// </summary>
-        public void WriteJson(string path, string dbConfiguration, string isInitialization)
+        public void WriteJson( string dbConfiguration, string isInitialization)
         {
+            string path = "appsettings.json";
             try
             {
                 JObject jObj;
-                using (StreamReader file = new StreamReader("appsettings.json"))
+                using (StreamReader file = new StreamReader(path))
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
                     jObj = (JObject)JToken.ReadFrom(reader);

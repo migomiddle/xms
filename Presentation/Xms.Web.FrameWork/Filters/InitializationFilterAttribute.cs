@@ -36,11 +36,8 @@ namespace Xms.Web.Framework.Filters
             {
                 return;
             }
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, reloadOnChange: true);
-            var config = builder.Build();
-            bool isInitialization = config["Initialization:IsInitialization"] == "true";
             //初始化验证
-            if (!isInitialization)
+            if (!_appContext.IsInitialization)
             {
                 var initializationUrl = _appContext.InitializationUrl;
 

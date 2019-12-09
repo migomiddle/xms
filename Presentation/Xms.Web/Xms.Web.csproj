@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <UserSecretsId>e5af4d02-6899-4e8f-b1c4-3546accd5b6a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -76,11 +75,6 @@
     <ProjectReference Include="..\..\Libraries\Data\Xms.Data.Import\Xms.Data.Import.csproj" />
     <ProjectReference Include="..\..\Libraries\Dependency\Xms.Dependency.Abstractions\Xms.Dependency.Abstractions.csproj" />
     <ProjectReference Include="..\..\Libraries\Dependency\Xms.Dependency\Xms.Dependency.csproj" />
-    <ProjectReference Include="..\..\Libraries\EventConsumers\Xms.EventConsumers.Entity\Xms.EventConsumers.Entity.csproj" />
-    <ProjectReference Include="..\..\Libraries\EventConsumers\Xms.EventConsumers.Form\Xms.EventConsumers.Form.csproj" />
-    <ProjectReference Include="..\..\Libraries\EventConsumers\Xms.EventConsumers.Notify\Xms.EventConsumers.Notify.csproj" />
-    <ProjectReference Include="..\..\Libraries\EventConsumers\Xms.EventConsumers.QueryView\Xms.EventConsumers.QueryView.csproj" />
-    <ProjectReference Include="..\..\Libraries\EventConsumers\Xms.EventConsumers.RibbonButton\Xms.EventConsumers.RibbonButton.csproj" />
     <ProjectReference Include="..\..\Libraries\Event\Xms.Event\Xms.Event.csproj" />
     <ProjectReference Include="..\..\Libraries\File\Xms.File.Extensions\Xms.File.Extensions.csproj" />
     <ProjectReference Include="..\..\Libraries\File\Xms.File\Xms.File.csproj" />

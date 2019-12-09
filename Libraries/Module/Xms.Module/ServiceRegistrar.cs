@@ -12,7 +12,7 @@ namespace Xms.Module
         {
             services.AddScoped<Module.Data.IModuleRepository, Module.Data.ModuleRepository>();
             services.AddScoped<Module.IModuleService, Module.ModuleService>();
-            services.AddSingleton<Module.Abstractions.IModuleRegistrar, ModuleRegistrar>();
+            services.AddScoped<Module.Abstractions.IModuleRegistrar, ModuleRegistrar>();
         }
     }
 }

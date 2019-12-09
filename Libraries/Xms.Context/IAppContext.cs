@@ -85,7 +85,7 @@ namespace Xms.Context
         /// 初始化地址
         /// </summary>
         string InitializationUrl { get; }
-
+        bool IsInitialization { get; set; }
         LanguageCode BaseLanguage { get; }
 
         T GetFeature<T>();

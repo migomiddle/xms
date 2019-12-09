@@ -17,16 +17,10 @@ namespace Xms.Web.Framework.Infrastructure
     {
         public static void AddWebDefaults(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMvc(options =>
-            {
-                options.MaxModelValidationErrors = 50;
-                //禁用action中对参数的验证
-                //options.AllowValidatingTopLevelNodes = false;
-                //自定义异常过滤
-                //options.Filters.Add(typeof(ApiExceptionFilterAttribute));
-            })
-            //全局配置Json序列化处理
-            .AddNewtonsoftJson(options =>
+
+            services.AddControllersWithViews()
+               //全局配置Json序列化处理
+               .AddNewtonsoftJson(options =>
             {
                 //忽略循环引用
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -67,9 +61,10 @@ namespace Xms.Web.Framework.Infrastructure
         public static void UseWebDefaults(this IApplicationBuilder app)
         {
             app.UseCookiePolicy();
-            app.UseAuthentication();
             app.UseExceptionHandlerMiddleWare();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("org", "{org}/{controller=Home}/{action=Index}");
