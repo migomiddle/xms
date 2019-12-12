@@ -40,3 +40,5 @@ BenchmarkDotNet.Artifacts/
 dist/
 .dotnet/
 .packages/
+/db/XMS_CONFIG_log.ldf
+/db/XMS_Empty_log.ldf

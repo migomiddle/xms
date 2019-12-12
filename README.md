@@ -1,7 +1,6 @@
 # xms
-![xms](https://github.com/migomiddle/xms/blob/master/assets/frontend.png "xms")
-![xms](https://github.com/migomiddle/xms/blob/master/assets/backend.png "xms")
-
+![xms](https://images.gitee.com/uploads/images/2019/1212/150638_c1d8e517_864463.png "QQ图片20191212150604.png")
+![xms](https://images.gitee.com/uploads/images/2019/1212/150648_f8f7cdc6_864463.png "QQ图片20191212150618.png")
 ## 一、xms是什么
 >>一款基于.netcore的现代化跨平台基础框架，包含众多常用模块，易上手、易扩展，xms可理解为x(可扩展的/任意的)m(管理)s(系统)
 
@@ -12,7 +11,7 @@
 >>接近"零代码"开发，释放生产力，专注你的业务，致力于.netcore开源生态发展，大家一起轻松把钱赚
 
 ## 四、结构
-![xms](https://github.com/migomiddle/xms/blob/master/assets/xms%E5%B9%B3%E5%8F%B0%E8%84%91%E5%9B%BE.png "xms脑图")  
+ ![xms脑图](https://images.gitee.com/uploads/images/2019/1212/150724_f046d4e7_864463.png "QQ图片20191212150614.png")
 
 ## 五、场景
 >> a.老板有个好想法，产品经理可以利用xms快速配置出产品原型，会议演示高大上  
@@ -41,10 +40,10 @@
   
 ## 八、联系我们
 #### QQ群：686391265  一起玩耍口令：xms
-![xms](https://github.com/migomiddle/xms/blob/master/assets/xms%E5%BC%80%E6%BA%90%E5%B9%B3%E5%8F%B0%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.png?raw=true "xms官方交流群")
+![xms](https://images.gitee.com/uploads/images/2019/1212/150729_e81cb382_864463.png "xms官方交流群")
 
 #### 博客地址：[migomiddle](https://www.cnblogs.com/migomiddle)
 #### 邮箱地址: deng819@163.com
   
 #### 如果觉得xms帮助到您了，可以捐助我们，让我们一起把平台做得更好  
-![xms](https://github.com/migomiddle/xms/blob/master/assets/%E6%8D%90%E5%8A%A9%E7%A0%81.png "xms脑图")  
+![xms](https://images.gitee.com/uploads/images/2019/1212/150734_355fb4f5_864463.png "xms脑图")  
