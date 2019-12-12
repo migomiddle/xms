@@ -69,8 +69,8 @@ namespace Xms.Schema.OptionSet
             {
                 return;
             }
-            //删除字段关联的选项集
-            var deleteds = _optionSetRepository.Query(x => x.OptionSetId.In(ids));
+            //删除字段关联的选项集，非公共的
+            var deleteds = _optionSetRepository.Query(x => x.OptionSetId.In(ids) && x.IsPublic == false);
             if (deleteds.NotEmpty())
             {
                 DeleteCore(deleteds, null);
