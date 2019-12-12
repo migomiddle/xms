@@ -36,14 +36,15 @@
 >> 3、登录系统帐号：admin 密码：888888  
   
 ## 七、计划
->> 使用文档用户视频正在编制……  
->> 下一个大版本前后端分离以及实现微服务架构  
+>> 使用文档及视频正在编制……  
+>> 下一个大版本实现前后端分离以及微服务架构  
   
-### QQ群：686391265  一起玩耍口令：xms
+## 八、联系我们
+#### QQ群：686391265  一起玩耍口令：xms
 ![xms](https://github.com/migomiddle/xms/blob/master/assets/xms%E5%BC%80%E6%BA%90%E5%B9%B3%E5%8F%B0%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.png?raw=true "xms官方交流群")
 
-#### 博客：[migomiddle](https://www.cnblogs.com/migomiddle)
-#### 联系我: deng819@163.com
+#### 博客地址：[migomiddle](https://www.cnblogs.com/migomiddle)
+#### 邮箱地址: deng819@163.com
   
-### 如果觉得xms帮助到您了，可以捐助我们，让我们一起把平台做得更好  
+#### 如果觉得xms帮助到您了，可以捐助我们，让我们一起把平台做得更好  
 ![xms](https://github.com/migomiddle/xms/blob/master/assets/%E6%8D%90%E5%8A%A9%E7%A0%81.png "xms脑图")  
