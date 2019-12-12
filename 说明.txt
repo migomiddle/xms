@@ -8,5 +8,4 @@ XMS_Standar是有演示数据的业务库
 首次运行会进入初始化配置界面
 1、配置数据中心库
 2、配置业务数据库
-3、前面两步成功后，需要手工把appsettings.json中的IsInitialization参数改为true
-4、登录系统帐号：admin，密码：888888
+3、登录系统帐号：admin，密码：888888
