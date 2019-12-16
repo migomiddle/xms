@@ -175,7 +175,7 @@
         function delRecord(id, action, refresh, onsuccess, onerror, confirmtext, isconfirmagain) {
             Xms.Web.Del(id, action, refresh, onsuccess, onerror, confirmtext, isconfirmagain, {
 
-                content: '<div class="form-group"><h3 style="color:red; font-size:12px;"><input class="" id="anddeltable" type="checkbox" value="true" checked="checked" /><span style="font-size:18px;" class="pl-3">同时删除表？</span></h3></div>',
+                content: '<div class="form-group"><h3 style="color:red; font-size:12px;"><label class="checkbox-inline"><input class="" style="font-size:12px; margin:0" id="anddeltable" type="checkbox" value="true" checked="checked" /><span style="font-size:18px;" class="pl-5">同时删除表？</span></label></h3></div>',
                 checkOk: function (opts) {
                     var ckb = $('#anddeltable').prop('checked');
                     opts.postdata = {

@@ -224,7 +224,7 @@
                 Xms.Web.Alert(false, response.Content);
             }, null, '@app.T["confirm_delete"]', true, {
 
-                content: '<div class="form-group"><h3 style="color:red;"><input class="" id="anddeltable" type="checkbox" value="true" checked="checked" />同时删除表？</h3></div>',
+                content: '<div class="form-group"><h3 style="color:red;"><label class="checkbox-inline"><input class="" style="margin:0; font-size:12px;" id="anddeltable" type="checkbox" value="true" checked="checked" /><span style="font-size:18px;" class="pl-5">同时删除表？</span></label></h3></div>',
                 checkOk: function (opts) {
                     var ckb = $('#anddeltable').prop('checked');
                     opts.postdata = {
