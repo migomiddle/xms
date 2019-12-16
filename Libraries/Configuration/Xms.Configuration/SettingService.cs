@@ -27,7 +27,7 @@ namespace Xms.Configuration
             _appContext = appContext;
             _currentUser = _appContext.GetFeature<ICurrentUser>();
             _settingRepository = settingRepository;
-            _cache = new CacheManager<Setting>($"{_appContext.OrganizationUniqueName}:settings", SettingCache.BuildKey);
+            _cache = new CacheManager<Setting>($"{_appContext.OrganizationUniqueName}:settings", SettingCache.BuildKey,true);
         }
 
         public virtual bool SaveMany(IList<Setting> entities)
