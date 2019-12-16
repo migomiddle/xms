@@ -170,7 +170,7 @@
                 //  pageUrl = $.setUrlParam(pageUrl, 'sortby', sortby);
                 // pageUrl = $.setUrlParam(pageUrl, 'sortdirection', 0);
             }
-            pageFilter.submitFilter();
+           // pageFilter.submitFilter();
         });
     }
 

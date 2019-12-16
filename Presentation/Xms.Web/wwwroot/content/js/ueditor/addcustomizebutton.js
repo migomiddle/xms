@@ -29,37 +29,45 @@
             //点击时执行的命令
             onclick: function (e) {
                 //这里可以不用执行命令,做你自己的操作也可
-                console.log($(this.target).parents('.edui-editor:first').parent().next('input:first'));
-                var url = '/file/Create';
-                if (url.indexOf(ORG_SERVERURL) !== 0) {
-                    url = ORG_SERVERURL + (url.indexOf('/') == 0 ? "" : "/") + url;
-                }
-                var _form = $('<form class="hide" action="' + url + '" method="post" enctype="multipart/form-data"></form>');
-                var $entityid = $('<input type="hidden" name="entityid" value="' + Xms.Page.PageContext.EntityId + '" />');
-                var $objectid = $('<input type="hidden" name="objectid" value="' + Xms.Page.PageContext.RecordId + '" />');
-                var $file = $('<input type="file" name="attachment" >');
-                $('body').append(_form);
-                _form.append($entityid).append($objectid).append($file);
+                var tags = '_rt_' + Xms.Utility.Guid.NewGuid().ToString();
+              
+                var $file = $('<input type="file" class="hide" name="' + tags + '" id="' + tags + '" >');
+                $('form:first').append($file);
                 $file.trigger('click');
                 $file.on('change', function (e, opts) {
                     console.log('uploadform', e, opts);
+                    var self = this;
                     setTimeout(function () {
-                        _form.ajaxForm(function (response) {
-                            if (response.IsSuccess) {
-                                var _protocol = location.protocol;
-                                var _host = location.host;
-                                //console.log(_host);
-                                var src = response.Extra.filepath;
-                                var allPath = _protocol + '//' + _host + src;
-                                editor.execCommand('insertimage', {
-                                    src: allPath
-                                });
-                                $file.off();
-                                _form.remove();
-                                return;
+                        var file = self.files[0];
+                        var filetype = file.type;
+                        //使用fileReader对文件对象进行操作
+                        var is_img = Xms.Web.isImg(filetype);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function () {
+                            
+                            if (typeof dirtyChecker != 'undefined') {
+                                dirtyChecker.isDirty = true;
                             }
-                            Xms.Web.Alert(false, response.Content);
-                        }).submit();
+                           // setTimeout(function () { 
+                                editor.execCommand('insertimage', [{
+                                   // xmstag: tags,
+                                    src: reader.result,
+                                    title:tags,
+                                    class: tags
+                                    
+                                }]);
+                           // },100)
+                            $file.off();
+                            if (editor_files) {
+                                editor_files.push({
+                                    _id: tags,
+                                    filetype: filetype
+                                });
+                            }
+                            console.log(reader);
+                        }
+                      
                     }, 0);
                 })
 

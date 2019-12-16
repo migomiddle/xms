@@ -793,8 +793,9 @@
                                 var f = rowData['__xms_' + fieldname + '_filter'] //$('#' + inputid).parents('td:first').attr("data-filter");
                                 if (f) f = f;
                                 else f = null;
-                                if (self.attr('data-defaultviewid') && self.attr('data-defaultviewid') != '') {
-                                    lookupurl = $.setUrlParam(lookupurl, 'queryid', self.attr('data-defaultviewid'));
+                                var queryviewid = rowData['__xms_' + fieldname + '_queryviewid']; 
+                                if (queryviewid) {
+                                    lookupurl = $.setUrlParam(lookupurl, 'queryid', queryviewid);
                                 }
                                 else {
                                     lookupurl = $.setUrlParam(lookupurl, 'entityid', self.attr('data-lookup'));
@@ -1442,6 +1443,18 @@
     cDatagrid.prototype.getRowData = function (index) {
         return this.$grid.pqGrid("getRowData", { rowIndxPage: index });
     }
+    cDatagrid.prototype.removeRowData = function (index) {
+         this.$grid.pqGrid("removeData", { rowIndx: index });
+    }
+    cDatagrid.prototype.removeAllData = function (index) {
+        var self = this;
+        this.$grid.find('.pq-grid-cont-inner:first tr.pq-grid-row').each(function (i, n) {
+            var index = $(n).index()-1;
+            self.removeRowData(index);
+            self.deleteRow(index);
+        });
+        
+    }
     cDatagrid.prototype.setData = function (rowIndex, data) {
         return this.$grid.pqGrid("data", { rowIndxPage: rowIndex, data: data });
     }
@@ -1452,7 +1465,7 @@
 
     cDatagrid.prototype.bindEvent = function () {
         var self = this;
-        this.$plugGrid.on('pqgridrefresh pqgridrefreshrow', function () {
+        this.$plugGrid.on('pqgridrefreshrow', function () {
             var $grid = $(this);
             if (self.opts.headerFilter) {
                 // setTableFilter(self.$grid);

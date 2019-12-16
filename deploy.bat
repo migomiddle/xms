@@ -23,6 +23,7 @@ if "%sel%"=="n" goto end
 :ok
 cd ../../publish
 dotnet Xms.Web.dll
+echo 'http://localhost:8002'
 
 :end
-pause
+exit

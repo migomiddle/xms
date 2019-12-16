@@ -47,8 +47,12 @@ namespace Xms.Configuration
                     item.OrganizationId = _currentUser.OrganizationId;
                 }
                 result = _settingRepository.CreateMany(entities);
-                //add to cache
-                _cache.SetListItem(entities);
+                //add to cache                
+                foreach (var deleted in entities)
+                {
+                    //remove from cache
+                    _cache.RemoveEntity(deleted);
+                }
             }
             return result;
         }

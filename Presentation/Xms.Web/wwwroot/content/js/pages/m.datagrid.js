@@ -375,6 +375,39 @@
         }
         console.log(this);
     }
+    entityDatagrid.prototype.removeRowData = function (index) {
+        var self = this;
+        self.$plug.cDatagrid('removeRowData', index - 1);
+    }
+    entityDatagrid.prototype.removeAllData = function () {
+        var self = this;
+        self.$plug.find('.pq-grid-cont-inner:first').each(function () {
+            var dellist = []
+            $(this).find('tr.pq-grid-row').each(function () {
+                var index = $(this).index();
+                var rowData = self.$plug.cDatagrid('getRowData',index-1);
+                var id = $(this).find('input[name="recordid"]:first').val();
+                if (id && rowData.cdatagrid_editer!='new') {
+                    rowData.entitystatus = 3;
+                    self.deleteList.push(rowData);
+                   
+                }
+            });
+            $(this).find('tr.pq-grid-row').each(function () {
+                var index = $(this).index();
+                var rowData = self.$plug.cDatagrid('getRowData', 1);
+                var id = $(this).find('input[name="recordid"]:first').val();
+                if (id) {
+                    self.$plug.cDatagrid('deleteRow', 1);
+                }
+            });
+           
+        });
+        if (typeof dirtyChecker != 'undefined') {
+            dirtyChecker.isDirty = true;
+        }
+        
+    }
     entityDatagrid.prototype.addDatas = function (datas) {
         var len = this.localDatas.length, self = this;;
         $.each(datas, function () {
@@ -403,10 +436,12 @@
             if (typeof dirtyChecker != 'undefined') {
                 dirtyChecker.isDirty = true;
             }
+            self.$wrap.trigger('gridview.removeRow', { e: e, self: self });
         });
         $('button[name=removeRowBtnLocal]', self.$parent).off('click').on('click', null, function (e) {
             var parRow = $(this).parents('tr:first'), index = parRow.index();
             self.$plug.cDatagrid('deleteRow', index - 1);
+            self.$wrap.trigger('gridview.removeLocalRow', { e: e, self: self });
         });
         $('[name=searchBtn]', self.$parent).off('click').on('click', null, function (e) {
             self.$plug.cDatagrid('refreshDataAndView');
@@ -652,8 +687,9 @@
                 isJsonAjax: true,
                 afterAjax: function (that, objP, DM, PM, FM) {
                     var pageIsEdit = datas.pageIsEdit;
-                    if (pageIsEdit) {
+                    if (pageIsEdit && !firstload) {
                         opts._super._addEmptyRow(datas.DefaultEmptyRows);
+                        firstload = true;
                     }
                     opts._super.$wrap.trigger('gridview.afterAjax', { $context: $context, that: that, datagridconfig: datagridconfig })
                 },
@@ -671,7 +707,9 @@
                         grid.loading = false;
                         setTimeout(function () {
                             DM.data = _super.localDatas;
-                            _super._addEmptyRow(datas.DefaultEmptyRows);
+                            if (_super && _super.localDatas && _super.localDatas.length == 0) {
+                                _super._addEmptyRow(datas.DefaultEmptyRows);
+                            }
                             // opts._super.refresh();
                         }, 500);
                         datas.gridviewLoaded && datas.gridviewLoaded();

@@ -247,8 +247,6 @@ namespace Xms.Flow
                     _WorkFlowInstanceService.Create(result.Instance);
                     _workFlowProcessService.CreateMany(result.Instance.Steps);
 
-                    //更新记录流程状态
-                    //_workFlowProcessUpdater.UpdateObjectProcessState(context.EntityMetaData, context.ObjectId, WorkFlowProcessState.Processing);
                     //上传附件
                     await _attachmentCreater.CreateManyAsync(context.EntityMetaData.EntityId, result.Instance.WorkFlowInstanceId, context.AttachmentFiles).ConfigureAwait(false);
                     _WorkFlowInstanceService.CompleteTransaction();
@@ -263,10 +261,12 @@ namespace Xms.Flow
                 }
             }
             OnStarted(context, result);
+            //发布事件
             _eventPublisher.Publish(new WorkFlowStartedEvent { Context = context, Result = result });
             return result;
         }
 
+        #region 事件
         public virtual WorkFlowExecutionResult OnStarting(WorkFlowStartUpContext context, WorkFlowExecutionResult result)
         {
             return result;
@@ -275,6 +275,7 @@ namespace Xms.Flow
         public virtual WorkFlowExecutionResult OnStarted(WorkFlowStartUpContext context, WorkFlowExecutionResult result)
         {
             return result;
-        }
+        } 
+        #endregion
     }
 }

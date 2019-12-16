@@ -68,7 +68,7 @@ namespace Xms.File
         /// <param name="objectId"></param>
         /// <param name="files"></param>
         /// <returns></returns>
-        public virtual async Task<List<Entity>> CreateManyAsync(Guid entityId, Guid objectId, List<IFormFile> files)
+        public virtual async Task<List<Entity>> CreateManyAsync(Guid entityId, Guid objectId, List<IFormFile> files, bool autoFileName=true)
         {
             //附件
             List<Entity> attachments = new List<Entity>();
@@ -81,7 +81,11 @@ namespace Xms.File
                     {
                         string dir = _webHelper.MapPath(Path, true);
                         Guid id = Guid.NewGuid();
-                        string fileName = id.ToString() + System.IO.Path.GetExtension(file.FileName);
+                        string fileName = file.Name + System.IO.Path.GetExtension(file.FileName);
+                        if (autoFileName)
+                        {
+                            fileName = id.ToString() + System.IO.Path.GetExtension(file.FileName);
+                        }
                         string savePath = dir + fileName;
                         await file.SaveAs(savePath, _settingFinder, _webHelper).ConfigureAwait(false);
                         Entity ent = new Entity(EntityName)
@@ -104,5 +108,6 @@ namespace Xms.File
             }
             return null;
         }
+       
     }
 }

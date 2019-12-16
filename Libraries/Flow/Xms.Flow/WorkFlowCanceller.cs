@@ -89,7 +89,6 @@ namespace Xms.Flow
                     .Where(f => f.WorkFlowInstanceId == Instance.WorkFlowInstanceId)
                     );
                     _workFlowProcessUpdater.Update(n => n.Set(f => f.StateCode, WorkFlowProcessState.Disabled).Where(f => f.WorkFlowInstanceId == Instance.WorkFlowInstanceId));
-                    //_workFlowProcessUpdater.UpdateObjectProcessState(context.EntityMetaData, context.ObjectId, WorkFlowProcessState.Canceled);
                     _WorkFlowInstanceService.CompleteTransaction();
                     result.IsSuccess = true;
                 }
@@ -102,10 +101,12 @@ namespace Xms.Flow
                 }
             }
             result = OnCancelled(context, result);
+            //发布事件
             _eventPublisher.Publish(new WorkFlowCancelledEvent { ObjectId = context.ObjectId, EntityMetaData = context.EntityMetaData, Instance = Instance, CurrentStep = currentStep, Result = result });
             return result;
         }
 
+        #region 事件
         public virtual WorkFlowCancellationResult OnCancelling(WorkFlowCancellationContext context, WorkFlowCancellationResult result)
         {
             return result;
@@ -114,6 +115,7 @@ namespace Xms.Flow
         public virtual WorkFlowCancellationResult OnCancelled(WorkFlowCancellationContext context, WorkFlowCancellationResult result)
         {
             return result;
-        }
+        } 
+        #endregion
     }
 }

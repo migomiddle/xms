@@ -447,6 +447,7 @@
                         var changeValue = $(this).val();
                         setlabelsToTarget(changeEntityid, changeValue, function (data) {
                             toSetLabels(that, data, tarType, controlType);
+                            target.Target.trigger('extend.label.changeEnd');
                         });
                     });
                 });
@@ -468,7 +469,7 @@
                         setlabelsToTarget(changeEntityid, changeValue, function (data) {
                             //console.log("setE",data.content);
                             toSetExts(that, data.content, tarType, controltype);
-                            target.Target.on('extend.changeEnd');
+                            target.Target.trigger('extend.changeEnd');
                         });
                     });
                 });
@@ -629,6 +630,10 @@
                                 });
                             }
                         });
+
+                        //如果有字段是富文本的话
+                       
+
                         if (flag == false) {
                             return false;
                         }
@@ -637,7 +642,25 @@
                         $('#child').val(encodeURIComponent(JSON.stringify(gridDatas)));
                     } else {
                         // $('#child').val('');
-                    }
+                        }
+                        $('form:first').find('textarea.ntext').each(function () {
+                            var html = $(this).val();
+                            html = decodeURIComponent(html);
+                            var $html = $(html);
+                            var $wrap = $('<div></div>');
+                          //  $wrap.appendTo($('body'));
+                            $wrap.html(html);
+                            if (editor_files) {
+                                $.each(editor_files, function (i,n) {
+                                    var $file = $wrap.find('img[title="' + n._id + '"]');
+                                    if ($file.length > 0) {
+                                        var url_pre = '/upload/attachment/'+CURRENT_USER.organizationid+'/'
+                                        $file.attr('src', url_pre+ n._id + '.' + n.filetype.replace('image\/',''));
+                                    }
+                                });
+                            }
+                            $(this).val($wrap.html());
+                        });
                     console.log('dirtyChecker.isDirty', dirtyChecker.isDirty);
                     formIsSave = false;//防止重复提交
                 }, { //setting
@@ -936,6 +959,7 @@
         $context.val('');
         type = type || 'name';
         controltype = controltype || "nvarchar";
+        $context.trigger('extend.ClearBefore');
         if ($context.is(":disabled")) { return false; }
         if (controltype == "lookup" || controltype == "owner" || controltype == "customer") {
             $context.val('');
@@ -950,6 +974,7 @@
         } else {
             $context.val('');
         }
+        $context.trigger('extend.clearEnd')
     }
 
     function removeLabelParam(context, type, controltype) {
@@ -1119,7 +1144,7 @@
                     callback && callback($this);
                 }
                 var grid = new entityDatagrid(_id, $grid, datas);
-
+                $this.data().__entityDatagrid = grid;
                 // grid.setDatas(datas);
                 // grid.loadDatagird($grid);
 
@@ -1151,6 +1176,7 @@
             parent[method](document.body);
         }
     }
+    window.editor_files = [];
     window.setlabelsToTarget = setlabelsToTarget;
     window.selectRecordCallback = selectRecordCallback;
     window.pageWrap_Create = pageWrap_Create;

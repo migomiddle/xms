@@ -31,10 +31,13 @@ namespace Xms.Configuration
         {
             var type = typeof(T);
             nameSpace = nameSpace.IfEmpty(type.FullName);
-            var settings = _cache.GetItemsByPattern(() =>
+            
+            string sIndex = string.Join("/", nameSpace);
+            var settings = _cache.GetVersionItems(sIndex, () =>
             {
                 return _settingRepository.Query(x => x.OrganizationId == _orgDataServer.OrganizationBaseId && x.Name.Like($"{nameSpace}.%"))?.ToList();
-            }, _orgDataServer.OrganizationBaseId + "/" + nameSpace + "*/");
+            });
+
             var result = new T();
             if (settings.NotEmpty())
             {

@@ -1,0 +1,36 @@
+update Attribute 
+set Name = 'StateCode'
+where EntityId = '1C181815-3882-4A91-A6A3-287AFB1C26A5' and Name = 'State'
+update Attribute 
+set Name = 'StatusCode'
+where EntityId = '1C181815-3882-4A91-A6A3-287AFB1C26A5' and Name = 'Status'
+
+exec sp_rename 'Organization.State','StateCode'
+exec sp_rename 'Organization.Status','StatusCode'
+
+ALTER VIEW [dbo].[OrganizationView] AS
+SELECT
+[Organization].[BaseCurrencyId],
+[Organization].[CreatedBy],
+[Organization].[CreatedOn],
+[Organization].[DataAccountName],
+[Organization].[DataBaseName],
+[Organization].[DataLogEnabled],
+[Organization].[DataPassword],
+[Organization].[DataServerName],
+[Organization].[Description],
+[Organization].[EmailSettings],
+[Organization].[LanguageId],
+[Organization].[ManagerId],
+[Organization].[ModifiedBy],
+[Organization].[ModifiedOn],
+[Organization].[Name],
+[Organization].[OrganizationId],
+[Organization].[SmsSettings],
+[Organization].[StateCode],
+[Organization].[StatusCode],
+[Organization].[UniqueName],
+[lk_Organization_BaseCurrencyId].[Name] AS BaseCurrencyIdName
+FROM [Organization] WITH(NOLOCK)
+LEFT JOIN [Currency] AS [lk_Organization_BaseCurrencyId] WITH(NOLOCK) ON [Organization].[BaseCurrencyId]=[lk_Organization_BaseCurrencyId].[CurrencyId]
+GO
