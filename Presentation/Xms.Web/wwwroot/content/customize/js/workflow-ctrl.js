@@ -271,12 +271,12 @@ function getFormsList(callback) {
     //加载forms列表
     var postParams = {
         type: 'forms' + entityid,
-        data: { entityid: entityid }
+        data: { entityid: entityid, loaddata: true }
     }
-    Xms.Web.PageCache('workflow', '/customize/systemform/index', postParams, function (res) {
+    Xms.Web.PageCache('workflow', '/customize/systemform/index?loaddata=true', postParams, function (res) {
         var $formDom = $('#point-formname');
         var resItems = res.content;
-        if (resItems && resItems.items) {
+        if (resItems.length>0) {
             var _html = [];
             $.each(resItems.items, function (i, n) {
                 _html.push('<option data-formid="' + n.systemformid + '" data-solutionid="' + n.solutionid + '">' + n.name + '</option>');
