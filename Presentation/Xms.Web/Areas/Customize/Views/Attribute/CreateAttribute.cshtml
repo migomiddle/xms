@@ -445,6 +445,7 @@
                     });
 
                     Xms.Web.Event.publish('refresh');
+                     Xms.Web.Event.localStorageEvent.trigger('list_attribute_rebind');
                     Xms.Web.Event.publish('success&&&' + response.Extra.id, true);
                     $('#createattributeForm').trigger('formSuccess', { res: response });
                 }, true, function () {

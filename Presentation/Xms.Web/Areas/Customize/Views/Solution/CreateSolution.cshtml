@@ -47,7 +47,9 @@
     <script>
         $(function () {
             //表单验证
-            Xms.Web.Form($("#editform"));
+            Xms.Web.Form($("#editform"), function () {
+                Xms.Web.Event.localStorageEvent.trigger('list_solution_rebind');
+            });
         });
     </script>
 }

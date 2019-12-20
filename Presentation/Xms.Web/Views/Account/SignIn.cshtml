@@ -5,9 +5,6 @@
     Layout = null;
 }
 
-@{
-    List<OrganizationBase> orglist = ViewData["orglist"] as List<OrganizationBase>;
-}
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -57,7 +54,7 @@
                                 @Html.ValidationMessageFor(x => x.OrgUniqueName)
                                 <select class="form-control pl-0" name="OrgUniqueName" id="OrgUniqueName">
                                     @{
-                                        foreach (var org in orglist)
+                                        foreach (var org in Model.OrgList)
                                         {
                                             <option value="@org.UniqueName">@org.Name</option>
                                         }
@@ -88,16 +85,15 @@
                             <input type="password" name="password" id="password" autocomplete="off" class="form-text loginpwd" placeholder="密码" required value="@Model.Password" />
                         </div>
                     </div>
-                    @if (false)
-                    {
-                        <div class="form-group">
-                            <div class="input-group verifycode-group">
-                                <span class="input-group-addon">  <i class="layui-icon  layui-icon-vercode"></i></span>
-                                <input type="text" name="verifycode" id="verifycode" class="form-text" autocomplete="off" placeholder="验证码" required />
-                                <span class="input-group-addon">    <img id="verifyImage" style="cursor:pointer;" title="点击刷新验证码" onclick="this.src='@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage?time=' + new Date()" src="@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage" height="30" class="left" /></span>
-                            </div>
+
+                    @*<div class="form-group">
+                        <div class="input-group verifycode-group">
+                            <span class="input-group-addon">  <i class="layui-icon  layui-icon-vercode"></i></span>
+                            <input type="text" name="verifycode" id="verifycode" class="form-text" autocomplete="off" placeholder="验证码" required />
+                            <span class="input-group-addon">    <img id="verifyImage" style="cursor:pointer;" title="点击刷新验证码" onclick="this.src='@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage?time=' + new Date()" src="@(!string.IsNullOrWhiteSpace(Model.OrgUniqueName) ? "/" + Model.OrgUniqueName : "")/tool/verifyimage" height="30" class="left" /></span>
                         </div>
-                    }
+                    </div>*@
+
                     <div class="form-group checkbox">
                         <label>
                             @Html.CheckBoxFor(x => x.RememberMe)&nbsp;&nbsp;记住我
@@ -129,8 +125,8 @@
     <script src="/content/js/jquery-toast/jquery.toast.min.js"></script>
     <script src="/content/js/xms.web.js"></script>
     <script src="/content/js/xms.jquery.js"></script>
-    <script src="/content/js/jquery.cookie.js"></script>
-    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.effect.js"></script>
+    <script src="~/content/js/jquery.cookie.js"></script>
+    <script src="~/content/js/jquery-ui-1.10.3/ui/jquery.ui.effect.js"></script>
 
     <script>
         var ORG_SERVERURL = '/xms';

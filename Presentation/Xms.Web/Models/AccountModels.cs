@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Xms.Organization.Domain;
 
 namespace Xms.Web.Models
 {
@@ -21,5 +23,7 @@ namespace Xms.Web.Models
         public string OrgUniqueName { get; set; }
 
         public string OrgName { get; set; }
+
+        public List<OrganizationBase> OrgList { get; set; }
     }
 }

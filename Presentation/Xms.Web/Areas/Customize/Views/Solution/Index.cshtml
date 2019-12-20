@@ -1,94 +1,52 @@
 ﻿@model Xms.Web.Customize.Models.SolutionModel
-
-<div class="panel panel-info" id="gridview">
+    <div id="entityCreateSection" class="entityCreateSection">
+        <div class="entityCreateSection-close">x</div>
+        <iframe width="100%" src="" id="entityCreateIframe" class="ifrmae-list" name="entityCreateIframe" frameborder="0" scrolling="auto" height="114" style="height:100%;"></iframe>
+    </div>
+<div class="panel panel-default">
     <div class="panel-heading">
-        <div class="panel-title">
-            <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
-            <div class="pull-right">
-                <a class="btn btn-info btn-xs" data-toggle="collapse"
-                   href="#collapseOne">
-                    <span class="caret"></span> @app.T["search"]
-                </a>
-                <a class="btn btn-info btn-xs" href="@Url.Action("createsolution")"><span class="glyphicon glyphicon-file"></span> @app.T["add"]</a>
-                <a class="btn btn-info btn-xs" href="#" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-import"></span> @app.T["import"]</a>
-            </div>
-        </div>
+        <h3 class="panel-title">
+            <a data-toggle="collapse"
+                href="#collapseTwo">
+                <strong>@app.PrivilegeTree?.LastOrDefault().DisplayName</strong>
+            </a>
+        </h3>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse">
-        <!--in-->
+       
+    <div id="collapseTwo" class="panel-collapse collapse in">
         <div class="panel-body">
-            <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" class="form-horizontal" role="form">
-                @Html.ValidationSummary()
-                <div class="form-group col-sm-6">
-                    <label class="col-sm-3 control-label" for="Name">@app.T["name"]</label>
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-                    </div>
+            <div class="" id="gridview">
+                <div class="mb-2 toolbar">
+                    <form action="/@app.OrganizationUniqueName/customize/@app.ControllerName/@app.ActionName" method="get" id="searchForm" role="form">
+                        @Html.ValidationSummary()
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="btn-group btn-group-sm">
+                                    
+                                    <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize@(Url.Action("createsolution"))"><span class="glyphicon glyphicon-plus-sign"></span> @app.T["add"]</a>
+                                    <a class="btn btn-info btn-xs" href="#" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-import"></span> @app.T["import"]</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group input-group-sm">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = @app.T["entity_name"] })
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-info btn-block grid-searcher"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> @app.T["search"]</button>
+
+                <div class="table-datagrid-view">
+                    <div class="datagrid-view"></div>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-condensed" id="datatable" data-refresh="rebind()" data-ajax="true" data-ajaxcontainer="gridview" data-ajaxcallback="ajaxgrid_reset()" data-sortby="@Model.SortBy.ToLower()" data-sortdirection="@Model.SortDirection" data-pageurl="@app.Url">
-            <thead>
-                <tr>
-                    <th width="2%"><input type="checkbox" name="checkall" /></th>
-                    <th data-name="name">
-                        @app.T["name"]
-                    </th>
-                    <th width="20%" data-name="LocalizedName">
-                        @app.T["versions"]
-                    </th>
-                    <th width="10%" data-name="IsAuthorization">
-                        @app.T["createdby"]
-                    </th>
-                    <th width="10%" data-name="isloged">
-                        @app.T["promulgator"]
-                    </th>
-                    <th width="15%" data-name="createdon">
-                        @app.T["create_time"]
-                    </th>
-                    <th width="20%">@app.T["operation"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Items)
-                {
-                    <tr data-dbclick="location.href='@("/"+app.OrganizationUniqueName)/customize/solution/editsolution?id=@item.SolutionId'">
-                        <td><input type="checkbox" value="@item.SolutionId" name="recordid" /></td>
-                        <td><a href="@("/"+app.OrganizationUniqueName)/customize/index?solutionid=@item.SolutionId">@item.Name</a></td>
-                        <td>@item.Version</td>
-                        <td>@item.CreatedByName</td>
-                        <td>@item.PublisherIdName</td>
-                        <td>@item.CreatedOn</td>
-                        <td>
-                            <a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/solution/exportsolution?id=@item.SolutionId"><span class="glyphicon glyphicon-export"></span> @app.T["export"]</a>
-                            <a class="btn btn-default btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/solution/editsolution?id=@item.SolutionId"><span class="glyphicon glyphicon-edit"></span> @app.T["edit"]</a>
-                            <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del('@item.SolutionId','/customize/solution/deletesolution',false,rebind,null,'删除后相关数据也将一并删除，请提前备份数据',true)"><span class="glyphicon glyphicon-trash"></span> @app.T["delete"]</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7" class="active">
-                        <button type="button" class="btn btn-xs btn-primary" data-action="/customize/solution/deletesolution" data-role="delete" data-tooltip="删除后相关数据也将一并删除，请提前备份数据"><span class="glyphicon glyphicon-trash"></span> @app.T["batch_delete"]</button>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div class="panel-footer">
-        <div class="row">
-            <div class="col-sm-4">
-                @(app.T["pagination_label"].Replace("{page}", Model.Page.ToString()).Replace("{totalpages}", Model.TotalPages.ToString()).Replace("{totalitems}", Model.TotalItems.ToString()))
             </div>
-            <div id="page-selection" class="col-sm-8" data-total="@Model.TotalPages" data-page="@Model.Page"></div>
         </div>
     </div>
+        
+
 </div>
 <!-- （Modal） -->
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog"
@@ -128,28 +86,145 @@
 </div><!-- /.modal -->
 
 @section Header {
+    <link href="~/content/customize/css/common.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/jquery-ui-1.10.3/themes/base/jquery.ui.all.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link href="~/content/js/grid/pqgrid.dev.css?v=@app.PlatformSettings.VersionNumber" rel="stylesheet">
+    <link id="themeLink" href="~/content/css/theme/@(app.Theme).css" rel="stylesheet" />
 }
 @section Scripts {
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.button.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.mouse.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.autocomplete.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.draggable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.resizable.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/jquery-ui-1.10.3/ui/jquery.ui.tooltip.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/fetch.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="~/content/js/common/filters.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/pqgrid.dev.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/grid/localize/pq-localize-zh.js?v=@app.PlatformSettings.VersionNumber"></script>
+    <script src="/content/js/cdatagrid.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery.bootpag.min.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script src="/content/js/jquery.form.js?v=@app.PlatformSettings.VersionNumber"></script>
     <script>
         var pageUrl = '';
-        $(function () {
-            pageUrl = $("#datatable").attr('data-pageurl');
-            $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
-            $("#datatable").ajaxTable();
-            ajaxgrid_reset();
-            $(".modal").draggable({
-                handle: ".modal-header",
-                cursor: 'move',
-                refreshPositions: false
-            });
-            Xms.Web.Event.localStorageEvent.on('list_solution_rebind', function () {
+         $(function () {
+
+            var theaders = {
+                'name': '名称',
+                'version':'版本',
+                'createby': '创建者',
+                'promulgator': '发布者',
+                'createdon': '创建时间',
+                'operation':'@app.T["operation"]'
+            }
+            //列数据配置数据
+            var columnConfigs = [
+            //从新配置复选框列的渲染方式，
+                {
+                    title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,
+                    type: 'checkBoxSelection', cls: 'ui-state-default', sortable: false, editable: false,
+                    render: function (ui) {
+                      //  console.log(ui)
+                        return '<input type="checkbox" value="' + ui.rowData.solutionid + '" name="recordid" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                {
+                    title: "", dataIndx: "hidden", maxWidth: 30, minWidth: 30, align: "center", resizable: false,
+                     cls: 'ui-state-default', sortable: false, editable: false,
+                    hidden:true,
+                    render: function (ui) {
+                        //  console.log(ui)
+                        return '<input type="hidden" value="' + ui.rowData.solutionid + '" name="componenttypename" class="">'
+                    },
+                    cb: { all: true, header: true }
+                },
+                { "dataIndx": "name", "title": theaders.name, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                 { "dataIndx": "version", "title": theaders.version, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                { "dataIndx": "createby", "title": theaders.createby, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "lookup" },
+
+
+                { "dataIndx": "promulgator", "title": theaders.promulgator, editable: false, "dataType": "string", "width": 100, "isprimaryfield": false, "attributetypename": "lookup"},
+                 { "dataIndx": "createdon", "title": theaders.createdon, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
+                {
+                    title: "操作", editable: false, minWidth: 220,width:220, notHeaderFilter: true, editable: false, sortable: false, render: function (ui) {
+                        var datas = ui.rowData;
+                        var dataIndx = ui.dataIndx;
+                        var column = ui.column;
+                        var recordid = datas[dataIndx];
+                        var html = ''
+                        html= '<a class="btn btn-info btn-xs" href="@("/"+app.OrganizationUniqueName)/customize/solution/exportsolution?id='+datas.solutionid+'"><span class="glyphicon glyphicon-export"></span> @app.T["export"]</a>'+
+                                ' <a class="btn btn-default btn-xs" href="javascript:;" onclick="openRightSrc(\''+datas.solutionid+'\');"><span class="glyphicon glyphicon-edit"></span> 编辑</a>'
+                            ;
+                        if (!datas.isdefault) {
+                                   html+= ' <a class="btn btn-warning btn-xs" href="javascript:Xms.Web.Del(\''+datas.solutionid+'\',\'/customize/solution/deletesolution\',false,rebind,null,\'确定删除？请提前备份数据\',true)"><span class="glyphicon glyphicon-trash"></span> 删除</a>'
+                                }
+
+                        return html
+                    }
+                }
+             ];
+             $('body').toggleIframe({offsetH:-100});
+           var url = ORG_SERVERURL + '/customize/@app.ControllerName/@app.ActionName?LoadData=true&';
+            var $form = $('#searchForm');
+            var roles_filters = new XmsFilter();
+            var datagridconfig = {
+                scrollModel: { autoFit: true },
+                baseUrl: url,
+                rowDblClick: function (event, ui) {
+                    var solutionid = ui.rowData.solutionid;
+                    var url = ORG_SERVERURL + '/customize/solution/editsolution?id='+solutionid
+                    $('body').toggleIframe('changeSrc',url);
+                },
+                columnConfigs: columnConfigs,//字段配置信息
+                context: $('#gridview'),//底部操作按钮方法触发
+                filters: roles_filters,//post提交时过滤条件
+                searchForm: $form//GET提交时查询的数据
+            };
+            $('.datagrid-view').xmsDataTable(datagridconfig);
+
+           Xms.Web.Event.localStorageEvent.on('list_solution_rebind', function () {
                 setTimeout(function () {
                     location.reload();
                 },100)
             });
-        });
+
+
+              $(".entityCreateSection-close").click(function () {
+                closeRecordIframe();
+              });
+             if (transitionEnd) {
+                $("#entityCreateSection").bind(transitionEnd, function (e) {
+                    if ($("body").hasClass("rightIframe-open")) {
+                        $("#entityCreateSection").removeClass("end");
+                    } else {
+                        $("#entityCreateIframe").attr("src", '');
+                        $("#entityCreateSection").addClass("end");
+                    }
+                });
+            }
+         });
+
+        function openRightSrc(solutionid) {
+             var url = ORG_SERVERURL + '/customize/solution/editsolution?id='+solutionid
+                    $('body').toggleIframe('changeSrc',url);
+        }
+        //$(function () {
+        //    pageUrl = $("#datatable").attr('data-pageurl');
+        //    $('#searchForm').ajaxSearch('#gridview', ajaxgrid_reset);
+        //    $("#datatable").ajaxTable();
+        //    ajaxgrid_reset();
+        //    $(".modal").draggable({
+        //        handle: ".modal-header",
+        //        cursor: 'move',
+        //        refreshPositions: false
+        //    });
+        //    Xms.Web.Event.localStorageEvent.on('list_solution_rebind', function () {
+        //        setTimeout(function () {
+        //            location.reload();
+        //        },100)
+        //    });
+        //});
         function ajaxgrid_reset() {
             pag_init();
             Xms.Web.DataTable($("#datatable"));

@@ -431,6 +431,7 @@
                 $('#PresentationConfig').val('');
                 $('#DataConfig').val('');
                 Xms.Web.Alert(response.IsSuccess, response.Content);
+                 Xms.Web.Event.localStorageEvent.trigger('list_chart_rebind');
                 Xms.Web.Event.publish('refresh');
             });
 

@@ -102,6 +102,8 @@
             Xms.Web.Form($("#editform"), function (response) {
                 Xms.Web.Alert(response.IsSuccess, response.Content);
                 Xms.Web.Event.publish('refresh');
+                Xms.Web.Event.localStorageEvent.trigger('list_serianumber_rebind');
+
             }, null, function () {
                 if ($('IncrementLength').val() == '' || $('Increment').val() == '' || $('Name').val() == '') {
                     return false;

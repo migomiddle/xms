@@ -135,6 +135,8 @@
                     Xms.Web.Alert(true, response.Content, function () {
                         location.reload();
                     });
+                    Xms.Web.Event.localStorageEvent.trigger('list_filterrule_rebind');
+
                 }
                 console.log(response);
             }, null, function (err) {

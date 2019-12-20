@@ -80,6 +80,8 @@
             //表单验证
             Xms.Web.Form($('#beforehandloadpluginform'), function (result) {
                 if (result.IsSuccess) {
+                    Xms.Web.Event.localStorageEvent.trigger('list_entityplugin_rebind');
+
                     result = Xms.Web.GetAjaxResult(result);
                     var data = result.content;
                     $('.btn-upload-div').addClass('hidden');

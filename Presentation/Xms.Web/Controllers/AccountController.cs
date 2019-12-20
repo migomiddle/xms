@@ -65,7 +65,7 @@ namespace Xms.Web.Controllers
                 {
                     model.ReturnUrl = string.Empty;
                 }
-                ViewData["orglist"] = orglist;
+                model.OrgList = orglist;
                 return View(model);
             }
         }

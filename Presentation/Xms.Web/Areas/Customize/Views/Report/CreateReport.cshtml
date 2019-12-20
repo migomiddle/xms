@@ -104,6 +104,8 @@
             //表单验证
             Xms.Web.Form($("#editform"), null, null, function () {
                 var selectVal = $('#report-type').find('option:selected').val();
+                Xms.Web.Event.localStorageEvent.trigger('list_report_rebind');
+
                 if ($('#report-file').find('input[type=file]').val() == '' && selectVal == 'file') {
                     Xms.Web.Alert(false, '请选择文件', null, null);
                     return false;

@@ -720,6 +720,9 @@
                     // var isdisabled = $(this).prop('readonly');
                     // if(isdisabled)return false;
                     // console.log('datepicker.isdisabled',isdisabled);
+                    if ($(this).prop('readonly')) {
+                        $(this).parents('.form-items-row:first').find('label').attr('for', '');
+                    }
                     if (format.indexOf("hh:mm") > -1) {
                         format = format.replace("yyyy", "Y").replace("dd", "d").replace("hh", "h").replace("mm", "i").replace('MM', "m").replace('ss', "s").replace('HH', "H").replace('h', "H");
                         $(this).datetimepicker({

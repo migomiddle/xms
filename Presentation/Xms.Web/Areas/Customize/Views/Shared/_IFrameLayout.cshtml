@@ -46,8 +46,9 @@
         jQuery(function () {
             Xms.Web.Loading();
             function aLinkClick(e) {
-                e.preventDefault();
-                if (currentKeycode != 17) {
+               
+                if (currentKeycode != 17 && window.parent && window.parent.addToTab) {
+                     e.preventDefault();
                     var tabNav = $('#customTabNav', parent.document).children('.iframe-link-linkitem.active');
                     var textEl = tabNav.clone();
                     $(".glyphicon-remove", textEl).remove();

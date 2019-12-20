@@ -124,6 +124,8 @@
             Xms.Web.Form($("#editform"), function (response) {
                 Xms.Web.Alert(response.IsSuccess, response.Content);
                 Xms.Web.Event.publish('refresh');
+                Xms.Web.Event.localStorageEvent.trigger('list_duplicaterule_rebind');
+
             }, null, function () {
                 if ($('#optionset-picklist').find('option[value=""]:selected').length == $('#optionset-picklist').find('select').length) {
                     Xms.Web.Alert(false, '请至少选择一个字段');

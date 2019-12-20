@@ -166,6 +166,7 @@ $(function () {
                     Xms.Web.Alert(false, res.Content);
                 }
             }
+            Xms.Web.Event.localStorageEvent.trigger('list_flow_rebind');
         }, null, null, false);
         //$('form').submit();
         return false;

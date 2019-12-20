@@ -96,6 +96,8 @@
             //表单验证
             Xms.Web.Form($("#editform"), function (response) {
                 Xms.Web.Alert(response.IsSuccess, response.Content);
+                Xms.Web.Event.localStorageEvent.trigger('list_webresource_rebind');
+
                 if (response.IsSuccess) {
                     Xms.Web.Event.publish('refresh');
                     editor.setValue('');

@@ -497,6 +497,20 @@
                     $(this).find('tr.pq-grid-row').attr(key, value);
                 });
             }
+            this.getDatas = function (gridname) {
+                this._init(arguments);
+                var $datagrid = this.getGrid(gridname);
+                var datas = [];
+                if (typeof entityDatagirdList != 'undefined') {
+                    var grid = $.queryBykeyValue(entityDatagirdList.list, '__id', gridname);
+                    if (grid.length > 0) {
+                        datas = $.grep(grid[0].localDatas, function (n,i) {
+                            return (n.cdatagrid_editer == 'old' || n.isEdited == true);
+                        });
+                    }
+                }
+                return datas;
+            }
             //添加监听事件
             this.onCellEvent = function (gridname, event, func) {
                 this._init(arguments);
@@ -511,6 +525,31 @@
             this.onCellEditBeforeSave = function (gridname, func) {
                 this.onCellEvent(gridname, 'datagrid.cellbeforesave', func);
             }
+            //设置某一引用字段选择时不能重复
+            this.setSelectedFilter = function(gridname,attributename,primarykey) {
+                var filters = {};
+                var datas = Xms.FormGridView.getDatas(gridname);
+                primarykey = primarykey || attributename + ['id'];
+                if (datas.length > 0) {
+                    filters.conditions = [];
+                    filters.Operator = 0;
+                    $.each(datas, function (i, n) {
+                        if (!n[attributename]) return true;
+                        filters.conditions.push({ AttributeName: primarykey, Operator: '1', Values: [n[attributename]] })
+                    });
+                    ;
+                }
+                var props = {};
+                props['__xms_' + attributename + '_filter'] = filters;
+                this.setDataEveryRow(gridname, props);
+            }
+
+            this.setAttributeQueryView = function (gridname, attributename,value) {
+                var props = {};
+                props['__xms_' + attributename + '_queryviewid'] = value;
+                this.setDataEveryRow(gridname, props);
+            }
+            
         };
         //表单中单据体的操作方法
         if (typeof (Xms.FormGridView) == "undefined") {

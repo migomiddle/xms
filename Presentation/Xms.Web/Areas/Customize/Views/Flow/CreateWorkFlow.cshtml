@@ -481,6 +481,7 @@
         $(function () {
             //表单验证
             Xms.Web.Form($("#editform"), function (res) {
+                Xms.Web.Event.localStorageEvent.trigger('list_flow_rebind');
 
                 Xms.Web.Alert(res.IsSuccess, res.Content);
                 resSetWorkFlow()

@@ -95,6 +95,8 @@
             Xms.Web.Form($("#editform"), function (response) {
                 Xms.Web.Alert(response.IsSuccess, response.Content);
                 Xms.Web.Event.publish('refresh');
+                Xms.Web.Event.localStorageEvent.trigger('list_optionset_rebind');
+
                 if (response.IsSuccess) {
                     clearOption('optionset-picklist');
                 }

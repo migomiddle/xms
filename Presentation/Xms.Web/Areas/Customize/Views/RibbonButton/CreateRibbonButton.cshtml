@@ -260,6 +260,8 @@
                 Xms.Web.Alert(response.IsSuccess, response.Content, function () {
                     location.reload();
                 });
+                Xms.Web.Event.localStorageEvent.trigger('list_ribbonbutton_rebind');
+
                 setTimeout(function () {
                     location.reload();
                 }, 3000);

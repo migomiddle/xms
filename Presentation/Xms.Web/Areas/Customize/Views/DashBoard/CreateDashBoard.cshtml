@@ -1223,6 +1223,8 @@
         });
 
         Xms.Web.Form($('#editform'), function (response) {
+            Xms.Web.Event.localStorageEvent.trigger('list_dashboard_rebind');
+
             Xms.Web.Alert(response.IsSuccess, response.Content, function () {
                 Xms.Web.Event.publish('refresh');
                 location.reload();

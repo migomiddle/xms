@@ -179,6 +179,8 @@
                 if (response.IsSuccess) {
                     Xms.Web.Event.publish('refresh');
                     Xms.Web.Event.publish('refreshtree');
+                    Xms.Web.Event.localStorageEvent.trigger('list_entity_rebind');
+
                 }
             }, null, null, { onKeyup: true });
             //检查名称是否已存在

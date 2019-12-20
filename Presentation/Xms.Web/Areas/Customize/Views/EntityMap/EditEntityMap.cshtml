@@ -207,6 +207,8 @@
                         location.reload(true);
                     }
                 });
+                Xms.Web.Event.localStorageEvent.trigger('list_entitymap_rebind');
+
                 Xms.Web.Event.publish('refresh');
             });
             $('#HeadRelatedEntities').on('change', null, function (e) {
