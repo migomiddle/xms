@@ -424,7 +424,7 @@
             //视图上方按钮
             var $queryviewButtons = $('#queryviewButtons');
             var gloBtnStr = '';
-
+            $('body').trigger('queryview.prevLoadButton', { datas:datas});
             datas.inlinebtnlength = 0;
             if (datas.buttonsinfo && datas.buttonsinfo.length > 0) {
                 $.each(datas.buttonsinfo, function (i, n) {
@@ -441,12 +441,16 @@
                 });
                 if (btnStr != '') {
                     datas.gridviewItemBtnstmpl = '<div class="btn-group " style="position:relative;"><div class="btn btn-link dropdown-toggle btn-prevent datatable-itembtn"  aria-expanded="false" style="height: 100%;width:100%;line-height:0.5;text-align:left;padding: 6px 0px;"><span class="caret" style = "top:-3px;" ></span ></div ><ul  class="btn-list  dropdown-menu">' + btnStr + '</ul></div>';
+                    if (datas.customRenderItemButtons && typeof datas.customRenderItemButtons == 'function') {
+                        datas.gridviewItemBtnstmpl = datas.customRenderItemButtons(btnStr);
+                    }
                 }
                 if (gloBtnStr != '') {
                     datas.globtnstr = '<div class=" margin-bottom" style="position:relative;">' + gloBtnStr + '</div>';
                     $queryviewButtons.html(datas.globtnstr)
                 }
             }
+            $('body').trigger('queryview.afterLoadButton', { datas: datas });
             callback && callback();
         },
         loadDataTable: function () {
@@ -1369,6 +1373,7 @@
         var height = $(window).height() - top;
         $("#entityCreateIframe").height(height - 20);
         $("#entityCreateSection").height(height);
+       
         if (type == 'show') {
             //  $("#entityCreateSection").show();
             if (url && url != '' && url.indexOf('\/') == 0) {
