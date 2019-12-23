@@ -513,6 +513,9 @@
 
                         if (datas[dataIndx]) {
                             if (typeof entityIframe == 'function') {
+                                if (_entityname == 'roles') {
+                                    return '<a class="text-primary" title="' + (datas['name'] || '') + '" href="javascript: entityIframe(\'show\', \'' + ORG_SERVERURL + '/role/editrole?id=' + recordid + '\');"  >' + (datas['name'] || '') + '</a>';
+                                } 
                                 return '<a class="text-primary" title="' + (datas['name'] || '') + '" href="javascript: entityIframe(\'show\', \'' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '\');"  >' + (datas['name'] || '') + '</a>';
                             } else {
                                 return '<a class="text-primary" title="' + (datas['name'] || '') + '" href="' + ORG_SERVERURL + '/entity/edit?entityid=' + entityid + '&formid' + formid + '=&recordid=' + recordid + '" target="_blank" >' + (datas['name'] || '') + '</a>';

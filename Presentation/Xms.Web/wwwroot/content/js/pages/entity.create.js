@@ -554,11 +554,18 @@
                             var url = location.href;
                             url = $.setUrlParam(url, 'copyid', null);
                             if (_formSaveAction == Xms.FormSaveAction.save) {
+                               
                                 url = $.setUrlParam(url, 'recordid', data.Extra.id);
+                                if (Xms.Page.PageContext.EntityName == 'Roles') {
+                                    url = ORG_SERVERURL + '/role/editrole?id=' + data.Extra.id
+                                }
                                 location.href = url;
                             }
                             else if (_formSaveAction == Xms.FormSaveAction.saveAndNew) {
                                 url = $.setUrlParam(url, 'recordid', null);
+                                if (Xms.Page.PageContext.EntityName == 'Roles') {
+                                    url = ORG_SERVERURL + '/role/editrole?id=' + data.Extra.id
+                                }
                                 location.href = url;
                             }
                             else if (_formSaveAction == Xms.FormSaveAction.saveAndClose) {

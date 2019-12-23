@@ -12,6 +12,7 @@ using Xms.Flow;
 using Xms.Infrastructure.Utility;
 using Xms.Schema.Attribute;
 using Xms.Schema.Entity;
+using Xms.Schema.Extensions;
 using Xms.Schema.RelationShip;
 using Xms.Sdk.Abstractions;
 using Xms.Sdk.Client;
@@ -98,6 +99,7 @@ namespace Xms.Web.Api
             try
             {
                 Core.Data.Entity entity = new Core.Data.Entity(entityMetaData.Name);
+                entity.SetIdName(attributeMetaDatas.Find(x => x.TypeIsPrimaryKey()).Name);
                 dynamic headData = JObject.Parse(model.Data);
                 foreach (JProperty p in headData)
                 {
