@@ -48,7 +48,7 @@
                 isSyncLoadSubGrid = true;
             }
             $(function () {
-                $(document).scrollTop(0);
+                
                 if ($('.breadcrumb > li:not(.pull-right)').length <= 1) {
                     $('.breadcrumb').append('<li>' + page_Common_Info.localizeName + '</li>');
                 }
@@ -152,6 +152,8 @@
                     }
                 }
 
+                
+
                 $('.subtools').click(function () {
                     var type = $(this).attr('data-type');
                     if (type == 'attach') {
@@ -215,12 +217,14 @@
                         }
                     }
                     defaultLookupUrl = lookupurl;
-
+                    
+                    
                     //getvalue
                     if (value && value != '') {
                         //syncCount++;
                         hasValueList.push(inputid);
                         getRecordInfo(valueid, function (response) {
+                           
                             if (getPageType() == "edit") {
                                 var sourceAttrDom = $('div.attributesLabel[data-sourceattributename="' + valueid + '"]');
                                 var extAttrDom = $('.extParamEnti[data-extsourceattributename="' + valueid + '"]');
@@ -324,6 +328,9 @@
                                     }
                                 });
                             }
+                            setTimeout(function () {
+                                $(document).scrollTop(0);
+                            }, 0);
                         });
                         //  });
                     }
@@ -531,6 +538,7 @@
                                 attr.Target.trigger("label.changeLabel");
                             });
                         }
+                        
                     });
                 }
                 //Xms.Page.getAttribute('serviceid').Target.attr('data-customfilter', '{"FilterOperator":0,"Conditions":[{"AttributeName":"createdon","Operator":2,"Values":["2015-10-24"]}],"Filters":[]}');
