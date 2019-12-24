@@ -60,7 +60,7 @@ namespace Xms.Schema.Attribute
                 LocalizedName = _loc["entity_sys_name"],
                 AttributeTypeName = AttributeTypeIds.NVARCHAR,
                 EntityName = entity.Name,
-                IsNullable = false,
+                IsNullable = true,
                 IsRequired = true,
                 LogEnabled = false,
                 MaxLength = 300,

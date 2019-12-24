@@ -1143,6 +1143,7 @@
         // contexts.push('<li class="grid-contextmenu-row" id="grid_menu_row' + this._id + '"><span class="glyphicon glyphicon-ok"></span> 选中行</li>');
 
         if (self.opts.itemsBtnTmpl) {
+            
             var $items = $('<div></div>');
             $items.html(self.opts.itemsBtnTmpl);
             $items.find('li').each(function (i, n) {
@@ -1290,8 +1291,13 @@
             if (_entityname) {
                 _entityname = _entityname.toLowerCase();
             }
-            //添加复选框列
+            //添加操作列
             if (self.opts.itemsBtnTmpl) {
+                self.opts.innserBtnsInfo = $.extend([], self.opts.itemsBtnTmpl);
+                if (self.opts.itemsBtnTmpl.length > 2) {
+                    self.opts.itemsBtnTmpl[1] = self.opts.itemsBtnTmpl[1].join('');
+                }
+                self.opts.itemsBtnTmpl = self.opts.itemsBtnTmpl.join('');
                 config.colModel.unshift(
                     {
                         title: "操作", dataIndx: 'cdatagrid_editer', editable: false, minWidth: 80, notHeaderFilter: true, sortable: false, render: function (ui) {
@@ -1302,12 +1308,64 @@
                             if (recordid == 'noshow') {
                                 return '';
                             } else {
-                                return self.opts.itemsBtnTmpl || '';
+                                var tempBtns = $.extend([], self.opts.innserBtnsInfo);
+
+                                if (tempBtns.length > 2) {
+                                    var htmls = [];
+                                    //$.each(tempBtns[1],function (i, n) {
+                                    //    if (self.opts._attributeInfos && self.opts._attributeInfos.length > 0) {
+                                    //        var btninfo = self.opts._attributeInfos[i];
+                                    //        if (btninfo && btninfo.commandrules) {
+                                               
+                                    //            try {
+                                    //                var rule = JSON.parse(btninfo.commandrules);
+                                    //                if (rule && rule.ValueRules) {
+                                    //                    if (rule.ValueRules.enabled == "true" && rule.ValueRules.visibled == 'true') {
+                                    //                        var flag = false;
+                                    //                        $.each(rule.ValueRules.Values, function (ii, nn) {
+                                    //                            if (nn.Value == datas[nn.Field.toLowerCase()]) {
+                                    //                                    flag = true;
+                                    //                                    return false;
+                                    //                                }
+                                    //                        });
+                                    //                        if (flag == true) {
+                                    //                            htmls.push(n);
+                                    //                        }
+                                    //                    } else {
+                                    //                        var flag = true;
+                                    //                        $.each(rule.ValueRules.Values, function (ii, nn) {
+                                                                
+                                    //                            if (nn.Value == datas[nn.Field.toLowerCase()]) {
+                                    //                                flag = false;
+                                    //                                return false;
+                                    //                            }
+                                    //                        });
+                                    //                        if (flag == true) {
+                                    //                            htmls.push(n);
+                                    //                        }
+                                    //                    }
+                                                        
+                                    //                }
+                                    //                console.log('btn.rule', rule, btninfo);
+                                    //            } catch (e) {
+                                    //                console.error(e);
+                                    //            }
+                                    //        }
+                                    //    } else {
+                                    //        htmls.push(n);
+                                    //    }
+                                    //});
+                                    tempBtns[1] = tempBtns[1].join('');
+                                }
+                                var temp = { btnstr: tempBtns.join('') };
+                                self.$grid.trigger('xmsDatagrid.preItemButtonRender', { ui: ui, btninfo: temp, entityname: _entityname });
+                            
+                                return temp.btnstr || '';
                             }
                         }
                     });
             }
-            //添加操作列
+            //添加复选框列
             if (self.opts.addCheckbox) {
                 self.opts.checkboxinfo ? config.colModel.unshift(self.opts.checkboxinfo) : config.colModel.unshift({
                     title: "", dataIndx: "recordid", maxWidth: 48, minWidth: 48, align: "center", resizable: false,

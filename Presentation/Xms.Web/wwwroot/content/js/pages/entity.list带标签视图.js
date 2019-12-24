@@ -66,6 +66,7 @@
             entityname: '',
             queryviewname: ''
             , nonereadfields: []
+            , entitystabs: []
         }
     }
     var pageWrap = {
@@ -184,6 +185,62 @@
             });
             return false;
         },
+        loadSingleQueryview: function (_queryid, $context, callback, _filter) {
+            Xms.Web.Get(ORG_SERVERURL + '/api/schema/queryview/GetViewInfo?id=' + _queryid, function (res) {
+                console.log('loadSingleQueryview', JSON.parse(res.Content));
+                var _datas = {}// $.extend({}, datas);
+
+                var content = JSON.parse(res.Content);
+                var view = content.views[0];
+                _datas.entityId = view.entityid;
+                _datas.queryId = _queryid;
+                _datas.layoutconfig = view.layoutconfig.toLowerCase();
+
+                _datas.entitystabs = '';
+                _datas.setConfig = function (gridconfig) {
+                    gridconfig.refresh = null;
+                    gridconfig.height = 300;
+                    gridconfig.rowDblClick = null;
+                    gridconfig.rowClick = null;
+                    gridconfig.refreshDataAndView = null;
+                    gridconfig.columnFilter = null;
+                    gridconfig.refreshDataAndViewed = null;
+
+                    gridconfig.extend = function (datagrid) {
+                        $.extend(datagrid.opts.dataModel, {
+                            isJsonAjax: true,
+
+                            filterSendData: function (postData, objP, DM, PM, FM) {
+                                //console.log('postdata', postData, objP, DM, PM, FM)
+                                var objdata = { sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1', pagesize: PM.rPP }
+                                if (_filter) {
+                                    objdata.filter = _filter;
+                                }
+                                $.extend(postData, objdata);
+                                return postData;
+                            }
+                        })
+                    }
+                };
+                //   pageWrap.loadAttributes(function (res) {
+                if (content.attributes) {
+                    $.each(content.attributes, function () {
+                        if (this.name != '') {
+                            this.name = this.name.toLowerCase();
+                        }
+                        //  Xms.Web.getAttributePlug(this);
+                    });
+                }
+                _datas.attributesInfo = pageWrap.filterAttributes(content.attributes, _datas);
+                _datas.isloadAttribute = true;
+                _datas.forzenHeight = '400';
+                _datas.filter = _filter;
+                loadDataTable($context, true, _datas);
+                //  }, _datas);
+
+                // callback && callback();
+            });
+        },
         loadAttributes: function (callback) {
             datas.attributesInfo = response.content;
             datas.isloadAttribute = true;
@@ -191,7 +248,7 @@
         },
         loadAggregate: function (callback) {
         },
-        filterAttributes: function (items) {
+        filterAttributes: function (items, datas) {
             var layoutconfigObj = '';
             if (datas.layoutconfig && datas.layoutconfig != "") {
                 layoutconfigObj = JSON.parse(datas.layoutconfig);
@@ -251,7 +308,7 @@
                             //  Xms.Web.getAttributePlug(this);
                         });
                     }
-                    datas.setAttributesShow = datas.attributesInfo = pageWrap.filterAttributes(datas.attributesInfo);
+                    datas.setAttributesShow = datas.attributesInfo = pageWrap.filterAttributes(datas.attributesInfo, datas);
 
                     $('body').trigger('queryview.loadedAttribute', { attributeInfo: datas.attributesInfo });
                     //  = $.extend(true, {}, datas.attributesInfo);
@@ -383,6 +440,10 @@
                 datas.scripthtml = jsonres.webresources;
                 datas.attributesInfo = jsonres.attributes;
                 datas.nonereadfields = jsonres.nonereadfields;
+                if (datas.layoutconfig && datas.layoutconfig != "") {
+                    datas.entitystabs = JSON.parse(datas.layoutconfig).extentitytabs;
+                }
+
                 // datas.isloadAttribute = true;
                 if (datas.layoutconfig && datas.layoutconfig != '') {
                     try {
@@ -419,25 +480,19 @@
         loadButtons: function (callback) {
             var showarea = { glo: 2, inline: 3 };//2,在列表页头部按钮，3列表行内按钮
             //行内按钮
-            var btnStr = [];
+            var btnStr = '';
 
             //视图上方按钮
             var $queryviewButtons = $('#queryviewButtons');
             var gloBtnStr = '';
-            $('body').trigger('queryview.prevLoadButton', { datas:datas});
+
             datas.inlinebtnlength = 0;
-            datas.inlineBtnsInfo = [];
             if (datas.buttonsinfo && datas.buttonsinfo.length > 0) {
                 $.each(datas.buttonsinfo, function (i, n) {
                     if (n.showarea == showarea.glo) {
                         gloBtnStr += '<a class="' + n.cssclass + ' ' + (n.isvisibled ? '' : ' hide ') + '" href="javascript:void(0)" title="' + n.label + '" onclick="' + n.jsaction + '" ' + (n.isenabled ? '' : ' disabled ') + ' ><span class="' + n.icon + '"></span> ' + (n.showlabel ? n.label : '') + '</a> '
                     } else if (n.showarea == showarea.inline/* && n.isenabled*/) {
-                        if (datas.ItemButtonTmpl && typeof datas.ItemButtonTmpl == 'function') {
-                            btnStr .push(datas.ItemButtonTmpl(n,datas));
-                        } else {
-                            btnStr.push( "<li> <a class=\"" + n.cssclass + " datagrid-inline-btns\" href=\"javascript: void(0)\" title=\"" + n.label + "\" onclick=\"" + n.jsaction + "\"><span class=\"" + n.icon + "\"></span> " + (n.showlabel ? n.label : '') + "</a></li>");
-                        }
-                        datas.inlineBtnsInfo.push(n);
+                        btnStr += "<li> <a class=\"" + n.cssclass + " datagrid-inline-btns\" href=\"javascript: void(0)\" title=\"" + n.label + "\" onclick=\"" + n.jsaction + "\"><span class=\"" + n.icon + "\"></span> " + (n.showlabel ? n.label : '') + "</a></li>";
                         datas.inlinebtnlength++;
                     }
                     if (n.jslibrary) {
@@ -445,22 +500,20 @@
                         datas.jslibs.push(lib[1]);
                     }
                 });
-                if (btnStr.length>0) {
-                    datas.gridviewItemBtnstmpl = ['<div class="btn-group " style="position:relative;"><div class="btn btn-link dropdown-toggle btn-prevent datatable-itembtn"  aria-expanded="false" style="height: 100%;width:100%;line-height:0.5;text-align:left;padding: 6px 0px;"><span class="caret" style = "top:-3px;" ></span ></div ><ul  class="btn-list  dropdown-menu">' , btnStr , '</ul></div>'];
-                    if (datas.customRenderItemButtons && typeof datas.customRenderItemButtons == 'function') {
-                        datas.gridviewItemBtnstmpl = datas.customRenderItemButtons(btnStr);
-                    }
+                if (btnStr != '') {
+                    //datas.gridviewItemBtnstmpl = '<div class="btn-group " style="position:relative;"><div class="btn btn-link dropdown-toggle btn-prevent datatable-itembtn"  aria-expanded="false" style="height: 100%;width:100%;line-height:0.5;text-align:left;padding: 6px 0px;"><span class="caret" style = "top:-3px;" ></span ></div ><ul  class="btn-list  dropdown-menu">' + btnStr + '</ul></div>';
+                    datas.gridviewItemBtnstmpl = '<div class="btn-group " style="position:relative;"><div class="btn btn-link dropdown-toggle btn-prevent datatable-itembtn"  aria-expanded="false" style="height: 100%;width:100%;line-height:0.5;text-align:left;padding: 6px 0px;">' + btnStr + '</div ></div>';
                 }
                 if (gloBtnStr != '') {
                     datas.globtnstr = '<div class=" margin-bottom" style="position:relative;">' + gloBtnStr + '</div>';
                     $queryviewButtons.html(datas.globtnstr)
                 }
             }
-            $('body').trigger('queryview.afterLoadButton', { datas: datas });
             callback && callback();
         },
         loadDataTable: function () {
-            loadDataTable($('.datagrid-view'), true);
+            datas.filter = gridview_filters;
+            loadDataTable($('.datagrid-view'), true, datas);
         },
         bindEvent: function () {
             $('#querySettingWrap').xmsMutilSelector({
@@ -828,7 +881,7 @@
         }
     }
 
-    function loadDataTable($context, isDestroy) {
+    function loadDataTable($context, isDestroy, _datas) {
         //统计信息
         var aggInfo = $('#AggregateFields').val();//[{"attributename":"totalamount","aggregatetype":1}]
         var _AggregateTypeList = { '_1': '合计：', '_2': '平均值：', '_3': '最大值：', '_4': '最小值：' };
@@ -840,15 +893,15 @@
 
         var isWidthToMax = true;
         var layoutconfigObj = '';
-        if (datas.layoutconfig && datas.layoutconfig != "") {
-            layoutconfigObj = JSON.parse(datas.layoutconfig);
+        if (_datas.layoutconfig && _datas.layoutconfig != "") {
+            layoutconfigObj = JSON.parse(_datas.layoutconfig);
         }
         if (layoutconfigObj) {
             //判断宽度是否需要自适应
             var layoutitems = layoutconfigObj.rows[0].cells;
             var datatableW = $context.width();
             var columnNumW = 30;//序号列宽
-            var editWidth = datas.gridviewItemBtnstmpl ? 100 : 0;//操作列默认宽
+            var editWidth = _datas.gridviewItemBtnstmpl ? 100 : 0;//操作列默认宽
             var tableW = columnNumW + editWidth;
             $.each(layoutitems, function (i, n) {
                 if (n.Width) {
@@ -866,12 +919,12 @@
             freezeCtrl: false,
             isSingle: true,
             getDataUrl: function (cdatagrid, opts) {
-                return ORG_SERVERURL + '/api/data/fetchAndAggregate?entityid=' + datas.entityId + '&queryviewid=' + datas.queryId + '&onlydata=true&pagesize=' + cdatagrid.opts.pageModel.rPP + '&page=' + cdatagrid.opts.pageModel.page
+                return ORG_SERVERURL + '/api/data/fetchAndAggregate?entityid=' + _datas.entityId + '&queryviewid=' + _datas.queryId + '&onlydata=true&pagesize=' + cdatagrid.opts.pageModel.rPP + '&page=' + cdatagrid.opts.pageModel.page
             },
 
             selectionModel: { type: null },
             getColModels: function (grid, opts) {
-                return datas.attributesInfo;
+                return _datas.attributesInfo;
             },
             rowDblClick: function (event, ui) {
                 var $tr = $(ui.$tr);
@@ -880,7 +933,7 @@
                     return false;
                 }
                 var id = $(ui.$tr).find('input[name="recordid"]').val();
-                var url = ORG_SERVERURL + '/entity/edit?entityid=' + datas.entityId + '&recordid=' + id;
+                var url = ORG_SERVERURL + '/entity/edit?entityid=' + _datas.entityId + '&recordid=' + id;
                 entityIframe('show', url);
             },
             loading: false,
@@ -976,13 +1029,13 @@
             });
             return res
         }
-        datagridconfig._attributeInfos = datas.inlineBtnsInfo;
+
         // 操作列按钮配置
-        var $gridviewItemBtnstmpl = datas.gridviewItemBtnstmpl;
+        var $gridviewItemBtnstmpl = _datas.gridviewItemBtnstmpl;
         if ($gridviewItemBtnstmpl) {
-           // var itemtmpl = $gridviewItemBtnstmpl
-          //  itemtmpl = itemtmpl.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-            datagridconfig.itemsBtnTmpl = $gridviewItemBtnstmpl;
+            var itemtmpl = $gridviewItemBtnstmpl
+            itemtmpl = itemtmpl.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+            datagridconfig.itemsBtnTmpl = itemtmpl;
         }
         $('body').trigger('queryview.itemBtnTmpl', { itemBtnTmpl: datagridconfig.itemBtnTmpl, datagridconfig: datagridconfig });
         var $summary = "";
@@ -992,31 +1045,31 @@
         }
         datagridconfig.initAfter = function ($grid) {
             datatableItemBtns($('.datatable-itembtn'));
-            $grid.$plugGrid.pqGrid("option", "freezeCols", datas.freezenIndex);
+            $grid.$plugGrid.pqGrid("option", "freezeCols", _datas.freezenIndex);
             $grid.$plugGrid.pqGrid("refresh");
 
             $grid.$grid.on('click', '.forzen-ctrl', function () {
                 var index = $(this).parents('td:first').index();
-                datas.freezenIndex = index + 1;
-                $grid.$plugGrid.pqGrid("option", "freezeCols", datas.freezenIndex);
+                _datas.freezenIndex = index + 1;
+                $grid.$plugGrid.pqGrid("option", "freezeCols", _datas.freezenIndex);
                 $grid.$plugGrid.pqGrid("refresh");
                 $grid.$grid.find('.forzen-ctrl').removeClass('freeze-ctrl-active');
                 $grid.$grid.find('.pq-grid-header-table .pq-grid-title-row td:eq(' + index + ')').find('.forzen-ctrl').addClass('freeze-ctrl-active');
             })
             changeTableFilterDragdown($grid.box.next().find('.datatable-filter-wrapBox').find('.dropdown-toggle'))
-            if (datas.aggInfo) {
+            if (_datas.aggInfo) {
             }
         }
         datagridconfig.filterData = function (res, colmodel) {
-            if (datas.aggregateconfig && datas.aggregateconfig != '') {
-                console.log(datas.aggregateconfig);
-                var agginfo = JSON.parse(datas.aggregateconfig.toLowerCase())
+            if (_datas.aggregateconfig && _datas.aggregateconfig != '') {
+                console.log(_datas.aggregateconfig);
+                var agginfo = JSON.parse(_datas.aggregateconfig.toLowerCase())
                 var fetchdata = res.fetchdata;
-                datas.aggInfo = res.aggregatedata;
-                if (datas.aggInfo) {
+                _datas.aggInfo = res.aggregatedata;
+                if (_datas.aggInfo) {
                     $.each(colmodel, function (ii, nn) {
                         var flag = null;
-                        $.each(datas.aggInfo.data, function (i, n) {
+                        $.each(_datas.aggInfo.data, function (i, n) {
                             if (nn.field == n.metadata.name.toLowerCase()) {
                                 flag = n;
                                 return false;
@@ -1047,25 +1100,25 @@
             var colmodel = ui.colModel;
             var aggHtmls = [];
             //防止相同条件重复加载
-            if (datas.oldFilterInfo != '') {
-                if (datas.oldFilterInfo == JSON.stringify(gridview_filters.getFilterInfo())) {
+            if (_datas.oldFilterInfo != '') {
+                if (_datas.oldFilterInfo == JSON.stringify(gridview_filters.getFilterInfo())) {
                     loadAggInfo();
                 } else {
-                    datas.oldFilterInfo = JSON.stringify(gridview_filters.getFilterInfo());
+                    _datas.oldFilterInfo = JSON.stringify(gridview_filters.getFilterInfo());
                     loadAggInfo();
                 }
             } else {
-                datas.oldFilterInfo = JSON.stringify(gridview_filters.getFilterInfo());
+                _datas.oldFilterInfo = JSON.stringify(gridview_filters.getFilterInfo());
                 loadAggInfo();
             }
             datatableItemBtns($('.datatable-itembtn'));
             function loadAggInfo() {
-                if (datas.aggInfo && datas.aggInfo != "") {
+                if (_datas.aggInfo && _datas.aggInfo != "") {
                     var $trs = $('<tr></tr>');
                     var $tds = [];
                     $.each(colmodel, function (ii, nn) {
                         var flag = null;
-                        $.each(datas.aggInfo.data, function (i, n) {
+                        $.each(_datas.aggInfo.data, function (i, n) {
                             if (nn.dataIndx == n.metadata.name.toLowerCase()) {
                                 flag = n;
                                 return false;
@@ -1097,12 +1150,12 @@
                 }
             }
             changeTableFilterDragdown($context.find('.datatable-filter-wrapBox').find('.dropdown-toggle'))
-            //if (datas.freezenIndex) {
-            $context.find('.pq-grid-header-left .forzen-ctrl').eq(datas.freezenIndex - 2).addClass('freeze-ctrl-active');
+            //if (_datas.freezenIndex) {
+            $context.find('.pq-grid-header-left .forzen-ctrl').eq(_datas.freezenIndex - 2).addClass('freeze-ctrl-active');
             // }
 
-            if (datas.nonereadfields && datas.nonereadfields.length > 0) {
-                $.each(datas.nonereadfields, function () {
+            if (_datas.nonereadfields && _datas.nonereadfields.length > 0) {
+                $.each(_datas.nonereadfields, function () {
                     var fields = $('.pq-td-div[data-fieldname="' + this + '"]');
                     if (fields.length > 0) {
                         fields.addClass('line-through');
@@ -1125,28 +1178,34 @@
 
                     var data = resjson ? resjson.items : [];
                     console.log(dataJSON)
-                    datas.listDatas = data;
+                    _datas.list_datas = data;
                     var res = { curPage: resjson.currentpage || 1, totalRecords: resjson.totalitems, data: data }
-                    datas.oldAggInfo = datas.aggInfo = dataJSON.aggregatedata;
-                    $context.trigger('rendergridview.getData', { datas: res });
+                    _datas.oldAggInfo = _datas.aggInfo = dataJSON.aggregatedata;
+                    $context.trigger('rendergridview.getData', { _datas: res });
                     // alert(111);
                     return res;
                 },
                 filterSendData: function (postData, objP, DM, PM, FM) {
-                    $.extend(postData, { filter: gridview_filters.getFilterInfo(), sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1', pagesize: PM.rPP });
+                    var filters = _datas.filter;
+                    if (filters) {
+                        $.extend(postData, { filter: filters.getFilterInfo(), sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1', pagesize: PM.rPP });
+                    } else {
+                        $.extend(postData, { sortby: objP.dataIndx, sortdirection: objP.dir == 'up' ? '0' : '1', pagesize: PM.rPP });
+                    }
+
                     $context.trigger('rendergridview.filterSendData', { postData: postData });
                     return postData;
                 }
             }
-            if (datas.fetchconfig) {
-                var _fetchconfig = JSON.parse(datas.fetchconfig.toLowerCase());
+            if (_datas.fetchconfig) {
+                var _fetchconfig = JSON.parse(_datas.fetchconfig.toLowerCase());
                 if (_fetchconfig.orders && _fetchconfig.orders.length > 0) {
                     extobj.sortIndx = _fetchconfig.orders[0].attributename;
                     extobj.sortDir = _fetchconfig.orders[0].ordertype == 'descending' ? 'up' : 'down';
                 }
             }
             $.extend(datagrid.opts.dataModel, extobj)
-            $('body').trigger('queryview.datagridExtend', { datagrid: datagrid, datas: datas });
+            $('body').trigger('queryview.datagridExtend', { datagrid: datagrid, _datas: _datas });
         }
         //设置表格高度
         var parHeight = 0, height = 400, fixHeight = 170;
@@ -1158,8 +1217,14 @@
         if (height > 400) {
             datagridconfig.height = height;
         }
+        if (_datas.forzenHeight) {
+            datagridconfig.height = _datas.forzenHeight;
+        }
         datagridconfig.filter = gridview_filters;
-
+        if (_datas.entitystabs != "") {
+            datagridconfig.height = 400;
+            loadEntityTabs(null);
+        }
         $('body').trigger('queryview.setDataGridConfig', { datagridconfig: datagridconfig });
         $context.cDatagrid(datagridconfig)
     }
@@ -1379,7 +1444,6 @@
         var height = $(window).height() - top;
         $("#entityCreateIframe").height(height - 20);
         $("#entityCreateSection").height(height);
-       
         if (type == 'show') {
             //  $("#entityCreateSection").show();
             if (url && url != '' && url.indexOf('\/') == 0) {
@@ -1481,6 +1545,68 @@
             location.href = url;
         }
     }
+    $('#dataGridView').on('datatable.rowCheck.rowUnCheck', function (e, opts) {
+        //{ type: true, row: fozeninput.parents('tr:first'), recordid: checkedval }
+        loadEntityTabs();
+    });
+    function loadEntityTabs(filters) {
+        var $datatable = $('#datatable');
+        var $target = $('#entitytabsWrap');
+        var recordid = Xms.Web.GetTableSelected($datatable);
+        if (recordid.length > 1 || recordid.length == 0) {
+            return;
+        }
+        if ($target.length > 0) {
+            $target.remove();
+        }
+
+        $datatable.after('<div id="entitytabsWrap" class="entitytabsWrap mt-2"></div>');
+        $target = $('#entitytabsWrap');
+        var tabinfos = datas.entitystabs;
+        console.log('tabinfos', tabinfos)
+        if (tabinfos && tabinfos.length > 0) {
+            $target.asyncTabs({
+                // autoload: false,
+                mapkey: { id: 'queryviewid', name: 'tabname', other: 'referencingattributename' },
+                datas: tabinfos
+                , clickHandler: function ($li, $context) {
+                    var queryid = $li.attr('data-id');
+                    var attrname = $li.attr('data-other');
+                    var recordFilter = null;
+
+                    if (recordid.length == 1) {
+                        recordFilter = {}
+                        recordFilter.FilterOperator = 0;
+                        recordFilter.Conditions = [{ AttributeName: attrname, Operator: '8', Values: recordid }]
+                        recordFilter.Filters = [];
+                    } else {
+                        recordFilter = {}
+                        recordFilter.FilterOperator = 0;
+                        recordFilter.Conditions = [{ AttributeName: attrname, Operator: '12' }]
+                        recordFilter.Filters = [];
+                    }
+                    if ($li.attr('data-isloaded') == "1") return true;
+                    var filter = $li.attr('data-filter') || null;
+                    if (filter && filter != "") {
+                        filter = JSON.parse(filter);
+                    }
+                    if (filters) {
+                        filter = $.extend({}, filters, (filter || {}));
+                    }
+                    if (recordFilter) {
+                        filter = $.extend({}, recordFilter, filter);
+                    }
+                    if (filter) {
+                        filter = new XmsFilter(filter);
+                    }
+                    pageWrap.loadSingleQueryview(queryid, $context, function () {
+                    }, filter);
+                    $li.attr('data-isloaded', 1)
+                }
+            });
+        }
+        return $target;
+    }
 
     window.renderChart = renderChart;
 
@@ -1488,7 +1614,7 @@
     window.selectRecordCallback = selectRecordCallback;
     window.EditRecord = EditRecord;
     window.DayQuery = DayQuery;
-
+    window.loadEntityTabs = loadEntityTabs;
     window.pageWrap_list = pageWrap;
     window.closeIframeRebind = closeIframeRebind;
     window.rebind = rebind;

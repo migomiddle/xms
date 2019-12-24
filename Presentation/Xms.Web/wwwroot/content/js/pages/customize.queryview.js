@@ -28,7 +28,7 @@ function getFormsList(entityid, $context, isRequire, callback) {
     //加载forms列表
     var postParams = {
         type: 'forms' + entityid,
-        data: { entityid: entityid }
+        data: { entityid: entityid,loaddata:true }
     }
     Xms.Web.PageCache('workflow', '/customize/systemform/index', postParams, function (res) {
         var resItems = res.content;
@@ -959,6 +959,9 @@ var includeNull = ['NotNull', 'Null'];
 
 function loadFilterOperators(input, type, opts) {
     //操作符
+    if (type == 'status') {
+        type = 'state';
+    }
     var _operators = Xms.Fetch.ConditionOperators[type];
     var op = new Array();
     op.push('<option data-value="" value="">' + LOC_FILTER_CONDITION_OPERATOR_SELECT + '</option>');

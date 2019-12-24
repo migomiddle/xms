@@ -687,8 +687,11 @@
                 isJsonAjax: true,
                 afterAjax: function (that, objP, DM, PM, FM) {
                     var pageIsEdit = datas.pageIsEdit;
-                    if (pageIsEdit && !firstload) {
-                        opts._super._addEmptyRow(datas.DefaultEmptyRows);
+                    var totalRecords = PM.totalRecords;
+                    var emtpy = datas.DefaultEmptyRows - totalRecords;
+                    if (pageIsEdit && !firstload && emtpy>0) {
+
+                        opts._super._addEmptyRow(emtpy);
                         firstload = true;
                     }
                     opts._super.$wrap.trigger('gridview.afterAjax', { $context: $context, that: that, datagridconfig: datagridconfig })
