@@ -20,14 +20,13 @@ namespace Xms.Business.DataAnalyse.Report
         {
             return (o) =>
             {
-                o.Identity = 4;
+                o.Identity = 12;
                 o.Name = this.Name;
             };
         }
 
         public void OnStarting()
         {
-            //Dependency.Abstractions.DependencyComponentTypes.Add(this.Name, 13);
             Solution.Abstractions.SolutionComponentCollection.Configure((o) =>
             {
                 o.Module = Module.Core.ModuleCollection.GetDescriptor(this.Name);

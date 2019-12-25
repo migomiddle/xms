@@ -33,7 +33,7 @@ namespace Xms.Web.Api
             var data = _reportService.QueryPaged(x => x.Page(model.Page, model.PageSize), model.SolutionId, model.InSolution);
             if (data.Items.NotEmpty())
             {
-                var result = data.Items.Select(x => (new SolutionComponentItem { ObjectId = x.EntityId, Name = x.Name, LocalizedName = x.Name, ComponentTypeName = ReportDefaults.ModuleName, CreatedOn = x.CreatedOn })).ToList();
+                var result = data.Items.Select(x => (new SolutionComponentItem { ObjectId = x.ReportId, Name = x.Name, LocalizedName = x.Name, ComponentTypeName = ReportDefaults.ModuleName, CreatedOn = x.CreatedOn })).ToList();
                 return JOk(new PagedList<SolutionComponentItem>()
                 {
                     CurrentPage = model.Page

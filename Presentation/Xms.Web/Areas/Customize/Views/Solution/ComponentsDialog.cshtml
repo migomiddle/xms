@@ -85,30 +85,14 @@
                             },
                             dialog_return : function () {
                                 var result = new Array();
-                                //$("#solutionComponentModal .datatableload").find("input[name=recordid]:checked").each(function (i, n) {
-                                //    var obj = new Object();
-                                //    obj.id = $(n).val();
-                                //    $("#solutionComponentModal .datatableload").find('thead>tr>th[data-name]').each(function(i, nn){
-                                //        var idx = $(nn).index();
-                                //        var value = $(n).parents('tr:first').find('td:eq('+idx+')').text();
-                                //        eval('obj.' + $(nn).attr('data-name') + '="' + value + '"');
-                                //    });
-                                //    //obj.name = $(n).parents('tr:first').find('td:eq('+idx+')').text();
-                                //    result.push(obj);
-                                //});
-
+                              
                                 var $datagriddialogview = $('#datagriddialogview');
                                 var $Grid = $datagriddialogview.cDatagrid('getGrid');
-                                $datagriddialogview.find("input[name=recordid]:checked").each(function (i, n) {
+                                $datagriddialogview.find('.pq-grid-cont-inner:first').find("input[name=recordid]:checked").each(function (i, n) {
                                     var obj = new Object();
                                     obj.id = $(n).val();
                                     var data = $Grid.pqGrid('getRowData',{ rowIndxPage: i })
-                                    //$("#solutionComponentModal .datatableload").find('thead>tr>th[data-name]').each(function (i, nn) {
-                                    //    var idx = $(nn).index();
-                                    //    var value = $(n).parents('tr:first').find('td:eq(' + idx + ')').text();
-                                    //    eval('obj.' + $(nn).attr('data-name') + '="' + value + '"');
-                                    //});
-                                    //obj.name = $(n).parents('tr:first').find('td:eq('+idx+')').text();
+                                    
                                     obj.name = data.localizedname;
                                     result.push(obj);
                                 });
