@@ -548,7 +548,12 @@ function saveGridConfig() {
     grid.Rows.push(row);
     var $jslibrary = $('#jslibrary');
     if ($jslibrary.val()) {
-        grid.ClientResources = $jslibrary.val();
+        var jslibval = $jslibrary.val();
+        var jsarray = jslibval.split(',');
+        grid.ClientResources = [];
+        $.each(jsarray, function (i,n) {
+            grid.ClientResources.push(n);
+        });
     } else {
         grid.ClientResources = '';
     }
