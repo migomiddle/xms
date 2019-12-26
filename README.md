@@ -1,6 +1,6 @@
 # xms
-![xms](https://images.gitee.com/uploads/images/2019/1212/150638_c1d8e517_864463.png "150638_c1d8e517_864463.png")
-![xms](https://images.gitee.com/uploads/images/2019/1226/095316_520e6fef_612491.png "095316_520e6fef_612491.png")
+![xms](https://images.gitee.com/uploads/images/2019/1212/150638_c1d8e517_864463.png "xms")
+![xms](https://images.gitee.com/uploads/images/2019/1226/095316_520e6fef_612491.png "xms")
 ## 一、xms是什么
 >>一款基于.netcore的跨平台应用框架，包含众多常用模块，易上手、易扩展，xms可理解为x(可扩展的/任意的)m(管理)s(系统)
 
@@ -11,7 +11,7 @@
 >>接近"零代码"开发，释放生产力，专注你的业务，致力于.netcore开源生态发展，大家一起轻松把钱赚
 
 ## 四、结构
- ![xms脑图](https://images.gitee.com/uploads/images/2019/1212/150724_f046d4e7_864463.png "QQ图片20191212150614.png")
+ ![xms脑图](https://images.gitee.com/uploads/images/2019/1212/150724_f046d4e7_864463.png "xms")
 
 ## 五、场景
 >> a.老板有个好想法，产品经理可以利用xms快速配置出产品原型，会议演示高大上  
@@ -46,4 +46,4 @@
 #### 邮箱地址: deng819@163.com
   
 #### 如果觉得xms帮助到您了，可以捐助我们，让我们一起把平台做得更好  
-![xms](https://images.gitee.com/uploads/images/2019/1212/150734_355fb4f5_864463.png "xms脑图")  
+![xms](https://images.gitee.com/uploads/images/2019/1212/150734_355fb4f5_864463.png "xms")  
