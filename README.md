@@ -1,6 +1,6 @@
 # xms
-![xms](https://images.gitee.com/uploads/images/2019/1212/150638_c1d8e517_864463.png "QQ图片20191212150604.png")
-![xms](https://images.gitee.com/uploads/images/2019/1226/095316_520e6fef_612491.png "QQ图片20191212150618.png")
+![xms](https://images.gitee.com/uploads/images/2019/1212/150638_c1d8e517_864463.png "150638_c1d8e517_864463.png")
+![xms](https://images.gitee.com/uploads/images/2019/1226/095316_520e6fef_612491.png "095316_520e6fef_612491.png")
 ## 一、xms是什么
 >>一款基于.netcore的跨平台应用框架，包含众多常用模块，易上手、易扩展，xms可理解为x(可扩展的/任意的)m(管理)s(系统)
 
