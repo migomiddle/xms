@@ -1,13 +1,13 @@
 ﻿.xms-index-ui.themes-dark.xms-custom .navbar-text {
-    background-color: #20222A !important;
+    background-color: #00877a !important;
 }
 
 .toggle-tree-wrap, .xms-index-ui.themes-dark #side-menu.toggle-tree > li, .xms-index-ui.themes-dark .toggle-tree .dropdown-hover.active > a {
-    background-color: #20222A !important;
+    background-color: #242e38 !important;
 }
 
 .xms-index-ui.themes-dark .toggle-tree .dropdown-menu.dropdown-hover-level, .xms-index-ui.themes-dark .toggle-tree .dropdown-menu.dropdown-hover-level > ul {
-    background-color: #14161a !important;
+    background-color: #192027 !important;
 }
 
 .themes-dark .toggle-tree .dropdown-menu.dropdown-hover-level > ul > li.toggle-active {
@@ -15,11 +15,11 @@
 }
 
 .navbar-static-top {
-    background-color: #FFF !important;
+    background-color: #00877a !important;
 }
 
 .nav-right-toolbar i, .xms-header .nav-title i {
-    color: #000 !important;
+    color: #fff !important;
 }
 
 .xms-index-ui.xms-custom .nav-right-toolbar .notice-list li > a, .xms-index-ui.xms-custom .nav-right-toolbar .notice-list li:hover > a {
@@ -27,13 +27,17 @@
 }
 
 .xms-index-ui.xms-custom .nav-right-toolbar li > a {
-    color: #000 !important;
+    color: #fff !important;
 }
 
-    .xms-index-ui.xms-custom .nav-right-toolbar li > a:hover, .xms-custom .nav .nav-right-toolbar li:hover > a {
-        color: #000 !important;
-        background-color: #FFF !important;
-    }
+.xms-index-ui.xms-custom .nav-right-toolbar > li.open li > a {
+    color: #555 !important;
+}
+
+.xms-index-ui.xms-custom .nav-right-toolbar li > a:hover, .xms-custom .nav .nav-right-toolbar li:hover > a {
+    color: #fff !important;
+    background-color: transparent !important;
+}
 
 @font-face {
     font-family: layui-icon;
@@ -58,6 +62,7 @@
     border: none;
     color: #009688;
 }
+
 
 .btn-link {
     color: #009688;

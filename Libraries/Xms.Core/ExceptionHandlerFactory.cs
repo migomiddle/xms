@@ -36,10 +36,6 @@ namespace Xms.Core
             {
                 return;
             }
-            //if (exception is UnauthorizedAccessException)
-            //    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            //else if (exception is Exception)
-            //    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
             if (context.Features.Get<Exception>() == null)
             {

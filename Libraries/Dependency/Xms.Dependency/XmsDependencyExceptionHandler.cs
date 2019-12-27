@@ -10,9 +10,7 @@ namespace Xms.Dependency
     {
         public void Handle(HttpContext context, Exception exception)
         {
-            //context.Response.StatusCode = (exception as XmsException).StatusCode;
             context.Request.Body = (exception as XmsDependencyException).Dependents.SerializeToJson().ToStream();
-            //context.Request.Path = new PathString("/xms/customize/dependency/DependentComponents");
             context.Request.Path = new PathString("/error/dependentexception");
         }
     }

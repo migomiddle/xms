@@ -16,7 +16,6 @@ namespace Xms.Web.Areas.Customize.Controllers
     /// </summary>
     public class DependencyController : CustomizeBaseController
     {
-        //private readonly IDependencyService _dependencyService;
         private readonly IDependencyLookupFactory _dependencyLookupFactory;
 
         public DependencyController(IWebAppContext appContext
@@ -30,16 +29,20 @@ namespace Xms.Web.Areas.Customize.Controllers
         [Route("/error/dependentexception")]
         public IActionResult DependentComponents([FromBody]List<DependentDescriptor> dependents)
         {
-            DependentComponentsModel model = new DependentComponentsModel();
-            model.Items = dependents;
+            DependentComponentsModel model = new DependentComponentsModel
+            {
+                Items = dependents
+            };
             return View(model);
         }
 
         [Description("查看依赖项")]
         public IActionResult CheckDependents(int requiredComponentType, Guid requiredId)
         {
-            DependentComponentsModel model = new DependentComponentsModel();
-            model.Items = _dependencyLookupFactory.GetDependents(requiredComponentType, requiredId);
+            DependentComponentsModel model = new DependentComponentsModel
+            {
+                Items = _dependencyLookupFactory.GetDependents(requiredComponentType, requiredId)
+            };
             return View("DependentComponents", model);
         }
     }
