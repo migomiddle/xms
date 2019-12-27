@@ -112,7 +112,7 @@
                     cb: { all: true, header: true }
                 },
                 { "dataIndx": "name", "title": theaders.name, editable: false, "dataType": "string", "width": 150, "isprimaryfield": false, "attributetypename": "string" },
-                { "dataIndx": "attributename", "title": theaders.entity_field, "dataType": "string", editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
+                { "dataIndx": "attributename", "title": theaders.entity_field, "dataType": "string",sortable: false ,  editable: false, "width": 150, "isprimaryfield": false, "attributetypename": "string", render: function (ui, a, b) {
                         var datas = ui.rowData;
                         var dataIndx = ui.dataIndx;
                         var column = ui.column;
