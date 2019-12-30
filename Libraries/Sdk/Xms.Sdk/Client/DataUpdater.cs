@@ -67,6 +67,12 @@ namespace Xms.Sdk.Client
             _entityValidator = entityValidator;
         }
 
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="entity">实体数据</param>
+        /// <param name="ignorePermissions">是否忽略权限</param>
+        /// <returns></returns>
         public bool Update(Entity entity, bool ignorePermissions = false)
         {
             var entityMetadata = GetEntityMetaData(entity.Name);
@@ -75,7 +81,8 @@ namespace Xms.Sdk.Client
             var query = new QueryExpression(entity.Name, _languageId);
             query.ColumnSet.AllColumns = true;
             query.Criteria.AddCondition(entity.IdName, ConditionOperator.Equal, entity.GetIdValue());
-            var originalEntity = _organizationDataRetriever.Retrieve(query, ignorePermissions);
+            var originalEntity = _organizationDataRetriever.Retrieve(query, true);
+            //验证更新权限
             if (!ignorePermissions)
             {
                 VerifyEntityPermission(originalEntity, AccessRightValue.Update, entityMetadata);
@@ -257,6 +264,14 @@ namespace Xms.Sdk.Client
             OnUpdate(originData, newData, stage, entityMetadata, attributeMetadatas);
         }
 
+        /// <summary>
+        /// 发布事件
+        /// </summary>
+        /// <param name="originData"></param>
+        /// <param name="newData"></param>
+        /// <param name="stage"></param>
+        /// <param name="entityMetadata"></param>
+        /// <param name="attributeMetadatas"></param>
         private void PublishEvents(Entity originData, Entity newData, OperationStage stage, Schema.Domain.Entity entityMetadata, List<Schema.Domain.Attribute> attributeMetadatas)
         {
             if (stage == OperationStage.PreOperation)

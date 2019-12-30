@@ -4018,14 +4018,14 @@ function getDataUrlApi() {
                     })
                 }
                 if (DM.getDataAfter) {
-                    DM.getDataAfter(that, objP, DM, PM, FM);
+                    DM.getDataAfter(that, objP, DM, PM, FM, responseObj);
                 }
                 console.log(that, objP, DM, PM, FM)
                 if (responseObj && responseObj.Content != '' && typeof responseObj.Content == 'string' && responseObj.Content.indexOf('{') == -1) {
                     that.$cont.find('.pq-grid-norows').html('<span class="text-danger">' + responseObj.Content + '</div>');
                 }
                 if (DM.afterAjax) {
-                    DM.afterAjax(that, objP, DM, PM, FM);
+                    DM.afterAjax(that, objP, DM, PM, FM, responseObj);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

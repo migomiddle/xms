@@ -701,7 +701,7 @@
                             .val(dc);
                         $inp.picklist({
                             required: $inp.is('.required'),
-                            items: item.optionset.items,
+                            items: options,
                             isDefault: true,
                             changeHandler: function (e, obj) {
                             }
@@ -1011,7 +1011,7 @@
 
                         format = format.replace("yyyy", "Y").replace("dd", "d").replace("hh", "h").replace("mm", "i").replace('MM', "m").replace('ss', "s").replace('HH', "H").replace('h', "H");
 
-                        if (tempformat.indexOf("hh:mm") > -1) {
+                        if (tempformat.indexOf("HH:mm") > -1 || tempformat.indexOf("hh:mm") > -1) {
                             $inp.datetimepicker({
                                 language: "en"
                                 , step: 15

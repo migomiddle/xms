@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Xms.Authorization.Abstractions;
 using Xms.Business.DataAnalyse.Data;
 using Xms.Business.DataAnalyse.Domain;
 using Xms.Context;
+using Xms.Core;
+using Xms.Identity;
 using Xms.Infrastructure.Utility;
 using Xms.Localization.Abstractions;
+using Xms.Schema.Entity;
 using Xms.Schema.Extensions;
 using Xms.Schema.OptionSet;
 using Xms.Schema.StringMap;
 using Xms.Sdk.Abstractions.Query;
 using Xms.Sdk.Client;
+using Xms.Sdk.Extensions;
 
 namespace Xms.Business.DataAnalyse.Visualization
 {
@@ -22,21 +28,29 @@ namespace Xms.Business.DataAnalyse.Visualization
         private readonly IOptionSetDetailFinder _optionSetDetailFinder;
         private readonly IStringMapFinder _stringMapFinder;
         private readonly IFetchDataService _fetchDataService;
+        private readonly IEntityFinder _entityFinder;
+        private readonly IRoleObjectAccessEntityPermissionService _roleObjectAccessEntityPermissionService;
         private readonly ILocalizedTextProvider _loc;
         private readonly IAppContext _appContext;
+        protected readonly ICurrentUser _user;
 
         public ChartBuilder(IAppContext appContext
             , IChartRepository chartRepository
             , IStringMapFinder stringMapFinder
             , IOptionSetDetailFinder optionSetDetailFinder
-            , IFetchDataService fetchDataService)
+            , IFetchDataService fetchDataService
+            , IEntityFinder entityFinder
+            , IRoleObjectAccessEntityPermissionService roleObjectAccessEntityPermissionService)
         {
             _appContext = appContext;
+            _user = _appContext.GetFeature<ICurrentUser>();
             _loc = appContext.GetFeature<ILocalizedTextProvider>();
             _chartRepository = chartRepository;
             _optionSetDetailFinder = optionSetDetailFinder;
             _stringMapFinder = stringMapFinder;
             _fetchDataService = fetchDataService;
+            _entityFinder = entityFinder;
+            _roleObjectAccessEntityPermissionService = roleObjectAccessEntityPermissionService;
         }
 
         /// <summary>
@@ -59,6 +73,7 @@ namespace Xms.Business.DataAnalyse.Visualization
             {
                 _fetchDataService.QueryExpression.Criteria.AddFilter(filter);
             }
+            BindUserEntityPermissions(_fetchDataService.QueryExpression);
 
             //图表数据描述
             ChartDataDescriptor chartData = new ChartDataDescriptor();
@@ -136,6 +151,19 @@ namespace Xms.Business.DataAnalyse.Visualization
                 context.DataSource = dataSource;
             }
             return context;
+        }
+
+        private void BindUserEntityPermissions(QueryBase q)
+        {
+            //get entity permissions
+            var roles = _user?.Roles?.Select(r => r.RoleId);
+            if (!roles.Any())
+            {
+                throw new Xms.Infrastructure.XmsException(_loc["notspecified_userroles"]);
+            }
+            var entities = q is QueryExpression ? (q as QueryExpression).GetAllEntityNames() : new List<string>() { q.EntityName };
+            var entIds = _entityFinder.FindByNames(entities.ToArray()).Select(n => n.EntityId);
+            _user.RoleObjectAccessEntityPermission = _roleObjectAccessEntityPermissionService.GetPermissions(entIds, roles, AccessRightValue.Read);
         }
     }
 }

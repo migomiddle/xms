@@ -51,8 +51,7 @@ namespace Xms.Web.Framework.Middlewares
         {
             //记录日志
             _logger?.LogError(exception, "");
-            //状态码
-            var response = context.Response;
+
             //custom exception handler
             var exceptionHandler = ((IExceptionHandlerFactory)context.RequestServices.GetService(typeof(IExceptionHandlerFactory))).Get(exception);
             exceptionHandler.Handle(context, exception);

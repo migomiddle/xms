@@ -6642,9 +6642,14 @@ $(function () {
     iframeLinks.prototype.refreshIframe = function (id) {
         var self = this;
         var index = $.indexBykeyValue(this.list, 'id', id);
+        
         if (index != -1) {
             var data = this.list[index];
-            $('#' + prefixname + data.id).attr('src', data.src);
+            var _src = data.src;
+            if (data.src && data.src.indexOf(ORG_SERVERURL) == -1 && data.src.indexOf('http') == -1) {
+                _src = ORG_SERVERURL + data.src;
+            }
+            $('#' + prefixname + data.id).attr('src', _src);
         }
     }
     iframeLinks.prototype.openByGroups = function (id) {

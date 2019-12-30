@@ -233,63 +233,113 @@
                 var _html = [];
                 var $component = target;
                 var data = { "queryid": panelCell[j].control.viewid, "chartid": panelCell[j].control.chartid, "enableviewpicker": panelCell[j].control.enableviewpicker, "enablechartpicker": panelCell[j].control.enablechartpicker };
-                Xms.Web.LoadPage(ORG_SERVERURL + '/component/RenderChart', data, function (data) {
-                    try { if (typeof data != "string") { return false; } data = data.replace(/chart1/g, 'chart' + j); }
+                Xms.Web.LoadPage(ORG_SERVERURL + '/component/RenderChart', data, function (res) {
+                    try { if (typeof res != "string") { return false; } res = res.replace(/chart1/g, 'chart' + j); }
                     catch (e) { }
-                    if (data.indexOf('{') != -1 && data.indexOf('IsSuccess') != -1) {
-                            data = JSON.parse(data);
-                            if (data.IsSuccess === false) {
-                                Xms.Web.Toast(data.Content,false );
-                                return false;
-                            }
+                    var flag = true;
+                    if (res.indexOf('{') != -1 && res.indexOf('IsSuccess') != -1) {
+                        res = JSON.parse(res);
+                        if (res.IsSuccess === false) {
+                            flag = false;
+                            //Xms.Web.Toast(res.Content, false);
+                           // $component.html(res.Content);
+                           // return false;
                         }
-                    var dHtml = $(data);
-                    dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': $component.innerHeight() });
-                    console.log(dHtml.find('.chartA:last'));
-                    var labelHtml = [];
-                    if (panelCell[j].control.isshowlabel == true) {
-                        labelHtml.push('<div class="component-title">');
-                        labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
-                        labelHtml.push('</div>');
-                        dHtml.find('.chartA:last').css({ 'height': $component.innerHeight() - 26 });
+                    } 
+                    if (flag == false) {
+                        var labelHtml = [];
+                        $component.html('');
+                        var dHtml = $('<div />');
+                        if (panelCell[j].control.isshowlabel == true) {
+                            
+                            labelHtml.push('<div class="component-title">');
+                            labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                            labelHtml.push('</div>');
+                            dHtml.css({ 'height': ($component.innerHeight() - 26)+'px', 'line-height': ($component.innerHeight() - 26)+'px' });
+                        } else {
+                            var dHtml = $('<div class="text-danger text-center">' + res.Content + '</div>');
+                             dHtml.css({ 'height': $component.innerHeight(), 'line-height': $component.innerHeight() });
+                        }
+                        dHtml.html('<div class="text-danger text-center">'+res.Content+'</div>')
+                        $component.append(labelHtml.join(''));
+                        $component.append(dHtml);
+                    } else {
+                        var dHtml = $(res);
+                        dHtml.find('.chartA:last').css({ 'width': '100%;', 'height': $component.innerHeight() });
+                        console.log(dHtml.find('.chartA:last'));
+                        var labelHtml = [];
+                        if (panelCell[j].control.isshowlabel == true) {
+                            labelHtml.push('<div class="component-title">');
+                            labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                            labelHtml.push('</div>');
+                            dHtml.find('.chartA:last').css({ 'height': $component.innerHeight() - 26 });
+                        }
+                        $component.html('');
+                        $component.append(labelHtml.join(''));
+                        $component.append(dHtml);
                     }
-                    $component.html('');
-                    $component.append(labelHtml.join(''));
-                    $component.append(dHtml);
+                    
+                }, function (err) {
+                        console.log(err);
                 });
             } else if (panelCell[j].type == 'grids') {
                 var _html = [];
                 var $component = target;
                 Xms.Web.Load(ORG_SERVERURL + '/entity/rendergridview?queryviewid=' + panelCell[j].control.viewid + '&enablequickfind=' + panelCell[j].control.enablequickfind + '&enableviewpicker=' + panelCell[j].control.enableviewpicker + '&recordsperpage=' + panelCell[j].control.recordsperpage + '&IsShowButtons=false&IsEnabledFilter=false&IsEnabledFastSearch=false&IsEnabledViewSelector=false&iseditable=false&pagesize=6', function (data) {
-                    if (typeof data != "string") { return false; }
-                    if (data.indexOf('{') != -1 && data.indexOf('IsSuccess') != -1) {
-                            data = JSON.parse(data);
-                            if (data.IsSuccess === false) {
-                                Xms.Web.Toast(data.Content,false );
-                                return false;
-                            }
+                    var flag = true;
+                    if (typeof data != "string") {
+                        if (data.IsSuccess === false) {
+                            //Xms.Web.Toast(data.Content,false );
+                            flag = false;
+                           // return false;
                         }
-                    var dHtml = $(data);
-                    var labelHtml = [];
-                    if (panelCell[j].control.isshowlabel == true) {
-                        labelHtml.push('<div class="" style="padding:0;">');
-                       // labelHtml.push('<div class="change' + '"style="height:26px;width:80px;"' + css + '">');
-                       // labelHtml.push('</div>');
-                        labelHtml.push('<div class="component-title">');
-                        labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
-                        labelHtml.push('</div>');
-                        labelHtml.push('</div>');
-                    } else {
-                        labelHtml.push('<div class="change' + '"style="height:52px;width:80px;"' + css + '">');
+                    }else if (typeof data == "string" && data.indexOf('{') != -1 && data.indexOf('IsSuccess') != -1) {
+                            data = JSON.parse(data);
+                         //   if (data.IsSuccess === false) {
+                             //  Xms.Web.Toast(data.Content,false );
+                             //   return false;
+                        //    }
                     }
-                    $component.html('');
-                    $component.append(labelHtml.join(''));
-                    //$component.append(dHtml);
-                    var $grid = $('<div></div>');
-                    $component.append($grid);
-                    var offsetH = -40;
-                    var table = new tableGrid($grid, { queryid: panelCell[j].control.viewid, height: $component.innerHeight() + offsetH });
-                    table.init();
+                    if (flag == false) {
+                        var labelHtml = [];
+                        $component.html('');
+                        var dHtml = $('<div />');
+                        if (panelCell[j].control.isshowlabel == true) {
+                            
+                            labelHtml.push('<div class="component-title">');
+                            labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                            labelHtml.push('</div>');
+                            dHtml.css({ 'height': ($component.innerHeight() - 26)+'px', 'line-height': ($component.innerHeight() - 26)+'px' });
+                        } else {
+                            var dHtml = $('<div class="text-danger  text-center">' + data.Content + '</div>');
+                             dHtml.css({ 'height': $component.innerHeight(), 'line-height': $component.innerHeight() });
+                        }
+                        dHtml.html('<div class="text-danger text-center">'+data.Content+'</div>')
+                        $component.append(labelHtml.join(''));
+                        $component.append(dHtml);
+                    } else {
+                        var dHtml = $(data);
+                        var labelHtml = [];
+                        if (panelCell[j].control.isshowlabel == true) {
+                            labelHtml.push('<div class="" style="padding:0;">');
+                            // labelHtml.push('<div class="change' + '"style="height:26px;width:80px;"' + css + '">');
+                            // labelHtml.push('</div>');
+                            labelHtml.push('<div class="component-title">');
+                            labelHtml.push('<span>' + panelCell[j].control.label + '</span>');
+                            labelHtml.push('</div>');
+                            labelHtml.push('</div>');
+                        } else {
+                            labelHtml.push('<div class="change' + '"style="height:52px;width:80px;"' + css + '">');
+                        }
+                        $component.html('');
+                        $component.append(labelHtml.join(''));
+                        //$component.append(dHtml);
+                        var $grid = $('<div></div>');
+                        $component.append($grid);
+                        var offsetH = -40;
+                        var table = new tableGrid($grid, { queryid: panelCell[j].control.viewid, height: $component.innerHeight() + offsetH });
+                        table.init();
+                    }
                 });
             }
             else if (panelCell[j].type == 'iframe') {
