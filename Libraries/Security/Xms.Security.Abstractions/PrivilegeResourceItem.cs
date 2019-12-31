@@ -9,5 +9,6 @@ namespace Xms.Security.Abstractions
         public string Label { get; set; }
         public bool AuthorizationEnabled { get; set; }
         public List<PrivilegeResourceItem> Children { get; set; }
+        public Guid? GroupId { get; set; }
     }
 }

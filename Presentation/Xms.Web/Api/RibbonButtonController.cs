@@ -114,7 +114,7 @@ namespace Xms.Web.Api
             filter.And(x => x.StateCode == RecordState.Enabled);
             if (authorizationEnabled.HasValue)
             {
-                filter.And(x => x.AuthorizationEnabled == authorizationEnabled);
+                filter.And(x => x.AuthorizationEnabled == authorizationEnabled.Value);
             }
             var data = _ribbonButtonFinder.Query(x => x.Select(s => new { s.RibbonButtonId, s.Label, s.ShowArea, s.EntityId, s.AuthorizationEnabled }).Where(filter));
             if (data.NotEmpty())
@@ -130,8 +130,9 @@ namespace Xms.Web.Api
                     }
                     var childrens = new List<PrivilegeResourceItem>();
                     var group1 = new PrivilegeResourceItem();
+                    group1.GroupId = item.EntityId;
                     group1.Label = item.LocalizedName;
-                    var formButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.Form).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled })).ToList();
+                    var formButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.Form).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled, GroupId = x.EntityId })).ToList();
                     if (formButtons.NotEmpty())
                     {
                         var groupForm = new PrivilegeResourceItem
@@ -141,7 +142,7 @@ namespace Xms.Web.Api
                         };
                         childrens.Add(groupForm);
                     }
-                    var listHeaderButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.ListHead).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled })).ToList(); ;
+                    var listHeaderButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.ListHead).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled, GroupId = x.EntityId })).ToList(); ;
                     if (listHeaderButtons.NotEmpty())
                     {
                         var groupListHeader = new PrivilegeResourceItem
@@ -151,7 +152,7 @@ namespace Xms.Web.Api
                         };
                         childrens.Add(groupListHeader);
                     }
-                    var listRowButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.ListRow).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled })).ToList();
+                    var listRowButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.ListRow).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled, GroupId = x.EntityId })).ToList();
                     if (listRowButtons.NotEmpty())
                     {
                         var groupListRow = new PrivilegeResourceItem
@@ -161,7 +162,7 @@ namespace Xms.Web.Api
                         };
                         childrens.Add(groupListRow);
                     }
-                    var subGridButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.SubGrid).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label })).ToList();
+                    var subGridButtons = entityButtons.Where(x => x.ShowArea == RibbonButtonArea.SubGrid).Select(x => (new PrivilegeResourceItem { Id = x.RibbonButtonId, Label = x.Label, AuthorizationEnabled = x.AuthorizationEnabled, GroupId = x.EntityId })).ToList();
                     if (subGridButtons.NotEmpty())
                     {
                         var groupSubGrid = new PrivilegeResourceItem

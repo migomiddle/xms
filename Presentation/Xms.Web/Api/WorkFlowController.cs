@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Xms.Core;
 using Xms.Core.Context;
+using Xms.Data.Provider;
 using Xms.Flow;
 using Xms.Flow.Abstractions;
 using Xms.Flow.Core;
@@ -127,8 +129,14 @@ namespace Xms.Web.Api
 
         [Description("查询流程权限资源")]
         [HttpGet("PrivilegeResource")]
-        public IActionResult PrivilegeResource()
+        public IActionResult PrivilegeResource(bool? authorizationEnabled)
         {
+            FilterContainer<Flow.Domain.WorkFlow> filter = FilterContainerBuilder.Build<Flow.Domain.WorkFlow>();
+            filter.And(x => x.StateCode == RecordState.Enabled);
+            if (authorizationEnabled.HasValue)
+            {
+                filter.And(x => x.AuthorizationEnabled == authorizationEnabled.Value);
+            }
             var data = _workFlowFinder.Query(x => x.Select(s => new { s.WorkFlowId, s.Name, s.EntityId, s.AuthorizationEnabled }).Where(f => f.StateCode == Core.RecordState.Enabled));
             if (data.NotEmpty())
             {

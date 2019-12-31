@@ -685,11 +685,11 @@
         datagridconfig.extend = function (datagrid) {
             var extobj = {
                 isJsonAjax: true,
-                afterAjax: function (that, objP, DM, PM, FM) {
+                afterAjax: function (that, objP, DM, PM, FM,response) {
                     var pageIsEdit = datas.pageIsEdit;
                     var totalRecords = PM.totalRecords;
                     var emtpy = datas.DefaultEmptyRows - totalRecords;
-                    if (pageIsEdit && !firstload && emtpy>0) {
+                    if (pageIsEdit && !firstload && emtpy > 0 && response.IsSuccess!==false) {
 
                         opts._super._addEmptyRow(emtpy);
                         firstload = true;
@@ -721,7 +721,9 @@
                 },
                 getData: function (dataJSON, textStatus, jqXHR) {
                     if (dataJSON.IsSuccess == false) {
-                        Xms.Web.Toast(dataJSON.Content, false, 5000);
+                        $context.cDatagrid('disable');
+                        opts._super.$toolbar.hide();
+                       // Xms.Web.Toast(dataJSON.Content, false, 5000);
                     }
                     try {
                         var resjson = dataJSON.fetchdata

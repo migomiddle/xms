@@ -175,12 +175,11 @@
                     allbuttons = [];
                     $(entities).each(function (i, entity) {
                         var buttons = $.grep(data, function (n, j) {
-                            return n.entityid == entity.entityid;
+                            return n.groupid == entity.entityid;
                         });
-
+                        console.log(entity.localizedname, buttons);
                         if (buttons && buttons.length > 0) {
                             allbuttons.push(buttons);
-
                         }
                         if (!buttons || buttons.length == 0) return true;
                         var html = "<tr>";
@@ -189,7 +188,7 @@
                         var ListRowButton = "<td>";
                         var SubGridButton = "<td>";
                         if (buttons && buttons.length > 0) {
-                            html += '<td class="xms-checker" checkertype="col" data-name="' + entity.Name + '">';
+                            html += '<td class="xms-checker" checkertype="col" data-name="' + entity.name + '">';
                             html += '<label class="btn"><strong>' + entity.localizedname + '</strong></label>';
                             html += '</td>';
                             $(buttons).each(function (j, button) {

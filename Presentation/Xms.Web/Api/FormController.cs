@@ -221,7 +221,7 @@ namespace Xms.Web.Api
             filter.And(x => x.StateCode == Core.RecordState.Enabled && x.FormType == (int)FormType.Main && x.IsDefault == false);
             if (authorizationEnabled.HasValue)
             {
-                filter.And(x => x.AuthorizationEnabled == authorizationEnabled);
+                filter.And(x => x.AuthorizationEnabled == authorizationEnabled.Value);
             }
             var data = _systemFormFinder.Query(x => x.Select(s => new { s.SystemFormId, s.Name, s.EntityId, s.AuthorizationEnabled })
             .Where(filter));

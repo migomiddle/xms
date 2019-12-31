@@ -9,24 +9,32 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Customize\Api\**" />
+    <Compile Remove="entityplugins\**" />
+    <Compile Remove="excel\**" />
     <Compile Remove="lang\**" />
     <Compile Remove="Logs\**" />
     <Compile Remove="publish\**" />
     <Compile Remove="solution\**" />
     <Compile Remove="upload\**" />
     <Content Remove="Areas\Customize\Api\**" />
+    <Content Remove="entityplugins\**" />
+    <Content Remove="excel\**" />
     <Content Remove="lang\**" />
     <Content Remove="Logs\**" />
     <Content Remove="publish\**" />
     <Content Remove="solution\**" />
     <Content Remove="upload\**" />
     <EmbeddedResource Remove="Areas\Customize\Api\**" />
+    <EmbeddedResource Remove="entityplugins\**" />
+    <EmbeddedResource Remove="excel\**" />
     <EmbeddedResource Remove="lang\**" />
     <EmbeddedResource Remove="Logs\**" />
     <EmbeddedResource Remove="publish\**" />
     <EmbeddedResource Remove="solution\**" />
     <EmbeddedResource Remove="upload\**" />
     <None Remove="Areas\Customize\Api\**" />
+    <None Remove="entityplugins\**" />
+    <None Remove="excel\**" />
     <None Remove="lang\**" />
     <None Remove="Logs\**" />
     <None Remove="publish\**" />

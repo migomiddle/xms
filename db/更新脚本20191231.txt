@@ -1,0 +1,1 @@
+update Privileges set SystemName = null,ClassName = 'security',MethodName = 'edituserpassword',Url = '/security/edituserpassword' where PrivilegeId = 'FE10486A-F9FA-49C8-9F3E-AB54FF4B5DD4'

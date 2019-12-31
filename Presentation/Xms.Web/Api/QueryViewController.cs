@@ -205,7 +205,7 @@ namespace Xms.Web.Api
             filter.And(x => x.StateCode == RecordState.Enabled && x.IsDefault == false && x.IsPrivate == false);
             if (authorizationEnabled.HasValue)
             {
-                filter.And(x => x.AuthorizationEnabled == authorizationEnabled);
+                filter.And(x => x.AuthorizationEnabled == authorizationEnabled.Value);
             }
             var data = _queryViewFinder.Query(x => x.Select(s => new { s.QueryViewId, s.Name, s.EntityId, s.AuthorizationEnabled }).Where(filter));
             if (data.NotEmpty())
