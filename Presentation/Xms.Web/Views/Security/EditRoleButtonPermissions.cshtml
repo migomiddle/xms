@@ -117,7 +117,10 @@
     </div>
 </div>
 @section Header {
-    <link rel="stylesheet" href="/content/js/icheck/skins/all.css?v=@app.PlatformSettings.VersionNumber">
+<style>
+    .form-group input[type="checkbox"]{margin-left:-20px; margin-top:0;}
+    .checkbox label, .radio label{padding-left: 28px;}
+</style>
 }
 @section Scripts {
     <script src="/content/js/xms.utility.js?v=@app.PlatformSettings.VersionNumber"></script>
@@ -160,7 +163,33 @@
                 }
             });
         }
-
+        function filterButtons(datas) {
+            var res = [];
+            $.each(datas, function (i,n) {
+                if (n.children && n.children.length > 0) {
+                    $.each(n.children, function (ii, nn) {
+                        var showarea = 0;
+                        if (nn.label == '表单') {
+                            showarea = 1;
+                        }else if (nn.label == '列表头部') {
+                            showarea = 2;
+                        }else if (nn.label == '列表行内') {
+                            showarea = 3;
+                        }else if (nn.label == '单据体') {
+                            showarea = 4;
+                        }
+                        if (nn.children && nn.children.length > 0) {
+                            $.each(nn.children, function (iii, nnn) {
+                                nnn.showarea = showarea;
+                                    res.push(nnn);
+                               
+                            });
+                        }
+                    });
+                }
+            });
+            return res;
+        }
         function bindButtons(entities) {
             Xms.Ajax.GetJson('/api/ribbonbutton/PrivilegeResource?authorizationEnabled=true', null, function (response) {
                 if (response.IsSuccess) {
@@ -187,33 +216,34 @@
                         var ListHeadButton = "<td>";
                         var ListRowButton = "<td>";
                         var SubGridButton = "<td>";
+                        buttons = filterButtons(buttons);
                         if (buttons && buttons.length > 0) {
                             html += '<td class="xms-checker" checkertype="col" data-name="' + entity.name + '">';
                             html += '<label class="btn"><strong>' + entity.localizedname + '</strong></label>';
                             html += '</td>';
                             $(buttons).each(function (j, button) {
-                                var flag = button.ribbonbuttonid ? ($.inArray(button.ribbonbuttonid, ObjectId) != -1) : false;
+                                var flag = button.id ? ($.inArray(button.id, ObjectId) != -1) : false;
                                 if (button.showarea == 1) {
                                     FormButton += '<div class="checkbox">';
-                                    FormButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn'+i+'_'+j+'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
+                                    FormButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn'+i+'_'+j+'" name="ObjectId" value="' + button.id + '" ' + (flag ? " checked" : "") + ' /> ';
                                     FormButton +=  button.label + '</label>';
                                     FormButton += '</div>';
                                 }
                                 else if (button.showarea == 2) {
                                     ListHeadButton += '<div class="checkbox">';
-                                    ListHeadButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
+                                    ListHeadButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.id + '" ' + (flag ? " checked" : "") + ' /> ';
                                     ListHeadButton += button.label + '</label>';
                                     ListHeadButton += '</div>';
                                 }
                                 else if (button.showarea == 3) {
                                     ListRowButton += '<div class="checkbox">';
-                                    ListRowButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
+                                    ListRowButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' + '<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.id + '" ' + (flag ? " checked" : "") + ' /> ';
                                     ListRowButton +=  button.label + '</label>';
                                     ListRowButton += '</div>';
                                 }
                                 else if (button.showarea == 4) {
                                     SubGridButton += '<div class="checkbox">';
-                                    SubGridButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.ribbonbuttonid + '" ' + (flag ? " checked" : "") + ' /> ';
+                                    SubGridButton += '<label for="ribbonbtn' + i + '_' + j + '"> ' +'<input type="checkbox" id="ribbonbtn' + i + '_' + j +'" name="ObjectId" value="' + button.id + '" ' + (flag ? " checked" : "") + ' /> ';
                                     SubGridButton += button.label + '</label>';
                                     SubGridButton += '</div>';
                                 }
@@ -253,11 +283,11 @@
 
                         return false;
                     }
-                    tbody.find('input[type="checkbox"]').iCheck({
-                        checkboxClass: 'icheckbox_minimal-blue',
-                        radioClass: 'iradio_minimal-blue',
-                        increaseArea: '10%'
-                    })
+                    //tbody.find('input[type="checkbox"]').iCheck({
+                    //    checkboxClass: 'icheckbox_minimal-blue',
+                    //    radioClass: 'iradio_minimal-blue',
+                    //    increaseArea: '10%'
+                    //})
                     bindEvent(tb);
                 }
             });
@@ -281,10 +311,10 @@
                     $tbody.find('tr').each(function () {
                         var checks = $(this).find('td').eq(index).find('input[type="checkbox"]');
                         if (checks.length > 0) {
-                          //  checks.prop('checked', true);
-                            checks.each(function () {
-                                $(this).iCheck('check');
-                            })
+                            checks.prop('checked', true);
+                           // checks.each(function () {
+                           //     $(this).iCheck('check');
+                           // })
                         }
                     });
                 } else {
@@ -292,8 +322,8 @@
                     $tbody.find('tr').each(function () {
                         var checks = $(this).find('td').eq(index).find('input[type="checkbox"]');
                         if (checks.length > 0) {
-                          //  checks.prop('checked', false);
-                            checks.iCheck('uncheck');
+                            checks.prop('checked', false);
+                          //  checks.iCheck('uncheck');
                         }
                     });
                 }
@@ -303,8 +333,8 @@
                     $tbody.find('tr').each(function () {
                         var checks = $(this).find('td').eq(index).find('input[type="checkbox"]');
                         if (checks.length > 0) {
-                          //  checks.prop('checked', true);
-                            checks.iCheck('check');
+                            checks.prop('checked', true);
+                           // checks.iCheck('check');
                         }
                     });
                 } else {
@@ -312,8 +342,8 @@
                     $tbody.find('tr').each(function () {
                         var checks = $(this).find('td').eq(index).find('input[type="checkbox"]');
                         if (checks.length > 0) {
-                         //   checks.prop('checked', false);
-                            checks.iCheck('uncheck');
+                            checks.prop('checked', false);
+                          //  checks.iCheck('uncheck');
                         }
                     });
                 }
@@ -335,15 +365,15 @@
                     $td.attr('data-checked', 1);
                     var checks = $tr.find('input[type="checkbox"]');
                     if (checks.length > 0) {
-                    //    checks.prop('checked', true);
-                        checks.iCheck('check');
+                        checks.prop('checked', true);
+                      //  checks.iCheck('check');
                     }
                 } else {
                     $td.attr('data-checked', 0);
                     var checks = $tr.find('input[type="checkbox"]');
                     if (checks.length > 0) {
-                      //  checks.prop('checked', false);
-                        checks.iCheck('uncheck');
+                        checks.prop('checked', false);
+                      //  checks.iCheck('uncheck');
                     }
                 }
             } else {
@@ -351,17 +381,17 @@
                     $td.attr('data-checked', 1);
                     var checks = $tr.find('input[type="checkbox"]');
                     if (checks.length > 0) {
-                       // checks.prop('checked', true);
-                        checks.each(function () {
-                            $(this).iCheck('check');
-                        })
+                        checks.prop('checked', true);
+                       // checks.each(function () {
+                       //     $(this).iCheck('check');
+                       // })
                     }
                 } else {
                     $td.attr('data-checked', 0);
                     var checks = $tr.find('input[type="checkbox"]');
                     if (checks.length > 0) {
-                     //   checks.prop('checked', false);
-                        checks.iCheck('uncheck');
+                        checks.prop('checked', false);
+                     //   checks.iCheck('uncheck');
                     }
                 }
             }
@@ -405,7 +435,7 @@
             //});
 
             Xms.Web.Form($editform, function (response) {
-                Xms.Web.Alert(response.IsSuccess, response.Content);
+               // Xms.Web.Alert(response.IsSuccess, response.Content);
             });
             $editform.find("input[name=RoleObjectAccesses]:not(:disabled)").on('click', null, function () {
                 var flag = $(this).prop("checked");
