@@ -1638,7 +1638,7 @@ Xms.Web = {
             itemshtml.push(' <input type="text" id="' + ctrilId + '" class="form-control xmsplug-forminput" data-type="' + attrtype + '" autocomplete="off" name="' + attrname + '" />');
             itemshtml.push('</div>');
         } else if (attrtype == "picklist") {
-            itemshtml.push(' <input type="text" id="' + ctrilId + '" class="form-control picklist  xmsplug-forminput" data-type="' + attrtype + '" data-name="' + attrname + '" name="' + attrname + '" data-items="@Html.UrlEncoder.Encode(itemStr)" />');
+            itemshtml.push(' <input type="text" id="' + ctrilId + '" class="form-control picklist  xmsplug-forminput" data-type="' + attrtype + '" data-name="' + attrname + '" name="' + attrname + '" data-items="' + '' + '" data-optionsetid="' + n.optionsetid +'" />');
         } else if (attrtype == "lookup" || attrtype == "customer" || attrtype == "owner" || attrtype == "primarykey") {
             itemshtml.push('<div class="input-group ">');
             itemshtml.push('<input type="text" id="' + ctrilId + '" data-type="lookup" data-entityid="' + entityid + '" data-referencedentityid="' + referentityid + '" name="' + attrname + '" class="form-control pluglookup searchLookup  xmsplug-forminput" />');
@@ -1670,20 +1670,27 @@ Xms.Web = {
                 });
             }
         })
+        if (attrtype == "picklist") {
+            $plugInput.each(function (i, n) {
+                var $this = $(n);
+                var type = $this.attr("data-name");
+                var optionsetid = $this.attr('data-optionsetid');
+                var url = '/api/schema/optionset/getitems/' + optionsetid+'?__r=' + new Date().getTime();
 
-        $plugInput.each(function (i, n) {
-            var $this = $(n);
-            var type = $this.attr("data-name");
-            try {
-                var items = JSON.parse(decodeURIComponent($this.attr('data-items')));
-                $(this).picklist({
-                    items: items
+                Xms.Web.GetJson(url,null, function (res) {
+                    console.log('GetOptionsets', res.content)
+                    try {
+                        var items = res.content
+                        $this.picklist({
+                            items: items
+                        });
+                    } catch (e) {
+                        console.log('picklist', res, e);
+                    }
                 });
-            } catch (e) {
-                console.log('picklist', decodeURIComponent($this.attr('data-items')), e);
-            }
-        });
 
+            });
+        }
         $(".pluglookup", $plugInput).each(function () {
             var self = this;
             var $input = $(self);

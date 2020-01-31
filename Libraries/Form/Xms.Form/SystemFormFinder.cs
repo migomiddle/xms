@@ -9,6 +9,7 @@ using Xms.Data.Provider;
 using Xms.Dependency.Abstractions;
 using Xms.Form.Abstractions;
 using Xms.Form.Data;
+using Xms.Identity;
 using Xms.Infrastructure.Utility;
 using Xms.Module.Core;
 
@@ -23,12 +24,14 @@ namespace Xms.Form
         private readonly IRoleObjectAccessService _roleObjectAccessService;
         private readonly Caching.CacheManager<Domain.SystemForm> _cacheService;
         private readonly IAppContext _appContext;
+        private readonly ICurrentUser _currentUser;
 
         public SystemFormFinder(IAppContext appContext
             , ISystemFormRepository systemFormRepository
             , IRoleObjectAccessService roleObjectAccessService)
         {
             _appContext = appContext;
+            _currentUser = _appContext.GetFeature<ICurrentUser>();
             _systemFormRepository = systemFormRepository;
             _roleObjectAccessService = roleObjectAccessService;
             _cacheService = new Caching.CacheManager<Domain.SystemForm>(_appContext.OrganizationUniqueName + ":systemforms", _appContext.PlatformSettings.CacheEnabled);
@@ -154,7 +157,7 @@ namespace Xms.Form
             container += (QueryDescriptor<Domain.SystemForm> x) => { x.Where(f => f.FormType == (int)formType); return x; };
             QueryDescriptor<Domain.SystemForm> q = container(QueryDescriptorBuilder.Build<Domain.SystemForm>());
             var datas = _systemFormRepository.Query(q)?.ToList();
-            if (datas.NotEmpty())
+            if (!_currentUser.IsSuperAdmin && datas.NotEmpty())
             {
                 var formIds = datas.Where(x => x.AuthorizationEnabled).Select(x => x.SystemFormId).ToArray();
                 if (formIds.NotEmpty())

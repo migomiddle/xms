@@ -93,7 +93,7 @@ namespace Xms.Flow
             var q = QueryDescriptorBuilder.Build<WorkFlow>();
             q.Where(f => f.EntityId == entityid);
             var datas = _workFlowRepository.Query(x => x.EntityId == entityid && x.StateCode == Xms.Core.RecordState.Enabled && x.Category == (int)category)?.ToList();
-            if (datas.NotEmpty())
+            if (!_currentUser.IsSuperAdmin && datas.NotEmpty())
             {
                 var authIds = datas.Where(x => x.AuthorizationEnabled).Select(x => x.WorkFlowId).ToArray();
                 if (authIds.NotEmpty())

@@ -173,11 +173,6 @@ namespace Xms.Schema.Attribute
             return entities;
         }
 
-        private List<Domain.Attribute> PreCacheAll()
-        {
-            return _attributeRepository.FindAll()?.ToList();
-        }
-
         public bool IsSysAttribute(string name)
         {
             string[] sysAttrs = new string[] { "Name", "VersionNumber", "CreatedOn", "CreatedBy", "ModifiedOn", "ModifiedBy", "StateCode", "StatusCode", "OwnerId", "OwnerIdType", "OwningBusinessUnit", "OrganizationId", "WorkFlowId", "ProcessState", "stageid" };

@@ -7,6 +7,7 @@ using Xms.Context;
 using Xms.Core.Context;
 using Xms.Data.Provider;
 using Xms.Dependency.Abstractions;
+using Xms.Identity;
 using Xms.Infrastructure.Utility;
 using Xms.Module.Core;
 using Xms.QueryView.Abstractions;
@@ -23,6 +24,7 @@ namespace Xms.QueryView
         private readonly IRoleObjectAccessService _roleObjectAccessService;
         private readonly Caching.CacheManager<Domain.QueryView> _cacheService;
         private readonly IAppContext _appContext;
+        private readonly ICurrentUser _currentUser;
 
         public QueryViewFinder(IAppContext appContext
             , IQueryViewRepository queryViewRepository
@@ -30,6 +32,7 @@ namespace Xms.QueryView
             )
         {
             _appContext = appContext;
+            _currentUser = _appContext.GetFeature<ICurrentUser>();
             _queryViewRepository = queryViewRepository;
             _roleObjectAccessService = roleObjectAccessService;
             _cacheService = new Caching.CacheManager<Domain.QueryView>(_appContext.OrganizationUniqueName + ":queryviews", _appContext.PlatformSettings.CacheEnabled);
@@ -153,7 +156,7 @@ namespace Xms.QueryView
         {
             QueryDescriptor<Domain.QueryView> q = container(QueryDescriptorBuilder.Build<Domain.QueryView>());
             var datas = _queryViewRepository.Query(q).ToList();
-            if (datas.NotEmpty())
+            if (!_currentUser.IsSuperAdmin && datas.NotEmpty())
             {
                 var authIds = datas.Where(x => x.AuthorizationEnabled).Select(x => x.QueryViewId).ToArray();
                 if (authIds.NotEmpty())
