@@ -1,0 +1,40 @@
+{
+  "apilist": [
+    {
+      "dllname": "Xms.Api.Identity",
+      "path": "Identity",
+      "host": "localhost",
+      "port": 7003
+    },
+    {
+      "dllname": "Xms.Schema.Api",
+      "path": "Schema",
+      "host": "localhost",
+      "port": 7005
+    },
+    {
+      "dllname": "Xms.Api.Org",
+      "path": "Org",
+      "host": "localhost",
+      "port": 7006
+    },
+    {
+      "dllname": "Xms.EntityData.Api",
+      "path": "EntityData",
+      "host": "localhost",
+      "port": 7007
+    },
+    {
+      "dllname": "Xms.Flow.Api",
+      "path": "Flow",
+      "host": "localhost",
+      "port": 7008
+    },
+    {
+      "dllname": "Xms.Form.Api",
+      "path": "Form",
+      "host": "localhost",
+      "port": 7009
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.Api.Org</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.Api.Org.Controllers.OrgController">
+            <summary>
+            组织管理查询接口
+            </summary>
+        </member>
+        <member name="T:Xms.Api.Org.Controllers.OrgCreaterController">
+            <summary>
+            组织管理创建接口
+            </summary>
+        </member>
+        <member name="T:Xms.Api.Org.Controllers.OrgDeleterController">
+            <summary>
+            组织管理删除接口
+            </summary>
+        </member>
+        <member name="T:Xms.Api.Org.Controllers.OrgUpdaterController">
+            <summary>
+            组织管理控更新接口
+            </summary>
+        </member>
+    </members>
+</doc>

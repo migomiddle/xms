@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.EntityData.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.EntityData.Api.DataAssignController">
+            <summary>
+            实体数据分派接口
+            </summary>
+        </member>
+        <member name="T:Xms.EntityData.Api.DataCreaterController">
+            <summary>
+            数据新增接口
+            </summary>
+        </member>
+        <member name="T:Xms.EntityData.Api.DataDeleterController">
+            <summary>
+            数据删除接口
+            </summary>
+        </member>
+        <member name="T:Xms.EntityData.Api.DataFinderController">
+            <summary>
+            数据查询接口
+            </summary>
+        </member>
+        <member name="T:Xms.EntityData.Api.DataSaveController">
+            <summary>
+            实体数据保存接口
+            </summary>
+        </member>
+        <member name="T:Xms.EntityData.Api.DataShareController">
+            <summary>
+            实体数据共享接口
+            </summary>
+        </member>
+        <member name="T:Xms.EntityData.Api.DataUpdatererController">
+            <summary>
+            数据更新接口
+            </summary>
+        </member>
+        <member name="T:Xms.Web.Api.DataMergeController">
+            <summary>
+            实体数据合并控制器
+            </summary>
+        </member>
+    </members>
+</doc>

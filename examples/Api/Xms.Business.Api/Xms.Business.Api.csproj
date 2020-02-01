@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Xms.Business.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>    
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Business\Xms.Business.DataAnalyse\Xms.Business.DataAnalyse.csproj" />
+    <ProjectReference Include="..\..\Libraries\Business\Xms.Business.DuplicateValidator\Xms.Business.DuplicateValidator.csproj" />
+    <ProjectReference Include="..\..\Libraries\Business\Xms.Business.Filter\Xms.Business.Filter.csproj" />
+    <ProjectReference Include="..\..\Libraries\Business\Xms.Business.FormState\Xms.Business.FormStateRule.csproj" />
+    <ProjectReference Include="..\..\Libraries\Business\Xms.Business.SerialNumber\Xms.Business.SerialNumber.csproj" />
+    <ProjectReference Include="..\Xms.Api.Core\Xms.Api.Core.csproj" />
+  </ItemGroup>
+
+</Project>

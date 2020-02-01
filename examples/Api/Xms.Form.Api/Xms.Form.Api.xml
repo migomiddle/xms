@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.Form.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.Form.Api.Controllers.FormController">
+            <summary>
+            表单查询接口
+            </summary>
+        </member>
+        <member name="T:Xms.Form.Api.Controllers.FormCreaterController">
+            <summary>
+            表单创建接口
+            </summary>
+        </member>
+        <member name="T:Xms.Form.Api.Controllers.FormDeleterController">
+            <summary>
+            表单删除接口
+            </summary>
+        </member>
+        <member name="T:Xms.Form.Api.Controllers.FormUpdaterController">
+            <summary>
+            表单更新接口
+            </summary>
+        </member>
+    </members>
+</doc>

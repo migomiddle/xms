@@ -1,0 +1,253 @@
+{
+  "ReRoutes": [
+
+    //Xms.Api.Identity swagger 配置 7003
+    {
+      "DownstreamPathTemplate": "/Xms.Api.Identity/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Xms.Api.Identity/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7003
+        }
+      ]
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/api/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/token",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    },
+
+
+    //Xms.Schema.Api swagger 配置 7005
+    {
+      "DownstreamPathTemplate": "/Xms.Schema.Api/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Xms.Schema.Api/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7005
+        }
+      ]
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/schema/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/schema/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      //"UseServiceDiscovery": false,
+      //"ServiceName": "schema",//如果此节点设置了值，默认是启用服务发现的
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+      //,"RateLimitOptions": {
+      //  "ClientWhitelist": [ "admin" ], // 白名单
+      //  "EnableRateLimiting": true, // 是否启用限流
+      //  "Period": "1m", // 统计时间段：1s, 5m, 1h, 1d
+      //  "PeriodTimespan": 15, // 多少秒之后客户端可以重试
+      //  "Limit": 10 // 在统计时间段内允许的最大请求数量
+      //},
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 2, // 允许多少个异常请求
+      //  "DurationOfBreak": 5000, // 熔断的时间，单位为秒
+      //  "TimeoutValue": 3000 // 如果下游请求的处理时间超过多少则视如该请求超时
+      //},
+      //"HttpHandlerOptions": {
+      //  "UseTracing": false // use butterfly to tracing request chain
+      //}
+      //,"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "XmsAuthKey",
+      //  "AllowedScopes": [ "Xms.Api" ]
+      //}
+    },
+
+    //Xms.Api.Org swagger 配置 7006
+    {
+      "DownstreamPathTemplate": "/Xms.Api.Org/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Xms.Api.Org/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7006
+        }
+      ]
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/org/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7006
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/org/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/org/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7006
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/org/",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    },
+
+    //Xms.EntityData.Api swagger 配置 7007
+    {
+      "DownstreamPathTemplate": "/Xms.EntityData.Api/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Xms.EntityData.Api/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7007
+        }
+      ]
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/data/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7007
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/data/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    },
+
+    //Xms.Flow.Api swagger 配置 7008
+    {
+      "DownstreamPathTemplate": "/Xms.Flow.Api/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Xms.Flow.Api/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7008
+        }
+      ]
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/flow/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7007
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/flow/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    },
+
+    //Xms.Form.Api swagger 配置 7009
+    {
+      "DownstreamPathTemplate": "/Xms.Form.Api/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/Xms.Form.Api/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7009
+        }
+      ]
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/form/{url}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7009
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/form/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    },
+    {
+      "ReRouteIsCaseSensitive": false,
+      "DownstreamPathTemplate": "/{org}/api/form/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7009
+        }
+      ],
+      "UpstreamPathTemplate": "/{org}/api/form/",
+      "UpstreamHttpMethod": [ "Get", "Post", "DELETE", "PUT" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //LeastConnection
+      }
+    }
+
+
+
+  ]
+  //,"GlobalConfiguration": {
+  //  "BaseUrl": "https://localhost/api",
+  //  "ServiceDiscoveryProvider": {
+  //    "Host": "localhost",
+  //    "Port": 9500,
+  //    "Token": "txpc696iUhbVoudg164r93CxDTrKRVWG",
+  //    "Namespace": "dev",
+  //    "Type": "kube"
+  //    //,"Type": "pollkube",
+  //    //"PollingInterval": 100
+  //  }
+  //}
+}

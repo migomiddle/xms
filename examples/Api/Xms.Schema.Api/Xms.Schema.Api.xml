@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.Schema.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.Schema.Api.AttributeCreaterController">
+            <summary>
+            字段元数据接口新增
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.AttributeDeleterController">
+            <summary>
+            字段元数据接口删除
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.AttributeMetadataController">
+            <summary>
+            字段元数据接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.AttributeUpdaterController">
+            <summary>
+            字段元数据接口更新
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.EntityMetadataController">
+            <summary>
+            实体元数据接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.OptionSetController">
+            <summary>
+            选项集接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.OptionSetCreaterController">
+            <summary>
+            选项集接口新增
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.OptionSetDeleterController">
+            <summary>
+            选项集接口删除
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.OptionSetUpdaterController">
+            <summary>
+            选项集接口更新
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.RelationShipController">
+            <summary>
+            关系接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.StringMapController">
+            <summary>
+            字段选项接口
+            </summary>
+        </member>
+    </members>
+</doc>

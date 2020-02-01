@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Xms.QueryView.Api.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>    
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\QueryView\Xms.QueryView.Abstractions\Xms.QueryView.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Libraries\QueryView\Xms.QueryView\Xms.QueryView.csproj" />
+    <ProjectReference Include="..\..\Libraries\RibbonButton\Xms.RibbonButton.Domain\Xms.RibbonButton.Domain.csproj" />
+    <ProjectReference Include="..\..\Libraries\RibbonButton\Xms.RibbonButton\Xms.RibbonButton.csproj" />
+    <ProjectReference Include="..\..\Libraries\Sdk\Xms.Sdk\Xms.Sdk.csproj" />
+    <ProjectReference Include="..\Xms.Api.Core\Xms.Api.Core.csproj" />
+  </ItemGroup>
+
+</Project>

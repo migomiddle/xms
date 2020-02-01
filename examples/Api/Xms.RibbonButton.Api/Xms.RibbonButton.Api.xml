@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.RibbonButton.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.RibbonButton.Api.Controllers.RibbonButtonController">
+            <summary>
+            按钮查询接口
+            </summary>
+        </member>
+        <member name="T:Xms.RibbonButton.Api.Controllers.RibbonButtonCreaterController">
+            <summary>
+            按钮新增接口
+            </summary>
+        </member>
+        <member name="T:Xms.RibbonButton.Api.Controllers.RibbonButtonDeleterController">
+            <summary>
+            按钮删除接口
+            </summary>
+        </member>
+        <member name="T:Xms.RibbonButton.Api.Controllers.RibbonButtonUpdaterController">
+            <summary>
+            按钮更新接口
+            </summary>
+        </member>
+    </members>
+</doc>

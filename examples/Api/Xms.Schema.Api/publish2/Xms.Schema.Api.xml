@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.Schema.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.Schema.Api.AttributeMetadataController">
+            <summary>
+            字段元数据接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.EntityMetadataController">
+            <summary>
+            实体元数据接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.OptionSetController">
+            <summary>
+            选项集接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.RelationShipController">
+            <summary>
+            关系接口
+            </summary>
+        </member>
+        <member name="T:Xms.Schema.Api.StringMapController">
+            <summary>
+            字段选项接口
+            </summary>
+        </member>
+    </members>
+</doc>

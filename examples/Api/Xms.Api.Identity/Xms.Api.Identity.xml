@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.Api.Identity</name>
+    </assembly>
+    <members>
+        <member name="M:Xms.Api.Identity.Controllers.TokenController.Get(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取token
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xms.QueryView.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Xms.QueryView.Api.Controllers.QueryViewController">
+            <summary>
+            视图查询接口
+            </summary>
+        </member>
+        <member name="T:Xms.QueryView.Api.Controllers.QueryViewCreaterController">
+            <summary>
+            视图创建接口
+            </summary>
+        </member>
+        <member name="T:Xms.QueryView.Api.Controllers.QueryViewDeleterController">
+            <summary>
+            视图删除接口
+            </summary>
+        </member>
+        <member name="T:Xms.QueryView.Api.Controllers.QueryViewUpdaterController">
+            <summary>
+            视图更新接口
+            </summary>
+        </member>
+    </members>
+</doc>
