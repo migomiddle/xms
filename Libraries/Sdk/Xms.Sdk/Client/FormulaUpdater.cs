@@ -51,6 +51,7 @@ namespace Xms.Sdk.Client
                         var formulaAttributes = _attributeFinder.FindByEntityName(rs.ReferencedEntityName).Where(n => n.ValueType == 2).ToList();
                         if (formulaAttributes.NotEmpty())
                         {
+                            formulaAttributes.Add(_attributeFinder.FindById(rs.ReferencedAttributeId));
                             _fieldValueUpdater.UpdateFormulaValue(rs.ReferencedEntityName, formulaAttributes, data.GetGuidValue(rs.ReferencedAttributeName));
                         }
                     }
