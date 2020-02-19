@@ -11,6 +11,7 @@ using Xms.Organization;
 using Xms.Sdk.Abstractions.Query;
 using Xms.Sdk.Client;
 using Xms.Sdk.Extensions;
+using Xms.Security.Abstractions;
 using Xms.Security.Domain;
 using Xms.Security.Principal;
 using Xms.Security.Resource;
@@ -73,7 +74,7 @@ namespace Xms.Web.Controllers
             foreach (var rid in model.RoleId)
             {
                 var role = _roleService.FindById(rid);
-                if (role.Name.IsCaseInsensitiveEqual("administrator"))
+                if (role.Name.IsCaseInsensitiveEqual(RoleDefaults.ADMINISTRATOR))
                 {
                     return JError(T["notallow_edit"]);
                 }
